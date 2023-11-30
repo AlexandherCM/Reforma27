@@ -14,6 +14,7 @@ foreach (var serie in viewModel.NumerosSerie)
             : base($"El número de serie '{numeroSerie}' ya existe.")
         {
         }
+<<<<<<< HEAD
     }
 
 
@@ -33,3 +34,6 @@ foreach (var serie in viewModel.NumerosSerie)
         }
     }
 
+=======
+    }
+>>>>>>> d6d58a858d34b965b300f621cbe973997a7bbe6e

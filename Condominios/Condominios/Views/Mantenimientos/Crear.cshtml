@@ -1,0 +1,339 @@
+﻿@{
+    ViewData["Title"] = "Manteniminetos";
+}
+
+<main class="container-fluid ">
+
+    @* Titulo *@
+    <article class="row border-R text-center rounded-3">
+        <h1><span class="color-R">S</span>elecciona los equipos que tienen mantenimientos progrmados con el mismo periodo </h1>
+    </article>
+
+    @* Buscadores *@
+    <article class="row mt-4  justify-content-center text-center border-R rounded-2 align-items-center">
+
+
+        <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
+
+        @* Selectes *@
+        <section class="row text-center d-flex justify-content-between pb-3">
+
+            <div class="col-4 col-lg-2 col-md-4 p-1">
+                <select name="marcas" class="search">
+                    <option value="opcion1">Marcas</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-2 col-md-4 p-1">
+                <select name="Tipos" class="search">
+                    <option value="opcion1">Tipos</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-2 col-md-4 p-1">
+                <select name="Voltaje" class="search">
+                    <option value="opcion1">Voltaje</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-2 col-md-4 p-1">
+                <select name="Ubicación" class="search">
+                    <option value="opcion1">Ubicación</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-2 col-md-4 p-1">
+                <select name="Periodo" class="search">
+                    <option value="opcion1">Periodo de mantenimineto</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+        </section>
+
+        @* Input *@
+        <section class="row text-center d-flex justify-content-between align-items-center mb-3">
+
+            <div class="col-6 col-md-6">
+                <h5 class="mt-3 mb-3"><span class="color-R">E</span>quipos con mantenimineto programado en:</h5>
+            </div>
+
+            <div class="col-3 col-md-4">
+                <select name="mm/aa" class="search text-center">
+                    <option value="opcion1">MM/AAAA</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-3 col-md-2">
+                <input type="button" value="Buscar" class="boton">
+            </div>
+
+        </section>
+
+    </article>
+
+    @* Tabla de resultados *@
+    <article class="row border-R rounded-3 text-dark mt-3 tabla-main">
+
+        <table class="text-center">
+
+            <thead>
+
+                <tr class="border-R">
+                    
+                    <th class="border-R" id="Nserie">
+                        N°. Serie
+                    </th>
+                    <th class="border-R">
+                        Marca
+                    </th>
+                    <th class="border-R">
+                        Tipo
+                    </th>
+                    <th class="border-R">
+                        Estatus
+                    </th>
+                    <th class="border-R" id="precioA">
+                        Precio de adquisición
+                    </th>
+                    <th class="border-R" id="detalles">
+                        Detalles
+                    </th>
+               
+                </tr>
+
+            </thead>
+
+            <tbody>
+               
+                <tr>
+                    <td class="border-R">000000</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/eye-solid.svg" />
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </article>
+    @* Manteniminetos *@
+    <article class="row mt-3 justify-content-between ">
+
+            @* Izquierda *@
+            <section class="col-12 col-md-3">
+                @* Contenedor1 *@
+                <aside class="row text-center justify-content-center bg-R text-light rounded-3">
+
+                    @* Tipo de mantenimiento *@
+                    <div class="row mt-4">
+                        <h5>Selecciona el tipo de mantenimineto </h5>
+                    </div>
+
+                    <div class="row mt-2 d-flex justify-content-center">
+                        <select name="Tipos" class="search">
+                            <option value="opcion1">Tipos</option>
+                            <option value="opcion2">Opcion2</option>
+                            <option value="opcion13">Opcion3</option>
+                        </select>
+                    </div>
+
+                    @* Proveedor *@
+                    <div class="row mt-2">
+                        <h5>Selecciona el proveedor que realiza el trabajo </h5>
+                    </div>
+
+                    <div class="row mt-2 d-flex justify-content-center">
+                        <select name="proveedor" class="search">
+                            <option value="opcion1">Proveedor</option>
+                            <option value="opcion2">Opcion2</option>
+                            <option value="opcion13">Opcion3</option>
+                        </select>
+                    </div>
+
+                    @* Precio *@
+                    <div class="row mt-2">
+                        <h5>Registra el costo del mantenimiento </h5>
+                    </div>
+
+                    <div class="row mt-2 d-flex justify-content-center">
+                        <input type="text" placeholder="$" class="search">
+                    </div>
+
+                    @* Costo de reparación *@
+                    <div class="row mt-2">
+                        <h5>(Si aplica). Escribe el costo de reparación </h5>
+                    </div>
+
+                    <div class="row mt-2 d-flex justify-content-center">
+                        <input type="text" placeholder="$" class="search">
+                    </div>
+
+                    @* Observaciones *@
+                    <div class="row mt-2">
+                        <h5>Escribe las observaciones </h5>
+                    </div>
+
+                    <div class="row mt-2 mb-3 d-flex justify-content-center">
+                        @* <input type="text" rows="40" cols="50" class="search"> *@
+                        <textarea name="observaciones" class="search" rows="3" cols="50"></textarea>
+                    </div>
+
+                </aside>
+            </section>
+
+            <section class="col-12 col-md-9">
+
+                <aside style="width:95%;  margin-left:5%;">
+
+                <aside class="row border-R text-center rounded-3">
+                    <input type="button" value="Seleccioanar todos" class="btn-todos p-2">
+                </aside>
+
+                <aside class="row border-R text-center rounded-3 mt-3">
+                    <h1><span class="color-R">E</span>quipos seleccionados</h1>
+                </aside>
+
+                @* Tabla de resultados *@
+                <article class="row border-R rounded-3 text-dark mt-3 tabla-main">
+
+                    <table class="text-center">
+
+                        <thead>
+
+                            <tr class="border-R">
+
+                                <th class="border-R" id="Nserie">
+                                    N°. Serie
+                                </th>
+                                <th class="border-R">
+                                    Marca
+                                </th>
+                                <th class="border-R">
+                                    Tipo
+                                </th>
+                                <th class="border-R">
+                                    Estatus
+                                </th>
+                                <th class="border-R" id="precioA">
+                                    Precio de adquisición
+                                </th>
+                                <th class="border-R" id="reparacion">
+                                    Aplicar Rep
+                                </th>
+                                <th class="border-R" id="remover">
+                                    Remover
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td class="border-R">000000</td>
+                                <td class="border-R">xxxxxxx</td>
+                                <td class="border-R">xxxxxxx</td>
+                                <td class="border-R">xxxxxxx</td>
+                                <td class="border-R">xxxxxxx</td>
+                                <td class="border-R">
+                                    <label class="toggle-switch mt-2">
+                                        <input type="checkbox">
+                                        <div class="toggle-switch-background">
+                                            <div class="toggle-switch-handle"></div>
+                                        </div>
+                                    </label>
+                                </td>
+                                <td class="border-R">
+                                    <img class="remover p-1" src="~/images/trash-solid.svg" />
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </article>
+
+                <aside class="row text-center justify-content-between rounded-3 mt-3">
+
+                    <div class="col-4 col-md-6 border-R justify-content-center d-flex align-items-center">
+
+                        <h3><span class="color-R">D</span>educción de gastos</h3>
+
+                    </div>
+
+                    <div class="col-2 " id="espacio"></div>
+
+                    @* Costos *@
+                    <div class="col-4 col-md-2 text-center">
+
+                        <div class="row border-R">
+                            <h6><span class="color-R">C</span>osto total de mantenimientos</h6>
+                        </div>
+
+                        <div class="row bg-R text-light">
+                            <h6><span>$</span>*****.**</h6>
+                        </div>
+
+                    </div>
+
+                    <div class="col-3 col-md-2 text-center">
+
+                        <div class="row border-R">
+                            <h6><span class="color-R">C</span>osto total de reparación</h6>
+                        </div>
+                        <div class="row bg-R text-light">
+                            <h6><span>$</span>*****.**</h6>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+                </aside>
+
+               
+
+            </section>
+
+    </article>
+    <br />  
+
+</main>
+
+
+
+
+@* NO HACER CASO ESTO SOLO ES PARA QUE FUNCIONE EL MENU *@
+@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+<aside class="row position-fixed fixed-bottom d-none" style="padding-right:1%;">
+    <article class="col-12 col-lg-9 "></article>
+    <article class="col-12 col-lg-3 border border-dark bg-R rounded-3" id="form-b"></article>
+</aside>
+@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/despegable.js"></script>
+    }
+}

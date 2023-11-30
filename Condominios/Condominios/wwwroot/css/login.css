@@ -1,0 +1,134 @@
+﻿.bg-index {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/login/bg-Index.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.body-login {
+    width: 60%;
+    margin: auto;
+    margin: 0%;
+}
+
+.img-content {
+    height: 56vh;
+    background-image: url('../images/login/Edificio.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.radius {
+    border-radius: 7px 0 0 7px;
+}
+
+.radius-b {
+    border-radius: 0 7px 7px 0;
+}
+
+.edificio {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-content {
+    margin: 3% 0;
+    width: 100%;
+}
+
+a {
+    color: #652022;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #652022;
+        text-decoration: underline;
+    }
+
+
+/* Input */
+.sesion-input {
+    position: relative;
+    width: 90%;
+    margin: auto;
+}
+
+.label {
+    font-weight: bold;
+    color: #652022;
+}
+
+.email, .pass {
+    width: 100%;
+    padding: 2%;
+    background-color: #f8f9fa;
+    border: none;
+    border-bottom: 2px solid #e50914;
+    color: #333;
+    font-size: 16px;
+    transition: border-bottom 0.3s ease;
+}
+
+.boton {
+    width: 100%;
+    margin: auto;
+    padding: 0.8em 1.8em;
+    border: 2px solid #652022;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background-color: transparent;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: inherit;
+    color: #652022;
+    border-radius: 10px;
+}
+
+
+    .boton:hover {
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 0px 2px 2px #652022;
+        background: #652022;
+    }
+
+
+@media (max-width: 900px) {
+    .img-content {
+        height: 38vh;
+    }
+
+    .radius {
+        border-radius: 7px 7px 0 0;
+    }
+
+    .radius-b {
+        border-radius: 0 0 7px 7px;
+    }
+
+    .body-login {
+        width: 90%;
+    }
+
+    /* .logo-content{
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+    }*/
+    .logo {
+        margin: 2% 0;
+    }
+}

@@ -1,0 +1,56 @@
+﻿/*
+
+
+.edit {
+    height: 1.2rem;
+}
+
+    .edit:hover {
+        transform: scale(1.1);
+    }
+
+.tabla {
+    overflow: auto;
+    max-height: 19vh;
+}
+
+.main-catalogos {
+}*/
+
+
+.boton {
+    border: 1px solid #7b7676;
+    font-family: inherit;
+    width: 90%;
+    background: #d5e8d4;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #545151;
+}
+
+    .boton:hover {
+        background: #8bb989;
+        color: #ffffff;
+    }
+
+.editar {
+    height: 1.5rem;
+}
+
+    .editar:hover {
+        transform: scale(1.1);
+    }
+
+.text {
+    width: 90%;
+    margin: auto;
+    border: #652022 solid 2px;
+    border-radius: 5px;
+    padding-top: 2%;
+}
+
+@media (max-width: 990px) {
+    .salto{
+        display:none;
+    }
+}

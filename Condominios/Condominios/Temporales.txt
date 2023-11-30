@@ -14,26 +14,6 @@ foreach (var serie in viewModel.NumerosSerie)
             : base($"El número de serie '{numeroSerie}' ya existe.")
         {
         }
-<<<<<<< HEAD
     }
 
-
-     public class Dilan : Exception
-    {
-        public NumeroSerieDuplicadoException(string numeroSerie)
-            : base($"El número de serie '{numeroSerie}' ya existe.")
-        {
-        }
-    }
-
-        public class Dilan : Exception
-    {
-        public NumeroSerieDuplicadoException(string numeroSerie)
-            : base($"El número de serie '{numeroSerie}' ya existe.")
-        {
-        }
-    }
-
-=======
-    }
->>>>>>> d6d58a858d34b965b300f621cbe973997a7bbe6e
+Hola Mundo ;3

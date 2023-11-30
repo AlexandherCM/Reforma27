@@ -1,0 +1,183 @@
+﻿@using Microsoft.AspNetCore.Identity;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Condominios</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tablas.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/despegable.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/catalogos.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tipo.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Condominios.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-light">
+
+    <main role="main" class="container-fluid">
+
+        <article class="row">
+
+            @*Menu*@
+            <section class="flex-column" id="col-menu">
+
+                @*Icono de hamburgesa*@
+                <div class="hamburger pt-3" id="hamburger">
+                    <img src="~/images/bars-solid.svg" id="menu" class="menu" />
+                </div>
+
+                @*Body menu*@
+                <div class="row pt-5">
+                    <a asp-controller="Home" asp-action="Equipos" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>
+
+                <div class="row pt-5">
+                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/Book-solid.svg" />
+                        <h6><b class="titles">Catalogos</b></h6>
+                    </a>
+                </div>
+
+                <div class="row pt-5">
+                    <a asp-controller="TiposProveedores" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/users.svg" />
+                        <h6><b class="titles">CARLOS Tipos y Proveedores</b></h6>
+                    </a>
+                </div>
+
+                <div class="row pt-5">
+                    <a asp-controller="Mantenimientos" asp-action="Consultar" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>
+
+                <div class="row pt-5">
+                    <a asp-controller="Mantenimientos" asp-action="Crear" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>
+                
+                <div class="row pt-5">
+                    <a asp-controller="Funcions" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>
+                
+                <div class="row pt-5">
+                    <a asp-controller="Variantes" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>
+                
+                <div class="row pt-5">
+                    <a asp-controller="TipoEquipoes" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>
+
+                <div class="row pt-5">
+                    <a asp-controller="Acceso" asp-action="Logout" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/right-from-bracket-solid.svg" />
+                        <h6><b class="titles color-R">Salir</b></h6>
+                    </a>
+                </div>
+
+            </section>
+
+            @*Overlay*@
+        
+            <section class="overlay" id="overlay"></section>
+
+            @*Content*@
+           
+            <section id="content">
+
+                @*Header*@
+                <header class="row">
+                   
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        
+                        <div class="container-fluid ">
+                            
+                            <div class="col-lg-2 col-6">
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/images/Logo.svg" width="100%">
+                                </a>
+                            </div>
+                            
+                            <div class="col-6 text-end">
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsivo" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </nav>
+
+                    <div class="collapse" id="navbarResponsivo">
+                       
+                        <div class="p-4">
+
+                            <div class="mt-3 t-none">
+                                <a href="" class="t-none txt-link">
+                                    <img src="~/images/Book-solid.svg" class="icons" />
+                                    <b>Catalogos</b>
+                                </a>
+                            </div>
+
+                            <div class="mt-3 t-none">
+                                <a href="" class="t-none txt-link">
+                                    <img src="~/images/location-dot-solid.svg" class="icons" />
+                                    <b>Ubicacion</b>
+                                </a>
+                            </div>
+
+                            <div class="mt-3 t-none">
+                                <a href="" class="t-none txt-link">
+                                    <img src="~/images/tools.svg" class="icons" />
+                                    <b>Herramientas</b>
+                                </a>
+                            </div>
+
+                            <div class="mt-3 t-none">
+                                <a href="" class="t-none txt-link">
+                                    <img src="~/images/List.svg" class="icons" />
+                                    <b>Lista</b>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </header>
+
+                @*Editable*@
+                <article class="row" id="render">
+                    @RenderBody()
+                </article>
+
+            </section>
+
+        </article>
+
+    </main>
+
+
+    
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

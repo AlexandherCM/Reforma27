@@ -1,0 +1,99 @@
+using Condominios.Data;
+using Condominios.Data.Interfaces;
+using Condominios.Data.Interfaces.IRepositories;
+using Condominios.Data.Repositories.Catalogos;
+using Condominios.Data.Repositories.CtrlEquipos;
+using Condominios.Data.Repositories.Equipos;
+using Condominios.Data.Repositories.Mantenimientos;
+using Condominios.Models;
+using Condominios.Models.DTOs;
+using Condominios.Models.Entities;
+using Condominios.Services;
+using Condominios.Services.Classes;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// Add services Scoped - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Servisios específicos
+builder.Services.AddScoped<IEpoch, EpochService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAutenticarService, AutenticarService>();
+
+// Servicios de Catálogos
+builder.Services.AddScoped<ICatalogoRepository<Marca>, MarcaRepository>();
+builder.Services.AddScoped<ICatalogoRepository<Motor>, MotorRepository>();
+builder.Services.AddScoped<ICatalogoRepository<Periodo>, PeriodoRepository>();
+builder.Services.AddScoped<ICatalogoRepository<Ubicacion>, UbicacionRepository>();
+builder.Services.AddScoped<ICatalogoRepository<Estatus>, EstatusRepository>();
+builder.Services.AddScoped<ICatalogoRepository<TipoEquipo>, TipoEquipoRepository>();
+builder.Services.AddScoped<ICatalogoRepository<TipoMantenimiento>, TipoMtoRepository>();
+
+// Servicios para el control de equipos
+builder.Services.AddScoped<IEquipoRepository<Equipo>, EquipoRepository>();
+builder.Services.AddScoped<IVarianteRepository<VarianteDTO>, VarianteRepository>();
+
+builder.Services.AddScoped<IMtoRepository, MtoRepository>();
+
+// Servicios intermedios entre repositorio y Unidad de trabajo
+builder.Services.AddScoped<AutenticarService>();
+builder.Services.AddScoped<CatalogoService>();
+builder.Services.AddScoped<CtrlEquipoService>();
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+//builder.Services.AddHostedService<Worker>().AddSingleton<IFileData, FileData>();
+
+// Configuraciones de autenticación por roles - - - - - - - - - - - - - - - - - - - - - - - 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.LoginPath = "/Acceso/Login";
+        //option.ExpireTimeSpan = TimeSpan.FromSeconds(10);
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+        option.AccessDeniedPath = "/Home/Privacy";
+    });
+
+// Inject DataBase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+builder.Services.AddDbContext<Context>(options =>
+{
+    options.UseSqlServer( builder.Configuration.GetConnectionString("ContextTwo") );
+});
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+var app = builder.Build();
+
+// Inicialización de datos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+using (var serviceScope = app.Services.CreateScope())
+{
+    var serviceProvider = serviceScope.ServiceProvider;
+    var context = serviceProvider.GetRequiredService<Context>();
+
+    Dependencias datos = new(context);
+    datos.AgregarCatalogos().Wait();
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+// Configuraciones de autenticación por roles - - - - - - - - - - - - - - - - - - - - - 
+app.UseAuthentication();
+app.UseAuthorization();
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Equipos}/{action=Index}/{id?}");
+
+app.Run();

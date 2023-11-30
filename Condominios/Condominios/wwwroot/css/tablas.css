@@ -1,0 +1,84 @@
+﻿.tabla-main {
+    overflow: auto;
+    max-height: 25vh;
+}
+
+
+th {
+    background: #652022;
+    color: aliceblue;
+    position: sticky;
+    top: -1%;
+    z-index: 1;
+}
+
+#Nserie {
+    width: 5%;
+    text-align: center;
+}
+
+#funcion {
+    width: 18%;
+}
+
+#ubicacion {
+    width: 10%;
+}
+
+#adquisicion, #adqui, #precioA,#nombre {
+    width: 10%;
+}
+#direccion, #correo{
+    width:25%;
+}
+
+
+.detalles {
+    width: 2.5rem;
+    cursor: pointer;
+}
+
+.remover {
+    width: 2rem;
+    cursor: pointer;
+}
+
+    .detalles:hover, .remover:hover {
+        transform: scale(1.1)
+    }
+
+#estado, #detalles, #reparacion, #remover{
+    width: 5%;
+}
+#consultarMto{
+    width:10%;
+}
+
+
+@media (max-width: 990px) {
+    .detalles {
+        width: 2rem;
+    }
+
+    #marca, #tipo, #adquisicion {
+        display: none;
+    }
+
+    table.resultados td:nth-child(4),
+    table.resultados td:nth-child(5),
+    table.resultados td:nth-child(6) {
+        display: none;
+    }
+
+    table.mantenimiento td:nth-child(3), .Proveedor {
+        display: none;
+    }
+
+    table.clasificacion td:nth-child(4),
+    table.clasificacion td:nth-child(5),
+    #periodo,#voltaje{
+        display: none;
+    }
+
+
+}

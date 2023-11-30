@@ -1,0 +1,320 @@
+﻿@{
+    ViewData["Title"] = "Proveedores";
+}
+
+@* Despegable 1 *@
+<aside class="row">
+
+    <article class="col-12 col-lg-3  border-R rounded-3 text-dark" id="form">
+
+        <section class="row text-center text-dark" style="background: #fff;">
+
+            <h3 class="p-1 ">
+                <span class="color-R">C</span>lasificación <img src="~/images/down.svg"
+                                                         alt="down" class="down" id="down">
+                <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
+            </h3>
+
+            <div class="text-light text-center " id="form-body">
+
+                <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra clasificación de equipos</h3>
+
+                @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                
+                @*Nombre*@
+                <div class="row pt-1">
+                    <h5 >Nombre</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input type="text"  class="txtForm">
+                </div>
+
+                @*Marca*@
+                <div class="row pt-2">
+                    <h5>Marca</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input type="text"  class="txtForm">
+                </div>
+
+                @*Voltaje*@
+                <div class="row pt-2">
+                    <h5>Voltaje</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <select name="marcas" class="txtForm">
+                        <option value="opcion1">Voltaje</option>
+                        <option value="opcion2">Opcion2</option>
+                        <option value="opcion13">Opcion3</option>
+                    </select>
+                </div>
+
+                @*Periodos*@
+                <div class="row pt-2">
+                    <h5>Periodos de mantenimineto</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <select name="periodos" class="txtForm">
+                        <option value="opcion1">Marca</option>
+                        <option value="opcion2">Opcion2</option>
+                        <option value="opcion13">Opcion3</option>
+                    </select>
+                </div>
+
+                @*Función*@
+                <div class="row pt-2">
+                    <h5>Función</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <textarea name="observaciones" class="txtForm" rows="3" cols="50"></textarea>
+                </div>
+
+                @*Capacidad*@
+
+                <div class="row pt-2">
+                    <h5>Capacidad</h5>
+                </div>
+
+                <div class="row pt-2" style="width:78%; margin:auto;">
+
+                    <div class="col-6  col-md-7 justify-content-start d-flex">
+                        <input type="text" class="subTxtForm" >
+                    </div>
+
+                    <div class="col-6 col-md-5">
+                        <select name="Unidad" class="subTxtForm" >
+                            <option value="opcion1">Unidad</option>
+                            <option value="opcion2">Opcion2</option>
+                            <option value="opcion13">Opcion3</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                @*Boton*@
+                <div class="row pt-3 d-flex justify-content-center">
+                    <input type="button" value="Agregar" class="boton" style="width:80%; margin:auto;">
+                </div>
+               
+                <br />
+
+                @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+            </div>
+
+        </section>
+
+    </article>
+
+    <article class="col-12 col-lg-9"></article>
+
+</aside>
+
+<br />
+
+@* Contenido 1 *@
+<main class="container-fluid mt-5">
+    
+    @* Titulo *@
+    <article class="row border-R text-center rounded-3">
+        <h1><span class="color-R">C</span>lasificación de equipos</h1>
+    </article>
+
+    @* Tabla1 *@
+    <article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
+
+        <table class="text-center clasificacion ">
+
+            <thead>
+
+                <tr class="border-R">
+                    <th class="border-R">
+                        Tipo
+                    </th>
+                    <th class="border-R" id="funcion">
+                        Función
+                    </th>
+                    <th class="border-R">
+                        Marca
+                    </th>
+                    <th class="border-R" id="periodo">
+                        Periodo
+                    </th>
+                    <th class="border-R" id="voltaje">
+                        Voltaje
+                    </th>
+                    <th class="border-R">
+                        Capacidad
+                    </th>
+                    <th class="border-R" id="estado">
+                        Estado
+                    </th>
+                    <th class="border-R" id="detalles">
+                        Editar
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="border-R">000000</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">
+                        <label class="toggle-switch mt-2">
+                            <input type="checkbox">
+                            <div class="toggle-switch-background">
+                                <div class="toggle-switch-handle"></div>
+                            </div>
+                        </label>
+                    </td>
+                    <td class="border-R">
+                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </article>
+
+    @* Titulo *@
+    <article class="row border-R text-center rounded-3">
+        <h1><span class="color-R">P</span>roveedor</h1>
+    </article>
+
+    @* Tabla2 *@
+    <article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
+
+        <table class="text-center">
+
+            <thead>
+
+                <tr class="border-R">
+                    <th class="border-R" id="nombre">
+                        Nombre
+                    </th>
+                    <th class="border-R">
+                        Teléfono
+                    </th>
+                    <th class="border-R" id="direccion">
+                        Dirección
+                    </th>
+                    <th class="border-R" id="correo">
+                        Correo
+                    </th>
+                    <th class="border-R" id="estado">
+                        Estado
+                    </th>
+                    <th class="border-R" id="detalles">
+                        Editar
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="border-R">000000</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">
+                        <label class="toggle-switch mt-2">
+                            <input type="checkbox">
+                            <div class="toggle-switch-background">
+                                <div class="toggle-switch-handle"></div>
+                            </div>
+                        </label>
+                    </td>
+                    <td class="border-R">
+                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </article>
+
+</main>
+
+@* Despegable 2 *@
+<aside class="row position-fixed fixed-bottom" style="padding-right:1%;">
+
+    <article class="col-12 col-lg-9 "></article>
+
+    <article class="col-12 col-lg-3 border border-dark bg-R rounded-3" id="form-b">
+
+        <section class="row text-light text-center justify-content-center" id="fBody">
+
+            <h4 class="pt-3">Registra un proveedor</h4>
+
+            @*Nombre*@
+            <div class="row pt-1">
+                <h5>Nombre</h5>
+            </div>
+            <div class="row d-flex justify-content-center pt-1">
+                <input type="text" class="txtForm">
+            </div>
+
+             @*Teléfono*@
+            <div class="row pt-1">
+                <h5>Teléfono</h5>
+            </div>
+            <div class="row d-flex justify-content-center pt-1">
+                <input type="text" class="txtForm">
+            </div>
+
+            @*Dirección*@
+            <div class="row pt-1">
+                <h5>Dirección</h5>
+            </div>
+            <div class="row d-flex justify-content-center pt-1">
+                <input type="text" class="txtForm">
+            </div>
+
+            @*Correo*@
+            <div class="row pt-1">
+                <h5>Correo</h5>
+            </div>
+            <div class="row d-flex justify-content-center pt-1">
+                <input type="text" class="txtForm">
+            </div>
+
+            @*Boton*@
+            <div class="row pt-3 mb-2 d-flex justify-content-center">
+                <input type="button" value="Agregar" class="boton" style="width:80%; margin:auto;">
+            </div>
+
+            <br>
+        </section>
+
+        <div class="row text-center" style="background: #fff;">
+
+            <h3 class="pt-2 pb-1 ">
+
+                <span class="color-R">P</span>roveedores <img src="~/images/up.svg" alt="up"
+                                                                class="down" id="up1">
+                <img src="~/images/down.svg" class="down d-none" alt="down" id="down1">
+
+            </h3>
+
+        </div>
+
+    </article>
+
+</aside>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/despegable.js"></script>
+    }
+}

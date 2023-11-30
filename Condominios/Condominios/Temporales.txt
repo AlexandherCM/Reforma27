@@ -1,0 +1,17 @@
+﻿
+insert into dbo.Usuario (PerfilID, Nombre, Correo, Clave) values (1, 'Alexandher CM', 'alexandhercordoba378@gmail.com', '2312-ACM')
+
+foreach (var serie in viewModel.NumerosSerie)
+            {
+                if (await _context.Equipo.AnyAsync(e => e.NumSerie == serie))
+                {
+                    throw new NumeroSerieDuplicadoException(serie);
+            }
+            }
+    public class NumeroSerieDuplicadoException : Exception
+    {
+        public NumeroSerieDuplicadoException(string numeroSerie)
+            : base($"El número de serie '{numeroSerie}' ya existe.")
+        {
+        }
+    }

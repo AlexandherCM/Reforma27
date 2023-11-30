@@ -1,0 +1,643 @@
+﻿@model Condominios.Models.ViewModels.Catalogos.CatalogoViewModel
+
+@{
+    ViewData["Title"] = "Catalogos";
+#pragma warning disable CS8602
+}
+
+<main class="container-fluid">
+
+    @* Titulo *@
+    <article class="row mb-4 text-center">
+        <div>
+            <div class="border-R rounded-3 mt-3 p- 2">
+                <h1><b><span class="color-R">C</span>atálogos</b></h1>
+            </div>
+        </div>
+    </article>
+
+    @* Tablas *@
+    <article class="row text-center justify-content-between g-5">
+        @* MARCA *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar marca</b></h3>
+
+                @* FORMULARIO *@
+
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Marca" />
+                        <div class="col-6">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="text">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col-6">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border">Marca</th>
+                                <th class="border" style="width:27%;">Estado de registro</th>
+                                <th class="border">Editar</th>
+                                <th class="border" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var marca in Model.Marcas)
+                            {
+                                <tr>
+                                    <td class="border-R">
+                                        @Html.DisplayFor(Model => marca.Nombre)
+                                    </td>
+                                    <td class="border-R">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" @(marca.Estado ? "checked" : "")>
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* UBICACIÓN *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar ubicación</b></h3>
+
+                @* FORMULARIO *@
+
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Ubicacion" />
+                        <div class="col-6">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="text">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col-6">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var ubicacion in Model.Ubicaciones)
+                            {
+                                <tr>
+                                    <td class="border-R">
+                                        @Html.DisplayFor(Model => ubicacion.Nombre)
+                                    </td>
+                                    <td class="border-R">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" @(ubicacion.Estado ? "checked" : "")>
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* MOTOR *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar motor</b></h3>
+
+                @* FORMULARIO *@
+
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Ubicacion" />
+                        <div class="col-6">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="text">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col-6">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var ubicacion in Model.Ubicaciones)
+                            {
+                                <tr>
+                                    <td class="border-R">
+                                        @Html.DisplayFor(Model => ubicacion.Nombre)
+                                    </td>
+                                    <td class="border-R">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" @(ubicacion.Estado ? "checked" : "")>
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* PERIODO *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar periodo de mantenimiento</b></h3>
+
+                @* FORMULARIO *@
+
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Periodo" />
+
+                        <div class="row">
+
+                            <div class="col-6">
+
+                                <select asp-for="PeriodoViewModel.Mes" id="ddlUnidadTiempo" class="text">
+                                    <option value="">Selecciona el plazo de tiempo</option>
+                                    <option value="true">Meses</option>
+                                    <option value="false">Años</option>
+                                </select>
+                                <span asp-validation-for="PeriodoViewModel.Mes" id="ErrorMensaje" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-6">
+                                <input asp-for="PeriodoViewModel.Cantidad" id="txtCantidad" type="number" placeholder="Cantidad" class="text" />
+                                <br />
+                                <span asp-validation-for="PeriodoViewModel.Cantidad" id="ErrorMensaje" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-2">
+
+                            <div class="col-6">
+                                <input asp-for="PeriodoViewModel.Nombre" id="txtNombrePlazo" type="text" placeholder="Nombre" class="text">
+                                <span asp-validation-for="PeriodoViewModel.Nombre" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-6">
+                                <input type="submit" value="Agregar" class="boton mt-1">
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R">Meses</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (int i = 0; i < Model.Periodos.Count; i++)
+                            {
+                                    <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <tr>
+                                        <td class="border-R">
+                                            @Html.DisplayFor(model => Model.Periodos[i].Nombre)
+                                        </td>
+                                        <td class="border-R">
+                                            @Html.DisplayFor(model => Model.Periodos[i].Meses)
+                                        </td>
+
+                                        <td class="border-R">
+                                            <input type="hidden" asp-for="Entidad" value="Periodo" />
+                                            <input type="hidden" asp-for="ID" value="@(Model.Periodos[i].ID)" />
+                                            <label class="toggle-switch">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                                <input class="chbxPeriodo" type="checkbox" asp-for="Periodos[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                                <div class="toggle-switch-background">
+                                                    <div class="toggle-switch-handle"></div>
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="border-R">
+                                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                        </td>
+                                        <td class="border-R">
+                                            <img class="remover" src="~/images/eye-solid.svg" />
+                                        </td>
+
+                                    </tr>
+                                    </form>
+                            }
+                        </tbody>
+
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* MANTENIMIENTO *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar tipo de mantenimiento</b></h3>
+
+                @* FORMULARIO *@
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <div class="col-7">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var motor in Model.Motores)
+                            {
+                                    <tr>
+                                        <td class="border-R">
+                                        @Html.DisplayFor(Model => motor.Nombre)
+                                        </td>
+                                        <td class="border-R">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" @(motor.Estado ? "checked" : "")>
+                                                <div class="toggle-switch-background">
+                                                    <div class="toggle-switch-handle"></div>
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="border-R">
+                                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                        </td>
+                                        <td class="border-R">
+                                            <img class="remover" src="~/images/eye-solid.svg" />
+                                        </td>
+                                    </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* ESTATUS *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar un estatus</b></h3>
+
+                @* FORMULARIO *@
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <div class="col-7">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var motor in Model.Motores)
+                            {
+                                    <tr>
+                                        <td class="border-R">
+                                        @Html.DisplayFor(Model => motor.Nombre)
+                                        </td>
+                                        <td class="border-R">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" @(motor.Estado ? "checked" : "")>
+                                                <div class="toggle-switch-background">
+                                                    <div class="toggle-switch-handle"></div>
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="border-R">
+                                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                        </td>
+                                        <td class="border-R">
+                                            <img class="remover" src="~/images/eye-solid.svg" />
+                                        </td>
+                                    </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* TIPO EQUIPO *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar un tipo de equipo</b></h3>
+
+                @* FORMULARIO *@
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <div class="col-7">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var motor in Model.Motores)
+                            {
+                                        <tr>
+                                            <td class="border-R">
+                                        @Html.DisplayFor(Model => motor.Nombre)
+                                            </td>
+                                            <td class="border-R">
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" @(motor.Estado ? "checked" : "")>
+                                                    <div class="toggle-switch-background">
+                                                        <div class="toggle-switch-handle"></div>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td class="border-R">
+                                                <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                            </td>
+                                            <td class="border-R">
+                                                <img class="remover" src="~/images/eye-solid.svg" />
+                                            </td>
+                                        </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        @* UNIDAD MEDIDA *@
+        <section class="col-12 col-md-6 col-lg-4 rounded-3">
+            <div class="border-R h-100 rounded-3 mt-2 p-2">
+
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar una nueva unidad de Medida</b></h3>
+
+                @* FORMULARIO *@
+                <div class="row p-3">
+
+                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <div class="col-7">
+                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
+                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Agregar" class="boton">
+                        </div>
+                    </form>
+
+                </div>
+
+                @* TABLA *@
+
+                <div class="row tabla-main  mb-2" style="margin: auto;">
+
+                    <table class="bg-light text-dark">
+
+                        <thead>
+                            <tr class="border-R text-center">
+                                <th class="border-R">Marca</th>
+                                <th class="border-R" style="width:27%;">Estado de registro</th>
+                                <th class="border-R">Editar</th>
+                                <th class="border-R" style="width:25%;">Más información</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var motor in Model.Motores)
+                            {
+                                        <tr>
+                                            <td class="border-R">
+                                        @Html.DisplayFor(Model => motor.Nombre)
+                                            </td>
+                                            <td class="border-R">
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" @(motor.Estado ? "checked" : "")>
+                                                    <div class="toggle-switch-background">
+                                                        <div class="toggle-switch-handle"></div>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td class="border-R">
+                                                <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                            </td>
+                                            <td class="border-R">
+                                                <img class="remover" src="~/images/eye-solid.svg" />
+                                            </td>
+                                        </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="col-12 col-md-6 col-lg-4 rounded-3"> </section>
+    </article>
+
+    <br />
+    <br />
+    <br />
+</main>
+
+
+@* NO HACER CASO ESTO SOLO ES PARA QUE FUNCIONE EL MENU *@
+@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+<aside class="row position-fixed fixed-bottom d-none" style="padding-right:1%;">
+    <article class="col-12 col-lg-9 "></article>
+    <article class="col-12 col-lg-3 border border-dark bg-R rounded-3" id="form-b"></article>
+</aside>
+@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_CatalogosScripts");
+    }
+}
+
+

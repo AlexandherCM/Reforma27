@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 #pragma warning disable CS8618
 
@@ -13,6 +14,8 @@ namespace Condominios.Models.Entities
         public int MarcaID { get; set; }
         public int MotorID { get; set; }
         public int PeriodoID { get; set; }
+
+        [DisplayName("Función nuevo o ya existente")]
         public int FuncionID { get; set; }
         public int TipoEquipoID { get; set; }
         public string Capacidad { get; set; }

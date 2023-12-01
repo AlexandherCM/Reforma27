@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Condominios.Models.Entities.Variante>
+﻿@model Condominios.Models.ViewModels.VarianteViewModel
 
 @{
     ViewData["Title"] = "Proveedores";
@@ -13,7 +13,7 @@
 
             <h3 class="p-1 ">
                 <span class="color-R">C</span>lasificación <img src="~/images/down.svg"
-                                                         alt="down" class="down" id="down">
+                                                                alt="down" class="down" id="down">
                 <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
             </h3>
 
@@ -22,83 +22,43 @@
                 <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra clasificación de equipos</h3>
 
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                
-                @*Nombre*@
-                <div class="row pt-1">
-                    <h5 >Nombre</h5>
-                </div>
-                <div class="row d-flex justify-content-center pt-1">
-                    <input type="text"  class="txtForm">
-                </div>
-
-                @*Marca*@
-                <div class="row pt-2">
-                    <h5>Marca</h5>
-                </div>
-                <div class="row d-flex justify-content-center pt-1">
-                    <input type="text"  class="txtForm">
-                </div>
-
-                @*Voltaje*@
-                <div class="row pt-2">
-                    <h5>Voltaje</h5>
-                </div>
-                <div class="row d-flex justify-content-center pt-1">
-                    <select name="marcas" class="txtForm">
-                        <option value="opcion1">Voltaje</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
-
-                @*Periodos*@
-                <div class="row pt-2">
-                    <h5>Periodos de mantenimineto</h5>
-                </div>
-                <div class="row d-flex justify-content-center pt-1">
-                    <select name="periodos" class="txtForm">
-                        <option value="opcion1">Marca</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
-
-                @*Función*@
-                <div class="row pt-2">
-                    <h5>Función</h5>
-                </div>
-                <div class="row d-flex justify-content-center pt-1">
-                    <textarea name="observaciones" class="txtForm" rows="3" cols="50"></textarea>
-                </div>
-
-                @*Capacidad*@
-
-                <div class="row pt-2">
-                    <h5>Capacidad</h5>
-                </div>
-
-                <div class="row pt-2" style="width:78%; margin:auto;">
-
-                    <div class="col-6  col-md-7 justify-content-start d-flex">
-                        <input type="text" class="subTxtForm" >
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="MarcaID" class="control-label"></label>
+                        <select asp-for="MarcaID" class="form-control" asp-items="ViewBag.MarcaID"></select>
                     </div>
-
-                    <div class="col-6 col-md-5">
-                        <select name="Unidad" class="subTxtForm" >
-                            <option value="opcion1">Unidad</option>
-                            <option value="opcion2">Opcion2</option>
-                            <option value="opcion13">Opcion3</option>
-                        </select>
+                    <div class="form-group">
+                        <label asp-for="MotorID" class="control-label"></label>
+                        <select asp-for="MotorID" class="form-control" asp-items="ViewBag.MotorID"></select>
                     </div>
-
-                </div>
-
-                @*Boton*@
-                <div class="row pt-3 d-flex justify-content-center">
-                    <input type="button" value="Agregar" class="boton" style="width:80%; margin:auto;">
-                </div>
-               
-                <br />
+                    <div class="form-group">
+                        <label asp-for="PeriodoID" class="control-label"></label>
+                        <select asp-for="PeriodoID" class="form-control" asp-items="ViewBag.PeriodoID"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TipoEquipoID" class="control-label"></label>
+                        <select asp-for="TipoEquipoID" class="form-control" asp-items="ViewBag.TipoEquipoID"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Capacidad" class="control-label"></label>
+                        <input asp-for="Capacidad" class="form-control" />
+                        <span asp-validation-for="Capacidad" class="text-danger"></span>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="form-group">
+                        @*<label class="control-label">Función existente</label>*@
+                        @*<select id="funcion1" asp-for="LaFuncion" class="form-control" asp-items="ViewBag.FuncionID" onchange="ValidarCampos()">
+                            <option value="">Selecciona un tipo de equipo</option>
+                        </select>*@
+                        <label asp-for="LaFuncion" class="control-label"></label>
+                        <input id="marca" asp-for="LaFuncion" class="form-control" />
+                        <span asp-validation-for="LaFuncion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
 
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
@@ -116,7 +76,7 @@
 
 @* Contenido 1 *@
 <main class="container-fluid mt-5">
-    
+
     @* Titulo *@
     <article class="row border-R text-center rounded-3">
         <h1><span class="color-R">C</span>lasificación de equipos</h1>
@@ -156,7 +116,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.variantes)
                 {
                     <tr>
                         <td class="border-R">
@@ -181,16 +141,16 @@
                             @Html.DisplayFor(modelItem => item.TipoEquipo.Nombre)
                         </td>
                         <td class="border-R">
-                        <label class="toggle-switch mt-2">
-                            <input type="checkbox" @(item.Estado ? "checked" : "")>
-                            <div class="toggle-switch-background">
-                                <div class="toggle-switch-handle"></div>
-                            </div>
-                        </label>
-                    </td>
-                    <td class="border-R">
-                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                    </td>
+                            <label class="toggle-switch mt-2">
+                                <input type="checkbox" @(item.Estado ? "checked" : "")>
+                                <div class="toggle-switch-background">
+                                    <div class="toggle-switch-handle"></div>
+                                </div>
+                            </label>
+                        </td>
+                        <td class="border-R">
+                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                        </td>
 
                     </tr>
                 }
@@ -278,7 +238,7 @@
                 <input type="text" class="txtForm">
             </div>
 
-             @*Teléfono*@
+            @*Teléfono*@
             <div class="row pt-1">
                 <h5>Teléfono</h5>
             </div>
@@ -315,7 +275,7 @@
             <h3 class="pt-2 pb-1 ">
 
                 <span class="color-R">P</span>roveedores <img src="~/images/up.svg" alt="up"
-                                                                class="down" id="up1">
+                                                              class="down" id="up1">
                 <img src="~/images/down.svg" class="down d-none" alt="down" id="down1">
 
             </h3>
@@ -325,6 +285,69 @@
     </article>
 
 </aside>
+
+<script>
+
+      function validarFormulario() {
+        // Obtener los valores de los campos
+        var selectValue = document.getElementById('funcion1').value;
+        var inputValue = document.getElementById('marca').value;
+
+        // Verificar si ambos campos están llenos o ambos están vacíos
+        if ((selectValue && inputValue) || (!selectValue && !inputValue)) {
+            // Mostrar mensaje de error
+            document.getElementById('Error2').innerText = 'Debe llenar solo uno de los dos campos.';
+            document.getElementById('Error2').style.display = 'block';
+
+            // Evitar el envío del formulario
+            return false;
+        }
+
+        // Ocultar el mensaje de error y permitir el envío del formulario
+        document.getElementById('Error2').style.display = 'none';
+        return true;
+    }
+
+    // Esta función también se puede llamar cuando cambian los valores de los campos
+    function ValidarCampos() {
+        validarFormulario();
+    }
+
+    //function ValidarCampos() {
+    //    var nombreInput = document.getElementById('funcion1');
+    //    var selectInput = document.getElementById('marca');
+    //    var ErrorNombre2 = document.getElementById('Error2');
+
+    //    ErrorNombre2.style.display = 'none';
+
+    //    if (nombreInput.value && selectInput.value) {
+    //        ErrorNombre2.innerText = "Seleccione una de las opciones para registrar el nombre";
+    //        ErrorNombre2.style.display = 'inline';
+    //        return false;
+    //    }
+
+    //}
+    //function validarFormulario() {
+    //    var nombreInput = document.getElementById('funcion1');
+    //    var selectInput = document.getElementById('marca');
+    //    var ErrorNombre = document.querySelector('[data-valmsg-for="VarianteEquipo.LaFuncion"]');
+
+    //    var formId = 'fomsVariante';
+    //    var form = document.getElementById(formId);
+
+    //    ErrorNombre.style.display = 'none';
+
+    //    if (!nombreInput.value && !selectInput.value) {
+    //        console.log("Seleccione");
+    //        ErrorNombre.style.display = 'inline';
+
+    //        return false;
+    //    }else{
+            
+    //        form.submit();
+    //    }
+    //}
+</script>
 
 @section Scripts {
     @{

@@ -23,7 +23,7 @@
                 <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra mas de un equipo</h3>
 
                 @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <form asp-action="Create" class="text-light text-center " id="form-body">
+                <form asp-action="Create" class="text-light text-center " id="formsEquipo">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
@@ -89,7 +89,7 @@
                             </div>
                             @*- - - - - - - - - - - - - -*@
                             <div class="col-6">
-                                <button type="button" onclick="onclick= event.preventDefault();" class="boton">
+                                <button type="button" onclick="removerInput()" @*onclick="onclick= event.preventDefault();"*@ class="boton">
                                     <b>Remover</b>
                                 </button>
                                 @*- - - - - - - - - - - - - -*@
@@ -450,6 +450,46 @@
     <br />
 
 </main>
+
+<script>
+    document.getElementById('formsEquipo').addEventListener('submit', function (event) {
+        // Obtener todos los elementos de entrada con la clase 'InputSerie'
+        var inputsSerie = document.querySelectorAll('.InputSerie');
+
+        // Crear un conjunto para almacenar los valores únicos de los inputs
+        var uniqueValues = new Set();
+
+        // Verificar cada input
+        for (var i = 0; i < inputsSerie.length; i++) {
+            var inputValue = inputsSerie[i].value.trim();
+
+            // Verificar si el valor ya está en el conjunto
+            if (uniqueValues.has(inputValue)) {
+                // Mostrar un mensaje de error
+                alert('Los números de serie no pueden ser iguales.');
+
+                // Evitar el envío del formulario
+                event.preventDefault();
+                return;
+            }
+
+            // Agregar el valor al conjunto
+            uniqueValues.add(inputValue);
+        }
+    });
+
+    function removerInput() {
+        // Obtener todos los elementos de entrada con la clase 'InputSerie'
+        var inputsSerie = document.querySelectorAll('.InputSerie');
+
+        // Verificar si hay al menos un input para eliminar
+        if (inputsSerie.length > 0) {
+            // Eliminar el último input (puedes ajustar esto según tus necesidades)
+            var ultimoInput = inputsSerie[inputsSerie.length - 1];
+            ultimoInput.parentNode.removeChild(ultimoInput);
+        }
+    }
+</script>
 
 @* Despegable 2 *@
 

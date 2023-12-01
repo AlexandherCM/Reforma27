@@ -16,7 +16,7 @@ function agregarNuevoInput() {
     // Crear un nuevo input
     var nuevoInput = document.createElement("input");
     nuevoInput.type = "text";
-    nuevoInput.className = "InputSerie text-center text mb-3";
+    nuevoInput.className = "InputSerie equipoNew text-center text mb-3";
     nuevoInput.name = "NumerosSerie";
     nuevoInput.setAttribute("asp-for", "NumerosSerie");
 

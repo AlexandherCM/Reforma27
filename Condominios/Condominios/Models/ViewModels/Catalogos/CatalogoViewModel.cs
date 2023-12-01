@@ -1,7 +1,6 @@
-﻿#pragma warning disable CS8618
-
-using Condominios.Models.Entities;
+﻿using Condominios.Models.Entities;
 using System.ComponentModel.DataAnnotations;
+#pragma warning disable CS8618
 
 namespace Condominios.Models.ViewModels.Catalogos
 {
@@ -13,6 +12,10 @@ namespace Condominios.Models.ViewModels.Catalogos
         public List<Motor>? Motores { get; set; }
         public List<Ubicacion>? Ubicaciones { get; set; }
         public List<Periodo>? Periodos { get; set; }
+        public List<Estatus>? Estatus { get; set; }
+        public List<TipoMantenimiento>? TipoMantenimientos { get; set; }
+        public List<TipoEquipo>? TipoEquipos { get; set; }
+        public List<UnidadMedida>? unidadMedidas { get; set; }
 
         [Required]
         public string Entidad { get; set; }

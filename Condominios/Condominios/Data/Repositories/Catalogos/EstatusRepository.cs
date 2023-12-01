@@ -3,6 +3,7 @@ using Condominios.Models;
 using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8602
 
 namespace Condominios.Data.Repositories.Catalogos
 {
@@ -11,7 +12,7 @@ namespace Condominios.Data.Repositories.Catalogos
         public EstatusRepository(Context context) : base(context) { }
 
         public async Task<List<Estatus>> GetList()
-            => await context.Estatus.ToListAsync();
+           => await context.Estatus.ToListAsync();
 
         public void Add(CatalogoViewModel viewModel)
         {
@@ -41,7 +42,8 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void UpdateEstateById(int id)
         {
-            throw new NotImplementedException();
+            var estatus = context.Find<Estatus>(id);
+            estatus.Estado = !estatus.Estado;
         }
     }
 }

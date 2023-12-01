@@ -38,6 +38,8 @@ namespace Condominios.Services
             _viewModel.Marcas = new SelectList(await _uniOfWork.MarcaRepository.GetList(), "ID", "Nombre");
             _viewModel.Motores = new SelectList(await _uniOfWork.MotorRepository.GetList(), "ID", "Nombre");
 
+            _viewModel.Estatus = new SelectList(await _uniOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+
             _viewModel.Equipos = await GetEquipos();
             return _viewModel;
         }

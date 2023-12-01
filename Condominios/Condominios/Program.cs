@@ -32,6 +32,7 @@ builder.Services.AddScoped<ICatalogoRepository<Ubicacion>, UbicacionRepository>(
 builder.Services.AddScoped<ICatalogoRepository<Estatus>, EstatusRepository>();
 builder.Services.AddScoped<ICatalogoRepository<TipoEquipo>, TipoEquipoRepository>();
 builder.Services.AddScoped<ICatalogoRepository<TipoMantenimiento>, TipoMtoRepository>();
+builder.Services.AddScoped<ICatalogoRepository<UnidadMedida>, UnidadMedidaRepository>();
 
 // Servicios para el control de equipos
 builder.Services.AddScoped<IEquipoRepository<Equipo>, EquipoRepository>();

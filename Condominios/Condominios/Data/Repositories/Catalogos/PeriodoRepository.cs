@@ -26,13 +26,18 @@ namespace Condominios.Data.Repositories.Catalogos
             context.Periodo.Add(periodo);
         }
 
+        public void Delete(Periodo entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateEstateById(int id)
         {
             var periodo = context.Find<Periodo>(id);
             periodo.Estado = !periodo.Estado;
         }
 
-        public void Delete(Periodo entity)
+        public Periodo GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -41,11 +46,5 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             throw new NotImplementedException();
         }
-
-        public Periodo GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

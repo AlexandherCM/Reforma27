@@ -13,6 +13,8 @@ namespace Condominios.Data
         public ICatalogoRepository<Periodo> PeriodoRepository { get; }
         public ICatalogoRepository<Ubicacion> UbicacionRepository { get; }
         public ICatalogoRepository<Estatus> EstatusRepository { get; }
+        public ICatalogoRepository<UnidadMedida> UnidadMedidaRepository { get; } 
+
         public IEquipoRepository<Equipo> EquipoRepository { get; }
         public ICatalogoRepository<TipoEquipo> TipoEquipoRepository { get; }
         public ICatalogoRepository<TipoMantenimiento> TipoMtoRepository { get; }

@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\Files\Hola\**" />
-    <Content Remove="wwwroot\Files\Hola\**" />
-    <EmbeddedResource Remove="wwwroot\Files\Hola\**" />
-    <None Remove="wwwroot\Files\Hola\**" />
+    <Compile Remove="wwwroot\Files\**" />
+    <Content Remove="wwwroot\Files\**" />
+    <EmbeddedResource Remove="wwwroot\Files\**" />
+    <None Remove="wwwroot\Files\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,10 +21,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
 </Project>

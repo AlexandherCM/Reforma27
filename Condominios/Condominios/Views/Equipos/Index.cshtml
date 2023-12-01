@@ -202,10 +202,8 @@
 
                 <div class="col-2 p-2"></div>
                 <div class="col-8 p-2">
-                    <select name="marcas" class="search" style="width:100%;">
-                        <option value="opcion1">Todos</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
+                    <select asp-items="Model.Estatus" name="marcas" class="search" style="width:100%;">
+                        <option value="0">Selecciona un estatus</option>
                     </select>
                 </div>
                 <div class="col-2 p-2"></div>
@@ -216,8 +214,7 @@
     @* Tabla de resultados *@
     <article class="row border-R rounded-3 text-dark mt-3 tabla-main">
 
-        <table class="text-center resultados ">
-
+        <table class="text-center resultados">
             <thead>
 
                 <tr class="border-R">

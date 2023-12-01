@@ -58,15 +58,22 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var marca in Model.Marcas)
+                            @for (int i = 0; i < Model.Marcas.Count; i++)
                             {
+                                <form asp-action="UpdateById" id="UpdateMarca@(i)">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <tr>
                                     <td class="border-R">
-                                        @Html.DisplayFor(Model => marca.Nombre)
+                                            @Html.DisplayFor(model => Model.Marcas[i].Nombre)
                                     </td>
+
                                     <td class="border-R">
+                                        <input type="hidden" asp-for="Entidad" value="Marca" />
+                                        <input type="hidden" asp-for="ID" value="@(Model.Marcas[i].ID)" />
                                         <label class="toggle-switch">
-                                            <input type="checkbox" @(marca.Estado ? "checked" : "")>
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxMarcas" type="checkbox" asp-for="Marcas[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
@@ -80,6 +87,7 @@
                                     </td>
 
                                 </tr>
+                                </form>
                             }
                         </tbody>
 
@@ -128,15 +136,22 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var ubicacion in Model.Ubicaciones)
+                            @for (int i = 0; i < Model.Ubicaciones.Count; i++)
                             {
+                                <form asp-action="UpdateById" id="UpdateUbicacion@(i)">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <tr>
                                     <td class="border-R">
-                                        @Html.DisplayFor(Model => ubicacion.Nombre)
+                                            @Html.DisplayFor(model => Model.Ubicaciones[i].Nombre)
                                     </td>
+
                                     <td class="border-R">
+                                        <input type="hidden" asp-for="Entidad" value="Ubicacion" />
+                                        <input type="hidden" asp-for="ID" value="@(Model.Ubicaciones[i].ID)" />
                                         <label class="toggle-switch">
-                                            <input type="checkbox" @(ubicacion.Estado ? "checked" : "")>
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxUbicaciones" type="checkbox" asp-for="Ubicaciones[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
@@ -150,6 +165,7 @@
                                     </td>
 
                                 </tr>
+                                </form>
                             }
                         </tbody>
 
@@ -171,7 +187,7 @@
 
                     <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Ubicacion" />
+                        <input type="hidden" asp-for="Entidad" value="Motor" />
                         <div class="col-6">
                             <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="text">
                             <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
@@ -199,15 +215,22 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var ubicacion in Model.Ubicaciones)
+                            @for (int i = 0; i < Model.Motores.Count; i++)
                             {
+                                <form asp-action="UpdateById" id="UpdateMotor@(i)">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <tr>
                                     <td class="border-R">
-                                        @Html.DisplayFor(Model => ubicacion.Nombre)
+                                            @Html.DisplayFor(model => Model.Motores[i].Nombre)
                                     </td>
+
                                     <td class="border-R">
+                                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                                        <input type="hidden" asp-for="ID" value="@(Model.Motores[i].ID)" />
                                         <label class="toggle-switch">
-                                            <input type="checkbox" @(ubicacion.Estado ? "checked" : "")>
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxMotores" type="checkbox" asp-for="Motores[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
@@ -219,7 +242,9 @@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/eye-solid.svg" />
                                     </td>
+
                                 </tr>
+                                </form>
                             }
                         </tbody>
 
@@ -340,6 +365,8 @@
             </div>
         </section>
 
+        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
         @* MANTENIMIENTO *@
         <section class="col-12 col-md-6 col-lg-4 rounded-3">
             <div class="border-R h-100 rounded-3 mt-2 p-2">
@@ -351,7 +378,7 @@
 
                     <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <input type="hidden" asp-for="Entidad" value="TipoMantenimiento" />
                         <div class="col-7">
                             <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
                             <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
@@ -360,7 +387,6 @@
                             <input type="submit" value="Agregar" class="boton">
                         </div>
                     </form>
-
                 </div>
 
                 @* TABLA *@
@@ -379,27 +405,36 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var motor in Model.Motores)
+                            @for (int i = 0; i < Model.TipoMantenimientos.Count; i++)
                             {
-                                    <tr>
-                                        <td class="border-R">
-                                        @Html.DisplayFor(Model => motor.Nombre)
-                                        </td>
-                                        <td class="border-R">
-                                            <label class="toggle-switch">
-                                                <input type="checkbox" @(motor.Estado ? "checked" : "")>
-                                                <div class="toggle-switch-background">
-                                                    <div class="toggle-switch-handle"></div>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-R">
-                                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                                        </td>
-                                        <td class="border-R">
-                                            <img class="remover" src="~/images/eye-solid.svg" />
-                                        </td>
-                                    </tr>
+                                <form asp-action="UpdateById" id="UpdateTipoMantenimientos@(i)">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <tr>
+                                    <td class="border-R">
+                                            @Html.DisplayFor(model => Model.TipoMantenimientos[i].Nombre)
+                                    </td>
+
+                                    <td class="border-R">
+                                        <input type="hidden" asp-for="Entidad" value="TipoMantenimiento" />
+                                        <input type="hidden" asp-for="ID" value="@(Model.TipoMantenimientos[i].ID)" />
+                                        <label class="toggle-switch">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxTipoMantenimientos" type="checkbox" asp-for="TipoMantenimientos[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+
+                                </tr>
+                                </form>
                             }
                         </tbody>
 
@@ -420,7 +455,7 @@
 
                     <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <input type="hidden" asp-for="Entidad" value="Estatus" />
                         <div class="col-7">
                             <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
                             <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
@@ -447,30 +482,37 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            @foreach (var motor in Model.Motores)
-                            {
-                                    <tr>
-                                        <td class="border-R">
-                                        @Html.DisplayFor(Model => motor.Nombre)
-                                        </td>
-                                        <td class="border-R">
-                                            <label class="toggle-switch">
-                                                <input type="checkbox" @(motor.Estado ? "checked" : "")>
-                                                <div class="toggle-switch-background">
-                                                    <div class="toggle-switch-handle"></div>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-R">
-                                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                                        </td>
-                                        <td class="border-R">
-                                            <img class="remover" src="~/images/eye-solid.svg" />
-                                        </td>
-                                    </tr>
-                            }
-                        </tbody>
+                        @for (int i = 0; i < Model.Estatus.Count; i++)
+                        {
+                            <form asp-action="UpdateById" id="UpdateEstatus@(i)">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <tr>
+                                <td class="border-R">
+                                        @Html.DisplayFor(model => Model.Estatus[i].Nombre)
+                                </td>
+
+                                <td class="border-R">
+                                    <input type="hidden" asp-for="Entidad" value="Estatus" />
+                                    <input type="hidden" asp-for="ID" value="@(Model.Estatus[i].ID)" />
+                                    <label class="toggle-switch">
+                                            @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                        <input class="chbxEstatus" type="checkbox" asp-for="Estatus[i].Estado">
+                                            @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                        <div class="toggle-switch-background">
+                                            <div class="toggle-switch-handle"></div>
+                                        </div>
+                                    </label>
+                                </td>
+                                <td class="border-R">
+                                    <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                </td>
+                                <td class="border-R">
+                                    <img class="remover" src="~/images/eye-solid.svg" />
+                                </td>
+
+                            </tr>
+                            </form>
+                        }
 
                     </table>
 
@@ -489,7 +531,7 @@
 
                     <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <input type="hidden" asp-for="Entidad" value="TipoEquipo" />
                         <div class="col-7">
                             <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
                             <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
@@ -517,27 +559,36 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var motor in Model.Motores)
+                            @for (int i = 0; i < Model.TipoEquipos.Count; i++)
                             {
-                                        <tr>
-                                            <td class="border-R">
-                                        @Html.DisplayFor(Model => motor.Nombre)
-                                            </td>
-                                            <td class="border-R">
-                                                <label class="toggle-switch">
-                                                    <input type="checkbox" @(motor.Estado ? "checked" : "")>
-                                                    <div class="toggle-switch-background">
-                                                        <div class="toggle-switch-handle"></div>
-                                                    </div>
-                                                </label>
-                                            </td>
-                                            <td class="border-R">
-                                                <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                                            </td>
-                                            <td class="border-R">
-                                                <img class="remover" src="~/images/eye-solid.svg" />
-                                            </td>
-                                        </tr>
+                                <form asp-action="UpdateById" id="UpdateTipoEquipo@(i)">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <tr>
+                                    <td class="border-R">
+                                            @Html.DisplayFor(model => Model.TipoEquipos[i].Nombre)
+                                    </td>
+
+                                    <td class="border-R">
+                                        <input type="hidden" asp-for="Entidad" value="TipoEquipo" />
+                                        <input type="hidden" asp-for="ID" value="@(Model.TipoEquipos[i].ID)" />
+                                        <label class="toggle-switch">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxTipoEquipo" type="checkbox" asp-for="TipoEquipos[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+
+                                </tr>
+                                </form>
                             }
                         </tbody>
 
@@ -558,7 +609,7 @@
 
                     <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                        <input type="hidden" asp-for="Entidad" value="UnidadMedida" />
                         <div class="col-7">
                             <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
                             <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
@@ -586,27 +637,36 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var motor in Model.Motores)
+                            @for (int i = 0; i < Model.unidadMedidas.Count; i++)
                             {
-                                        <tr>
-                                            <td class="border-R">
-                                        @Html.DisplayFor(Model => motor.Nombre)
-                                            </td>
-                                            <td class="border-R">
-                                                <label class="toggle-switch">
-                                                    <input type="checkbox" @(motor.Estado ? "checked" : "")>
-                                                    <div class="toggle-switch-background">
-                                                        <div class="toggle-switch-handle"></div>
-                                                    </div>
-                                                </label>
-                                            </td>
-                                            <td class="border-R">
-                                                <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                                            </td>
-                                            <td class="border-R">
-                                                <img class="remover" src="~/images/eye-solid.svg" />
-                                            </td>
-                                        </tr>
+                                <form asp-action="UpdateById" id="UpdateUnidadMedida@(i)">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <tr>
+                                    <td class="border-R">
+                                            @Html.DisplayFor(model => Model.unidadMedidas[i].Nombre)
+                                    </td>
+
+                                    <td class="border-R">
+                                        <input type="hidden" asp-for="Entidad" value="UnidadMedida" />
+                                        <input type="hidden" asp-for="ID" value="@(Model.unidadMedidas[i].ID)" />
+                                        <label class="toggle-switch">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxUnidadMedida" type="checkbox" asp-for="unidadMedidas[i].Estado">
+                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+
+                                </tr>
+                                </form>
                             }
                         </tbody>
 

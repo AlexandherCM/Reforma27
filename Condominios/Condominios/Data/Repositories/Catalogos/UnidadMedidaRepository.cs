@@ -5,45 +5,51 @@ using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
 
+
 namespace Condominios.Data.Repositories.Catalogos
 {
-    public class TipoEquipoRepository : Catalogo, ICatalogoRepository<TipoEquipo>
+    public class UnidadMedidaRepository : Catalogo, ICatalogoRepository<UnidadMedida>
     {
-        public TipoEquipoRepository(Context context) : base(context) { }
+        public UnidadMedidaRepository(Context context) : base(context) { }
 
         public void Add(CatalogoViewModel viewModel)
         {
-            TipoEquipo tipoEquipo = new()
+            UnidadMedida unidadMedida = new()
             {
                 Nombre = viewModel.CatalogoGralViewModel.Nombre,
                 Estado = true
             };
 
-            context.TipoEquipo.Add(tipoEquipo);
+            context.UnidadMedida.Add(unidadMedida);
         }
 
-        public void Delete(TipoEquipo entity)
+        public void Delete(UnidadMedida entity)
         {
             throw new NotImplementedException();
         }
 
-        public TipoEquipo GetById(int id)
+        public Estatus GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<TipoEquipo>> GetList()
-            => await context.TipoEquipo.ToListAsync();
+        public async Task<List<UnidadMedida>> GetList()
+          => await context.UnidadMedida.ToListAsync();
 
-        public void Update(TipoEquipo entity)
+        public void Update(UnidadMedida entity)
         {
             throw new NotImplementedException();
         }
 
         public void UpdateEstateById(int id)
         {
-            var tipoEquipo = context.Find<TipoEquipo>(id);
-            tipoEquipo.Estado = !tipoEquipo.Estado;
+            var unidadMedida = context.Find<UnidadMedida>(id);
+            unidadMedida.Estado = !unidadMedida.Estado;
+        }
+
+        UnidadMedida ICatalogoRepository<UnidadMedida>.GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

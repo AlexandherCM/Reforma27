@@ -42,7 +42,8 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void UpdateEstateById(int id)
         {
-            throw new NotImplementedException();
+            var ubicacion = context.Find<Ubicacion>(id);
+            ubicacion.Estado = !ubicacion.Estado;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Condominios.Models.Entities.Variante>
+
+@{
     ViewData["Title"] = "Proveedores";
 }
 
@@ -129,44 +131,58 @@
 
                 <tr class="border-R">
                     <th class="border-R">
-                        Tipo
-                    </th>
-                    <th class="border-R" id="funcion">
-                        Función
+                        @Html.DisplayNameFor(model => model.Capacidad)
                     </th>
                     <th class="border-R">
-                        Marca
-                    </th>
-                    <th class="border-R" id="periodo">
-                        Periodo
-                    </th>
-                    <th class="border-R" id="voltaje">
-                        Voltaje
+                        @Html.DisplayNameFor(model => model.Estado)
                     </th>
                     <th class="border-R">
-                        Capacidad
+                        @Html.DisplayNameFor(model => model.Marca)
                     </th>
-                    <th class="border-R" id="estado">
-                        Estado
+                    <th class="border-R">
+                        @Html.DisplayNameFor(model => model.Motor)
                     </th>
-                    <th class="border-R" id="detalles">
-                        Editar
+                    <th class="border-R">
+                        @Html.DisplayNameFor(model => model.Periodo)
                     </th>
+                    <th class="border-R">
+                        @Html.DisplayNameFor(model => model.Funcion)
+                    </th>
+                    <th class="border-R">
+                        @Html.DisplayNameFor(model => model.TipoEquipo)
+                    </th>
+                    <th>Estado</th>
+                    <th>Editar</th>
                 </tr>
-
             </thead>
-
             <tbody>
-                <tr>
-                    <td class="border-R">000000</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.Capacidad)
+                        </td>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.Marca.Nombre)
+                        </td>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.Motor.Nombre)
+                        </td>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.Periodo.Nombre)
+                        </td>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.Funcion.Nombre)
+                        </td>
+                        <td class="border-R">
+                            @Html.DisplayFor(modelItem => item.TipoEquipo.Nombre)
+                        </td>
+                        <td class="border-R">
                         <label class="toggle-switch mt-2">
-                            <input type="checkbox">
+                            <input type="checkbox" @(item.Estado ? "checked" : "")>
                             <div class="toggle-switch-background">
                                 <div class="toggle-switch-handle"></div>
                             </div>
@@ -175,12 +191,11 @@
                     <td class="border-R">
                         <img class="remover" src="~/images/pen-to-square-solid.svg" />
                     </td>
-                </tr>
 
+                    </tr>
+                }
             </tbody>
-
         </table>
-
     </article>
 
     @* Titulo *@
@@ -242,7 +257,6 @@
         </table>
 
     </article>
-
 </main>
 
 @* Despegable 2 *@

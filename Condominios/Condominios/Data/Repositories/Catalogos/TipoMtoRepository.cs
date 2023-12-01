@@ -3,6 +3,8 @@ using Condominios.Models;
 using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8602
+
 
 namespace Condominios.Data.Repositories.Catalogos
 {
@@ -41,7 +43,8 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void UpdateEstateById(int id)
         {
-            throw new NotImplementedException();
+            var TipoMantenimiento = context.Find<TipoMantenimiento>(id);
+            TipoMantenimiento.Estado = !TipoMantenimiento.Estado;
         }
     }
 }

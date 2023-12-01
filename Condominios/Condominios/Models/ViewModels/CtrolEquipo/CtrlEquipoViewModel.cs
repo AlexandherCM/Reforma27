@@ -14,6 +14,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public SelectList? TipoEquipos { get; set; }
         public SelectList? Variantes { get; set; }
         public SelectList? Estados { get; set; }
+        public SelectList? Estatus { get; set; }
         public SelectList? Ubicaciones { get; set; }
         public SelectList? Marcas { get; set; }
         public SelectList? Motores { get; set; }

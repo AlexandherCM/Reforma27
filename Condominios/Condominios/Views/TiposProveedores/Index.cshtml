@@ -17,55 +17,88 @@
                 <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
             </h3>
 
-            <div class="text-light text-center " id="form-body">
-
+            <div class="text-light text-center" id="form-body">
                 <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra clasificación de equipos</h3>
 
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="MarcaID" class="control-label"></label>
-                        <select asp-for="MarcaID" class="form-control" asp-items="ViewBag.MarcaID"></select>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="row pt-1">
+                        <h5>Marca</h5>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="MotorID" class="control-label"></label>
-                        <select asp-for="MotorID" class="form-control" asp-items="ViewBag.MotorID"></select>
+                    <div class="row d-flex justify-content-center pt-1" >
+                        <select asp-for="MarcaID" class="txtForm" asp-items="ViewBag.MarcaID">
+                            <option value="">Selecciona una marca</option>
+                        </select>
+                        <span asp-validation-for="MarcaID" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="PeriodoID" class="control-label"></label>
-                        <select asp-for="PeriodoID" class="form-control" asp-items="ViewBag.PeriodoID"></select>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="row pt-1">
+                        <h5>Motor</h5>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="TipoEquipoID" class="control-label"></label>
-                        <select asp-for="TipoEquipoID" class="form-control" asp-items="ViewBag.TipoEquipoID"></select>
+                    <div class="row d-flex justify-content-center pt-1">
+                        <select asp-for="MotorID" class="txtForm" asp-items="ViewBag.MotorID">
+                            <option value="">Selecciona un tipo de motor</option>
+                        </select>
+                        <span asp-validation-for="MotorID" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Capacidad" class="control-label"></label>
-                        <input asp-for="Capacidad" class="form-control" />
-                        <span asp-validation-for="Capacidad" class="text-danger"></span>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="row pt-1">
+                        <h5>Periodo</h5>
                     </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="form-group">
-                        @*<label class="control-label">Función existente</label>*@
-                        @*<select id="funcion1" asp-for="LaFuncion" class="form-control" asp-items="ViewBag.FuncionID" onchange="ValidarCampos()">
-                            <option value="">Selecciona un tipo de equipo</option>
-                        </select>*@
-                        <label asp-for="LaFuncion" class="control-label"></label>
-                        <input id="marca" asp-for="LaFuncion" class="form-control" />
+                    <div class="row d-flex justify-content-center pt-1">
+                        <select asp-for="PeriodoID" class="txtForm" asp-items="ViewBag.PeriodoID">
+                            <option value="">Selecciona el periodo de mantenimiento</option>
+                        </select>
+                        <span asp-validation-for="PeriodoID" class="text-danger"></span>
+                    </div>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="row pt-1">
+                        <h5>Tipo de equipo</h5>
+                    </div>
+                    <div class="row d-flex justify-content-center pt-1">
+                        <select asp-for="TipoEquipoID" class="txtForm" asp-items="ViewBag.TipoEquipoID">
+                            <option value="">Selecciona el tipo equipo</option>
+                        </select>
+                        <span asp-validation-for="TipoEquipoID" class="text-danger"></span>
+                    </div>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    @*Función*@
+                    <div class="row pt-2">
+                        <h5>Función</h5>
+                    </div>
+                    <div class="row d-flex justify-content-center pt-1">
+                        <textarea asp-for="LaFuncion" class="txtForm" rows="3" cols="50"></textarea>
                         <span asp-validation-for="LaFuncion" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="row pt-2">
+                        <h5>Capacidad</h5>
+                    </div>
+                    <div class="row pt-2" style="width:78%; margin:auto;">
+                        <div @* class="col-6 col-md-7 justify-content-start d-flex" *@>
+                            <input asp-for="Capacidad" class="txtForm" />
+                            <span asp-validation-for="Capacidad" class="text-danger"></span>
+                        </div>
+                        @* <div class="col-6 col-md-5">
+                            <select name="Unidad" class="subTxtForm">
+                                <option value="">Selecciona un tipo de equipo</option>
+                            </select>
+                            <span asp-validation-for="Capacidad" class="text-danger"></span>
+                        </div> *@
+                        <span class="text-danger"></span>
+                    </div>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    @*Boton*@
+                    <div class="row pt-3 d-flex justify-content-center">
+                        <input type="submit" value="Agregar" class="boton" style="width:80%; margin:auto;">
                     </div>
                 </form>
-
+                <br />
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-
             </div>
-
         </section>
-
     </article>
 
     <article class="col-12 col-lg-9"></article>
@@ -285,69 +318,6 @@
     </article>
 
 </aside>
-
-<script>
-
-      function validarFormulario() {
-        // Obtener los valores de los campos
-        var selectValue = document.getElementById('funcion1').value;
-        var inputValue = document.getElementById('marca').value;
-
-        // Verificar si ambos campos están llenos o ambos están vacíos
-        if ((selectValue && inputValue) || (!selectValue && !inputValue)) {
-            // Mostrar mensaje de error
-            document.getElementById('Error2').innerText = 'Debe llenar solo uno de los dos campos.';
-            document.getElementById('Error2').style.display = 'block';
-
-            // Evitar el envío del formulario
-            return false;
-        }
-
-        // Ocultar el mensaje de error y permitir el envío del formulario
-        document.getElementById('Error2').style.display = 'none';
-        return true;
-    }
-
-    // Esta función también se puede llamar cuando cambian los valores de los campos
-    function ValidarCampos() {
-        validarFormulario();
-    }
-
-    //function ValidarCampos() {
-    //    var nombreInput = document.getElementById('funcion1');
-    //    var selectInput = document.getElementById('marca');
-    //    var ErrorNombre2 = document.getElementById('Error2');
-
-    //    ErrorNombre2.style.display = 'none';
-
-    //    if (nombreInput.value && selectInput.value) {
-    //        ErrorNombre2.innerText = "Seleccione una de las opciones para registrar el nombre";
-    //        ErrorNombre2.style.display = 'inline';
-    //        return false;
-    //    }
-
-    //}
-    //function validarFormulario() {
-    //    var nombreInput = document.getElementById('funcion1');
-    //    var selectInput = document.getElementById('marca');
-    //    var ErrorNombre = document.querySelector('[data-valmsg-for="VarianteEquipo.LaFuncion"]');
-
-    //    var formId = 'fomsVariante';
-    //    var form = document.getElementById(formId);
-
-    //    ErrorNombre.style.display = 'none';
-
-    //    if (!nombreInput.value && !selectInput.value) {
-    //        console.log("Seleccione");
-    //        ErrorNombre.style.display = 'inline';
-
-    //        return false;
-    //    }else{
-            
-    //        form.submit();
-    //    }
-    //}
-</script>
 
 @section Scripts {
     @{

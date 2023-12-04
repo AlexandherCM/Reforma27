@@ -59,7 +59,6 @@
                         <label><b>Precio de adquisicion del equipo</b></label>
                         <input asp-for="Plantilla.CostoAdquisicion" class="text-center" id="text" type="number" />
                         <br />
-                        <span asp-validation-for="Plantilla.CostoAdquisicion" class="text-danger"></span>
                     </div>
 
                     <div class="row p-2">
@@ -75,7 +74,7 @@
                         @*- - - - - - - - - - - - - -*@
                         <div id="contenedor-inputs" class="contorno mx-auto border border-2" style="width: 100%; max-height: 150px; overflow-y: auto;">
                             <label class="mb-3 mt-3 control-label"><b>Numero de serie</b></label>
-                            <input asp-for="NumerosSerie" class="InputSerie text-center text"/>
+                            <input asp-for="NumerosSerie" class="InputSerie text-center text" />
                             <br />
                             <span asp-validation-for="NumerosSerie" class="text-danger"></span>
                             <br />
@@ -89,7 +88,7 @@
                             </div>
                             @*- - - - - - - - - - - - - -*@
                             <div class="col-6">
-                                <button type="button" onclick="removerInput()" @*onclick="onclick= event.preventDefault();"*@ class="boton">
+                                <button type="button" onclick="remover()" @*onclick="onclick= event.preventDefault();"*@ class="boton">
                                     <b>Remover</b>
                                 </button>
                                 @*- - - - - - - - - - - - - -*@
@@ -139,21 +138,19 @@
 
         @* Buscador por nombre *@
         <section class="col-12 col-md-4 col-lg-2 text-center border-R rounded-2">
-
             <h5 class="mt-2 mb-3"><span class="color-R">B</span>usqueda por nombre del equipo</h5>
-
-            <div class="row text-center mb-2">
-
+            @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            <form asp-action="SearchByNames" class="row text-center mb-2">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="col-6">
-                    <input type="text" placeholder="Buscar" class="search">
+                    <input asp-for="CadenaBusqueda" type="text" placeholder="Buscar" class="search">
                 </div>
 
                 <div class="col-6 d-flex align-items-center">
-                    <input type="button" value="Buscar" class="boton">
+                    <input type="submit" value="Buscar" class="boton">
                 </div>
-
-            </div>
-
+            </form>
+            @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
         </section>
 
         @* Buscador por filtros *@
@@ -161,54 +158,56 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
             <div class="row text-center d-flex justify-content-between mb-3">
-
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <div class="col-4 col-lg-2 col-md-4 p-1">
                     <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="search">
                         <option value="0">Selecciona una marca</option>
                     </select>
                 </div>
-
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <div class="col-4 col-lg-2 col-md-4 p-1">
                     <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="search">
                         <option value="0">Selecciona una ubicación</option>
                     </select>
                 </div>
-
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <div class="col-4 col-lg-2 col-md-4 p-1">
                     <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="search">
                         <option value="0">Selecciona un tipo de equipo</option>
                     </select>
                 </div>
-
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <div class="col-4 col-lg-2 col-md-4 p-1">
                     <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="search">
                         <option value="0">Selecciona un tipo de motor</option>
                     </select>
                 </div>
-
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <div class="col-4 col-lg-2 col-md-4 p-1">
                     <input type="submit" value="Buscar" class="boton">
                 </div>
-
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
             </div>
         </form>
 
         @*Buscardor por estatus*@
-        <section class="col-12 col-md-2 text-center border-R rounded-2">
-
+        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+        <form asp-action="SearchByStatus" id="formsEstado" class="col-12 col-md-2 text-center border-R rounded-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <h4 class="mt-2 mb-3"><span class="color-R">B</span>uscar por estatus</h4>
 
             <div class="row text-center mb-2">
 
                 <div class="col-2 p-2"></div>
                 <div class="col-8 p-2">
-                    <select asp-items="Model.Estatus" name="marcas" class="search" style="width:100%;">
-                        <option value="0">Selecciona un estatus</option>
+                    <select asp-for="EstatusID" asp-items="Model.Estatus" id="SelectEstado" class="search" style="width:100%;">
+                        <option value="0">Selecciona un estado</option>
                     </select>
                 </div>
                 <div class="col-2 p-2"></div>
             </div>
-        </section>
+        </form>
+        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
     </article>
 
     @* Tabla de resultados *@
@@ -246,6 +245,9 @@
                         Estado
                     </th>
                     <th class="border-R" id="detalles">
+                        Editar
+                    </th>
+                    <th class="border-R" id="detalles">
                         Detalles
                     </th>
                 </tr>
@@ -280,6 +282,9 @@
                                 </div>
                             </label>
                             @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                        </td>
+                        <td class="border-R">
+                            <img class="detalles" src="~/images/pen-to-square-solid.svg" />
                         </td>
                         <td class="border-R">
                             <a  asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
@@ -451,45 +456,6 @@
 
 </main>
 
-<script>
-    document.getElementById('formsEquipo').addEventListener('submit', function (event) {
-        // Obtener todos los elementos de entrada con la clase 'InputSerie'
-        var inputsSerie = document.querySelectorAll('.InputSerie');
-
-        // Crear un conjunto para almacenar los valores únicos de los inputs
-        var uniqueValues = new Set();
-
-        // Verificar cada input
-        for (var i = 0; i < inputsSerie.length; i++) {
-            var inputValue = inputsSerie[i].value.trim();
-
-            // Verificar si el valor ya está en el conjunto
-            if (uniqueValues.has(inputValue)) {
-                // Mostrar un mensaje de error
-                alert('Los números de serie no pueden ser iguales.');
-
-                // Evitar el envío del formulario
-                event.preventDefault();
-                return;
-            }
-
-            // Agregar el valor al conjunto
-            uniqueValues.add(inputValue);
-        }
-    });
-
-    function removerInput() {
-        // Obtener todos los elementos de entrada con la clase 'InputSerie'
-        var inputsSerie = document.querySelectorAll('.InputSerie');
-
-        // Verificar si hay al menos un input para eliminar
-        if (inputsSerie.length > 0) {
-            // Eliminar el último input (puedes ajustar esto según tus necesidades)
-            var ultimoInput = inputsSerie[inputsSerie.length - 1];
-            ultimoInput.parentNode.removeChild(ultimoInput);
-        }
-    }
-</script>
 
 @* Despegable 2 *@
 

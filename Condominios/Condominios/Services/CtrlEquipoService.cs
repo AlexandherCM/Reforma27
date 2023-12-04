@@ -20,9 +20,15 @@ namespace Condominios.Services
             await _uniOfWork.EquipoRepository.Add(model);
             await _uniOfWork.Save();
         }
-
         public async Task<List<Equipo>> GetEquipos()
             => await _uniOfWork.EquipoRepository.GetList();
+        
+        public async Task<List<Equipo>> GetEquipos(int id)
+            => await _uniOfWork.EquipoRepository.GetList(id);
+
+        public async Task<List<Equipo>> GetEquipos(string cadena)
+            => await _uniOfWork.EquipoRepository.GetList(cadena);
+        
         
         public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
             => await _uniOfWork.EquipoRepository.GetList(filtros);

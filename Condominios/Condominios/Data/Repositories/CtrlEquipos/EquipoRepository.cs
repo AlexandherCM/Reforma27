@@ -19,6 +19,27 @@ namespace Condominios.Data.Repositories.Equipos
             _service = service;
         }
 
+        public async Task<List<Equipo>> GetList(int id)
+            => await _context.Equipo.Where(i => i.Estatus.ID == id)
+                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Funcion) .ToListAsync();
+        
+        public async Task<List<Equipo>> GetList(string cadena)
+            => await _context.Equipo.Where(name => name.Variante.TipoEquipo.Nombre.Contains(cadena))
+                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Funcion) .ToListAsync();
+
+        public async Task<List<Equipo>> GetList()
+            => await _context.Equipo
+                                    .Include(c => c.Estatus)         .Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante)        .Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca)  .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Funcion).ToListAsync();
+
         public async Task<List<Equipo>> GetList(FiltrosDTO filtros)
         {
             IQueryable<Equipo> query = _context.Equipo.Include(c => c.Estatus)
@@ -52,15 +73,6 @@ namespace Condominios.Data.Repositories.Equipos
             return await query.ToListAsync();
         }
 
-        public async Task<List<Equipo>> GetList()
-            => await _context.Equipo
-                                .Include(c => c.Estatus)
-                                .Include(c => c.Ubicacion)
-                                .Include(c => c.Variante)
-                                .Include(c => c.Variante.Motor)
-                                .Include(c => c.Variante.Marca)
-                                .ToListAsync();
-
         public async Task Add(CtrlEquipoViewModel viewModel)
         {
             int meses = await _context.Variante
@@ -74,7 +86,7 @@ namespace Condominios.Data.Repositories.Equipos
                 VarianteID = viewModel.Plantilla.VarianteID,
                 UbicacionID = viewModel.Plantilla.UbicacionID,
                 EstatusID = viewModel.Plantilla.EstatusID,
-                CostoAdquisicion = viewModel.Plantilla.CostoAdquisicion,
+                CostoAdquisicion = viewModel.Plantilla.CostoAdquisicion ?? 0,
                 Estado = true,
                 Programados = new List<MtoProgramado>
                 {
@@ -99,5 +111,6 @@ namespace Condominios.Data.Repositories.Equipos
         {
             throw new NotImplementedException();
         }
+
     }
 }

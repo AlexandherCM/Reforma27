@@ -9,6 +9,8 @@ namespace Condominios.Data.Interfaces.IRepositories
     {
         public Entidad GetById(int id);
         public Task<List<Equipo>> GetList(FiltrosDTO filtros);
+        public Task<List<Equipo>> GetList(string cadena);
+        public Task<List<Equipo>> GetList(int id);
         public Task<List<Entidad>> GetList();
         public Task Add(CtrlEquipoViewModel viewModel);
         public void Update(Entidad entity);

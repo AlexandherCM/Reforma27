@@ -15,9 +15,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
 
         [Required(ErrorMessage = "El campo es obligatorio")]
         public int EstatusID { get; set; }
-
-        [Required(ErrorMessage = "El campo es obligatorio")]
-        public decimal CostoAdquisicion { get; set; }
+        public decimal? CostoAdquisicion { get; set; }
 
         //Otros Campos - - - - - - - - - - - - - - - - - - - - 
         [Required(ErrorMessage = "El campo es obligatorio")]

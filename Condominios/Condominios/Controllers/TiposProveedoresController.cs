@@ -29,6 +29,7 @@ namespace Condominios.Controllers
                                                   .Include(v => v.TipoEquipo).ToListAsync();
 
             ViewData["FuncionID"] = new SelectList(_context.Funcion, "ID", "Nombre");
+            //ViewData["UnidadMedida"] = new SelectList(_context.UnidadMedida, "ID", "Nombre");
             ViewData["MarcaID"] = new SelectList(_context.Marca, "ID", "Nombre");
             ViewData["MotorID"] = new SelectList(_context.Motor, "ID", "Nombre");
             ViewData["PeriodoID"] = new SelectList(_context.Periodo, "ID", "Nombre");
@@ -37,9 +38,6 @@ namespace Condominios.Controllers
             return View(variante);
         }
 
-        // POST: Variantes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VarianteViewModel variante)

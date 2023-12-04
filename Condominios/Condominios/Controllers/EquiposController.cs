@@ -4,10 +4,7 @@ using Condominios.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
-
 #pragma warning disable CS8600
-#pragma warning disable CS8602
-#pragma warning disable CS8618
 #pragma warning disable CS8604
 
 namespace Condominios.Controllers
@@ -65,5 +62,28 @@ namespace Condominios.Controllers
             TempData["Equipos"] = dato;
             return RedirectToAction(nameof(Index));
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SearchByNames(CtrlEquipoViewModel model)
+        {
+            List<Equipo> equipos = await _service.GetEquipos(model.CadenaBusqueda);
+            string dato = JsonConvert.SerializeObject(equipos);
+
+            TempData["Equipos"] = dato;
+            return RedirectToAction(nameof(Index));
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SearchByStatus(CtrlEquipoViewModel model)
+        {
+            List<Equipo> equipos = await _service.GetEquipos(model.EstatusID ?? 0);
+            string dato = JsonConvert.SerializeObject(equipos);
+
+            TempData["Equipos"] = dato;
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

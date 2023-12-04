@@ -18,6 +18,8 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public SelectList? Ubicaciones { get; set; }
         public SelectList? Marcas { get; set; }
         public SelectList? Motores { get; set; }
+        public string? CadenaBusqueda { get; set; }
+        public int? EstatusID { get; set; }
 
         [Required(ErrorMessage = "El campo es obligatorio")]
         public List<string> NumerosSerie { get; set; }

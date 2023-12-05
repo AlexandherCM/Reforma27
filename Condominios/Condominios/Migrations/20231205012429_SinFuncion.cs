@@ -4,7 +4,7 @@
 
 namespace Condominios.Migrations
 {
-    public partial class Init : Migration
+    public partial class SinFuncion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,20 +20,6 @@ namespace Condominios.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estatus", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Funcion",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Funcion", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,7 +182,6 @@ namespace Condominios.Migrations
                     MarcaID = table.Column<int>(type: "int", nullable: false),
                     MotorID = table.Column<int>(type: "int", nullable: false),
                     PeriodoID = table.Column<int>(type: "int", nullable: false),
-                    FuncionID = table.Column<int>(type: "int", nullable: false),
                     TipoEquipoID = table.Column<int>(type: "int", nullable: false),
                     Capacidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false)
@@ -204,12 +189,6 @@ namespace Condominios.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Variante", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Variante_Funcion_FuncionID",
-                        column: x => x.FuncionID,
-                        principalTable: "Funcion",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Variante_Marca_MarcaID",
                         column: x => x.MarcaID,
@@ -246,6 +225,7 @@ namespace Condominios.Migrations
                     UbicacionID = table.Column<int>(type: "int", nullable: false),
                     EstatusID = table.Column<int>(type: "int", nullable: false),
                     NumSerie = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Funcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CostoAdquisicion = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -379,11 +359,6 @@ namespace Condominios.Migrations
                 column: "PerfilID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Variante_FuncionID",
-                table: "Variante",
-                column: "FuncionID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Variante_MarcaID",
                 table: "Variante",
                 column: "MarcaID");
@@ -438,9 +413,6 @@ namespace Condominios.Migrations
 
             migrationBuilder.DropTable(
                 name: "Variante");
-
-            migrationBuilder.DropTable(
-                name: "Funcion");
 
             migrationBuilder.DropTable(
                 name: "Marca");

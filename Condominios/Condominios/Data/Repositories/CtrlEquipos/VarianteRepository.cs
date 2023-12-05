@@ -18,7 +18,6 @@ namespace Condominios.Data.Repositories.CtrlEquipos
         {
             List<Variante> variantes = await _context.Variante.Include(c => c.Marca)
                                       .Include(c => c.Motor)
-                                      .Include(c => c.Funcion)
                                       .Include(c => c.TipoEquipo)
                                       .ToListAsync();
             return Clone(variantes);
@@ -32,14 +31,14 @@ namespace Condominios.Data.Repositories.CtrlEquipos
                 if (tipo != null)
                 {
                     tipo.Nombre += 
-                        $" - {tipo.NombreMarca} - {tipo.NombreMotor} - {tipo.Capacidad} - {tipo.Funcion}";
+                        $" - {tipo.NombreMarca} - {tipo.NombreMotor} - {tipo.Capacidad}";
                 }
             });
 
             return tipos;
         }
 
-        private List<VarianteDTO> Clone(List<Variante> datos)
+        private static List<VarianteDTO> Clone(List<Variante> datos)
         {
             List<VarianteDTO> tipos = (from tipo in datos
                                          select new VarianteDTO
@@ -48,8 +47,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
                                              Nombre = tipo.TipoEquipo.Nombre,
                                              NombreMarca = tipo.Marca.Nombre,
                                              NombreMotor = tipo.Motor.Nombre,
-                                             Capacidad = tipo.Capacidad,
-                                             Funcion = tipo.Funcion.Nombre
+                                             Capacidad = tipo.Capacidad
                                          }).ToList();
 
             return tipos;

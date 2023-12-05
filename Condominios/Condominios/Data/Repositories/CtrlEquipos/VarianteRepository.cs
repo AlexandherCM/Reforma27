@@ -14,6 +14,11 @@ namespace Condominios.Data.Repositories.CtrlEquipos
         {
             _context = context;
         }
+
+        public VarianteRepository()
+        {
+        }
+
         public async Task<List<VarianteDTO>> GetNormalList()
         {
             List<Variante> variantes = await _context.Variante.Include(c => c.Marca)
@@ -52,5 +57,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
 
             return tipos;
         }
+
+      
     }
 }

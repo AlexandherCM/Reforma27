@@ -44,6 +44,7 @@ builder.Services.AddScoped<IMtoRepository, MtoRepository>();
 builder.Services.AddScoped<AutenticarService>();
 builder.Services.AddScoped<CatalogoService>();
 builder.Services.AddScoped<CtrlEquipoService>();
+builder.Services.AddScoped<VarianteService>();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 //builder.Services.AddHostedService<Worker>().AddSingleton<IFileData, FileData>();
 
@@ -60,7 +61,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Inject DataBase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 builder.Services.AddDbContext<Context>(options =>
 {
-    options.UseSqlServer( builder.Configuration.GetConnectionString("ContextOne") );
+    options.UseSqlServer( builder.Configuration.GetConnectionString("Context1") );
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 

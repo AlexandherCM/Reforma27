@@ -8,6 +8,7 @@ namespace Condominios.Data.Interfaces.IRepositories
     {
         public Task<List<Entidad>> GetNormalList();
         public Task<List<Entidad>> GetSpecialList();
+
         //public void Add();
         //public Entidad GetById(int id);
         //public void Update(Entidad entity);

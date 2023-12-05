@@ -24,54 +24,69 @@
             <section class="flex-column" id="col-menu">
 
                 @*Icono de hamburgesa*@
-                <div class="hamburger pt-3" id="hamburger">
+                <div class="hamburger pt-3 " id="hamburger" style="padding-left:2%;">
                     <img src="~/images/bars-solid.svg" id="menu" class="menu" />
                 </div>
 
                 @*Body menu*@
-                <div class="row pt-5">
-                    <a asp-controller="Home" asp-action="Equipos" class="t-none d-flex align-items-center link">
-                        <img class="icon" src="~/images/tools.svg" />
-                        <h6><b class="titles">Control de equipos</b></h6>
-                    </a>
-                </div>
 
-                <div class="row pt-5">
+                @*Catalogos*@
+
+                <div class="row pt-5 contIcon" >
                     <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/Book-solid.svg" />
                         <h6><b class="titles">Catalogos</b></h6>
                     </a>
                 </div>
 
-                <div class="row pt-5">
+                @*Proveedores*@
+
+                <div class="row pt-5 contIcon">
+                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/DatosGeneralesDeEquipos.svg" />
+                        <h6><b class="titles">Datos generales de equipos</b></h6>
+                    </a>
+                </div>
+                
+                
+                @*<div class="row pt-5">
+                    <a asp-controller="Home" asp-action="Equipos" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Control de equipos</b></h6>
+                    </a>
+                </div>*@
+
+                
+
+                @*<div class="row pt-5">
                     <a asp-controller="TiposProveedores" asp-action="Index" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/users.svg" />
                         <h6><b class="titles">CARLOS Tipos y Proveedores</b></h6>
                     </a>
-                </div>
+                </div>*@
 
-                <div class="row pt-5">
+                @*<div class="row pt-5">
                     <a asp-controller="Mantenimientos" asp-action="Consultar" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/tools.svg" />
                         <h6><b class="titles">Control de equipos</b></h6>
                     </a>
-                </div>
+                </div>*@
 
-                <div class="row pt-5">
+                @*<div class="row pt-5">
                     <a asp-controller="Mantenimientos" asp-action="Crear" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/tools.svg" />
                         <h6><b class="titles">Control de equipos</b></h6>
                     </a>
-                </div>
+                </div>*@
                 
-                <div class="row pt-5">
+                @*<div class="row pt-5">
                     <a asp-controller="Funcions" asp-action="Index" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/tools.svg" />
                         <h6><b class="titles">Control de equipos</b></h6>
                     </a>
-                </div>
+                </div>*@
 
-                <div class="row pt-5">
+                <div class="row pt-5 contIcon">
                     <a asp-controller="Acceso" asp-action="Logout" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/right-from-bracket-solid.svg" />
                         <h6><b class="titles color-R">Salir</b></h6>

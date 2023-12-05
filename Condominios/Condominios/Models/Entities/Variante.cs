@@ -14,9 +14,6 @@ namespace Condominios.Models.Entities
         public int MarcaID { get; set; }
         public int MotorID { get; set; }
         public int PeriodoID { get; set; }
-
-        [DisplayName("Función nuevo o ya existente")]
-        public int FuncionID { get; set; }
         public int TipoEquipoID { get; set; }
         public string Capacidad { get; set; }
         public bool Estado { get; set; }
@@ -31,9 +28,6 @@ namespace Condominios.Models.Entities
 
         [ForeignKey(nameof(PeriodoID))]
         public virtual Periodo? Periodo { get; set; }
-        
-        [ForeignKey(nameof(FuncionID))]
-        public virtual Funcion? Funcion { get; set; }
         
         [ForeignKey(nameof(TipoEquipoID))] 
         public virtual TipoEquipo? TipoEquipo { get; set; } 

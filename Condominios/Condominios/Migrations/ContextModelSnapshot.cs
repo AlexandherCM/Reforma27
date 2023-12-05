@@ -38,6 +38,10 @@ namespace Condominios.Migrations
                     b.Property<int>("EstatusID")
                         .HasColumnType("int");
 
+                    b.Property<string>("Funcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NumSerie")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -80,26 +84,6 @@ namespace Condominios.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Estatus");
-                });
-
-            modelBuilder.Entity("Condominios.Models.Entities.Funcion", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Funcion");
                 });
 
             modelBuilder.Entity("Condominios.Models.Entities.Mantenimiento", b =>
@@ -410,9 +394,6 @@ namespace Condominios.Migrations
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FuncionID")
-                        .HasColumnType("int");
-
                     b.Property<int>("MarcaID")
                         .HasColumnType("int");
 
@@ -426,8 +407,6 @@ namespace Condominios.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("FuncionID");
 
                     b.HasIndex("MarcaID");
 
@@ -518,12 +497,6 @@ namespace Condominios.Migrations
 
             modelBuilder.Entity("Condominios.Models.Entities.Variante", b =>
                 {
-                    b.HasOne("Condominios.Models.Entities.Funcion", "Funcion")
-                        .WithMany()
-                        .HasForeignKey("FuncionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Condominios.Models.Entities.Marca", "Marca")
                         .WithMany()
                         .HasForeignKey("MarcaID")
@@ -547,8 +520,6 @@ namespace Condominios.Migrations
                         .HasForeignKey("TipoEquipoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Funcion");
 
                     b.Navigation("Marca");
 

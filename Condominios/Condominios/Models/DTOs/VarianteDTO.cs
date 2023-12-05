@@ -8,7 +8,6 @@ namespace Condominios.Models.DTOs
         public string Nombre { get; set; }
         public string NombreMotor { get; set; }
         public string NombreMarca { get; set; }
-        public string Capacidad { get; set; }
-        public string Funcion { get; set; } 
+        public string Capacidad { get; set; }     
     }
 }

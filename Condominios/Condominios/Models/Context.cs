@@ -19,8 +19,6 @@ namespace Condominios.Models
         public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<TipoMantenimiento> TipoMantenimiento { get; set; }
         public virtual DbSet<Ubicacion> Ubicacion { get; set; } 
-
-        public virtual DbSet<Funcion> Funcion { get; set; }
         public virtual DbSet<UnidadMedida> UnidadMedida { get; set; }
         public virtual DbSet<TipoEquipo> TipoEquipo { get; set; }
 

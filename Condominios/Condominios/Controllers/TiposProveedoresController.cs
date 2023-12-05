@@ -38,8 +38,20 @@ namespace Condominios.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VarianteViewModel variante)
+        public async Task<IActionResult> Create(VarianteViewModel model)
         {
+            Variante newVariabte = new()
+            {
+                MarcaID= model.MarcaID,
+                MotorID= model.MotorID,
+                PeriodoID = model.PeriodoID,
+                TipoEquipoID = model.TipoEquipoID,
+                Capacidad = model.Capacidad,
+                Estado = true
+            };
+
+            _context.Add(newVariabte);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

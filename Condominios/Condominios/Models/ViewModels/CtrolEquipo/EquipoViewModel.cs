@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+#pragma warning disable CS8618
 
 namespace Condominios.Models.ViewModels.CtrolEquipo
 {
@@ -16,6 +17,9 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         [Required(ErrorMessage = "El campo es obligatorio")]
         public int EstatusID { get; set; }
         public decimal? CostoAdquisicion { get; set; }
+
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        public string Funcion { get; set; }  
 
         //Otros Campos - - - - - - - - - - - - - - - - - - - - 
         [Required(ErrorMessage = "El campo es obligatorio")]

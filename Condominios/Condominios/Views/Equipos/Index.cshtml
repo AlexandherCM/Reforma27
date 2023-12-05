@@ -37,16 +37,6 @@
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
-                        <label><b>Selecciona la ubicacion a la que pertenece</b></label>
-
-                        <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="select" id="text">
-                            <option value="">Selecciona una ubicación</option>
-                        </select>
-                        <br />
-                        <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2">
                         <label><b>¿En que estado se encuentra el equipo?</b></label>
 
                         <select asp-for="Plantilla.EstatusID" asp-items="Model.Estados" class="select" id="text">
@@ -60,13 +50,31 @@
                         <input asp-for="Plantilla.CostoAdquisicion" class="text-center" id="text" type="number" />
                         <br />
                     </div>
-
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
                         <label><b>Fecha de última aplicacion</b></label>
                         <input asp-for="Plantilla.UltimaAplicacion" class="text-center" id="text" type="month" />
                         <br />
                         <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
                     </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                    <div class="row p-2">
+                        <label><b>Selecciona la ubicacion a la que pertenece</b></label>
+
+                        <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="select" id="text">
+                            <option value="">Selecciona una ubicación</option>
+                        </select>
+                        <br />
+                        <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                    <div class="row p-2">
+                        <label><b>Función del equipo</b></label>
+                        <textarea asp-for="Plantilla.Funcion" class="txtForm" rows="3" id="text" cols="50"></textarea>
+                        <br />
+                        <span asp-validation-for="Plantilla.Funcion" class="text-danger"></span>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
 
                     <div class="input mx-auto">
                         @*- - - - - - - - - - - - - -*@

@@ -87,6 +87,7 @@ namespace Condominios.Data.Repositories.Equipos
                 EstatusID = viewModel.Plantilla.EstatusID,
                 CostoAdquisicion = viewModel.Plantilla.CostoAdquisicion ?? 0,
                 Estado = true,
+                Funcion = viewModel.Plantilla.Funcion,
                 Programados = new List<MtoProgramado>
                 {
                     _service.CrearObjeto(viewModel.Plantilla.UltimaAplicacion, meses)

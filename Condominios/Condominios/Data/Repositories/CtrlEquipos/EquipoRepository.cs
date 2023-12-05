@@ -24,21 +24,21 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
                                     .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
-                                    .Include(c => c.Variante.Funcion) .ToListAsync();
+                                    .ToListAsync();
         
         public async Task<List<Equipo>> GetList(string cadena)
             => await _context.Equipo.Where(name => name.Variante.TipoEquipo.Nombre.Contains(cadena))
                                     .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
                                     .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
-                                    .Include(c => c.Variante.Funcion) .ToListAsync();
+                                    .ToListAsync();
 
         public async Task<List<Equipo>> GetList()
             => await _context.Equipo
                                     .Include(c => c.Estatus)         .Include(c => c.Ubicacion)
                                     .Include(c => c.Variante)        .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)  .Include(c => c.Variante.TipoEquipo)
-                                    .Include(c => c.Variante.Funcion).ToListAsync();
+                                    .ToListAsync();
 
         public async Task<List<Equipo>> GetList(FiltrosDTO filtros)
         {
@@ -47,8 +47,7 @@ namespace Condominios.Data.Repositories.Equipos
                                                       .Include(c => c.Variante)
                                                       .Include(c => c.Variante.Motor)
                                                       .Include(c => c.Variante.Marca)
-                                                      .Include(c => c.Variante.TipoEquipo)
-                                                      .Include(c => c.Variante.Funcion);
+                                                      .Include(c => c.Variante.TipoEquipo);
             //TIPO
             if (filtros.TipoID != 0)
             {

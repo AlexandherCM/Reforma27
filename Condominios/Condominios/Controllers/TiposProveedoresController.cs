@@ -23,13 +23,11 @@ namespace Condominios.Controllers
         {
             VarianteViewModel variante = new();
 
-            variante.variantes = await _context.Variante.Include(v => v.Funcion).Include(v => v.Marca)
-                                                  .Include(v => v.Motor)
-                                                  .Include(v => v.Periodo)
-                                                  .Include(v => v.TipoEquipo).ToListAsync();
+            variante.variantes = await _context.Variante.Include(v => v.Marca)
+                                                        .Include(v => v.Motor) 
+                                                        .Include(v => v.Periodo) 
+                                                        .Include(v => v.TipoEquipo).ToListAsync();
 
-            ViewData["FuncionID"] = new SelectList(_context.Funcion, "ID", "Nombre");
-            //ViewData["UnidadMedida"] = new SelectList(_context.UnidadMedida, "ID", "Nombre");
             ViewData["MarcaID"] = new SelectList(_context.Marca, "ID", "Nombre");
             ViewData["MotorID"] = new SelectList(_context.Motor, "ID", "Nombre");
             ViewData["PeriodoID"] = new SelectList(_context.Periodo, "ID", "Nombre");
@@ -42,47 +40,6 @@ namespace Condominios.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VarianteViewModel variante)
         {
-            int resultado;
-            Variante varianteNew;
-
-            // Intentar convertir la cadena a un entero
-            if (int.TryParse(variante.LaFuncion, out resultado))
-            {
-                varianteNew = new Variante
-                {
-                    ID = variante.ID,
-                    MarcaID = variante.MarcaID,
-                    MotorID = variante.MotorID,
-                    PeriodoID = variante.PeriodoID, // Corregir aquí
-                    FuncionID = resultado, // Corregir aquí
-                    TipoEquipoID = variante.TipoEquipoID,
-                    Capacidad = variante.Capacidad,
-                    Estado = true
-                };
-            }
-            else
-            {
-                Funcion funcion = new Funcion
-                {
-                    Nombre = variante.LaFuncion.ToString(),
-                    Estado = true
-                };
-
-                varianteNew = new Variante
-                {
-                    ID = variante.ID,
-                    MarcaID = variante.MarcaID,
-                    MotorID = variante.MotorID,
-                    PeriodoID = variante.PeriodoID,
-                    TipoEquipoID = variante.TipoEquipoID,
-                    Capacidad = variante.Capacidad,
-                    Funcion = funcion, 
-                    Estado = true
-                };
-            }
-
-            _context.Add(varianteNew);
-            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

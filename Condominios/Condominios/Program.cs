@@ -8,8 +8,8 @@ using Condominios.Data.Repositories.Mantenimientos;
 using Condominios.Models;
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
-using Condominios.Services;
-using Condominios.Services.Classes;
+using Condominios.Models.Services;
+using Condominios.Models.Services.Classes;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,7 +60,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Inject DataBase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 builder.Services.AddDbContext<Context>(options =>
 {
-    options.UseSqlServer( builder.Configuration.GetConnectionString("ContextOne") );
+    options.UseSqlServer( builder.Configuration.GetConnectionString("ConnectionGlobal") );
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 

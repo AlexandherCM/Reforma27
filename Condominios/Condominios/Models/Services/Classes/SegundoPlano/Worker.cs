@@ -1,6 +1,6 @@
 ﻿using Condominios.Data.Interfaces;
 
-namespace Condominios.Services.Classes.SegundoPlano
+namespace Condominios.Models.Services.Classes.SegundoPlano
 {
 
     public class Worker : BackgroundService

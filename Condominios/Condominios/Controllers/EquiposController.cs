@@ -1,9 +1,9 @@
 ﻿using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.CtrolEquipo;
-using Condominios.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using Condominios.Models.Services;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
 

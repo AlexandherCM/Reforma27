@@ -1,7 +1,7 @@
 ﻿using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.AspNetCore.Mvc;
-using Condominios.Services;
 using Microsoft.AspNetCore.Authorization;
+using Condominios.Models.Services;
 
 namespace Condominios.Controllers
 {

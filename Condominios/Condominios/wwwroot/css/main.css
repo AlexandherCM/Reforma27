@@ -33,10 +33,9 @@
     z-index: 99;
 }
 
-.disabled {
-    pointer-events: none;
+.menuLogo {
+    visibility: hidden;
 }
-
 .hamburger {
     display: flex;
     justify-content: center;
@@ -54,8 +53,8 @@ a b {
 }
 
 .icons {
-    height: 2.6rem;
-    padding-right: 1%;
+    height: 2.2rem;
+    padding-right:10%;
 }
 
 .icon {

@@ -2,7 +2,7 @@
 using Condominios.Models;
 using Condominios.Models.ViewModels.Catalogos;
 
-namespace Condominios.Services
+namespace Condominios.Models.Services
 {
     public class CatalogoService
     {

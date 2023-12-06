@@ -1,6 +1,6 @@
 ﻿using Condominios.Data.Interfaces;
 
-namespace Condominios.Services
+namespace Condominios.Models.Services
 {
     public class FileDataService : IFileData
     {

@@ -4,7 +4,7 @@ using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Condominios.Services
+namespace Condominios.Models.Services
 {
     public class CtrlEquipoService
     {
@@ -22,18 +22,18 @@ namespace Condominios.Services
         }
         public async Task<List<Equipo>> GetEquipos()
             => await _uniOfWork.EquipoRepository.GetList();
-        
+
         public async Task<List<Equipo>> GetEquipos(int id)
             => await _uniOfWork.EquipoRepository.GetList(id);
 
         public async Task<List<Equipo>> GetEquipos(string cadena)
             => await _uniOfWork.EquipoRepository.GetList(cadena);
-        
-        
+
+
         public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
             => await _uniOfWork.EquipoRepository.GetList(filtros);
 
-        public async Task<CtrlEquipoViewModel> GetLists() 
+        public async Task<CtrlEquipoViewModel> GetLists()
         {
             _viewModel.Estados = new SelectList(await _uniOfWork.EstatusRepository.GetList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

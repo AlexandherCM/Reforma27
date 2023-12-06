@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Condominios.Models.ViewModels;
-using Condominios.Services;
+using Condominios.Models.Services;
 
 namespace Condominios.Controllers
 {

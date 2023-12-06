@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models.Entities;
 
-namespace Condominios.Services
+namespace Condominios.Models.Services
 {
     public interface IAutenticarService
     {

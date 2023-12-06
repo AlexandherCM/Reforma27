@@ -1,7 +1,7 @@
 ﻿using Condominios.Data.Interfaces;
 using System.Globalization;
 
-namespace Condominios.Services
+namespace Condominios.Models.Services
 {
     public class EpochService : IEpoch
     {
@@ -15,7 +15,7 @@ namespace Condominios.Services
 
         public DateTime ObtenerFecha(double epoch)
         {
-            DateTime fechaInicial = new (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime fechaInicial = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             fechaInicial = fechaInicial.AddSeconds(epoch).ToLocalTime();
 
             return fechaInicial;

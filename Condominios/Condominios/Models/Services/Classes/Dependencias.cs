@@ -2,7 +2,7 @@
 using Condominios.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Condominios.Services.Classes
+namespace Condominios.Models.Services.Classes
 {
     public class Dependencias
     {

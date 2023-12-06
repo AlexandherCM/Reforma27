@@ -29,63 +29,59 @@
                 </div>
 
                 @*Body menu*@
-
+                <div class="row pt-4 menuLogo " id="menuLogo">
+                    <img src="~/images/Logo.svg" width="100%">
+                </div>
                 @*Catalogos*@
 
-                <div class="row pt-5 contIcon" >
+                <div class="row pt-3 contIcon" >
                     <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/Book-solid.svg" />
-                        <h6><b class="titles">Catalogos</b></h6>
+                        <h6><b class="titles">Catálogos</b></h6>
                     </a>
                 </div>
 
                 @*Proveedores*@
+                <div class="row pt-5 contIcon">
+                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/truck-fast-solid.svg" />
+                        <h6><b class="titles">Proveedores</b></h6>
+                    </a>
+                </div>
 
+                @*Datos generales de equipos*@
                 <div class="row pt-5 contIcon">
                     <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/DatosGeneralesDeEquipos.svg" />
-                        <h6><b class="titles">Datos generales de equipos</b></h6>
+                        <h6><b class="titles">Datos generales de los equipos</b></h6>
+                    </a>
+                </div>
+
+                @*Datos Especificos del equipo*@
+                <div class="row pt-5 contIcon">
+                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/engine.svg" />
+                        <h6><b class="titles">Datos específicos del equipos</b></h6>
+                    </a>
+                </div>
+
+                @*Gastos de mantenimiento*@
+                <div class="row pt-5 contIcon">
+                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/circle-dollar-to-slot-solid.svg" />
+                        <h6><b class="titles">Gastos de mantenimiento</b></h6>
                     </a>
                 </div>
                 
+                @*Mantenimiento*@
+                <div class="row pt-5 contIcon">
+                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                        <img class="icon" src="~/images/tools.svg" />
+                        <h6><b class="titles">Mantenimiento</b></h6>
+                    </a>
+                </div>
                 
-                @*<div class="row pt-5">
-                    <a asp-controller="Home" asp-action="Equipos" class="t-none d-flex align-items-center link">
-                        <img class="icon" src="~/images/tools.svg" />
-                        <h6><b class="titles">Control de equipos</b></h6>
-                    </a>
-                </div>*@
-
-                
-
-                @*<div class="row pt-5">
-                    <a asp-controller="TiposProveedores" asp-action="Index" class="t-none d-flex align-items-center link">
-                        <img class="icon" src="~/images/users.svg" />
-                        <h6><b class="titles">CARLOS Tipos y Proveedores</b></h6>
-                    </a>
-                </div>*@
-
-                @*<div class="row pt-5">
-                    <a asp-controller="Mantenimientos" asp-action="Consultar" class="t-none d-flex align-items-center link">
-                        <img class="icon" src="~/images/tools.svg" />
-                        <h6><b class="titles">Control de equipos</b></h6>
-                    </a>
-                </div>*@
-
-                @*<div class="row pt-5">
-                    <a asp-controller="Mantenimientos" asp-action="Crear" class="t-none d-flex align-items-center link">
-                        <img class="icon" src="~/images/tools.svg" />
-                        <h6><b class="titles">Control de equipos</b></h6>
-                    </a>
-                </div>*@
-                
-                @*<div class="row pt-5">
-                    <a asp-controller="Funcions" asp-action="Index" class="t-none d-flex align-items-center link">
-                        <img class="icon" src="~/images/tools.svg" />
-                        <h6><b class="titles">Control de equipos</b></h6>
-                    </a>
-                </div>*@
-
+                @*Salir*@
                 <div class="row pt-5 contIcon">
                     <a asp-controller="Acceso" asp-action="Logout" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/right-from-bracket-solid.svg" />
@@ -128,35 +124,62 @@
                     <div class="collapse" id="navbarResponsivo">
                        
                         <div class="p-4">
-
-                            <div class="mt-3 t-none">
-                                <a href="" class="t-none txt-link">
-                                    <img src="~/images/Book-solid.svg" class="icons" />
-                                    <b>Catalogos</b>
+                            @*Catálogos*@
+                            <div class="mt-3 t-none justify-content-start d-flex">
+                                <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/Book-solid.svg"/>
+                                    <b > Catálogos</b>
                                 </a>
                             </div>
 
-                            <div class="mt-3 t-none">
-                                <a href="" class="t-none txt-link">
-                                    <img src="~/images/location-dot-solid.svg" class="icons" />
-                                    <b>Ubicacion</b>
+                            @*Proveedores*@
+                            <div class="mt-3 t-none justify-content-start d-flex">
+                                <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/truck-fast-solid.svg" />
+                                    <b>Proveedores</b>
                                 </a>
                             </div>
 
-                            <div class="mt-3 t-none">
-                                <a href="" class="t-none txt-link">
-                                    <img src="~/images/tools.svg" class="icons" />
-                                    <b>Herramientas</b>
+                            @*Datos generales de equipos*@
+                            <div class="mt-3 t-none justify-content-start d-flex">
+                                <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/DatosGeneralesDeEquipos.svg" />
+                                    <b>Datos generales de equipos</b>
                                 </a>
                             </div>
 
-                            <div class="mt-3 t-none">
-                                <a href="" class="t-none txt-link">
-                                    <img src="~/images/List.svg" class="icons" />
-                                    <b>Lista</b>
+                            @*Datos específicos de equipo*@
+                            <div class="mt-3 t-none justify-content-star d-flex">
+                                <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/engine.svg"   />
+                                    <b>Datos específicos del equipo</b>
                                 </a>
                             </div>
 
+                            @*Gastos de mantenimiento*@
+                            <div class="mt-3 t-none justify-content-start d-flex">
+                                <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/circle-dollar-to-slot-solid.svg" />
+                                    <b>Gastos de mantenimiento</b>
+                                </a>
+                            </div>
+
+                            @*Mantenimiento*@
+                            <div class="mt-3 t-none justify-content-start d-flex">
+                                <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/tools.svg" />
+                                    <b>Mantenimiento</b>
+                                </a>
+                            </div>
+
+                            @*Salir*@
+                            <div class="mt-3 t-none justify-content-center d-flex">
+                                <a asp-controller="Acceso" asp-action="Logout" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/right-from-bracket-solid.svg" />
+                                    <h6><b class="color-R">Salir</b></h6>
+                                </a>
+                            </div>
+                            
                         </div>
                     </div>
                 </header>

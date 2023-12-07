@@ -1,9 +1,9 @@
 ﻿class ApiClient {
 
-  //async get(endpoint) {
-  //  const response = await fetch(`${this.baseURL}/${endpoint}`);
-  //  return await response.json();
-  //}
+  async get(endpoint) {
+    const response = await fetch(endpoint);
+    return await response.json();
+  }
 
   async post(endpoint, data) {
     const response = await fetch(endpoint, {

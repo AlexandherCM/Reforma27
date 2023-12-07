@@ -1,4 +1,4 @@
-﻿@model Condominios.Models.ViewModels.VarianteViewModel
+﻿@model Condominios.Models.ViewModels.CtrolVarianteEquipo.VarianteViewModel
 
 @{
     ViewData["Title"] = "Proveedores";
@@ -18,82 +18,88 @@
             </h3>
 
             <div class="text-light text-center" id="form-body">
-                <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra clasificación de equipos</h3>
 
-                @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <form asp-action="Create">
+                <form asp-action="Agregar" class="text-light text-center " id="form-body" onsubmit="return ValidarFormulario()">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="row pt-1">
+
+                    <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra clasificación de equipos</h3>
+
+                    @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                    @*Marca*@
+                    <div class="row pt-2">
                         <h5>Marca</h5>
                     </div>
-                    <div class="row d-flex justify-content-center pt-1" >
-                        <select asp-for="MarcaID" class="txtForm" asp-items="ViewBag.MarcaID">
-                            <option value="">Selecciona una marca</option>
+                    <div class="row d-flex justify-content-center pt-1">
+                        <select asp-for="VarianteEquipo.MarcaID" class="txtForm" asp-items="@Model.Marcas" onchange="ValidarFormulario()">
+                            <option value="">Selecciona un campo</option>
                         </select>
-                        <span asp-validation-for="MarcaID" class="text-danger"></span>
+                        <span id="MarcaError" class="text-danger" style="display: none;"></span>
                     </div>
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="row pt-1">
-                        <h5>Motor</h5>
+
+                    @*Voltaje*@
+                    <div class="row pt-2">
+                        <h5>Voltaje</h5>
                     </div>
                     <div class="row d-flex justify-content-center pt-1">
-                        <select asp-for="MotorID" class="txtForm" asp-items="ViewBag.MotorID">
-                            <option value="">Selecciona un tipo de motor</option>
+                        <select asp-for="VarianteEquipo.MotorID" class="txtForm" asp-items="@Model.Motores" onchange="ValidarFormulario()">
+                            <option value="">Selecciona un campo</option>
                         </select>
-                        <span asp-validation-for="MotorID" class="text-danger"></span>
+                        <span id="MotorError" class="text-danger" style="display: none;"></span>
                     </div>
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="row pt-1">
-                        <h5>Periodo</h5>
+
+                    @*Periodos*@
+                    <div class="row pt-2">
+                        <h5>Periodos de mantenimineto</h5>
                     </div>
                     <div class="row d-flex justify-content-center pt-1">
-                        <select asp-for="PeriodoID" class="txtForm" asp-items="ViewBag.PeriodoID">
-                            <option value="">Selecciona el periodo de mantenimiento</option>
+                        <select asp-for="VarianteEquipo.PeriodoID" class="txtForm" asp-items="@Model.Periodos" onchange="ValidarFormulario()">
+                            <option value="">Selecciona un campo</option>
                         </select>
-                        <span asp-validation-for="PeriodoID" class="text-danger"></span>
+                        <span id="PeriodoError" class="text-danger" style="display: none;"></span>
                     </div>
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                    @*Tipo de equipo*@
                     <div class="row pt-1">
                         <h5>Tipo de equipo</h5>
                     </div>
                     <div class="row d-flex justify-content-center pt-1">
-                        <select asp-for="TipoEquipoID" class="txtForm" asp-items="ViewBag.TipoEquipoID">
+                        <select asp-for="VarianteEquipo.TipoEquipoID" class="txtForm" asp-items="@Model.TipoEquipo" onchange="ValidarFormulario()">
                             <option value="">Selecciona el tipo equipo</option>
                         </select>
-                        <span asp-validation-for="TipoEquipoID" class="text-danger"></span>
+                        <span id="TipoEquipoError" class="text-danger" style="display: none;"></span>
                     </div>
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    @*Función*@
-                    @*<div class="row pt-2">
-                        <h5>Función</h5>
-                    </div>
-                    <div class="row d-flex justify-content-center pt-1">
-                        <textarea asp-for="LaFuncion" class="txtForm" rows="3" cols="50"></textarea>
-                        <span asp-validation-for="LaFuncion" class="text-danger"></span>
-                    </div>*@
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                    @*Capacidad*@
+
                     <div class="row pt-2">
                         <h5>Capacidad</h5>
                     </div>
+
                     <div class="row pt-2" style="width:78%; margin:auto;">
-                        <div @* class="col-6 col-md-7 justify-content-start d-flex" *@>
-                            <input asp-for="Capacidad" class="txtForm" />
-                            <span asp-validation-for="Capacidad" class="text-danger"></span>
+
+                        <div class="col-6  col-md-7 justify-content-start d-flex">
+                            <input asp-for="VarianteEquipo.CapacidadValor" type="number" class="subTxtForm" onchange="ValidarFormulario()">
                         </div>
-                        @* <div class="col-6 col-md-5">
-                            <select name="Unidad" class="subTxtForm">
-                                <option value="">Selecciona un tipo de equipo</option>
+
+                        <div class="col-6 col-md-5">
+                            <select asp-for="VarianteEquipo.CapacidadSelect" class="txtForm" asp-items="@Model.Capacidad" onchange="ValidarFormulario()">
+                                <option value="">N/A</option>
                             </select>
-                            <span asp-validation-for="Capacidad" class="text-danger"></span>
-                        </div> *@
-                        <span class="text-danger"></span>
+                        </div>
+                        <span id="CapacidadError" class="text-danger" style="display: none;"></span>
+
                     </div>
-                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
                     @*Boton*@
                     <div class="row pt-3 d-flex justify-content-center">
-                        <input type="submit" value="Agregar" class="boton" style="width:80%; margin:auto;">
+                        <input type="submit" value="Agregar" class="boton" style="width:80%; margin:auto;" formnovalidate>
                     </div>
+
+                    <br />
+
+                    @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
                 </form>
                 <br />
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
@@ -122,7 +128,7 @@
 
             <thead>
 
-                <tr class="border-R">
+               @* <tr class="border-R">
                     <th class="border-R">
                         @Html.DisplayNameFor(model => model.Capacidad)
                     </th>
@@ -143,10 +149,10 @@
                     </th>
                     <th>Estado</th>
                     <th>Editar</th>
-                </tr>
+                </tr>*@
             </thead>
             <tbody>
-                @foreach (var item in Model.variantes)
+                @*@foreach (var item in Model.variantes)
                 {
                     <tr>
                         <td class="border-R">
@@ -180,7 +186,7 @@
                         </td>
 
                     </tr>
-                }
+                }*@
             </tbody>
         </table>
     </article>
@@ -316,6 +322,7 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidarForm");
         <script src="~/js/despegable.js"></script>
     }
 }

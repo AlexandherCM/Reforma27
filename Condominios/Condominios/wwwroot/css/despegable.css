@@ -106,12 +106,20 @@
     border-radius: 5px;
     padding-top: 2%;
 }
+.despegable2 {
+    padding-right: 1%;
+}
 
 @media (max-width: 1000px) {
     #form {
         width: 100%;
         height: 7vh;
     }
+    .despegable2 {
+        padding-right: 0%;
+        width:100%;
+    }
+
 }
 
 @keyframes growAndFade {

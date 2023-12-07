@@ -21,10 +21,13 @@ namespace Condominios.Controllers
         }
 
         //[Authorize(Roles = "Administrador, General")]
-        public async Task<IActionResult> Create(CatalogoViewModel model)
+        //[ValidateAntiForgeryToken]
+        public async Task<CatalogoViewModel> Create([FromBody] CatalogoViewModel model)
         {
             await _service.InsertarEntidad(model);
-            return RedirectToAction(nameof(Index));
+
+            CatalogoViewModel json = await _service.ObtenerCatalogos();
+            return json;
         }
 
         public async Task<IActionResult> UpdateById(CatalogoViewModel model)

@@ -28,12 +28,11 @@
 
                 <div class="row p-3">
 
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                    <form id="FormsCrearMarca" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Marca" />
+                        <input type="hidden" name="Entidad" value="Marca" />
                         <div class="col-6">
-                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="text">
-                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                            <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -57,7 +56,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="FilasMarcas">
                             @for (int i = 0; i < Model.Marcas.Count; i++)
                             {
                                 <form asp-action="UpdateById" id="UpdateMarca@(i)">
@@ -263,13 +262,10 @@
                 @* FORMULARIO *@
 
                 <div class="row p-3">
-
                     <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="Entidad" value="Periodo" />
-
                         <div class="row">
-
                             <div class="col-6">
 
                                 <select asp-for="PeriodoViewModel.Mes" id="ddlUnidadTiempo" class="text">
@@ -279,28 +275,22 @@
                                 </select>
                                 <span asp-validation-for="PeriodoViewModel.Mes" id="ErrorMensaje" class="text-danger"></span>
                             </div>
-
                             <div class="col-6">
                                 <input asp-for="PeriodoViewModel.Cantidad" id="txtCantidad" type="number" placeholder="Cantidad" class="text" />
                                 <br />
                                 <span asp-validation-for="PeriodoViewModel.Cantidad" id="ErrorMensaje" class="text-danger"></span>
                             </div>
-
                         </div>
 
                         <div class="row mt-2">
-
                             <div class="col-6">
                                 <input asp-for="PeriodoViewModel.Nombre" id="txtNombrePlazo" type="text" placeholder="Nombre" class="text">
                                 <span asp-validation-for="PeriodoViewModel.Nombre" class="text-danger"></span>
                             </div>
-
                             <div class="col-6">
                                 <input type="submit" value="Agregar" class="boton mt-1">
                             </div>
-
                         </div>
-
                     </form>
 
                 </div>

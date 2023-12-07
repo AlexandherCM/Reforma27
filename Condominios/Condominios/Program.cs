@@ -60,7 +60,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Inject DataBase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 builder.Services.AddDbContext<Context>(options =>
 {
-    options.UseSqlServer( builder.Configuration.GetConnectionString("ConnectionGlobal") );
+    options.UseSqlServer( builder.Configuration.GetConnectionString("ContextHouse") );
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 

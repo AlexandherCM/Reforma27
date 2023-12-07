@@ -18,20 +18,6 @@
 }*/
 
 
-.boton {
-    border: 1px solid #7b7676;
-    font-family: inherit;
-    width: 90%;
-    background: #d5e8d4;
-    border-radius: 5px;
-    font-weight: bold;
-    color: #545151;
-}
-
-    .boton:hover {
-        background: #8bb989;
-        color: #ffffff;
-    }
 
 .editar {
     height: 1.5rem;

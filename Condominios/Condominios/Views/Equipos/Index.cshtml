@@ -20,7 +20,7 @@
 
             <div class="text-light text-center " id="form-body">
 
-                <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra mas de un equipo</h3>
+                <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra más de un equipo</h3>
 
                 @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <form asp-action="Create" class="text-light text-center " id="formsEquipo">
@@ -37,7 +37,7 @@
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
-                        <label><b>¿En que estado se encuentra el equipo?</b></label>
+                        <label><b>¿En qué estado se encuentra el equipo?</b></label>
 
                         <select asp-for="Plantilla.EstatusID" asp-items="Model.Estados" class="select" id="text">
                             <option value="">Selecciona un estado</option>
@@ -46,23 +46,23 @@
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2 ">
-                        <label><b>Precio de adquisicion del equipo</b></label>
+                        <label><b>Precio de adquisición del equipo</b></label>
                         <input asp-for="Plantilla.CostoAdquisicion" class="text-center" id="text" type="number" />
                         <br />
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
-                        <label><b>Fecha de última aplicacion</b></label>
+                        <label><b>Fecha de última aplicación</b></label>
                         <input asp-for="Plantilla.UltimaAplicacion" class="text-center" id="text" type="month" />
                         <br />
                         <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
-                        <label><b>Selecciona la ubicacion a la que pertenece</b></label>
+                        <label><b>Selecciona la ubicación a la que pertenece</b></label>
 
                         <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="select" id="text">
-                            <option value="">Selecciona una ubicación</option>
+                            <option value="">Selecciona una úbicación</option>
                         </select>
                         <br />
                         <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
@@ -81,7 +81,7 @@
                         <label class="mb-2 control-label"><b id="numeroInputs"></b></label>
                         @*- - - - - - - - - - - - - -*@
                         <div id="contenedor-inputs" class="contorno mx-auto border border-2" style="width: 100%; max-height: 150px; overflow-y: auto;">
-                            <label class="mb-3 mt-3 control-label"><b>Numero de serie</b></label>
+                            <label class="mb-3 mt-3 control-label"><b>Número de serie</b></label>
                             <input asp-for="NumerosSerie" class="InputSerie text-center text" />
                             <br />
                             <span asp-validation-for="NumerosSerie" class="text-danger"></span>
@@ -90,13 +90,13 @@
                         <div class="mt-4 row">
                             @*- - - - - - - - - - - - - -*@
                             <div class="col-6">
-                                <button type="button" onclick="agregarNuevoInput()" class="boton">
+                                <button type="button" onclick="agregarNuevoInput()" class="botonTrue">
                                     <b>Agregar Equipo</b>
                                 </button>
                             </div>
                             @*- - - - - - - - - - - - - -*@
                             <div class="col-6">
-                                <button type="button" onclick="remover()" @*onclick="onclick= event.preventDefault();"*@ class="boton">
+                                <button type="button" onclick="remover()" @*onclick="onclick= event.preventDefault();"*@ class="botonFalse">
                                     <b>Remover</b>
                                 </button>
                                 @*- - - - - - - - - - - - - -*@
@@ -107,12 +107,12 @@
                     <div class="mt-4 row ">
                         <div class="col-6">
                             @*- - - - - - - - - - - - - -*@
-                            <button type="submit" class="boton"><b>Registrar</b></button>
+                            <button type="submit" class="botonTrue"><b>Registrar</b></button>
                             @*- - - - - - - - - - - - - -*@
                         </div>
                         <div class="col-6">
                             @*- - - - - - - - - - - - - -*@
-                            <button type="reset" onclick="location.reload();" class="boton">
+                            <button type="reset" @* onclick="location.reload();"  *@ class="botonFalse">
                                 <b>Cancelar</b>
                             </button>
                             @*- - - - - - - - - - - - - -*@
@@ -142,112 +142,122 @@
     </section>
 
     @* Buscadores *@
-    <article class="row mt-4  justify-content-between">
+    <article class="row mt-4 text-center justify-content-between">
 
-        @* Buscador por nombre *@
-        <section class="col-12 col-md-4 col-lg-2 text-center border-R rounded-2">
-            <h5 class="mt-2 mb-3"><span class="color-R">B</span>usqueda por nombre del equipo</h5>
-            @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <form asp-action="SearchByNames" class="row text-center mb-2">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="col-6">
-                    <input asp-for="CadenaBusqueda" type="text" placeholder="Buscar" class="search">
-                </div>
+        @* BUSCADOR POR NOMBRE *@
+       <section class="col-12 col-md-3 pt-2">
+            <aside class="row justify-content-start " style="height:100%">
+                <div class="col-md-11 col-12 border-R p-2">
+                    <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda por nombre del equipo</h5>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <form asp-action="SearchByNames" class="row text-center">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12 col-md-6 pt-2">
+                            <input asp-for="CadenaBusqueda" type="text" placeholder="Buscar" class="search">
+                        </div>
 
-                <div class="col-6 d-flex align-items-center">
-                    <input type="submit" value="Buscar" class="boton">
-                </div>
-            </form>
-            @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center pt-2">
+                            <input type="submit" value="Buscar" class="botonTrue">
+                        </div>
+                    </form>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+               </div>
+           </aside>
+       </section>
+
+       @* BUSCADOR POR FILTRO *@
+        <section class="col-12 col-md-7 pt-2">
+            <aside class="row justify-content-center" style="height:100%">
+                <form asp-action="SearchByFilters" class="col-12 border-R d-flex justify-content-center flex-column">
+                    <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda con filtros</h5>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row text-center d-flex justify-content-between">
+
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <div class="col">
+                            <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="select">
+                                <option value="0">Marca</option>
+                            </select>
+                        </div>
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <div class="col">
+                            <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="select">
+                                <option value="0">Ubicación</option>
+                            </select>
+                        </div>
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <div class="col">
+                            <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="select">
+                                <option value="0">Equipo</option>
+                            </select>
+                        </div>
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <div class="col">
+                            <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="select">
+                                <option value="0">Motor</option>
+                            </select>
+                        </div>
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <div class="col">
+                            <input type="submit" value="Buscar" class="botonTrue">
+                        </div>
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                    </div>
+                    <br />
+                </form>
+            </aside>
         </section>
 
-        @* Buscador por filtros *@
-        <form asp-action="SearchByFilters" class="col-12 col-md-7 text-center border-R rounded-2 align-items-center">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
-            <div class="row text-center d-flex justify-content-between mb-3">
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <div class="col-4 col-lg-2 col-md-4 p-1">
-                    <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="search">
-                        <option value="0">Selecciona una marca</option>
+        @* BUSCADOR POR ESTATUS| *@
+        <section class="col-12 col-md-2 pt-2">
+            <aside class="row justify-content-end " style="height:100%">
+                <form asp-action="SearchByStatus" id="formsEstado" class="col-12 col-md-11 border-R d-flex justify-content-center flex-column">
+                    <h4 class="mt-2 mb-3"><span class="color-R">B</span>uscar por estatus</h4>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <select asp-for="EstatusID" asp-items="Model.Estatus" id="SelectEstado" class="select ">
+                        <option value="0">Estados</option>
                     </select>
-                </div>
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <div class="col-4 col-lg-2 col-md-4 p-1">
-                    <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="search">
-                        <option value="0">Selecciona una ubicación</option>
-                    </select>
-                </div>
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <div class="col-4 col-lg-2 col-md-4 p-1">
-                    <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="search">
-                        <option value="0">Selecciona un tipo de equipo</option>
-                    </select>
-                </div>
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <div class="col-4 col-lg-2 col-md-4 p-1">
-                    <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="search">
-                        <option value="0">Selecciona un tipo de motor</option>
-                    </select>
-                </div>
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <div class="col-4 col-lg-2 col-md-4 p-1">
-                    <input type="submit" value="Buscar" class="boton">
-                </div>
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            </div>
-        </form>
+                </form>
+            </aside>
+        </section>
 
-        @*Buscardor por estatus*@
-        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-        <form asp-action="SearchByStatus" id="formsEstado" class="col-12 col-md-2 text-center border-R rounded-2">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h4 class="mt-2 mb-3"><span class="color-R">B</span>uscar por estatus</h4>
+        
 
-            <div class="row text-center mb-2">
-
-                <div class="col-2 p-2"></div>
-                <div class="col-8 p-2">
-                    <select asp-for="EstatusID" asp-items="Model.Estatus" id="SelectEstado" class="search" style="width:100%;">
-                        <option value="0">Selecciona un estado</option>
-                    </select>
-                </div>
-                <div class="col-2 p-2"></div>
-            </div>
-        </form>
-        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+        
     </article>
 
     @* Tabla de resultados *@
-    <article class="row border-R rounded-3 text-dark mt-3 tabla-main">
+    <article class="row rounded-3 text-dark mt-3">
 
-        <table class="text-center resultados">
+        <table class="text-center border border-primary equipos" id="myTable">
             <thead>
 
                 <tr class="border-R">
                     <th class="border-R" id="Nserie">
                         N°. Serie
                     </th>
-                    <th class="border-R" id="funcion">
-                        Función
-                    </th>
-                    <th class="border-R" id="ubicacion">
-                        Ubicación
-                    </th>
-                    <th class="border-R" id="marca">
+                    <th class="border-R" id="Marca">
                         Marca
                     </th>
-                    <th class="border-R" id="tipo">
-                        Tipo
-                    </th>
-                    <th class="border-R" id="adquisicion">
-                        Costo de adquisición
-                    </th>
-                    <th class="border-R" id="status">
-                        Estatus
+                    <th class="border-R" id="Nombre">
+                        Nombre
                     </th>
                     <th class="border-R" id="Motor">
                         Motor
+                    </th>
+                    <th class="border-R" id="Capacidad">
+                        Capacidad
+                    </th>
+                    <th class="border-R" id="Cantidad">
+                        Cantidad
+                    </th>
+                    <th class="border-R" id="Ubicación">
+                        Ubicación
+                    </th>
+                    <th class="border-R" id="adquisición">
+                        Costo de adquisición
                     </th>
                     <th class="border-R" id="estado">
                         Estado
@@ -263,14 +273,104 @@
             </thead>
 
             <tbody>
+                <tr>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/eye-solid.svg" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/eye-solid.svg" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/eye-solid.svg" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/eye-solid.svg" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">esto solo es para ver</td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/eye-solid.svg" />
+                    </td>
+                </tr>
+
+                @* |||||||||||||||||||||||||||||||||||||||||||||| *@
                 @for (int i = 0; i < Model.Equipos.Count; i++)
                 {
-                <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <tr>
                         <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].NumSerie) </td>
                         <td class="border-R p-1" style="text-align:justify">
-                                @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion) 
+                                @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
                         </td>
                         <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
                         <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
@@ -280,184 +380,39 @@
                         <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
                         <td class="border-R">
                             <input type="hidden" asp-for="Plantilla.ID" value="@(Model.Equipos[i].ID)" />
-                            @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                             <label class="toggle-switch">
-                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                                    @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
                                 <input class="chbxEquipo" type="checkbox" asp-for="Equipos[i].Estado">
-                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                                    @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
                                 <div class="toggle-switch-background">
                                     <div class="toggle-switch-handle"></div>
                                 </div>
                             </label>
-                            @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                         </td>
                         <td class="border-R">
                             <img class="detalles" src="~/images/pen-to-square-solid.svg" />
                         </td>
                         <td class="border-R">
-                            <a  asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
+                            <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
                                 <img class="detalles" src="~/images/eye-solid.svg" />
                             </a>
                         </td>
                     </tr>
-                </form>
+                    </form>
                 }
             </tbody>
         </table>
 
-    </article>
-
-    @* Titulo *@
-    <section class="row border-R mt-3 text-center rounded-3">
-        <h1><span class="color-R">G</span>astos de mantenimientos</h1>
-    </section>
-
-    @* Buscadores *@
-    <article class="row mt-4  justify-content-between">
-
-        @* Resultados encontrados *@
-        <section class="col-12 col-md-3 text-center d-flex justify-content-center align-items-center border-R rounded-2 mb-2">
-
-            <div class="row ">
-
-                <div class="col-10">
-                    <h5 class="mt-2 mb-3"><span class="color-R">R</span>esultados encontrados: </h5>
-                </div>
-
-                <div class="col-2 d-flex align-items-center">
-                    <h5><b>15</b></h5>
-                </div>
-
+       <section class="row text-center">
+           <div class="pt-2">
+                <h5><span class="color-R">M</span>ás resultados</h5>
+           </div>
+            <div class="pagination d-flex justify-content-center">
             </div>
-
-        </section>
-
-        @* Buscador por filtros *@
-        <section class="col-12 col-md-8 text-center border-R rounded-2 align-items-center mb-2">
-
-            <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
-
-            <div class="row text-center d-flex justify-content-between mb-3">
-
-                <div class="col-6 col-md-3 p-1">
-                    <select name="Proveedor" class="search">
-                        <option value="opcion1">Proveedor</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
-
-                <div class="col-6 col-md-3 p-1">
-                    <select name="fecha" class="search">
-                        <option value="opcion1">Fecha 1</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
-
-                <div class="col-6 col-md-3 p-1">
-                    <select name="Fecha2" class="search">
-                        <option value="opcion1">Fecha 2</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
-
-                <div class="col-6 col-md-3 p-1 d-flex align-items-center">
-                    <input type="button" value="Buscar" class="boton">
-                </div>
-
-            </div>
-
-        </section>
-
-
+       </section>
     </article>
-
-    @* Tabla de gastos *@
-    <article class="row border-R rounded-3 text-dark mt-3 tabla-main">
-
-        <table class="text-center gastos ">
-
-            <thead>
-                <tr class="border-R">
-
-                    <th class="border-R" id="cTipo">
-                        Tipo
-                    </th>
-                    <th class="border-R" id="cCantidad">
-                        Cantidad
-                    </th>
-                    <th class="border-R" id="totalMante">
-                        Costo total de mantenimiento
-                    </th>
-                    <th class="border-R" id="totalRepara">
-                        Costo total de reparación
-                    </th>
-                    <th class="border-R" id="cAdquisicion">
-                        Costo total de adquisición
-                    </th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td class="border-R">000000</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                <tr>
-                <tr>
-                    <td class="border-R">000000</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                <tr>
-                <tr>
-                    <td class="border-R">000000</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                <tr>
-                <tr>
-                    <td class="border-R">000000</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                    <td class="border-R">$xxxxxxx</td>
-                <tr>
-
-            </tbody>
-
-        </table>
-
-    </article>
-
-    @* TOTAL DE GASTOS *@
-    <section class="row border-R mt-4 text-center rounded-3">
-
-        <div class="col-6 border-R">
-            <h2><span class="color-R">T</span>otal de gastos:</h2>
-        </div>
-
-        <div class="col-6 col-md-2 border-R">
-            <h3><span class="color-R">$</span>xxxxx</h3>
-        </div>
-
-        <div class="col-6 col-md-2 border-R">
-            <h3><span class="color-R">$</span>xxxxx</h3>
-        </div>
-
-        <div class="col-6 col-md-2 border-R">
-            <h3><span class="color-R">$</span>xxxxx</h3>
-        </div>
-
-    </section>
-
     <br />
     <br />
     <br />
@@ -475,7 +430,7 @@
 
         <section class="row text-light text-center justify-content-center" id="fBody">
 
-            <h4 class="pt-3">Registra un mantenimieneto</h4>
+            <h4 class="pt-3">Registra un mantenimiento</h4>
 
             <section class="row  p-1">
                 <label for="">Descripción del trabajo a realizar</label>
@@ -528,7 +483,7 @@
 
             <h3 class="pt-2 pb-1 ">
 
-                <span class="color-R">M</span>antenimineto <img src="~/images/up.svg" alt="up"
+                <span class="color-R">M</span>antenimiento <img src="~/images/up.svg" alt="up"
                                                                 class="down" id="up1">
                 <img src="~/images/down.svg" class="down d-none" alt="down" id="down1">
 

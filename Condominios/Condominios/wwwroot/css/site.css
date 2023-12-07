@@ -4,7 +4,6 @@
 }
 
 main {
-    height: 100vh;
     width: 100%;
 }
 
@@ -28,6 +27,12 @@ main {
     color: #652022;
 }
 
+.active {
+    border: #652022 solid 2px;
+    border-radius: 5px;
+}
+
+
 .t-none {
     text-decoration: none;
 }
@@ -50,8 +55,14 @@ main {
 }
 
 .search {
-    width: 80%;
+    width: 100%;
     padding: 2%;
+    border-radius: 5px;
+    border: solid 1px #652022;
+}
+.select {
+    width: 100%;
+    padding:1%;
     border-radius: 5px;
     border: solid 1px #652022;
 }
@@ -68,6 +79,38 @@ main {
     border: solid 1px #652022;
 }
 
+.botonTrue {
+    border: 1px solid #7b7676;
+    font-family: inherit;
+    width: 100%;
+    margin:auto;
+    background: #d5e8d4;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #545151;
+}
+
+    .botonTrue:hover {
+        background: #8bb989;
+        color: #ffffff;
+    }
+
+
+.botonFalse {
+    border: 1px solid #652022;
+    font-family: inherit;
+    background: #652022;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 100%;
+    width: 100%;
+    border:solid 3px;
+    color: aliceblue;
+}
+
+    .botonFalse:hover {
+        background: #471819;
+    }
 
 .btn-todos {
     border: 1px solid #7b7676;
@@ -85,9 +128,8 @@ main {
     }
 
 
-
-@keyframes fade-in-animation {
-    0% {
+    @keyframes fade-in-animation {
+        0% {
         opacity: 0;
         transform: translateY(20px);
     }

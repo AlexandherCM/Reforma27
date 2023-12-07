@@ -7,12 +7,12 @@ using Condominios.Data.Repositories.CtrlEquipos;
 
 namespace Condominios.Controllers
 {
-    public class TiposProveedoresController : Controller
+    public class TipoEquiposController : Controller
     {
         private readonly VarianteService _service;
         private VarianteRepository _repo = new();
 
-        public TiposProveedoresController(VarianteService service)
+        public TipoEquiposController(VarianteService service)
         {
             _service = service;
         }

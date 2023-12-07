@@ -35,7 +35,7 @@
                 @*Catalogos*@
 
                 <div class="row pt-3 contIcon" >
-                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                    <a asp-controller="Home" asp-action="Catalogos" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/Book-solid.svg" />
                         <h6><b class="titles">Catálogos</b></h6>
                     </a>
@@ -43,7 +43,7 @@
 
                 @*Proveedores*@
                 <div class="row pt-5 contIcon">
-                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                    <a asp-controller="Home" asp-action="Proveedores" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/truck-fast-solid.svg" />
                         <h6><b class="titles">Proveedores</b></h6>
                     </a>
@@ -51,7 +51,7 @@
 
                 @*Datos generales de equipos*@
                 <div class="row pt-5 contIcon">
-                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                    <a asp-controller="Home" asp-action="TipoEquipos" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/DatosGeneralesDeEquipos.svg" />
                         <h6><b class="titles">Datos generales de los equipos</b></h6>
                     </a>
@@ -59,7 +59,7 @@
 
                 @*Datos Especificos del equipo*@
                 <div class="row pt-5 contIcon">
-                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                    <a asp-controller="Home" asp-action="Equipos" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/engine.svg" />
                         <h6><b class="titles">Datos específicos del equipos</b></h6>
                     </a>
@@ -67,7 +67,7 @@
 
                 @*Gastos de mantenimiento*@
                 <div class="row pt-5 contIcon">
-                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                    <a asp-controller="Home" asp-action="GastosDeMantenimiento" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/circle-dollar-to-slot-solid.svg" />
                         <h6><b class="titles">Gastos de mantenimiento</b></h6>
                     </a>
@@ -75,7 +75,7 @@
                 
                 @*Mantenimiento*@
                 <div class="row pt-5 contIcon">
-                    <a asp-controller="Catalogos" asp-action="Index" class="t-none d-flex align-items-center link">
+                    <a asp-controller="Home" asp-action="Mantenimientos" class="t-none d-flex align-items-center link">
                         <img class="icon" src="~/images/tools.svg" />
                         <h6><b class="titles">Mantenimiento</b></h6>
                     </a>
@@ -198,7 +198,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/Tablas.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

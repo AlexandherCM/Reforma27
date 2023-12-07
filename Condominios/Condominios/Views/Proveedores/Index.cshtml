@@ -1,0 +1,145 @@
+﻿
+<aside class="row">
+
+    <article class="col-12 col-lg-3  border-R rounded-3 text-dark" id="form">
+
+        <section class="row text-center text-dark" style="background: #fff;">
+
+            <h3 class="p-1 ">
+                <span class="color-R">P</span>roveedor <img src="~/images/down.svg"
+                                                                alt="down" class="down" id="down">
+                <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
+            </h3>
+
+            <div class="text-light text-center" id="form-body">
+
+                <h4 class="pt-3">Registra un proveedor</h4>
+
+                @*Nombre*@
+                <div class="row pt-1">
+                    <h5>Nombre</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input type="text" class="txtForm">
+                </div>
+
+                @*Teléfono*@
+                <div class="row pt-1">
+                    <h5>Teléfono</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input type="text" class="txtForm">
+                </div>
+
+                @*Dirección*@
+                <div class="row pt-1">
+                    <h5>Dirección</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input type="text" class="txtForm">
+                </div>
+
+                @*Correo*@
+                <div class="row pt-1">
+                    <h5>Correo</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input type="text" class="txtForm">
+                </div>
+
+                @*Boton*@
+                <div class="row pt-3 mb-2 d-flex justify-content-center">
+                    <input type="button" value="Agregar" class="boton" style="width:80%; margin:auto;">
+                </div>
+
+                <br>
+             
+                <br />
+                @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            </div>
+        </section>
+    </article>
+
+    <article class="col-12 col-lg-9"></article>
+
+</aside>
+
+<br />
+
+
+<main class="container-fluid mt-5">
+    @* Titulo *@
+    <article class="row border-R text-center rounded-3">
+        <h1><span class="color-R">P</span>roveedor</h1>
+    </article>
+
+    @* Tabla2 *@
+    <article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
+
+        <table class="text-center">
+
+            <thead>
+
+                <tr class="border-R">
+                    <th class="border-R" id="nombre">
+                        Nombre
+                    </th>
+                    <th class="border-R">
+                        Teléfono
+                    </th>
+                    <th class="border-R" id="direccion">
+                        Dirección
+                    </th>
+                    <th class="border-R" id="correo">
+                        Correo
+                    </th>
+                    <th class="border-R" id="estado">
+                        Estado
+                    </th>
+                    <th class="border-R" id="detalles">
+                        Editar
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="border-R">000000</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">xxxxxxx</td>
+                    <td class="border-R">
+                        <label class="toggle-switch mt-2">
+                            <input type="checkbox">
+                            <div class="toggle-switch-background">
+                                <div class="toggle-switch-handle"></div>
+                            </div>
+                        </label>
+                    </td>
+                    <td class="border-R">
+                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </article>
+</main>
+
+@* NO HACER CASO ESTO SOLO ES PARA QUE FUNCIONE EL MENU *@
+@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+<aside class="row position-fixed fixed-bottom d-none" style="padding-right:1%;">
+    <article class="col-12 col-lg-9 "></article>
+    <article class="col-12 col-lg-3 border border-dark bg-R rounded-3" id="form-b"></article>
+</aside>
+@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+
+@section Scripts {
+    @{
+        <script src="~/js/despegable.js" asp-append-version="true"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

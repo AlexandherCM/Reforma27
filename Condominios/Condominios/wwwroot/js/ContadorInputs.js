@@ -1,16 +1,13 @@
 ﻿// Llama a la función al cargar la página para inicializar el número de inputs
 contarInputs();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('SelectEstado').addEventListener('change', (event) => {
+    let forms = document.getElementById("formsEstado");
+    let seletValue = event.target.value;
 
-    document.getElementById('SelectEstado').addEventListener('change', (event) => {
-        let forms = document.getElementById("formsEstado");
-        let seletValue = event.target.value;
-
-        if (parseInt(seletValue) != 0) {
-            forms.submit();
-        }
-    });
+    if (parseInt(seletValue) != 0) {
+        forms.submit();
+    }
 });
 
 document.getElementById('formsEquipo').addEventListener('submit', (event) => {

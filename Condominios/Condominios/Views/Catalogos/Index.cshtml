@@ -43,7 +43,7 @@
 
                 @* TABLA *@
 
-                <div class="row tabla-main  mb-2" style="margin: auto;">
+                <div class="row tabla-main mb-2" style="margin: auto;">
 
                     <table class="bg-light text-dark">
 
@@ -59,20 +59,15 @@
                         <tbody id="FilasMarcas">
                             @for (int i = 0; i < Model.Marcas.Count; i++)
                             {
-                                <form asp-action="UpdateById" id="UpdateMarca@(i)">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <tr>
-                                    <td class="border-R">
-                                            @Html.DisplayFor(model => Model.Marcas[i].Nombre)
-                                    </td>
+                                    <form id="UpdateMarca@(i)" class="formsInterno">
+                                        <input type="hidden" name="ID" value="@Model.Marcas[i].ID" />
+                                        <input type="hidden" name="Entidad" value="Marca" />
 
+                                    <td class="border-R">@Model.Marcas[i].Nombre</td>
                                     <td class="border-R">
-                                        <input type="hidden" asp-for="Entidad" value="Marca" />
-                                        <input type="hidden" asp-for="ID" value="@(Model.Marcas[i].ID)" />
                                         <label class="toggle-switch">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                            <input class="chbxMarcas" type="checkbox" asp-for="Marcas[i].Estado">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxMarcas" type="checkbox" checked="@Model.Marcas[i].Estado">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
@@ -84,9 +79,8 @@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/eye-solid.svg" />
                                     </td>
-
+                                    </form>
                                 </tr>
-                                </form>
                             }
                         </tbody>
 
@@ -262,7 +256,7 @@
                 @* FORMULARIO *@
 
                 <div class="row p-3">
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
+                    <form asp-action="NewCreate" class="row align-items-center d-flex justify-content-center p-1">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="Entidad" value="Periodo" />
                         <div class="row">

@@ -128,65 +128,48 @@
 
             <thead>
 
-               @* <tr class="border-R">
-                    <th class="border-R">
-                        @Html.DisplayNameFor(model => model.Capacidad)
-                    </th>
-                    <th class="border-R">
-                        @Html.DisplayNameFor(model => model.Estado)
-                    </th>
-                    <th class="border-R">
-                        @Html.DisplayNameFor(model => model.Marca)
-                    </th>
-                    <th class="border-R">
-                        @Html.DisplayNameFor(model => model.Motor)
-                    </th>
-                    <th class="border-R">
-                        @Html.DisplayNameFor(model => model.Periodo)
-                    </th>
-                    <th class="border-R">
-                        @Html.DisplayNameFor(model => model.TipoEquipo)
-                    </th>
-                    <th>Estado</th>
-                    <th>Editar</th>
-                </tr>*@
+                <tr class="border-R text-center">
+                    <th class="border">Tipo</th>
+                    <th class="border">Marca</th>
+                    <th class="border">Periodo</th>
+                    <th class="border">Voltaje</th>
+                    <th class="border">Capacidad</th>
+                    <th class="border" style="width:9%;">Estado del registro</th>
+                    <th class="border" style="width:5%;">Editar</th>
+                </tr>
             </thead>
             <tbody>
-                @*@foreach (var item in Model.variantes)
+                @for (int i = 0; i < Model.Variantes.Count; i++)
                 {
+                    <form asp-action="UpdateEstado" id="Update@(i)">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <tr>
+                        <td class="border-R">@Model.Variantes[i].TipoEquipo.Nombre</td>
+                        <td class="border-R">@Model.Variantes[i].Marca.Nombre</td>
+                        <td class="border-R">@Model.Variantes[i].Periodo.Nombre</td>
+                        <td class="border-R">@Model.Variantes[i].Motor.Nombre</td>
+                        <td class="border-R">@Model.Variantes[i].Capacidad</td>
                         <td class="border-R">
-                            @Html.DisplayFor(modelItem => item.Capacidad)
-                        </td>
-                        <td class="border-R">
-                            @Html.DisplayFor(modelItem => item.Estado)
-                        </td>
-                        <td class="border-R">
-                            @Html.DisplayFor(modelItem => item.Marca.Nombre)
-                        </td>
-                        <td class="border-R">
-                            @Html.DisplayFor(modelItem => item.Motor.Nombre)
-                        </td>
-                        <td class="border-R">
-                            @Html.DisplayFor(modelItem => item.Periodo.Nombre)
-                        </td>
-                        <td class="border-R">
-                            @Html.DisplayFor(modelItem => item.TipoEquipo.Nombre)
-                        </td>
-                        <td class="border-R">
-                            <label class="toggle-switch mt-2">
-                                <input type="checkbox" @(item.Estado ? "checked" : "")>
+                            <input type="hidden" class="UpdateID" id="UpdateId@(i)" asp-for="UpdateID" value="@(Model.Variantes[i].ID)" />
+                            <label class="toggle-switch">
+                                    
+                                <input class="chbxEstadoEquipo"
+                                   type="checkbox" asp-for="Variantes[i].Estado">
+                                    
                                 <div class="toggle-switch-background">
                                     <div class="toggle-switch-handle"></div>
                                 </div>
                             </label>
                         </td>
                         <td class="border-R">
-                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                            <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Variantes[i].ID)"/>
                         </td>
-
+                        @*<td class="border-R">
+                            <img src="~/images/pen-to-square-solid.svg" id="menu" class="BtnEditar edit" data-parametro="@(Model.Variantes[i].ID)" />
+                        </td>*@
                     </tr>
-                }*@
+                    </form>
+                }
             </tbody>
         </table>
     </article>
@@ -197,6 +180,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_ValidarForm");
+        <script src="~/js/TipoEquiposScripts/Editar.js"></script>
         <script src="~/js/despegable.js"></script>
     }
 }

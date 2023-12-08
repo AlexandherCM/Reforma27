@@ -2,6 +2,7 @@
 using Condominios.Models;
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
 
@@ -13,10 +14,6 @@ namespace Condominios.Data.Repositories.CtrlEquipos
         public VarianteRepository(Context context)
         {
             _context = context;
-        }
-
-        public VarianteRepository()
-        {
         }
 
         public async Task<List<VarianteDTO>> GetNormalList()
@@ -58,6 +55,31 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             return tipos;
         }
 
-      
+        public void Add(VarianteViewModel model, string medida)
+        {
+            Variante variante = new Variante()
+            {
+                MarcaID = model.VarianteEquipo.MarcaID,
+                MotorID = model.VarianteEquipo.MotorID,
+                PeriodoID = model.VarianteEquipo.PeriodoID,
+                TipoEquipoID = model.VarianteEquipo.TipoEquipoID,
+                Capacidad = model.VarianteEquipo.Capacidad(medida),
+                Estado = true
+            };
+
+            _context.Add(variante);
+        }
+
+        public async Task<List<Variante>> GetList()
+        {
+            var variantes = await _context.Variante.ToListAsync();
+            return variantes;
+        }
+
+        public async Task<Variante?> GetById(int id)
+        {
+            var variante = await _context.Variante.FirstOrDefaultAsync(c => c.ID == id);
+            return variante;
+        }
     }
 }

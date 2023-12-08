@@ -4,7 +4,7 @@ namespace Condominios.Data.Interfaces.IRepositories
 {
     public interface ICatalogoRepository<Entidad>
     {
-        public Entidad GetById(int id);
+        public Task<Entidad?> GetById(int id);
         public void UpdateEstateById(int id);
         public Task<List<Entidad>> GetList();
         public void Add(CatalogoViewModel viewModel);

@@ -6,8 +6,9 @@ namespace Condominios.Models.ViewModels.CtrolVarianteEquipo
 {
     public class VarianteViewModel
     {
+        public int UpdateID { get; set; }
         public VarianteEquipo VarianteEquipo { get; set; }
-        public List<Variante>   Variantes { get; set; }
+        public List<Variante> Variantes { get; set; }
         public SelectList? Marcas { get; set; }
         public SelectList? Motores { get; set; }
         public SelectList? Periodos { get; set; }

@@ -28,10 +28,21 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public Estatus GetById(int id)
+        public async Task<UnidadMedida?> GetById(int id)
         {
-            throw new NotImplementedException();
+            var NombreUnidad = await context.UnidadMedida.FirstOrDefaultAsync(c => c.ID == id);
+            if (NombreUnidad != null)
+            {
+                NombreUnidad.Nombre = NombreUnidad.Nombre ?? string.Empty;
+            }
+            return NombreUnidad;
         }
+
+
+
+
+
+
 
         public async Task<List<UnidadMedida>> GetList()
           => await context.UnidadMedida.ToListAsync();
@@ -45,11 +56,6 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             var unidadMedida = context.Find<UnidadMedida>(id);
             unidadMedida.Estado = !unidadMedida.Estado;
-        }
-
-        UnidadMedida ICatalogoRepository<UnidadMedida>.GetById(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

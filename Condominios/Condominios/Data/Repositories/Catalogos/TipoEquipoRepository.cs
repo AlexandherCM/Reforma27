@@ -27,7 +27,7 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public TipoEquipo GetById(int id)
+        public Task<TipoEquipo?> GetById(int id)
         {
             throw new NotImplementedException();
         }

@@ -33,15 +33,17 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public Marca GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public void UpdateEstateById(int id)
         {
             var Marca = context.Find<Marca>(id);
             Marca.Estado = !Marca.Estado;
+        }
+
+        public Task<Marca?> GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

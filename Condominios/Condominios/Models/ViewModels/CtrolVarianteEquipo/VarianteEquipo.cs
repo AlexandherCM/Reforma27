@@ -15,7 +15,7 @@ namespace Condominios.Models.ViewModels.CtrolVarianteEquipo
 
         public int TipoEquipoID { get; set; }
 
-        public string CapacidadValor { get; set; }
+        public string ?CapacidadValor { get; set; }
 
         public int CapacidadSelect { get; set; }
 

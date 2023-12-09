@@ -39,6 +39,13 @@ namespace Condominios.Services
             Variante variante = await _unitOfWork.VarianteRepository.GetById(id);
             return variante;
         }
+
+        public async Task Update(VarianteViewModel model)
+        {
+            UnidadMedida capacidadString = await _unitOfWork.UnidadMedidaRepository.GetById(model.VarianteEquipo.CapacidadSelect);
+            _unitOfWork.VarianteRepository.Update(model, capacidadString?.Nombre ?? string.Empty);
+            await _unitOfWork.Save();
+        }
     }
 }
     

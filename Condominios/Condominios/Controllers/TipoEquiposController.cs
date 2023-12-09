@@ -39,5 +39,11 @@ namespace Condominios.Controllers
             return jsonResult;
         }
 
+        public async Task<IActionResult> Actualizar(VarianteViewModel model)
+        {
+            await _service.Update(model);
+            return RedirectToAction("Index");
+        }
+
     }
 }

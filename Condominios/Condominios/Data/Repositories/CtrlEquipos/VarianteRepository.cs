@@ -81,5 +81,16 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             var variante = await _context.Variante.FirstOrDefaultAsync(c => c.ID == id);
             return variante;
         }
+
+        public void Update(VarianteViewModel model, string medida)
+        {
+            var variante = _context.Find<Variante>(model.VarianteEquipo.ID);
+
+            variante.MarcaID = model.VarianteEquipo.MarcaID;
+            variante.MotorID = model.VarianteEquipo.MotorID;
+            variante.PeriodoID = model.VarianteEquipo.PeriodoID;
+            variante.TipoEquipoID = model.VarianteEquipo.TipoEquipoID;
+            variante.Capacidad = model.VarianteEquipo.Capacidad(medida);
+        }
     }
 }

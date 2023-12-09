@@ -22,6 +22,8 @@
                 <form asp-action="Agregar" class="text-light text-center " id="form-body" onsubmit="return ValidarFormulario()">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                    <input type="hidden" asp-for="VarianteEquipo.ID" value="">
+
                     <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra clasificación de equipos</h3>
 
                     @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@

@@ -49,7 +49,7 @@ function CreateFormsListener(Propeties) {
         //add the object entity
         Propeties.Entity = Objetos.Entidad;
 
-        api.post('Catalogos/Create', CatalogoViewModel)
+        api.SendPost('Catalogos/Create', CatalogoViewModel)
             .then(data => {
                 let NameList = Propeties.List;
                 let list = data[NameList];
@@ -117,7 +117,8 @@ function AddNewFile(TheObject, Propeties) {
 
     // Asignar el listener al cambio del checkbox
     checkbox.addEventListener('change', () => {
-        console.log(`Forms: ${form.id}`);
+        //console.log(`Forms: ${form.id}`);
+        SendForm(form.id);
     });
 }
 

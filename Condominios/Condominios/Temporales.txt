@@ -18,6 +18,35 @@ foreach (var serie in viewModel.NumerosSerie)
 
 Hola Mundo ;3
 
+data set en los elementos
+
+row.innerHTML = `
+    <td class="border-R">${TheObject.nombre}</td>
+    <td class="border-R">
+        <label class="toggle-switch">
+            <input class="${Propeties.Chbx}" type="checkbox" data-form-id="${form.id}" checked="${TheObject.estado}">
+            <div class="toggle-switch-background">
+                <div class="toggle-switch-handle"></div>
+            </div>
+        </label>
+    </td>
+    <td class="border-R">
+        <img class="remover" src="../../images/pen-to-square-solid.svg" />
+    </td>
+    <td class="border-R">
+        <img class="remover" src="../../images/eye-solid.svg" />
+    </td>
+`;
+
+// Obtener el checkbox recién creado
+let nuevoCheckbox = row.querySelector(`.${Propeties.Chbx}`);
+
+// Asignar el manejador de eventos al cambio del checkbox
+nuevoCheckbox.addEventListener('change', () => {
+    CheckboxListeners(nuevoCheckbox, form.id);
+});
+
+
 
 <aside class="row position-fixed fixed-bottom" style="padding-right:1%;">
 

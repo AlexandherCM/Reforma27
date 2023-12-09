@@ -19,16 +19,6 @@ namespace Condominios.Controllers
             CatalogoViewModel model = await _service.ObtenerCatalogos();
             return View(model);
         }
-
-        //[Authorize(Roles = "Administrador, General")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> NewCreate(CatalogoViewModel model) 
-        //{
-        //    await _service.InsertarEntidad(model);
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         public async Task UpdateById([FromBody] CatalogoViewModel model)
         {
             await _service.ActualizarEstado(model);
@@ -41,6 +31,16 @@ namespace Condominios.Controllers
             CatalogoViewModel json = await _service.ObtenerCatalogos();
             return json;
         }
+
+        //[Authorize(Roles = "Administrador, General")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> NewCreate(CatalogoViewModel model) 
+        //{
+        //    await _service.InsertarEntidad(model);
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
 
         //public async Task<IActionResult> UpdateById(CatalogoViewModel model)
         //{

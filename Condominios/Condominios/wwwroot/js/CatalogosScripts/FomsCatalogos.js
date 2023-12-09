@@ -1,34 +1,40 @@
 ﻿const api = new ApiClient();
 
-//CheckboxListeners('.chbxMarcas', 'UpdateMarca');
-//CheckboxListeners('.chbxPeriodo', 'UpdatePeriodo');
-//CheckboxListeners('.chbxMotores', 'UpdateMotor');
-//CheckboxListeners('.chbxUbicaciones', 'UpdateUbicacion');
-//CheckboxListeners('.chbxEstatus', 'UpdateEstatus');
-//CheckboxListeners('.chbxTipoMantenimientos', 'UpdateTipoMantenimientos');
-//CheckboxListeners('.chbxTipoEquipo', 'UpdateTipoEquipo');
-//CheckboxListeners('.chbxUnidadMedida', 'UpdateUnidadMedida');
-
 const catalogos = {
     MarcasPropeties: {
         Forms: 'FormsCrearMarca',
-        TableRows: 'FilasMarcas',
+        TableRowsID: 'FilasMarcas',
+
+        ClassFormTable: 'FilaMarca',
         FormsRowID: 'UpdateMarca',
+
         Chbx: 'chbxMarcas',
-        Entity: 'Marca',
-        List: 'marcas'
+        List: 'marcas',
+        Entity: ''
+    },
+    UbicacionPropeties: {
+        Forms: 'FormsCrearUbicacion',
+        TableRowsID: 'FilasUbicacion',
+
+        ClassFormTable: 'FilaUbicacion',
+        FormsRowID: 'UpdateUbicacion',
+
+        Chbx: 'chbxUbicaciones',
+        List: 'ubicaciones',
+        Entity: ''
     }
 };
 
 CreateFormsListener(catalogos.MarcasPropeties);
+CreateFormsListener(catalogos.UbicacionPropeties);
 
 function CreateFormsListener(Propeties) {
     document.getElementById(Propeties.Forms).addEventListener('submit', (event) => {
         event.preventDefault();
-        // Obtener los datos del formulario
-        const formData = new FormData(event.target);
 
+        const formData = new FormData(event.target);
         const Objetos = {};
+
         formData.forEach((value, key) => {
             Objetos[key] = value;
         });
@@ -40,79 +46,79 @@ function CreateFormsListener(Propeties) {
             Entidad: Objetos.Entidad
         };
 
-        switch (Propeties.Entity) {
-            case catalogos.MarcasPropeties.Entity:
-                api.post('Catalogos/Create', CatalogoViewModel)
-                    .then(data => {
-                        let lista = Propeties.List;
-                        ActualizarTabla(data[lista], Propeties)
-                    })
-                    .catch(error => console.error('POST Error:', error));
-                break;
-        }
+        //add the object entity
+        Propeties.Entity = Objetos.Entidad;
 
+        api.post('Catalogos/Create', CatalogoViewModel)
+            .then(data => {
+                let NameList = Propeties.List;
+                let list = data[NameList];
+                let newObject = (list[list.length - 1]);
+
+                AddNewFile(newObject, Propeties)
+            })
+            .catch(error => console.error('POST Error:', error));
     });
 }
 
-function ActualizarTabla(Lista, Propeties) {
-    var tbody = document.getElementById(Propeties.TableRows);
-    tbody.innerHTML = "";
+function AddNewFile(TheObject, Propeties) {
+    let tbody = document.getElementById(Propeties.TableRowsID);
+    let formsCount = document.querySelectorAll(`.${Propeties.ClassFormTable}`).length;
 
-    for (var i = 0; i < Lista.length; i++) {
-        var objeto = Lista[i];
-        var newRow = tbody.insertRow();
+    // Crear el formulario
+    let form = document.createElement('form');
+    form.id = `${Propeties.FormsRowID}${formsCount}`;
+    form.className = Propeties.ClassFormTable;
 
-        // Crear la plantilla de la fila
-        var rowTemplate = `
-            <form id="${Propeties.FormsRowID}${i}" class="formsInterno">
-                <input type="hidden" name="ID" value="${objeto.id}" />
-                <input type="hidden" name="Entidad" value="${Propeties.Entity}" />
+    // Añadir los input al formulario
+    form.innerHTML = `
+        <input type="hidden" name="ID" value="${TheObject.id}" />
+        <input type="hidden" name="Entidad" value="${Propeties.Entity}" />
+    `;
 
-                <td class="border-R">${objeto.nombre}</td>
+    // Crear el checkbox
+    let checkbox = document.createElement('input');
+    checkbox.className = `${Propeties.Chbx}`;
+    checkbox.type = 'checkbox';
+    checkbox.dataset.formId = form.id;  // Asociar el ID del formulario al checkbox
+    checkbox.checked = TheObject.estado;
 
-                <td class="border-R">
-                    <label class="toggle-switch">
-                        <input class="${Propeties.Chbx}" type="checkbox" ${objeto.estado ? 'checked' : ''}>
-                        <div class="toggle-switch-background">
-                            <div class="toggle-switch-handle"></div>
-                        </div>
-                    </label>
-                </td>
+    // Crear el background
+    let background = document.createElement('div');
+    background.className = "toggle-switch-background";
+    background.innerHTML = `<div class="toggle-switch-handle"></div>`;
 
-                <td class="border-R">
-                    <img class="remover" src="../../images/pen-to-square-solid.svg" />
-                </td>
-                <td class="border-R">
-                    <img class="remover" src="../../images/eye-solid.svg" />
-                </td>
-            </form>
-        `;
-        // Establecer el contenido de las celdas con la plantilla
-        newRow.innerHTML = rowTemplate;
-    }
-}
+    // Crear la etiqueta del switch
+    let toggleSwitchLabel = document.createElement('label');
+    toggleSwitchLabel.className = 'toggle-switch';
+    toggleSwitchLabel.appendChild(checkbox);
+    toggleSwitchLabel.appendChild(background);
 
-//function CheckboxListeners(chbx, prefijo) {
-//    var checkboxes = document.querySelectorAll(chbx);
+    // Crear la fila
+    var row = document.createElement('tr');
+    row.innerHTML = 
+    `
+        <td class="border-R">${TheObject.nombre}</td>
+        <td class="border-R"></td> <!-- Espacio para el checkbox -->
+        <td class="border-R">
+            <img class="remover" src="../../images/pen-to-square-solid.svg" />
+        </td>
+        <td class="border-R">
+            <img class="remover" src="../../images/eye-solid.svg" />
+        </td>
+    `;
 
-//    for (var i = 0; i < checkboxes.length; i++) {
-//        checkboxes[i].addEventListener('change', createChangeListener(prefijo, i));
-//    }
-//}
+    // Insertar el toggle-switch en el espacio del checkbox
+    row.children[1].appendChild(toggleSwitchLabel);
 
-//onchange = "checkboxChanged(this, 'FormID')"
+    // Añadir el formulario y la fila al tbody
+    tbody.appendChild(form);
+    tbody.appendChild(row);
 
-function SendForm(FormID) {
-    //var formId = `${prefijo}${index}`;
-    //var form = document.getElementById(formId);
-
-    //const formData = new FormData(event.target);
-    const formData = new FormData(FormID);
-
-    const Objetos = {};
-    formData.forEach((value, key) => {
-        Objetos[key] = value;
+    // Asignar el listener al cambio del checkbox
+    checkbox.addEventListener('change', () => {
+        console.log(`Forms: ${form.id}`);
     });
-
-    console.log(Objetos);
 }
+
+

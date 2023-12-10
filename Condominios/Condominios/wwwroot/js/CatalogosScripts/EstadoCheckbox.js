@@ -1,20 +1,23 @@
 ﻿
-let checkboxes = document.getElementsByClassName('chbxMarcas');
+Object.keys(catalogos).forEach(key => {
 
-for (let i = 0; i < checkboxes.length; i++) {
-    CheckboxListeners(checkboxes[i], `UpdateMarca${i}`);
-}
+    let ChbxClass = catalogos[key].Chbx;
+    let checkboxes = document.getElementsByClassName(ChbxClass);
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        CheckboxListeners(checkboxes[i], `${catalogos[key].FormsRowID}${i}`);
+    }
+});
 
 function CheckboxListeners(Chbx, forms) {
     Chbx.addEventListener('change', (event) => {
         event.preventDefault();
 
-        //console.log(`Forms: ${forms}`);
-        SendForm(forms);
+        UpdateStatus(forms);
     });
 };
 
-function SendForm(FormID) {
+function UpdateStatus(FormID) {
     let api = new ApiClient();
 
     let form = document.getElementById(FormID);

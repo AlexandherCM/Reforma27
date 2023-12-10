@@ -144,7 +144,7 @@
                                     @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <label class="toggle-switch">
-                                            <input class="chbxMarcas" type="checkbox" checked="@Model.Ubicaciones[i].Estado">
+                                            <input class="chbxUbicaciones" type="checkbox" checked="@Model.Ubicaciones[i].Estado">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
@@ -177,19 +177,17 @@
                 @* FORMULARIO *@
 
                 <div class="row p-3">
-
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Motor" />
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <form id="FormsCrearMotor" class="row align-items-center d-flex justify-content-center p-1">
+                        <input type="hidden" name="Entidad" value="Motor" />
                         <div class="col-6">
-                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="text">
-                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                            <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
                         </div>
                     </form>
-
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 </div>
 
                 @* TABLA *@
@@ -207,37 +205,36 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="FilasMotor">
                             @for (int i = 0; i < Model.Motores.Count; i++)
                             {
-                                <form asp-action="UpdateById" id="UpdateMotor@(i)">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <form id="UpdateMotor@(i)" class="FilaMotor">
+                                    <input type="hidden" name="ID" value="@Model.Motores[i].ID" />
+                                    <input type="hidden" name="Entidad" value="Motor" />
+                                </form>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 <tr>
+                                    <td class="border-R">@Model.Motores[i].Nombre</td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
-                                            @Html.DisplayFor(model => Model.Motores[i].Nombre)
-                                    </td>
-
-                                    <td class="border-R">
-                                        <input type="hidden" asp-for="Entidad" value="Motor" />
-                                        <input type="hidden" asp-for="ID" value="@(Model.Motores[i].ID)" />
                                         <label class="toggle-switch">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                            <input class="chbxMotores" type="checkbox" asp-for="Motores[i].Estado">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxMotores" type="checkbox" checked="@Model.Motores[i].Estado">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
                                         </label>
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/pen-to-square-solid.svg" />
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/eye-solid.svg" />
                                     </td>
-
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 </tr>
-                                </form>
                             }
                         </tbody>
 
@@ -256,29 +253,29 @@
                 @* FORMULARIO *@
 
                 <div class="row p-3">
-                    <form asp-action="NewCreate" class="row align-items-center d-flex justify-content-center p-1">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Periodo" />
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <form asp-action="UpdateById" id="FormsCrearPeriodo" class="row align-items-center d-flex justify-content-center p-1">
+                        <input type="hidden" name="Entidad" value="Periodo" />
+
                         <div class="row">
                             <div class="col-6">
-
-                                <select asp-for="PeriodoViewModel.Mes" id="ddlUnidadTiempo" class="text">
+                                <select asp-for="PeriodoViewModel.Mes" id="ddlUnidadTiempo" name="Mes" class="text">
                                     <option value="">Selecciona el plazo de tiempo</option>
                                     <option value="true">Meses</option>
                                     <option value="false">Años</option>
                                 </select>
-                                <span asp-validation-for="PeriodoViewModel.Mes" id="ErrorMensaje" class="text-danger"></span>
+                                <span asp-validation-for="PeriodoViewModel.Mes" class="text-danger"></span>
                             </div>
                             <div class="col-6">
-                                <input asp-for="PeriodoViewModel.Cantidad" id="txtCantidad" type="number" placeholder="Cantidad" class="text" />
+                                <input asp-for="PeriodoViewModel.Cantidad" id="txtCantidad" name="Cantidad" type="number" placeholder="Cantidad" class="text" />
                                 <br />
-                                <span asp-validation-for="PeriodoViewModel.Cantidad" id="ErrorMensaje" class="text-danger"></span>
+                                <span asp-validation-for="PeriodoViewModel.Cantidad" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-6">
-                                <input asp-for="PeriodoViewModel.Nombre" id="txtNombrePlazo" type="text" placeholder="Nombre" class="text">
+                                <input asp-for="PeriodoViewModel.Nombre" id="txtNombrePlazo" name="Nombre" type="text" placeholder="Nombre" class="text">
                                 <span asp-validation-for="PeriodoViewModel.Nombre" class="text-danger"></span>
                             </div>
                             <div class="col-6">
@@ -286,7 +283,7 @@
                             </div>
                         </div>
                     </form>
-
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 </div>
 
                 @* TABLA *@
@@ -359,18 +356,17 @@
 
                 @* FORMULARIO *@
                 <div class="row p-3">
-
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="TipoMantenimiento" />
-                        <div class="col-7">
-                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
-                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <form id="FormsCrearTipoMTO" class="row align-items-center d-flex justify-content-center p-1">
+                        <input type="hidden" name="Entidad" value="TipoMantenimiento" />
+                        <div class="col-6">
+                            <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
                         </div>
                     </form>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 </div>
 
                 @* TABLA *@
@@ -388,37 +384,36 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="FilasTipoMTO">
                             @for (int i = 0; i < Model.TipoMantenimientos.Count; i++)
                             {
-                                <form asp-action="UpdateById" id="UpdateTipoMantenimientos@(i)">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <form id="UpdateTipoMTO@(i)" class="FilaTipoMTO">
+                                    <input type="hidden" name="ID" value="@Model.TipoMantenimientos[i].ID" />
+                                    <input type="hidden" name="Entidad" value="TipoMantenimiento" />
+                                </form>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 <tr>
+                                    <td class="border-R">@Model.TipoMantenimientos[i].Nombre</td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
-                                            @Html.DisplayFor(model => Model.TipoMantenimientos[i].Nombre)
-                                    </td>
-
-                                    <td class="border-R">
-                                        <input type="hidden" asp-for="Entidad" value="TipoMantenimiento" />
-                                        <input type="hidden" asp-for="ID" value="@(Model.TipoMantenimientos[i].ID)" />
                                         <label class="toggle-switch">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                            <input class="chbxTipoMantenimientos" type="checkbox" asp-for="TipoMantenimientos[i].Estado">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxTipoMTO" type="checkbox" checked="@Model.TipoMantenimientos[i].Estado">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
                                         </label>
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/pen-to-square-solid.svg" />
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/eye-solid.svg" />
                                     </td>
-
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 </tr>
-                                </form>
                             }
                         </tbody>
 
@@ -437,17 +432,17 @@
                 @* FORMULARIO *@
                 <div class="row p-3">
 
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="Estatus" />
-                        <div class="col-7">
-                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
-                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <form id="FormsCrearEstatus" class="row align-items-center d-flex justify-content-center p-1">
+                        <input type="hidden" name="Entidad" value="Estatus" />
+                        <div class="col-6">
+                            <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
                         </div>
                     </form>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
 
                 </div>
 
@@ -465,39 +460,38 @@
                                 <th class="border-R" style="width:25%;">Más información</th>
                             </tr>
                         </thead>
-
-                        @for (int i = 0; i < Model.Estatus.Count; i++)
-                        {
-                            <form asp-action="UpdateById" id="UpdateEstatus@(i)">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <tr>
-                                <td class="border-R">
-                                        @Html.DisplayFor(model => Model.Estatus[i].Nombre)
-                                </td>
-
-                                <td class="border-R">
-                                    <input type="hidden" asp-for="Entidad" value="Estatus" />
-                                    <input type="hidden" asp-for="ID" value="@(Model.Estatus[i].ID)" />
-                                    <label class="toggle-switch">
-                                            @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                        <input class="chbxEstatus" type="checkbox" asp-for="Estatus[i].Estado">
-                                            @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                        <div class="toggle-switch-background">
-                                            <div class="toggle-switch-handle"></div>
-                                        </div>
-                                    </label>
-                                </td>
-                                <td class="border-R">
-                                    <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                                </td>
-                                <td class="border-R">
-                                    <img class="remover" src="~/images/eye-solid.svg" />
-                                </td>
-
-                            </tr>
-                            </form>
-                        }
-
+                        <tbody id="FilasEstatus">
+                            @for (int i = 0; i < Model.Estatus.Count; i++)
+                            {
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <form id="UpdateEstatus@(i)" class="FilaEstatus">
+                                    <input type="hidden" name="ID" value="@Model.Estatus[i].ID" />
+                                    <input type="hidden" name="Entidad" value="Estatus" />
+                                </form>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <tr>
+                                    <td class="border-R">@Model.Estatus[i].Nombre</td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                    <td class="border-R">
+                                        <label class="toggle-switch">
+                                            <input class="chbxEstatus" type="checkbox" checked="@Model.Estatus[i].Estado">
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                </tr>
+                            }
+                        </tbody>
                     </table>
 
                 </div>
@@ -513,17 +507,17 @@
                 @* FORMULARIO *@
                 <div class="row p-3">
 
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="TipoEquipo" />
-                        <div class="col-7">
-                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
-                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <form id="FormsCrearTipoEquipo" class="row align-items-center d-flex justify-content-center p-1">
+                        <input type="hidden" name="Entidad" value="TipoEquipo" />
+                        <div class="col-6">
+                            <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
                         </div>
                     </form>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
 
                 </div>
 
@@ -542,37 +536,36 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="FilasTiposEquipo">
                             @for (int i = 0; i < Model.TipoEquipos.Count; i++)
                             {
-                                <form asp-action="UpdateById" id="UpdateTipoEquipo@(i)">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <form id="UpdateTiposEquipo@(i)" class="FilaTipoEquipo">
+                                    <input type="hidden" name="ID" value="@Model.TipoEquipos[i].ID" />
+                                    <input type="hidden" name="Entidad" value="TipoEquipo" />
+                                </form>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 <tr>
+                                    <td class="border-R">@Model.TipoEquipos[i].Nombre</td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
-                                            @Html.DisplayFor(model => Model.TipoEquipos[i].Nombre)
-                                    </td>
-
-                                    <td class="border-R">
-                                        <input type="hidden" asp-for="Entidad" value="TipoEquipo" />
-                                        <input type="hidden" asp-for="ID" value="@(Model.TipoEquipos[i].ID)" />
                                         <label class="toggle-switch">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                            <input class="chbxTipoEquipo" type="checkbox" asp-for="TipoEquipos[i].Estado">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxTipoEquipo" type="checkbox" checked="@Model.TipoEquipos[i].Estado">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
                                         </label>
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/pen-to-square-solid.svg" />
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/eye-solid.svg" />
                                     </td>
-
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 </tr>
-                                </form>
                             }
                         </tbody>
 
@@ -591,17 +584,17 @@
                 @* FORMULARIO *@
                 <div class="row p-3">
 
-                    <form asp-action="Create" class="row align-items-center d-flex justify-content-center p-1">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Entidad" value="UnidadMedida" />
-                        <div class="col-7">
-                            <input asp-for="CatalogoGralViewModel.Nombre" type="text" placeholder="Nombre" class="txt">
-                            <span asp-validation-for="CatalogoGralViewModel.Nombre" class="text-danger"></span>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <form id="FormsCrearUnidadMedida" class="row align-items-center d-flex justify-content-center p-1">
+                        <input type="hidden" name="Entidad" value="UnidadMedida" />
+                        <div class="col-6">
+                            <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
                         </div>
                     </form>
+                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
 
                 </div>
 
@@ -620,37 +613,36 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="FilasUnidadMedida">
                             @for (int i = 0; i < Model.unidadMedidas.Count; i++)
                             {
-                                <form asp-action="UpdateById" id="UpdateUnidadMedida@(i)">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <form id="UpdateUnidadMedida@(i)" class="FilaUnidadMedida">
+                                    <input type="hidden" name="ID" value="@Model.unidadMedidas[i].ID" />
+                                    <input type="hidden" name="Entidad" value="UnidadMedida" />
+                                </form>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 <tr>
+                                    <td class="border-R">@Model.unidadMedidas[i].Nombre</td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
-                                            @Html.DisplayFor(model => Model.unidadMedidas[i].Nombre)
-                                    </td>
-
-                                    <td class="border-R">
-                                        <input type="hidden" asp-for="Entidad" value="UnidadMedida" />
-                                        <input type="hidden" asp-for="ID" value="@(Model.unidadMedidas[i].ID)" />
                                         <label class="toggle-switch">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                            <input class="chbxUnidadMedida" type="checkbox" asp-for="unidadMedidas[i].Estado">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                            <input class="chbxUnidadMedida" type="checkbox" checked="@Model.unidadMedidas[i].Estado">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
                                         </label>
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/pen-to-square-solid.svg" />
                                     </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
                                         <img class="remover" src="~/images/eye-solid.svg" />
                                     </td>
-
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 </tr>
-                                </form>
                             }
                         </tbody>
 

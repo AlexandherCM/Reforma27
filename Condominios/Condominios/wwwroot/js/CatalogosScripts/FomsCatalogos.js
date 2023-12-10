@@ -22,34 +22,121 @@ const catalogos = {
         Chbx: 'chbxUbicaciones',
         List: 'ubicaciones',
         Entity: ''
+    },
+    MotorPropeties: {
+        Forms: 'FormsCrearMotor',
+        TableRowsID: 'FilasMotor',
+
+        ClassFormTable: 'FilaMotor',
+        FormsRowID: 'UpdateMotor',
+
+        Chbx: 'chbxMotores',
+        List: 'motores',
+        Entity: ''
+    },
+    PeriodoPropeties: {
+        Forms: 'FormsCrearPeriodo',
+        TableRowsID: 'FilasPeriodo',
+
+        ClassFormTable: 'FilaPeriodo',
+        FormsRowID: 'UpdatePeriodo',
+
+        Chbx: 'chbxPeriodo',
+        List: 'periodos',
+        Entity: ''
+    },
+    TipoMTOPropeties: {
+        Forms: 'FormsCrearTipoMTO',
+        TableRowsID: 'FilasTipoMTO',
+
+        ClassFormTable: 'FilaTipoMTO',
+        FormsRowID: 'UpdateTipoMTO',
+
+        Chbx: 'chbxTipoMTO',
+        List: 'tipoMantenimientos',
+        Entity: ''
+    },
+    EstatusPropeties: {
+        Forms: 'FormsCrearEstatus',
+        TableRowsID: 'FilasEstatus',
+
+        ClassFormTable: 'FilaEstatus',
+        FormsRowID: 'UpdateEstatus',
+
+        Chbx: 'chbxEstatus',
+        List: 'estatus',
+        Entity: ''
+    },
+    TipoEquipoPropeties: {
+        Forms: 'FormsCrearTipoEquipo',
+        TableRowsID: 'FilasTiposEquipo',
+
+        ClassFormTable: 'FilaTipoEquipo',
+        FormsRowID: 'UpdateTiposEquipo',
+
+        Chbx: 'chbxTipoEquipo',
+        List: 'tipoEquipos',
+        Entity: ''
+    },
+    UnidadMedidaPropeties: {
+        Forms: 'FormsCrearUnidadMedida',
+        TableRowsID: 'FilasUnidadMedida',
+
+        ClassFormTable: 'FilaUnidadMedida',
+        FormsRowID: 'UpdateUnidadMedida',
+
+        Chbx: 'chbxUnidadMedida',
+        List: 'unidadMedidas',
+        Entity: ''
     }
 };
 
-CreateFormsListener(catalogos.MarcasPropeties);
-CreateFormsListener(catalogos.UbicacionPropeties);
+Object.keys(catalogos).forEach(key => {
+    const catalogo = catalogos[key];
+
+    CreateFormsListener(catalogo);
+});
 
 function CreateFormsListener(Propeties) {
     document.getElementById(Propeties.Forms).addEventListener('submit', (event) => {
+
         event.preventDefault();
 
-        const formData = new FormData(event.target);
+        let ViewModel = {};
         const Objetos = {};
+        const formData = new FormData(event.target);
+
 
         formData.forEach((value, key) => {
             Objetos[key] = value;
         });
 
-        var CatalogoViewModel = {
-            CatalogoGralViewModel: {
-                Nombre: Objetos.Nombre
-            },
-            Entidad: Objetos.Entidad
-        };
+        if (Objetos.Entidad === 'Periodo')
+        {
+            ViewModel = {
+                CatalogoGralViewModel : { },
+                PeriodoViewModel: {
+                    Nombre: Objetos.Nombre,
+                    Cantidad : Objetos.Cantidad,
+                    Mes: Objetos.Mes
+                },
+                Entidad: Objetos.Entidad
+            };
+        }
+        else
+        {
+            ViewModel = {
+                CatalogoGralViewModel: {
+                    Nombre: Objetos.Nombre
+                },
+                Entidad: Objetos.Entidad
+            };
+        }
 
         //add the object entity
         Propeties.Entity = Objetos.Entidad;
 
-        api.SendPost('Catalogos/Create', CatalogoViewModel)
+        api.SendPost('Catalogos/Create', ViewModel)
             .then(data => {
                 let NameList = Propeties.List;
                 let list = data[NameList];
@@ -96,8 +183,8 @@ function AddNewFile(TheObject, Propeties) {
 
     // Crear la fila
     var row = document.createElement('tr');
-    row.innerHTML = 
-    `
+    row.innerHTML =
+        `
         <td class="border-R">${TheObject.nombre}</td>
         <td class="border-R"></td> <!-- Espacio para el checkbox -->
         <td class="border-R">
@@ -118,7 +205,7 @@ function AddNewFile(TheObject, Propeties) {
     // Asignar el listener al cambio del checkbox
     checkbox.addEventListener('change', () => {
         //console.log(`Forms: ${form.id}`);
-        SendForm(form.id);
+        UpdateStatus(form.id);
     });
 }
 

@@ -123,7 +123,7 @@
 
                         <thead>
                             <tr class="border-R text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Ubicación</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
                                 <th class="border-R" style="width:25%;">Más información</th>
@@ -198,7 +198,7 @@
 
                         <thead>
                             <tr class="border-R text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Voltage</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
                                 <th class="border-R" style="width:25%;">Más información</th>
@@ -294,7 +294,7 @@
 
                         <thead>
                             <tr class="border text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Periodo</th>
                                 <th class="border-R">Meses</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
@@ -302,40 +302,36 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="FilasPeriodo">
                             @for (int i = 0; i < Model.Periodos.Count; i++)
-                            {
-                                    <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <tr>
-                                        <td class="border-R">
-                                            @Html.DisplayFor(model => Model.Periodos[i].Nombre)
-                                        </td>
-                                        <td class="border-R">
-                                            @Html.DisplayFor(model => Model.Periodos[i].Meses)
-                                        </td>
-
-                                        <td class="border-R">
-                                            <input type="hidden" asp-for="Entidad" value="Periodo" />
-                                            <input type="hidden" asp-for="ID" value="@(Model.Periodos[i].ID)" />
-                                            <label class="toggle-switch">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                                <input class="chbxPeriodo" type="checkbox" asp-for="Periodos[i].Estado">
-                                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                                                <div class="toggle-switch-background">
-                                                    <div class="toggle-switch-handle"></div>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-R">
-                                            <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                                        </td>
-                                        <td class="border-R">
-                                            <img class="remover" src="~/images/eye-solid.svg" />
-                                        </td>
-
-                                    </tr>
-                                    </form>
+                            { @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <form id="UpdatePeriodo@(i)" class="FilaPeriodo">
+                                    <input type="hidden" name="ID" value="@Model.Periodos[i].ID" />
+                                    <input type="hidden" name="Entidad" value="Periodo" />
+                                </form>
+                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                <tr>
+                                    <td class="border-R">@Model.Periodos[i].Nombre</td>
+                                    <td class="border-R">@Model.Periodos[i].Meses</td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                    <td class="border-R">
+                                        <label class="toggle-switch">
+                                            <input class="chbxPeriodo" type="checkbox" checked="@Model.Periodos[i].Estado">
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
+                                    </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                    <td class="border-R">
+                                        <img class="remover" src="~/images/eye-solid.svg" />
+                                    </td>
+                                    @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                                </tr>
                             }
                         </tbody>
 
@@ -377,7 +373,7 @@
 
                         <thead>
                             <tr class="border-R text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Tipo</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
                                 <th class="border-R" style="width:25%;">Más información</th>
@@ -427,7 +423,7 @@
         <section class="col-12 col-md-6 col-lg-4 rounded-3">
             <div class="border-R h-100 rounded-3 mt-2 p-2">
 
-                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar un estatus</b></h3>
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar estatus</b></h3>
 
                 @* FORMULARIO *@
                 <div class="row p-3">
@@ -454,7 +450,7 @@
 
                         <thead>
                             <tr class="border-R text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Estatus</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
                                 <th class="border-R" style="width:25%;">Más información</th>
@@ -502,7 +498,7 @@
         <section class="col-12 col-md-6 col-lg-4 rounded-3">
             <div class="border-R h-100 rounded-3 mt-2 p-2">
 
-                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar un tipo de equipo</b></h3>
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar tipo de equipo</b></h3>
 
                 @* FORMULARIO *@
                 <div class="row p-3">
@@ -529,7 +525,7 @@
 
                         <thead>
                             <tr class="border-R text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Tipo</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
                                 <th class="border-R" style="width:25%;">Más información</th>
@@ -579,7 +575,7 @@
         <section class="col-12 col-md-6 col-lg-4 rounded-3">
             <div class="border-R h-100 rounded-3 mt-2 p-2">
 
-                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar una nueva unidad de Medida</b></h3>
+                <h3 class="pt-2"><b> <span class="color-R">R</span>egistrar unidad de Medida</b></h3>
 
                 @* FORMULARIO *@
                 <div class="row p-3">
@@ -606,7 +602,7 @@
 
                         <thead>
                             <tr class="border-R text-center">
-                                <th class="border-R">Marca</th>
+                                <th class="border-R">Unidad</th>
                                 <th class="border-R" style="width:27%;">Estado de registro</th>
                                 <th class="border-R">Editar</th>
                                 <th class="border-R" style="width:25%;">Más información</th>

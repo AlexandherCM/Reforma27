@@ -111,20 +111,17 @@ function CreateFormsListener(Propeties) {
             Objetos[key] = value;
         });
 
-        if (Objetos.Entidad === 'Periodo')
-        {
+        if (Objetos.Entidad === 'Periodo') {
             ViewModel = {
-                CatalogoGralViewModel : { },
                 PeriodoViewModel: {
                     Nombre: Objetos.Nombre,
-                    Cantidad : Objetos.Cantidad,
-                    Mes: Objetos.Mes
+                    Cantidad: parseInt(Objetos.Cantidad),
+                    Mes: Objetos.Mes.toLowerCase() === 'true' 
                 },
                 Entidad: Objetos.Entidad
             };
         }
-        else
-        {
+        else {
             ViewModel = {
                 CatalogoGralViewModel: {
                     Nombre: Objetos.Nombre
@@ -183,8 +180,27 @@ function AddNewFile(TheObject, Propeties) {
 
     // Crear la fila
     var row = document.createElement('tr');
-    row.innerHTML =
-        `
+
+    if (Propeties.Entity === 'Periodo') {
+        row.innerHTML =
+            `
+        <td class="border-R">${TheObject.nombre}</td>
+        <td class="border-R">${TheObject.meses}</td>
+        <td class="border-R"></td> <!-- Espacio para el checkbox -->
+        <td class="border-R">
+            <img class="remover" src="../../images/pen-to-square-solid.svg" />
+        </td>
+        <td class="border-R">
+            <img class="remover" src="../../images/eye-solid.svg" />
+        </td>
+    `;
+
+        // Insertar el toggle-switch en el espacio del checkbox
+        row.children[2].appendChild(toggleSwitchLabel);
+
+    } else {
+        row.innerHTML =
+            `
         <td class="border-R">${TheObject.nombre}</td>
         <td class="border-R"></td> <!-- Espacio para el checkbox -->
         <td class="border-R">
@@ -195,8 +211,10 @@ function AddNewFile(TheObject, Propeties) {
         </td>
     `;
 
-    // Insertar el toggle-switch en el espacio del checkbox
-    row.children[1].appendChild(toggleSwitchLabel);
+        // Insertar el toggle-switch en el espacio del checkbox
+        row.children[1].appendChild(toggleSwitchLabel);
+    }
+
 
     // Añadir el formulario y la fila al tbody
     tbody.appendChild(form);

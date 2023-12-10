@@ -30,11 +30,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public Estatus GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(Estatus entity)
         {
             throw new NotImplementedException();
@@ -44,6 +39,11 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             var estatus = context.Find<Estatus>(id);
             estatus.Estado = !estatus.Estado;
+        }
+
+        public Task<Estatus?> GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

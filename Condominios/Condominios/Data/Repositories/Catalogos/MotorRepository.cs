@@ -35,15 +35,15 @@ namespace Condominios.Data.Repositories.Catalogos
         }
 
 
-        public Motor GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateEstateById(int id)
         {
             var Motor = context.Find<Motor>(id);
             Motor.Estado = !Motor.Estado;
+        }
+
+        public Task<Motor?> GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

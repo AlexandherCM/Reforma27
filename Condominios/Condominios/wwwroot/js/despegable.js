@@ -1,4 +1,7 @@
-﻿//Despegable 1
+﻿const api = new ApiClient()
+
+
+//Despegable 1
 var up = document.getElementById("up");
 var down = document.getElementById("down");
 var form = document.getElementById("form");
@@ -17,7 +20,6 @@ down.onclick = function () {
     up.classList.remove('d-none');
     down.classList.add('d-none');
 }
-
 
 //Despegable 2
 var up1 = document.getElementById("up1");

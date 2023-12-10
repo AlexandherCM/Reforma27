@@ -31,11 +31,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public TipoMantenimiento GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(TipoMantenimiento entity)
         {
             throw new NotImplementedException();
@@ -45,6 +40,11 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             var TipoMantenimiento = context.Find<TipoMantenimiento>(id);
             TipoMantenimiento.Estado = !TipoMantenimiento.Estado;
+        }
+
+        public Task<TipoMantenimiento?> GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

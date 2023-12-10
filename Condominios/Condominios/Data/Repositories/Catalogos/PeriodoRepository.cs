@@ -37,12 +37,13 @@ namespace Condominios.Data.Repositories.Catalogos
             periodo.Estado = !periodo.Estado;
         }
 
-        public Periodo GetById(int id)
+
+        public void Update(Periodo entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Periodo entity)
+        public Task<Periodo?> GetById(int id)
         {
             throw new NotImplementedException();
         }

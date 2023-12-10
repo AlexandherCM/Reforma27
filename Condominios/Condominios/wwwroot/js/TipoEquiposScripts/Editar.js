@@ -1,4 +1,6 @@
-﻿//Abrir despegable
+﻿const api = new ApiClient();
+
+//Abrir despegable
 document.addEventListener('DOMContentLoaded', () => {
 
     var BtnEditar = document.querySelectorAll('.remover');

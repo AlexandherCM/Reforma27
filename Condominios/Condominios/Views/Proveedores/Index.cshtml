@@ -122,12 +122,8 @@
                         <td class="border-R">@Model.Proveedor[i].Direccion</td>
                         <td class="border-R">@Model.Proveedor[i].Correo</td>
                         <td class="border-R">
-                            <input type="hidden" class="UpdateID" id="UpdateId@(i)" asp-for="UpdateID" value="@(Model.Proveedor[i].ID)" />
                             <label class="toggle-switch">
-
-                                <input class="chbxEstadoEquipo"
-                                       type="checkbox" asp-for="Proveedor[i].Estado">
-
+                                <input class="chbxEstado" data-url="Proveedores/UpdateStatus/" type="checkbox" checked="@Model.Proveedor[i].Estado" value="@(Model.Proveedor[i].ID)">
                                 <div class="toggle-switch-background">
                                     <div class="toggle-switch-handle"></div>
                                 </div>
@@ -159,6 +155,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script src="~/js/ProveedorScripts/ValidarProveedor.js"></script>
         <script src="~/js/ProveedorScripts/Editar.js"></script>
+        <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
         <script src="~/js/despegable.js"></script>
     }
 }

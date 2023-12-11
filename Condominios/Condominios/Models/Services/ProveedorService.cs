@@ -39,5 +39,12 @@ namespace Condominios.Models.Services
             _unitOfWork.ProveedoreRepository.Update(model);
             await _unitOfWork.Save();
         }
+
+        public async Task<Proveedor> ActualizarEstado(int id)
+        {
+            Proveedor proveedor = await _unitOfWork.ProveedoreRepository.UpdateID(id);
+            await _unitOfWork.Save();
+            return proveedor;
+        }
     }
 }

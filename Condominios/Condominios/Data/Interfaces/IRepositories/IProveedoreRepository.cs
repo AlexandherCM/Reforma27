@@ -11,5 +11,6 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<List<Entidad>> GetList();
         public Task<Proveedor?> GetById(int id);
         public void Update(ProveedoresViewModel model);
+        public Task<Proveedor?> UpdateID(int id);
     }
 }

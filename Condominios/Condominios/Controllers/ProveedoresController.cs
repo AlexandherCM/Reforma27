@@ -42,5 +42,10 @@ namespace Condominios.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task UpdateStatus(int id)
+        {
+            await _service.ActualizarEstado(id);
+        }
+
     }
 }

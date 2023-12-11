@@ -50,5 +50,12 @@ namespace Condominios.Data.Repositories.Catalogos
             proveedor.Direccion = model.Direccion;
             proveedor.Correo = model.Correo;
         }
+
+        public async Task<Proveedor?> UpdateID(int id)
+        {
+            var proveedor = await _context.Proveedor.FirstOrDefaultAsync(c => c.ID == id);
+            proveedor.Estado = !proveedor.Estado;
+            return proveedor;
+        }
     }
 }

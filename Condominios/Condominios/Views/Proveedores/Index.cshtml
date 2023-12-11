@@ -1,4 +1,5 @@
-﻿
+﻿@model Condominios.Models.ViewModels.CtrolProveedores.ProveedoresViewModel
+
 <aside class="row">
 
     <article class="col-12 col-lg-3  border-R rounded-3 text-dark" id="form">
@@ -11,7 +12,10 @@
                 <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
             </h3>
 
-            <div class="text-light text-center" id="form-body">
+            <form asp-action="Agregar" class="text-light text-center" id="form-body" onsubmit="return ValidarFormulario()">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="ID" value="">
 
                 <h4 class="pt-3">Registra un proveedor</h4>
 
@@ -20,7 +24,8 @@
                     <h5>Nombre</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input type="text" class="txtForm">
+                    <input asp-for="Nombre" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <span id="NombreError" class="text-danger" style="display: none;"></span>
                 </div>
 
                 @*Teléfono*@
@@ -28,7 +33,8 @@
                     <h5>Teléfono</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input type="text" class="txtForm">
+                    <input asp-for="Numero" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <span id="NumeroError" class="text-danger" style="display: none;"></span>
                 </div>
 
                 @*Dirección*@
@@ -36,7 +42,8 @@
                     <h5>Dirección</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input type="text" class="txtForm">
+                    <input asp-for="Direccion" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <span id="DireccionError" class="text-danger" style="display: none;"></span>
                 </div>
 
                 @*Correo*@
@@ -44,19 +51,20 @@
                     <h5>Correo</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input type="text" class="txtForm">
+                    <input asp-for="Correo" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <span id="CorreoError" class="text-danger" style="display: none;"></span>
                 </div>
 
                 @*Boton*@
                 <div class="row pt-3 mb-2 d-flex justify-content-center">
-                    <input type="button" value="Agregar" class="boton" style="width:80%; margin:auto;">
+                    <input type="submit" value="Agregar" class="boton" style="width:80%; margin:auto;" formnovalidate>
                 </div>
 
                 <br>
              
                 <br />
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            </div>
+            </form>
         </section>
     </article>
 
@@ -104,24 +112,33 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td class="border-R">000000</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">
-                        <label class="toggle-switch mt-2">
-                            <input type="checkbox">
-                            <div class="toggle-switch-background">
-                                <div class="toggle-switch-handle"></div>
-                            </div>
-                        </label>
-                    </td>
-                    <td class="border-R">
-                        <img class="remover" src="~/images/pen-to-square-solid.svg" />
-                    </td>
-                </tr>
+                @for (int i = 0; i < Model.Proveedor.Count; i++)
+                {
+                    <form asp-action="UpdateEstado" id="Update@(i)">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <tr>
+                        <td class="border-R">@Model.Proveedor[i].Nombre</td>
+                        <td class="border-R">@Model.Proveedor[i].Telefono</td>
+                        <td class="border-R">@Model.Proveedor[i].Direccion</td>
+                        <td class="border-R">@Model.Proveedor[i].Correo</td>
+                        <td class="border-R">
+                            <input type="hidden" class="UpdateID" id="UpdateId@(i)" asp-for="UpdateID" value="@(Model.Proveedor[i].ID)" />
+                            <label class="toggle-switch">
 
+                                <input class="chbxEstadoEquipo"
+                                       type="checkbox" asp-for="Proveedor[i].Estado">
+
+                                <div class="toggle-switch-background">
+                                    <div class="toggle-switch-handle"></div>
+                                </div>
+                            </label>
+                        </td>
+                        <td class="border-R">
+                            <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Proveedor[i].ID)" />
+                        </td>
+                    </tr>
+                    </form>
+                }
             </tbody>
 
         </table>
@@ -139,7 +156,9 @@
 
 @section Scripts {
     @{
-        <script src="~/js/despegable.js" asp-append-version="true"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/ProveedorScripts/ValidarProveedor.js"></script>
+        <script src="~/js/ProveedorScripts/Editar.js"></script>
+        <script src="~/js/despegable.js"></script>
     }
 }

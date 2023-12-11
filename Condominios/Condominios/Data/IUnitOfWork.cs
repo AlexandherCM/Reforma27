@@ -19,6 +19,7 @@ namespace Condominios.Data
         public ICatalogoRepository<TipoEquipo> TipoEquipoRepository { get; }
         public ICatalogoRepository<TipoMantenimiento> TipoMtoRepository { get; }
         public IVarianteRepository<VarianteDTO> VarianteRepository { get; }
+        public IProveedoreRepository<Proveedor> ProveedoreRepository { get; }
         public Task Save();
     }
 }

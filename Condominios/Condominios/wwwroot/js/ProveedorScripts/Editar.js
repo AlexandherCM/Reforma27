@@ -1,12 +1,9 @@
 ﻿const api = new ApiClient();
 
-//Abrir despegable
 document.addEventListener('DOMContentLoaded', () => {
 
     var BtnEditar = document.querySelectorAll('.remover');
-
-    var ContenedorDiv = document.getElementById("form-body");
-    var Formulario = ContenedorDiv.querySelector("form");
+    var Formulario = document.querySelector("form");
     var BotonEnviar = Formulario.querySelector('[type="submit"]');
 
     BtnEditar.forEach(function (element) {
@@ -42,46 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function ConsultaGET(Parametro) {
-        api.get(`TipoEquipos/ObtenerRegistro/${Parametro}`)
+        api.get(`Proveedores/ObtenerRegistro/${Parametro}`)
             .then(data => {
-                var CapacidadValue = data.capacidad;
-                var CapacidadInt = parseInt(CapacidadValue);
-                var CapacidadString = CapacidadValue.replace(/[0-9\s]/g, '');
 
-                var CapacidadSelect = document.getElementById("VarianteEquipo_CapacidadSelect");
-                document.getElementById("VarianteEquipo_MarcaID").value = data.marcaID;
-                document.getElementById("VarianteEquipo_MotorID").value = data.motorID;
-                document.getElementById("VarianteEquipo_PeriodoID").value = data.periodoID;
-                document.getElementById("VarianteEquipo_TipoEquipoID").value = data.tipoEquipoID;
-                document.getElementById("VarianteEquipo_CapacidadValor").value = CapacidadInt;
-                document.getElementById("VarianteEquipo_ID").value = data.id;
-
-                for (let i = 0; i < CapacidadSelect.options.length; i++) {
-                    const option = CapacidadSelect.options[i];
-                    if (CapacidadString.trim() === '') {
-                        option.selectedIndex = 0;
-                        break;
-                    } else if (option.text.trim() === CapacidadString.trim()) {
-                        option.selected = true;
-                        break;
-                    }
-                }
-                Formulario.action = "/TipoEquipos/Actualizar";
+                document.getElementById("ID").value = data.id;
+                document.getElementById("Nombre").value = data.nombre;
+                document.getElementById("Numero").value = data.telefono;
+                document.getElementById("Direccion").value = data.direccion;
+                document.getElementById("Correo").value = data.correo;
+                Formulario.action = "/Proveedores/Actualizar";
                 BotonEnviar.value = "Actualizar";
 
             })
             .catch(error => console.error('GET Error:', error));
     }
 
-
     function borrarDatosObtenidos() {
-        document.getElementById("VarianteEquipo_MarcaID").value = "";
-        document.getElementById("VarianteEquipo_MotorID").value = "";
-        document.getElementById("VarianteEquipo_PeriodoID").value = "";
-        document.getElementById("VarianteEquipo_TipoEquipoID").value = "";
-        document.getElementById("VarianteEquipo_CapacidadValor").value = "";
+        document.getElementById("ID").value = "";
+        document.getElementById("Nombre").value = "";
+        document.getElementById("Numero").value = "";
+        document.getElementById("Direccion").value = "";
+        document.getElementById("Correo").value = "";
     }
 });
-
-
-

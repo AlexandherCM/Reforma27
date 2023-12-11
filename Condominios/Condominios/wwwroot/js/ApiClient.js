@@ -1,10 +1,12 @@
 ﻿class ApiClient {
 
+    // Utiliza este metodo para mandar parametros a un controlador y recibir un JSON 
     async get(endpoint) {
         const response = await fetch(endpoint);
         return await response.json();
     }
-        
+
+    //Utiliza este metodo para pasar objetos a un controlador y recibir un JSON
     async SetPost(endpoint, data) {
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -15,6 +17,7 @@
         });
     }
 
+    //Utiliza este metodo solo para pasar objetos a un controlador
     async SendPost(endpoint, data) {
         const response = await fetch(endpoint, {
             method: 'POST',

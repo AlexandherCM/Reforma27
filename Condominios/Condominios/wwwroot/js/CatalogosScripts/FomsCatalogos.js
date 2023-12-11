@@ -1,96 +1,5 @@
 ﻿const api = new ApiClient();
 
-const catalogos = {
-    MarcasPropeties: {
-        Forms: 'FormsCrearMarca',
-        TableRowsID: 'FilasMarcas',
-
-        ClassFormTable: 'FilaMarca',
-        FormsRowID: 'UpdateMarca',
-
-        Chbx: 'chbxMarcas',
-        List: 'marcas',
-        Entity: ''
-    },
-    UbicacionPropeties: {
-        Forms: 'FormsCrearUbicacion',
-        TableRowsID: 'FilasUbicacion',
-
-        ClassFormTable: 'FilaUbicacion',
-        FormsRowID: 'UpdateUbicacion',
-
-        Chbx: 'chbxUbicaciones',
-        List: 'ubicaciones',
-        Entity: ''
-    },
-    MotorPropeties: {
-        Forms: 'FormsCrearMotor',
-        TableRowsID: 'FilasMotor',
-
-        ClassFormTable: 'FilaMotor',
-        FormsRowID: 'UpdateMotor',
-
-        Chbx: 'chbxMotores',
-        List: 'motores',
-        Entity: ''
-    },
-    PeriodoPropeties: {
-        Forms: 'FormsCrearPeriodo',
-        TableRowsID: 'FilasPeriodo',
-
-        ClassFormTable: 'FilaPeriodo',
-        FormsRowID: 'UpdatePeriodo',
-
-        Chbx: 'chbxPeriodo',
-        List: 'periodos',
-        Entity: ''
-    },
-    TipoMTOPropeties: {
-        Forms: 'FormsCrearTipoMTO',
-        TableRowsID: 'FilasTipoMTO',
-
-        ClassFormTable: 'FilaTipoMTO',
-        FormsRowID: 'UpdateTipoMTO',
-
-        Chbx: 'chbxTipoMTO',
-        List: 'tipoMantenimientos',
-        Entity: ''
-    },
-    EstatusPropeties: {
-        Forms: 'FormsCrearEstatus',
-        TableRowsID: 'FilasEstatus',
-
-        ClassFormTable: 'FilaEstatus',
-        FormsRowID: 'UpdateEstatus',
-
-        Chbx: 'chbxEstatus',
-        List: 'estatus',
-        Entity: ''
-    },
-    TipoEquipoPropeties: {
-        Forms: 'FormsCrearTipoEquipo',
-        TableRowsID: 'FilasTiposEquipo',
-
-        ClassFormTable: 'FilaTipoEquipo',
-        FormsRowID: 'UpdateTiposEquipo',
-
-        Chbx: 'chbxTipoEquipo',
-        List: 'tipoEquipos',
-        Entity: ''
-    },
-    UnidadMedidaPropeties: {
-        Forms: 'FormsCrearUnidadMedida',
-        TableRowsID: 'FilasUnidadMedida',
-
-        ClassFormTable: 'FilaUnidadMedida',
-        FormsRowID: 'UpdateUnidadMedida',
-
-        Chbx: 'chbxUnidadMedida',
-        List: 'unidadMedidas',
-        Entity: ''
-    }
-};
-
 Object.keys(catalogos).forEach(key => {
     const catalogo = catalogos[key];
 
@@ -116,7 +25,7 @@ function CreateFormsListener(Propeties) {
                 PeriodoViewModel: {
                     Nombre: Objetos.Nombre,
                     Cantidad: parseInt(Objetos.Cantidad),
-                    Mes: Objetos.Mes.toLowerCase() === 'true' 
+                    Mes: Objetos.Mes.toLowerCase() === 'true'
                 },
                 Entidad: Objetos.Entidad
             };
@@ -181,40 +90,27 @@ function AddNewFile(TheObject, Propeties) {
     // Crear la fila
     var row = document.createElement('tr');
 
-    if (Propeties.Entity === 'Periodo') {
-        row.innerHTML =
-            `
-        <td class="border-R">${TheObject.nombre}</td>
-        <td class="border-R">${TheObject.meses}</td>
-        <td class="border-R"></td> <!-- Espacio para el checkbox -->
-        <td class="border-R">
-            <img class="remover" src="../../images/pen-to-square-solid.svg" />
-        </td>
-        <td class="border-R">
-            <img class="remover" src="../../images/eye-solid.svg" />
-        </td>
+    row.innerHTML = `
+    <td class="border-R">${TheObject.nombre}</td>
+
+    ${Propeties.Entity === 'Periodo'
+            ? '<td class="border-R">' + TheObject.meses + '</td>' : ''
+        }
+    <td class="border-R"></td> <!-- Espacio para el checkbox -->
+    <td class="border-R">
+        <img class="remover" src="../../images/pen-to-square-solid.svg" />
+    </td>
+
+    ${Propeties.Entity === 'Marca' ?
+        '<td class="border-R" >' +
+            '<img class="remover" src="../../images/eye-solid.svg" />' +
+        '</td >' : ''
+        }
     `;
 
-        // Insertar el toggle-switch en el espacio del checkbox
-        row.children[2].appendChild(toggleSwitchLabel);
-
-    } else {
-        row.innerHTML =
-            `
-        <td class="border-R">${TheObject.nombre}</td>
-        <td class="border-R"></td> <!-- Espacio para el checkbox -->
-        <td class="border-R">
-            <img class="remover" src="../../images/pen-to-square-solid.svg" />
-        </td>
-        <td class="border-R">
-            <img class="remover" src="../../images/eye-solid.svg" />
-        </td>
-    `;
-
-        // Insertar el toggle-switch en el espacio del checkbox
-        row.children[1].appendChild(toggleSwitchLabel);
-    }
-
+    // Ajustar el índice para insertar el toggle-switch
+    const toggleSwitchIndex = Propeties.Entity === 'Periodo' ? 2 : 1;
+    row.children[toggleSwitchIndex].appendChild(toggleSwitchLabel);
 
     // Añadir el formulario y la fila al tbody
     tbody.appendChild(form);

@@ -41,7 +41,7 @@ document.getElementById('formsEquipo').addEventListener('submit', (event) => {
 
 function contarInputs() {
     const numeroDeInputs = document.getElementsByClassName("InputSerie").length;
-    document.getElementById("numeroInputs").textContent = `Número de Inputs: ${numeroDeInputs}`;
+    document.getElementById("numeroInputs").textContent = `Número de registros: ${numeroDeInputs}`;
 
     return numeroDeInputs;
 };

@@ -2,7 +2,7 @@
 var tabla = document.getElementById('myTable');
 var filasDatos = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-var filasPorPagina = 3;
+var filasPorPagina = 10;
 var totalFilas = filasDatos.length;
 var totalPaginas = Math.ceil(totalFilas / filasPorPagina);
 

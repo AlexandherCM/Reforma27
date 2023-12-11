@@ -70,7 +70,7 @@
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     <div class="row p-2">
                         <label><b>Función del equipo</b></label>
-                        <textarea asp-for="Plantilla.Funcion" class="txtForm" rows="3" id="text" cols="50"></textarea>
+                        <textarea asp-for="Plantilla.Funcion" rows="3" id="text" cols="50"></textarea>
                         <br />
                         <span asp-validation-for="Plantilla.Funcion" class="text-danger"></span>
                     </div>
@@ -91,12 +91,12 @@
                             @*- - - - - - - - - - - - - -*@
                             <div class="col-6">
                                 <button type="button" onclick="agregarNuevoInput()" class="botonTrue">
-                                    <b>Agregar Equipo</b>
+                                    <b>Agregar Campo</b>
                                 </button>
                             </div>
                             @*- - - - - - - - - - - - - -*@
                             <div class="col-6">
-                                <button type="button" onclick="remover()" @*onclick="onclick= event.preventDefault();"*@ class="botonFalse">
+                                <button type="button" onclick="remover()" class="botonFalse">
                                     <b>Remover</b>
                                 </button>
                                 @*- - - - - - - - - - - - - -*@
@@ -106,13 +106,13 @@
 
                     <div class="mt-4 row ">
                         <div class="col-6">
-                            @*- - - - - - - - - - - - - -*@
+
                             <button type="submit" class="botonTrue"><b>Registrar</b></button>
-                            @*- - - - - - - - - - - - - -*@
+
                         </div>
                         <div class="col-6">
                             @*- - - - - - - - - - - - - -*@
-                            <button type="reset" @* onclick="location.reload();"  *@ class="botonFalse">
+                            <button type="reset" onclick="location.reload()" class="botonFalse">
                                 <b>Cancelar</b>
                             </button>
                             @*- - - - - - - - - - - - - -*@
@@ -145,7 +145,7 @@
     <article class="row mt-4 text-center justify-content-between">
 
         @* BUSCADOR POR NOMBRE *@
-       <section class="col-12 col-md-3 pt-2">
+        <section class="col-12 col-md-3 pt-2">
             <aside class="row justify-content-start " style="height:100%">
                 <div class="col-md-11 col-12 border-R p-2">
                     <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda por nombre del equipo</h5>
@@ -161,11 +161,11 @@
                         </div>
                     </form>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-               </div>
-           </aside>
-       </section>
+                </div>
+            </aside>
+        </section>
 
-       @* BUSCADOR POR FILTRO *@
+        @* BUSCADOR POR FILTRO *@
         <section class="col-12 col-md-7 pt-2">
             <aside class="row justify-content-center" style="height:100%">
                 <form asp-action="SearchByFilters" class="col-12 border-R d-flex justify-content-center flex-column">
@@ -223,9 +223,9 @@
             </aside>
         </section>
 
-        
 
-        
+
+
     </article>
 
     @* Tabla de resultados *@
@@ -250,16 +250,19 @@
                     <th class="border-R" id="Capacidad">
                         Capacidad
                     </th>
-                    <th class="border-R" id="Cantidad">
-                        Cantidad
-                    </th>
                     <th class="border-R" id="Ubicación">
                         Ubicación
+                    </th>
+                    <th class="border-R" id="Cantidad">
+                        Función
+                    </th>
+                    <th class="border-R" id="estado">
+                        Estatus
                     </th>
                     <th class="border-R" id="adquisición">
                         Costo de adquisición
                     </th>
-                    <th class="border-R" id="estado">
+                    <th class="border-R" id="detalles">
                         Estado
                     </th>
                     <th class="border-R" id="detalles">
@@ -273,95 +276,6 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                    </td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/eye-solid.svg" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                    </td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/eye-solid.svg" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                    </td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/eye-solid.svg" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                    </td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/eye-solid.svg" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">esto solo es para ver</td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                    </td>
-                    <td class="border-R">
-                        <img class="detalles" src="~/images/eye-solid.svg" />
-                    </td>
-                </tr>
-
                 @* |||||||||||||||||||||||||||||||||||||||||||||| *@
                 @for (int i = 0; i < Model.Equipos.Count; i++)
                 {
@@ -369,49 +283,52 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <tr>
                         <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].NumSerie) </td>
+                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
+                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.TipoEquipo.Nombre) </td>
+                        <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
+                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Capacidad) </td>
+                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
                         <td class="border-R p-1" style="text-align:justify">
                                 @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
                         </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.TipoEquipo.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
                         <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
+                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                         <td class="border-R">
                             <input type="hidden" asp-for="Plantilla.ID" value="@(Model.Equipos[i].ID)" />
-                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                             <label class="toggle-switch">
-                                    @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
                                 <input class="chbxEquipo" type="checkbox" asp-for="Equipos[i].Estado">
-                                    @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
                                 <div class="toggle-switch-background">
                                     <div class="toggle-switch-handle"></div>
                                 </div>
                             </label>
-                                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                         </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                         <td class="border-R">
                             <img class="detalles" src="~/images/pen-to-square-solid.svg" />
                         </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                         <td class="border-R">
                             <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
                                 <img class="detalles" src="~/images/eye-solid.svg" />
                             </a>
                         </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     </tr>
                     </form>
                 }
             </tbody>
         </table>
 
-       <section class="row text-center">
-           <div class="pt-2">
+        <section class="row text-center">
+            <div class="pt-2">
                 <h5><span class="color-R">M</span>ás resultados</h5>
-           </div>
+            </div>
             <div class="pagination d-flex justify-content-center">
             </div>
-       </section>
+        </section>
     </article>
     <br />
     <br />
@@ -422,7 +339,7 @@
 
 @* Despegable 2 *@
 
-<aside class="row position-fixed fixed-bottom despegable2" >
+<aside class="row position-fixed fixed-bottom despegable2">
 
     <article class="col-12 col-md-9 "></article>
 

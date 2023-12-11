@@ -36,7 +36,7 @@ function UpdateStatus(FormID) {
         ID: Objetos.ID
     };
 
-    console.log(CatalogoViewModel);
+    //console.log(CatalogoViewModel);
 
     api.SetPost('Catalogos/UpdateById', CatalogoViewModel)
         .then(data => {

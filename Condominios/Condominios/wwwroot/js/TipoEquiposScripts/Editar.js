@@ -66,8 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
 
                 var CapacidadValue = data.capacidad;
-                var CapacidadInt = parseInt(CapacidadValue);
-                var CapacidadString = CapacidadValue.replace(/[0-9\s]/g, '');
+                var CapacidadInt = parseFloat(CapacidadValue);
+                //var CapacidadString = CapacidadValue.replace(/^\d+\s*/, '');
+                var CapacidadString = CapacidadValue.replace(/^\d*(?:\.\d+)?\s*/, '');
 
                 var CapacidadSelect = document.getElementById("VarianteEquipo_CapacidadSelect");
                 document.getElementById("VarianteEquipo_MarcaID").value = data.marcaID;
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 for (let i = 0; i < CapacidadSelect.options.length; i++) {
                     const option = CapacidadSelect.options[i];
                     if (CapacidadString.trim() === '') {
-                        option.selectedIndex = 0;
+                        CapacidadSelect.selectedIndex = 0; 
                         break;
                     } else if (option.text.trim() === CapacidadString.trim()) {
                         option.selected = true;

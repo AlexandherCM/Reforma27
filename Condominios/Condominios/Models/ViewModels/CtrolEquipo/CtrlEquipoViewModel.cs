@@ -27,6 +27,5 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
 
         [Required]
         public EquipoViewModel Plantilla { get; set; }
-        public AlertaEstado AlertaEstado { get; set; } 
     }  
 }

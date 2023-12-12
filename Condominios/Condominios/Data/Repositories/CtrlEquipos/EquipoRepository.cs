@@ -3,6 +3,7 @@ using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
@@ -13,6 +14,7 @@ namespace Condominios.Data.Repositories.Equipos
     {
         private readonly Context _context;
         private IMtoRepository _service;
+        private AlertaEstado _alertaEstado = new();
         public EquipoRepository(Context context, IMtoRepository service)
         {
             _context = context;
@@ -72,7 +74,7 @@ namespace Condominios.Data.Repositories.Equipos
             return await query.ToListAsync();
         }
 
-        public async Task Add(CtrlEquipoViewModel viewModel)
+        public async Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel)
         {
             DateTime present = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
@@ -81,11 +83,15 @@ namespace Condominios.Data.Repositories.Equipos
             // 1  = La fecha es mayor que la segunda
             int comparacion = present.CompareTo(viewModel.Plantilla.UltimaAplicacion);
 
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             if (comparacion < 0)
             {
-                viewModel.ErrorMessage = "No se puede establecer un mes mayor al actual";
-                return;
+                _alertaEstado.Leyenda = "No se puede establecer un mes mayor al actual";
+                _alertaEstado.Estado = false;
+
+                return _alertaEstado;
             }
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
             int meses = await _context.Variante
                         .Where(c => c.ID == viewModel.Plantilla.VarianteID)
@@ -108,6 +114,13 @@ namespace Condominios.Data.Repositories.Equipos
             }).ToList();
 
             await _context.Equipo.AddRangeAsync(equipos);
+
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            _alertaEstado.Leyenda = "";
+            _alertaEstado.Estado = true;
+
+            return _alertaEstado;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         }
 
         public void Delete(Equipo entity)

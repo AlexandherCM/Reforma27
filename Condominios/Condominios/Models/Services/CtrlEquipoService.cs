@@ -1,6 +1,7 @@
 ﻿using Condominios.Data;
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -10,15 +11,20 @@ namespace Condominios.Models.Services
     {
         private readonly IUnitOfWork _uniOfWork;
         private CtrlEquipoViewModel _viewModel = new();
+        private AlertaEstado _alertaEstado = new();
         public CtrlEquipoService(IUnitOfWork uniOfWork)
         {
             _uniOfWork = uniOfWork;
         }
 
-        public async Task InsertarEquipos(CtrlEquipoViewModel model)
+        public async Task<AlertaEstado> InsertarEquipos(CtrlEquipoViewModel model)
         {
-            await _uniOfWork.EquipoRepository.Add(model);
-            await _uniOfWork.Save();
+            _alertaEstado = await _uniOfWork.EquipoRepository.Add(model);
+
+            if (_alertaEstado.Estado)
+                await _uniOfWork.Save();
+
+            return _alertaEstado;
         }
         public async Task<List<Equipo>> GetEquipos()
             => await _uniOfWork.EquipoRepository.GetList();

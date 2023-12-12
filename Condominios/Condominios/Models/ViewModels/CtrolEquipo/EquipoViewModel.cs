@@ -22,7 +22,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public string Funcion { get; set; }  
 
         //Otros Campos - - - - - - - - - - - - - - - - - - - - 
-        [Required(ErrorMessage = "El campo es obligatorio")]
+        //[Required(ErrorMessage = "El campo es obligatorio")]
         public DateTime UltimaAplicacion { get; set; }
     }
 }

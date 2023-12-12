@@ -74,6 +74,19 @@ namespace Condominios.Data.Repositories.Equipos
 
         public async Task Add(CtrlEquipoViewModel viewModel)
         {
+            DateTime present = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+            // -1 = La fecha es menor que la segunda
+            // 0  = La fecha es igual que la segunda
+            // 1  = La fecha es mayor que la segunda
+            int comparacion = present.CompareTo(viewModel.Plantilla.UltimaAplicacion);
+
+            if (comparacion < 0)
+            {
+                viewModel.ErrorMessage = "No se puede establecer un mes mayor al actual";
+                return;
+            }
+
             int meses = await _context.Variante
                         .Where(c => c.ID == viewModel.Plantilla.VarianteID)
                         .Select(c => c.Periodo.Meses)

@@ -1,5 +1,6 @@
 ﻿using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 #pragma warning disable CS8618
@@ -26,5 +27,6 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
 
         [Required]
         public EquipoViewModel Plantilla { get; set; }
-    }
+        public AlertaEstado AlertaEstado { get; set; } 
+    }  
 }

@@ -28,12 +28,12 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             throw new NotImplementedException();
         }
-        public void Update(Marca entity)
+        public void Update(CatalogoViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var marca = context.Find<Marca>(viewModel.CatalogoGralViewModel.Nombre);
+            marca.Nombre = viewModel.CatalogoGralViewModel.Nombre;
         }
 
-       
 
         public void UpdateEstateById(int id)
         {

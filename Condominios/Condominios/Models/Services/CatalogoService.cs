@@ -116,5 +116,11 @@ namespace Condominios.Models.Services
             _viewModel.TipoEquipos = await _uniOfWork.TipoEquipoRepository.GetList();
             return _viewModel;
         }
+
+        public async Task Update(CatalogoViewModel viewModel)
+        {
+            _uniOfWork.MarcaRepository.Update(viewModel);
+            await _uniOfWork.Save();
+        }
     }
 }

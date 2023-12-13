@@ -38,16 +38,10 @@ namespace Condominios.Data.Repositories.Catalogos
             return NombreUnidad;
         }
 
-
-
-
-
-
-
         public async Task<List<UnidadMedida>> GetList()
           => await context.UnidadMedida.ToListAsync();
 
-        public void Update(UnidadMedida entity)
+        public void Update(CatalogoViewModel viewModel)
         {
             throw new NotImplementedException();
         }

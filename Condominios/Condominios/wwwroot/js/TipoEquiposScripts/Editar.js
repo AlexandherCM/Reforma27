@@ -1,10 +1,4 @@
 ﻿const api = new ApiClient();
-
-
-
-
-
-
 //Abrir despegable
 document.addEventListener('DOMContentLoaded', () => {
 

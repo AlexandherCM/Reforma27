@@ -8,9 +8,15 @@ Object.keys(catalogos).forEach(key => {
 
 function CreateFormsListener(Propeties) {
     document.getElementById(Propeties.Forms).addEventListener('submit', (event) => {
-
         event.preventDefault();
 
+        var BotonPresionado = event.submitter;
+        let BotonValor = BotonPresionado.value;
+
+
+
+        
+        
         let ViewModel = {};
         const Objetos = {};
         const formData = new FormData(event.target);
@@ -42,15 +48,22 @@ function CreateFormsListener(Propeties) {
         //add the object entity
         Propeties.Entity = Objetos.Entidad;
 
-        api.SendPost('Catalogos/Create', ViewModel)
-            .then(data => {
-                let NameList = Propeties.List;
-                let list = data[NameList];
-                let newObject = (list[list.length - 1]);
+        if (BotonValor == "Agregar") {
+            api.SendPost(`Catalogos/Create`, ViewModel)
+                .then(data => {
+                    let NameList = Propeties.List;
+                    let list = data[NameList];
+                    let newObject = (list[list.length - 1]);
 
-                AddNewFile(newObject, Propeties)
-            })
-            .catch(error => console.error('POST Error:', error));
+                    AddNewFile(newObject, Propeties)
+                })
+                .catch(error => console.error('POST Error:', error));
+        } else if (BotonValor == "Actualizar") {
+            api.SendPost(`Catalogos/Update` , ViewModel)
+                .then(data => {
+                    
+                })
+        }
     });
 }
 

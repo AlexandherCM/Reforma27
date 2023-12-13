@@ -82,6 +82,13 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             return variante;
         }
 
+        public async Task<Variante?> UpdateID(int id)
+        {
+            var variante = await _context.Variante.FirstOrDefaultAsync(c => c.ID == id);
+            variante.Estado = !variante.Estado;
+            return variante;
+        }
+
         public void Update(VarianteViewModel model, string medida)
         {
             var variante = _context.Find<Variante>(model.VarianteEquipo.ID);

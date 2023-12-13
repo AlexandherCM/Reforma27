@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Condominios.Models.Services;
+using Condominios.Models.Entities;
 
 namespace Condominios.Controllers
 {
@@ -32,6 +33,14 @@ namespace Condominios.Controllers
             return json;
         }
 
+        public async Task<IActionResult> ObtenerRegistro()
+        {
+            CatalogoViewModel model = await _service.ObtenerCatalogos();
+
+            var jsonResult = new JsonResult(model);
+            return jsonResult;
+        }
+
         //[Authorize(Roles = "Administrador, General")]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> NewCreate(CatalogoViewModel model) 
@@ -48,7 +57,7 @@ namespace Condominios.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        public async Task<IActionResult> Update(CatalogoViewModel model)
+        public async Task<IActionResult> Update([FromBody] CatalogoViewModel model)
         {
             return RedirectToAction(nameof(Index));
         }

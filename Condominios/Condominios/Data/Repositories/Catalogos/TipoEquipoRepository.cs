@@ -35,7 +35,7 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<TipoEquipo>> GetList()
             => await context.TipoEquipo.ToListAsync();
 
-        public void Update(TipoEquipo entity)
+        public void Update(CatalogoViewModel viewModel)
         {
             throw new NotImplementedException();
         }

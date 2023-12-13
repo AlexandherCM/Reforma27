@@ -20,6 +20,7 @@ namespace Condominios.Data
         public ICatalogoRepository<TipoMantenimiento> TipoMtoRepository { get; }
         public IVarianteRepository<VarianteDTO> VarianteRepository { get; }
         public ICatalogoRepository<UnidadMedida> UnidadMedidaRepository { get; }
+        public IProveedoreRepository<Proveedor> ProveedoreRepository { get; }
 
         public UnitOfWork(Context context,
             ICatalogoRepository<Marca> marcaRepository,
@@ -31,7 +32,9 @@ namespace Condominios.Data
             ICatalogoRepository<TipoEquipo> tipoEquipoRepository,
             ICatalogoRepository<UnidadMedida> unidadMedidaRepository,
             IEquipoRepository<Equipo> equipoRepository,
-            IVarianteRepository<VarianteDTO> varianteRepository
+            IVarianteRepository<VarianteDTO> varianteRepository,
+            IProveedoreRepository<Proveedor> proveedoreRepository
+
             )
         {
             _context = context;
@@ -45,6 +48,7 @@ namespace Condominios.Data
             VarianteRepository = varianteRepository;
             TipoEquipoRepository = tipoEquipoRepository;
             UnidadMedidaRepository = unidadMedidaRepository;
+            ProveedoreRepository = proveedoreRepository;
         }
         public async Task Save()
             => await _context.SaveChangesAsync();

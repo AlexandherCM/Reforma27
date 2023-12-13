@@ -46,6 +46,13 @@ namespace Condominios.Services
             _unitOfWork.VarianteRepository.Update(model, capacidadString?.Nombre ?? string.Empty);
             await _unitOfWork.Save();
         }
+
+        public async Task<Variante> ActualizarEstado(int id)
+        {
+            Variante variante = await _unitOfWork.VarianteRepository.UpdateID(id);
+            await _unitOfWork.Save();   
+            return variante;
+        }
     }
 }
     

@@ -29,12 +29,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public void Update(Motor entity)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public void UpdateEstateById(int id)
         {
             var Motor = context.Find<Motor>(id);
@@ -42,6 +36,11 @@ namespace Condominios.Data.Repositories.Catalogos
         }
 
         public Task<Motor?> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(CatalogoViewModel viewModel)
         {
             throw new NotImplementedException();
         }

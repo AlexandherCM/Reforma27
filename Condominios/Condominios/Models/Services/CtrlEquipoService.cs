@@ -9,51 +9,59 @@ namespace Condominios.Models.Services
 {
     public class CtrlEquipoService
     {
-        private readonly IUnitOfWork _uniOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private CtrlEquipoViewModel _viewModel = new();
         private AlertaEstado _alertaEstado = new();
         public CtrlEquipoService(IUnitOfWork uniOfWork)
         {
-            _uniOfWork = uniOfWork;
+            _unitOfWork = uniOfWork;
         }
 
         public async Task<AlertaEstado> InsertarEquipos(CtrlEquipoViewModel model)
         {
-            _alertaEstado = await _uniOfWork.EquipoRepository.Add(model);
+            _alertaEstado = await _unitOfWork.EquipoRepository.Add(model);
 
             if (_alertaEstado.Estado)
-                await _uniOfWork.Save();
+                await _unitOfWork.Save();
 
             return _alertaEstado;
         }
         public async Task<List<Equipo>> GetEquipos()
-            => await _uniOfWork.EquipoRepository.GetList();
+            => await _unitOfWork.EquipoRepository.GetList();
 
         public async Task<List<Equipo>> GetEquipos(int id)
-            => await _uniOfWork.EquipoRepository.GetList(id);
+            => await _unitOfWork.EquipoRepository.GetList(id);
 
         public async Task<List<Equipo>> GetEquipos(string cadena)
-            => await _uniOfWork.EquipoRepository.GetList(cadena);
+            => await _unitOfWork.EquipoRepository.GetList(cadena);
 
 
         public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
-            => await _uniOfWork.EquipoRepository.GetList(filtros);
+            => await _unitOfWork.EquipoRepository.GetList(filtros);
 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<CtrlEquipoViewModel> GetLists()
+            => await GetListsOnModel(_viewModel);
+        public async Task<CtrlEquipoViewModel> GetLists(CtrlEquipoViewModel viewModel)
+            => await GetListsOnModel(viewModel);
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        private async Task<CtrlEquipoViewModel> GetListsOnModel(CtrlEquipoViewModel viewModel)
         {
-            _viewModel.Estados = new SelectList(await _uniOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+            viewModel.Estados = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _viewModel.TipoEquipos = new SelectList(await _uniOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
-            _viewModel.Variantes = new SelectList(await _uniOfWork.VarianteRepository.GetSpecialList(), "ID", "Nombre");
+            viewModel.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
+            viewModel.Variantes = new SelectList(await _unitOfWork.VarianteRepository.GetSpecialList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _viewModel.Ubicaciones = new SelectList(await _uniOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
-            _viewModel.Marcas = new SelectList(await _uniOfWork.MarcaRepository.GetList(), "ID", "Nombre");
-            _viewModel.Motores = new SelectList(await _uniOfWork.MotorRepository.GetList(), "ID", "Nombre");
+            viewModel.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
+            viewModel.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetList(), "ID", "Nombre");
+            viewModel.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
 
-            _viewModel.Estatus = new SelectList(await _uniOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+            viewModel.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
 
-            _viewModel.Equipos = await GetEquipos();
-            return _viewModel;
+            viewModel.Equipos = await GetEquipos();
+
+            return viewModel;
         }
 
     }

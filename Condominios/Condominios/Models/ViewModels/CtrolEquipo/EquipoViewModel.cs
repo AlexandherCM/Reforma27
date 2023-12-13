@@ -19,10 +19,12 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public decimal? CostoAdquisicion { get; set; }
 
         [Required(ErrorMessage = "El campo es obligatorio")]
-        public string Funcion { get; set; }  
+        public string Funcion { get; set; }
 
         //Otros Campos - - - - - - - - - - - - - - - - - - - - 
-        //[Required(ErrorMessage = "El campo es obligatorio")]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "El campo es obligatorio")]
         public DateTime UltimaAplicacion { get; set; }
     }
 }

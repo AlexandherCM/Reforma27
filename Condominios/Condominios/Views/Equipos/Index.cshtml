@@ -8,8 +8,8 @@
 
 <aside class="row">
 
-    <article class="col-12 col-lg-3  border-R rounded-3 text-dark" @* id="form" *@>
-
+    <article class="col-12 col-lg-3  border-R rounded-3 text-dark"  id="form" >
+        <button id="myBtn">Hola</button>
         <section class="row text-center text-dark" style="background: #fff;">
 
             <h3 class="p-1 ">
@@ -412,10 +412,14 @@
 
 </aside>
 
-
 @section Scripts {
     @{
+        <script>
+            Modal('Alexandher', 'Cordoba', false);
+        </script>
+        
         <script src="~/js/Tablas.js" asp-append-version="true"></script>
+        
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_EquiposScripts");
     }

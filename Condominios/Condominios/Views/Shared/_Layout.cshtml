@@ -13,10 +13,12 @@
     <link rel="stylesheet" href="~/css/catalogos.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/tipo.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Condominios.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/AlertaStyle.css" asp-append-version="true" />
+    
 </head>
 <body class="bg-light">
 
-    <main role="main" class="container-fluid">
+    <main id="content-main" role="main" class="container-fluid">
 
         <article class="row">
 
@@ -186,6 +188,7 @@
 
                 @*Editable*@
                 <article class="row" id="render">
+                    
                     @RenderBody()
                 </article>
 
@@ -194,6 +197,7 @@
         </article>
     </main>
 
+    <script src="~/js/AlertaScript.js"></script>
     <script src="~/js/ApiClient.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

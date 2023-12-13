@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
+//ragma warning disable CS8602
 
 namespace Condominios.Controllers
 {
     public class EquiposController : Controller
     {
         private readonly CtrlEquipoService _service;
-        private AlertaEstado _alertaEstado = new();
         public EquiposController(CtrlEquipoService service)
         {
             _service = service;
@@ -28,15 +29,6 @@ namespace Condominios.Controllers
             string json = string.Empty;
             var model = await _service.GetLists();
 
-            if (TempData["Alerta"] != null)
-            {
-                json = (string)TempData["Alerta"];
-                // Asegúrate de acceder correctamente al atributo UltimaAplicacion
-                ModelState.AddModelError(nameof(model.Plantilla.UltimaAplicacion), json);
-
-                return View(model);
-            }
-
             if (TempData["Equipos"] != null)
             {
                 json = (string)TempData["Equipos"];
@@ -47,7 +39,6 @@ namespace Condominios.Controllers
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize(Roles = "Administrador, General")]
@@ -55,19 +46,18 @@ namespace Condominios.Controllers
         {
             if (ModelState.IsValid)
             {
-                _alertaEstado = await _service.InsertarEquipos(model);
+                model.AlertaEstado = await _service.InsertarEquipos(model);
 
-                if (_alertaEstado.Estado != false)
+                if (model.AlertaEstado.Estado != false)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    TempData["Alerta"] = _alertaEstado.Leyenda;
-                    return RedirectToAction(nameof(Index));
+                    model = await _service.GetLists(model);
+                    return View("Index", model);
                 }
             }
-
             return RedirectToAction(nameof(Index));
         }
 

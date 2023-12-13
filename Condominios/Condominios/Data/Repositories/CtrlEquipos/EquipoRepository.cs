@@ -116,7 +116,7 @@ namespace Condominios.Data.Repositories.Equipos
             await _context.Equipo.AddRangeAsync(equipos);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _alertaEstado.Leyenda = "";
+            _alertaEstado.Leyenda = "Datos Registrados correctamente";
             _alertaEstado.Estado = true;
 
             return _alertaEstado;

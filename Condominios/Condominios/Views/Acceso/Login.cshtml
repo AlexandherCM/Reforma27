@@ -8,67 +8,75 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Inicio</title>
+    <title>@ViewData["Title"]  Login</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Condominios.styles.css" asp-append-version="true" />
 </head>
 <body>
     <main class="bg-index container-fluid">
-        <article class="row body-login">
+
+        <article class="row body-login ">
+
             <section class="col-12 col-lg-7 img-content position-relative radius">
                 <img src="~/images/login/Edificio.jpeg" alt="Condominio" class="edificio radius">
             </section>
-            <section class="col-12 col-lg-5 pb-2 bg-light justify-content-center text-center align-items-center d-flex flex-column radius-b text-dark">
+
+            <section class="col-12 col-lg-5 bg-light form radius-b  d-flex flex-column justify-content-center">
+
                 <form asp-action="ValidarAcceso">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    @* TITULO *@
-                    <section class="row logo-content">
+                    <section class="row pt-2">
                         <img src="~/images/login/Logo.svg" alt="Logo" class="logo">
                     </section>
-                    @* LOGO *@
-                    <div class="row text-center">
+
+                    <section class="row text-center pb-3">
                         <h2>
                             <span class="color-R">I</span>niciar sesi<span class="color-R">ó</span>n
                         </h2>
-                    </div>
+                    </section>
 
-                    <section class="row mt-3 ">
+                    <section class="row">
                         <div class="sesion-input">
                             <label asp-for="Correo" for="exampleInputEmail1" class="label">Dirección de correo eléctronico</label>
                             <input asp-for="Correo" type="email" class="email">
                             <span asp-validation-for="Correo" class="text-danger"></span>
                         </div>
                     </section>
-                    <section class="row mt-3 ">
+
+                    <section class="row pt-4 ">
                         <div class="sesion-input">
                             <label asp-for="Clave" for="exampleInputPassword1" class="label">Contraseña</label>
                             <input asp-for="Clave" type="password" class="pass">
                             <span asp-validation-for="Clave" class="text-danger"></span>
                         </div>
                     </section>
-                    <section class="row mt-2 pt-1">
+
+                    <section class="row pt-3 text-center">
                         <a href="">¿Olvidaste tu contraseña?</a>
                     </section>
-                    <section class="row mt-2 ">
+
+                    <section class="row  p-1">
                         <div class="sesion-input">
                             <input type="submit" value="Iniciar sesión" class="boton" />
                         </div>
                     </section>
 
 
+
                 </form>
 
+
             </section>
+
         </article>
+
     </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
 

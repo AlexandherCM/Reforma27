@@ -8,8 +8,6 @@
     margin: 0;
     height: 100vh;
     transition: width 0.5s;
-    display: flex;
-    align-items: center;
 }
 
 #content {
@@ -25,7 +23,7 @@
 .overlay {
     display: none;
     position: fixed;
-    left: 16%;
+    left: 17.5%;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.2);
@@ -35,35 +33,28 @@
 .menuLogo {
     visibility: hidden;
 }
+
 .hamburger {
     display: flex;
     justify-content: center;
-    width: 100%;
-    align-items: end;
 }
 
 a b {
-    /*font-size: 1.4rem;*/
     color: #000000;
 }
 
 .titles {
     display: none;
-    padding-left:2rem;
+    padding-left: 2rem;
 }
 
 .icons {
     height: 2.2rem;
-    padding-right:10%;
+    padding-right: 10%;
 }
 
-.icon {
-    height: 2rem;
-    margin: 0 ;
-}
-.contIcon{
-    width:95%;
-    margin-left:2%;
+.icon-menu {
+    height: 2.3rem;
 }
 
 #list {
@@ -83,6 +74,19 @@ a b {
 }
 
 
+.hyperLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        transform: scale(1.1);
+    }
 
 
 
@@ -104,16 +108,15 @@ a b {
     #list {
         display: block;
     }
+
     #espacio {
         display: none;
     }
+
     #render {
-        padding: 0;
+        padding-left: 0rem;
+        padding-right: 0rem;
     }
-
-   
-
-
 }
 
 

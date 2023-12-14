@@ -2,17 +2,13 @@
 
 <aside class="row">
 
-    <article class="col-12 col-lg-3  border-R rounded-3 text-dark" id="form">
+    <section class="col-12 col-md-4 rounded-2" id="despegableUP">
+        <div class="row border-R titleDespegable rounded-2">
+            <h2> <span class="color-R">N</span>uevo Proveedor <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+        </div>
 
-        <section class="row text-center text-dark" style="background: #fff;">
-
-            <h3 class="p-1 ">
-                <span class="color-R">P</span>roveedor <img src="~/images/down.svg"
-                                                                alt="down" class="down" id="down">
-                <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
-            </h3>
-
-            <form asp-action="Agregar" class="text-light text-center" id="form-body" onsubmit="return ValidarFormulario()">
+        <div id="contenidoUP">
+            <form asp-action="Agregar" onsubmit="return ValidarFormulario()">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <input type="hidden" asp-for="ID" value="">
@@ -24,7 +20,7 @@
                     <h5>Nombre</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input asp-for="Nombre" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <input asp-for="Nombre" type="text" class="textDes" onchange="ValidarFormulario()">
                     <span id="NombreError" class="text-danger" style="display: none;"></span>
                 </div>
 
@@ -33,7 +29,7 @@
                     <h5>Teléfono</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input asp-for="Numero" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <input asp-for="Numero" type="text" class="textDes" onchange="ValidarFormulario()">
                     <span id="NumeroError" class="text-danger" style="display: none;"></span>
                 </div>
 
@@ -42,7 +38,7 @@
                     <h5>Dirección</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input asp-for="Direccion" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <input asp-for="Direccion" type="text" class="textDes" onchange="ValidarFormulario()">
                     <span id="DireccionError" class="text-danger" style="display: none;"></span>
                 </div>
 
@@ -51,104 +47,121 @@
                     <h5>Correo</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input asp-for="Correo" type="text" class="txtForm" onchange="ValidarFormulario()">
+                    <input asp-for="Correo" type="text" class="textDes" onchange="ValidarFormulario()">
                     <span id="CorreoError" class="text-danger" style="display: none;"></span>
                 </div>
 
                 @*Boton*@
                 <div class="row pt-3 mb-2 d-flex justify-content-center">
-                    <input type="submit" value="Agregar" class="boton" style="width:80%; margin:auto;" formnovalidate>
+                    <input type="submit" value="Agregar" class="btn-des" formnovalidate>
                 </div>
 
                 <br>
-             
+
                 <br />
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
             </form>
-        </section>
-    </article>
+        </div>
 
-    <article class="col-12 col-lg-9"></article>
+    </section>
+
+    <div class="col-12 col-lg-9">
+    </div>
 
 </aside>
 
+
+
+<br />
 <br />
 
 
-<main class="container-fluid mt-5">
-    @* Titulo *@
-    <article class="row border-R text-center rounded-3">
-        <h1><span class="color-R">P</span>roveedor</h1>
-    </article>
 
-    @* Tabla2 *@
-    <article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
+@* Titulo *@
+<article class="row border-R text-center mt-3 rounded-3">
+    <h1><span class="color-R">P</span>roveedor</h1>
+</article>
 
-        <table class="text-center">
+@* Filtro por página *@
+<article class="row text-dark mt-3">
+    <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
+        <h4 for="rowsPerPage">Filas por página:</h4>
+    </section>
 
-            <thead>
+    <section class="col-6 col-lg-2 bg-R p-1 d-flex numerPage justify-content-start">
+        <select id="rowsPerPage" class="select" onchange="cambiarFilasPorPagina()">
+            <option value="3">3</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="75">75</option>
+            <option value="100">100</option>
+        </select>
+    </section>
 
-                <tr class="border-R">
-                    <th class="border-R" id="nombre">
-                        Nombre
-                    </th>
-                    <th class="border-R">
-                        Teléfono
-                    </th>
-                    <th class="border-R" id="direccion">
-                        Dirección
-                    </th>
-                    <th class="border-R" id="correo">
-                        Correo
-                    </th>
-                    <th class="border-R" id="estado">
-                        Estado
-                    </th>
-                    <th class="border-R" id="detalles">
-                        Editar
-                    </th>
+    <section class="col-12 col-lg-8"></section>
+
+</article>
+
+@* Tabla2 *@
+<article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
+
+    <table class="text-center">
+
+        <thead>
+
+            <tr class="border-R">
+                <th class="border-R" id="nombre">
+                    Nombre
+                </th>
+                <th class="border-R">
+                    Teléfono
+                </th>
+                <th class="border-R" id="direccion">
+                    Dirección
+                </th>
+                <th class="border-R" id="correo">
+                    Correo
+                </th>
+                <th class="border-R" id="estado">
+                    Estado
+                </th>
+                <th class="border-R" id="detalles">
+                    Editar
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @for (int i = 0; i < Model.Proveedor.Count; i++)
+            {
+                <form asp-action="UpdateEstado" id="Update@(i)">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <tr>
+                    <td class="border-R">@Model.Proveedor[i].Nombre</td>
+                    <td class="border-R">@Model.Proveedor[i].Telefono</td>
+                    <td class="border-R">@Model.Proveedor[i].Direccion</td>
+                    <td class="border-R">@Model.Proveedor[i].Correo</td>
+                    <td class="border-R">
+                        <label class="toggle-switch">
+                            <input class="chbxEstado" data-url="Proveedores/UpdateStatus/" type="checkbox" checked="@Model.Proveedor[i].Estado" value="@(Model.Proveedor[i].ID)">
+                            <div class="toggle-switch-background">
+                                <div class="toggle-switch-handle"></div>
+                            </div>
+                        </label>
+                    </td>
+                    <td class="border-R">
+                        <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Proveedor[i].ID)" />
+                    </td>
                 </tr>
+                </form>
+            }
+        </tbody>
 
-            </thead>
+    </table>
 
-            <tbody>
-                @for (int i = 0; i < Model.Proveedor.Count; i++)
-                {
-                    <form asp-action="UpdateEstado" id="Update@(i)">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <tr>
-                        <td class="border-R">@Model.Proveedor[i].Nombre</td>
-                        <td class="border-R">@Model.Proveedor[i].Telefono</td>
-                        <td class="border-R">@Model.Proveedor[i].Direccion</td>
-                        <td class="border-R">@Model.Proveedor[i].Correo</td>
-                        <td class="border-R">
-                            <label class="toggle-switch">
-                                <input class="chbxEstado" data-url="Proveedores/UpdateStatus/" type="checkbox" checked="@Model.Proveedor[i].Estado" value="@(Model.Proveedor[i].ID)">
-                                <div class="toggle-switch-background">
-                                    <div class="toggle-switch-handle"></div>
-                                </div>
-                            </label>
-                        </td>
-                        <td class="border-R">
-                            <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Proveedor[i].ID)" />
-                        </td>
-                    </tr>
-                    </form>
-                }
-            </tbody>
-
-        </table>
-
-    </article>
-</main>
-
-@* NO HACER CASO ESTO SOLO ES PARA QUE FUNCIONE EL MENU *@
-@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
-<aside class="row position-fixed fixed-bottom d-none" style="padding-right:1%;">
-    <article class="col-12 col-lg-9 "></article>
-    <article class="col-12 col-lg-3 border border-dark bg-R rounded-3" id="form-b"></article>
-</aside>
-@* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° *@
+</article>
 
 @section Scripts {
     @{
@@ -156,6 +169,6 @@
         <script src="~/js/ProveedorScripts/ValidarProveedor.js"></script>
         <script src="~/js/ProveedorScripts/Editar.js"></script>
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
-        <script src="~/js/despegable.js"></script>
+        <script src="~/js/Desplegable.js"></script>
     }
 }

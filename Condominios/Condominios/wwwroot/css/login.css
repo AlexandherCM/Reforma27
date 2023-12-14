@@ -1,26 +1,11 @@
-﻿.bg-index {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/login/bg-Index.jpeg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
 }
 
-.body-login {
-    width: 60%;
-    margin: auto;
-    margin: 0%;
-}
-
-.img-content {
-    height: 56vh;
-    background-image: url('../images/login/Edificio.jpeg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
+main {
+    width: 100%;
+    height: 100vh;
 }
 
 .radius {
@@ -31,6 +16,42 @@
     border-radius: 0 7px 7px 0;
 }
 
+.bg-R {
+    background: #652022;
+}
+
+.border-R {
+    border: #652022 solid 2px;
+}
+
+.color-R {
+    color: #652022;
+}
+
+.bg-index {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/login/bg-Index.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.body-login {
+    width: 55%;
+    margin: auto;
+}
+
+.img-content {
+    height: 58vh;
+    background-image: url('../images/login/Edificio.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
 .edificio {
     position: absolute;
     bottom: 0;
@@ -39,23 +60,15 @@
     height: 100%;
 }
 
-.logo-content {
-    margin: 3% 0;
-    width: 100%;
+.form {
+    height: 58vh;
 }
 
-a {
-    color: #652022;
-    text-decoration: none;
+.logo {
+    width: 90%;
+    margin: auto;
 }
 
-    a:hover {
-        color: #652022;
-        text-decoration: underline;
-    }
-
-
-/* Input */
 .sesion-input {
     position: relative;
     width: 90%;
@@ -69,19 +82,28 @@ a {
 
 .email, .pass {
     width: 100%;
-    padding: 2%;
+    padding: 1%;
     background-color: #f8f9fa;
     border: none;
     border-bottom: 2px solid #e50914;
     color: #333;
-    font-size: 16px;
+    font-size: 14px;
     transition: border-bottom 0.3s ease;
 }
 
+a {
+    color: #652022;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #652022;
+        text-decoration: underline;
+    }
+
 .boton {
     width: 100%;
-    margin: auto;
-    padding: 0.8em 1.8em;
+    padding: 2%;
     border: 2px solid #652022;
     position: relative;
     overflow: hidden;
@@ -98,14 +120,16 @@ a {
 
     .boton:hover {
         color: #fff;
-        border: none;
-        border-radius: 5px;
-        box-shadow: 0px 0px 2px 2px #652022;
         background: #652022;
     }
 
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
+    .body-login {
+        width: 95%;
+        margin: auto;
+    }
+
     .img-content {
         height: 38vh;
     }
@@ -118,17 +142,7 @@ a {
         border-radius: 0 0 7px 7px;
     }
 
-    .body-login {
-        width: 90%;
-    }
-
-    /* .logo-content{
-        height: 60%;
-        display: flex;
-        justify-content: center;
-        align-items: center; 
-    }*/
-    .logo {
-        margin: 2% 0;
+    .form {
+        height: auto;
     }
 }

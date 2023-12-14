@@ -1,0 +1,256 @@
+﻿@{
+    ViewData["Title"] = "Gastos";
+}
+
+@* Despegable UP*@
+<aside class="row">
+
+    <section class="col-12 col-md-4 rounded-2" id="despegableUP">
+        <div class="row border-R titleDespegable rounded-2">
+            <h2> <span class="color-R">N</span>uevo mantenimiento <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+        </div>
+
+        <div id="contenidoUP">
+
+            <h4 class="pt-3">Registra un mantenimiento</h4>
+
+            <section class="row  p-1 pt-2">
+                <label for="">Descripción del trabajo a realizar</label>
+                <input type="text" placeholder=" " class="textDes">
+            </section>
+
+            <div class="row p-1 pt-2">
+                <label for="">Seleccione el tipo de mantenimiento</label>
+                <select name="options" class="textDes">
+                    <option value="volvo">Opcion1</option>
+                    <option value="saab">Opcion2</option>
+                    <option value="mercedes">Opcion3</option>
+                    <option value="audi">Opcion4</option>
+                </select>
+            </div>
+
+            <div class="row p-1 pt-2">
+                <label for="">Seleccione el proveedor que realizara el trabajo</label>
+                <select name="options" class="textDes">
+                    <option value="volvo">Opcion1</option>
+                    <option value="saab">Opcion2</option>
+                    <option value="mercedes">Opcion3</option>
+                    <option value="audi">Opcion4</option>
+                </select>
+            </div>
+
+            <div class="row p-1 pt-2">
+                <label for="">Costo del mantenimiento</label>
+                <input type="text" placeholder=" " class="textDes">
+            </div>
+
+            <div class="row  p-1 pt-2">
+                <label for="">(Si aplica). Escribe el costo del mantenimiento</label>
+                <input type="text" placeholder=" " class="textDes">
+            </div>
+
+            <div class="row  p-1 pt-2">
+                <label for="">Observaciones</label>
+                <input type="text" rows="2" placeholder=" " class="textDes">
+            </div>
+
+
+            <div class="row  pt-3 pb-2 ">
+                <input type="button" value="Agregar" class="btn-des">
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="col-12 col-lg-9">
+    </div>
+
+</aside>
+
+<br />
+<br />
+
+@*Contenido*@
+<div class="row border-R rounded-2 mt-3 text-center">
+    <h1><span class="color-R">G</span>astos de mantenimineto</h1>
+</div>
+
+@* Buscadores *@
+<article class="row mt-4 text-center justify-content-between">
+
+    @* RESULTADOS *@
+    <section class="col-12 col-md-3 pt-2">
+
+        <aside class="row justify-content-start " style="height:100%;">
+
+            <div class="col-md-11 col-12 border-R p-2 d-flex align-items-center justify-content-center">
+
+                <div class="row ">
+
+                    <div class="col-6 col-md-8">
+                        <h4><span class="color-R">R</span>esultados encontrados</h4>
+                    </div>
+
+                    <div class="col-6 col-md-4  d-flex justify-content-center align-items-center">
+                        <h5><span class="color-R">15</span></h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+    @* BUSCADOR POR FILTRO *@
+
+    <section class="col-12 col-md-9  pt-2">
+        <aside class="row justify-content-center" style="height:100%">
+            <form asp-action="SearchByFilters" class="col-12 border-R d-flex justify-content-center flex-column">
+                <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda con filtros</h5>
+                <div class="text-danger"></div>
+
+                <div class="row text-center d-flex justify-content-between">
+
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select class="select">
+                            <option value="0">Proveedor</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select class="select">
+                            <option value="0">Fecha 1</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select class="select">
+                            <option value="0">Fecha 2</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <input type="submit" value="Buscar" class="botonTrue">
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                </div>
+                <br />
+            </form>
+        </aside>
+    </section>
+
+</article>
+
+@* Filtro por página *@
+<article class="row text-dark mt-3">
+    <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
+        <h4 for="rowsPerPage">Filas por página:</h4>
+    </section>
+
+    <section class="col-6 col-lg-2 bg-R p-1 d-flex numerPage justify-content-start">
+        <select id="rowsPerPage" class="select" onchange="cambiarFilasPorPagina()">
+            <option value="3">3</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="75">75</option>
+            <option value="100">100</option>
+        </select>
+    </section>
+
+    <section class="col-12 col-lg-8"></section>
+   
+</article>
+
+<article class="row rounded-3 text-dark mt-3">
+
+    <table class="text-center border border-primary manteniminetos" id="myTable">
+        <thead>
+
+            <tr class="border-R">
+                <th class="border-R">
+                    Tipo
+                </th>
+                <th class="border-R">
+                    Cantidad
+                </th>
+                <th class="border-R">
+                    Costo total de mantenimineto
+                </th>
+                <th class="border-R">
+                    Costo total de reparaciones
+                </th>
+                <th class="border-R">
+                    Costo total de adquisición
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+
+            </tr>
+            <tr>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+
+            </tr>
+            <tr>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+
+            </tr>
+            <tr>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+
+            </tr>
+            <tr>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+                <td class="border-R">esto solo es para ver</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <section class="row text-center">
+        <div class="pt-2">
+            <h5><span class="color-R">M</span>ás resultados</h5>
+        </div>
+        <div class="pagination d-flex justify-content-center">
+        </div>
+    </section>
+</article>
+
+
+@section Scripts {
+    @{
+        <script src="~/js/Desplegable.js"></script>
+        <script src="~/js/Tablas.js"></script>
+    }
+}

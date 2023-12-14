@@ -1,19 +1,22 @@
-﻿const menuIcon = document.getElementById("menu");
-const colMenu = document.getElementById("col-menu");
-const content = document.getElementById('content');
-const overlay = document.getElementById('overlay');
-const menuLogo = document.getElementById('menuLogo');
-const hamburger = document.getElementById('hamburger');
-const formulario = document.getElementById('form-b');
+﻿const getElement = id => document.getElementById(id);
+const getElements = className => document.getElementsByClassName(className);
 
-const titles = document.getElementsByClassName('titles');
+const menuIcon = getElement("menu");
+const colMenu = getElement("col-menu");
+const content = getElement('content');
+const overlay = getElement('overlay');
+const menuLogo = getElement('menuLogo');
+const hamburger = getElement('hamburger');
+const titles = getElements('titles');
+const hyperLink = getElements('hyperLink');
 
 let isToggle = false;
 const menuSrcOpen = "/images/bars-solid.svg";
 const menuSrcClosed = "/images/x-solid.svg";
-const toggle = (isOpen) => {
-    const width = isOpen ? "6%" : "16%";
-    const contentWidth = isOpen ? "94%" : "84%";
+
+const toggle = isOpen => {
+    const width = isOpen ? "6%" : "17.5%";
+    const contentWidth = isOpen ? "94%" : "82.5%";
     const menuSrc = isOpen ? menuSrcOpen : menuSrcClosed;
 
     colMenu.style.width = width;
@@ -23,23 +26,20 @@ const toggle = (isOpen) => {
     overlay.style.display = isOpen && width === "6%" ? 'none' : 'block';
     hamburger.style.justifyContent = isOpen && width === "6%" ? 'center' : 'flex-end';
     colMenu.style.alignItems = isOpen && width === "6%" ? 'center' : 'start';
-    if (formulario) {
-        formulario.style.display = isOpen && width === "6%" ? 'block' : 'none';
-    }
     menuLogo.style.visibility = isOpen && width === "6%" ? 'hidden' : 'visible';
-    for (let i = 0; i < titles.length; i++) {
-        titles[i].style.display = isOpen ? "none" : "block";
-    }
+
+    Array.from(titles).forEach(element => element.style.display = isOpen ? "none" : "block");
+
+    Array.from(hyperLink).forEach(element => {
+        element.style.justifyContent = isOpen && width === "6%" ? 'center' : 'flex-start';
+        element.style.paddingLeft = isOpen && width === "6%" ? '0' : '1.8rem';
+    });
 };
 
-
-overlay.onclick = () => {
-    toggle(isToggle);
-    isToggle = !isToggle;
-}
-menuIcon.onclick = () => {
+const handleClick = () => {
     toggle(isToggle);
     isToggle = !isToggle;
 };
 
-
+overlay.onclick = handleClick;
+menuIcon.onclick = handleClick;

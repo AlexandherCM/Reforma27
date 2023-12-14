@@ -1,14 +1,6 @@
-﻿.tabla-main {
-    overflow: auto;
-    max-height: 25vh;
-}
-
-th {
+﻿th {
     background: #652022;
     color: aliceblue;
-    position: sticky;
-    top: -1%;
-    z-index: 1;
 }
 td{
     padding:.5%;
@@ -32,7 +24,12 @@ td{
 .fila-dato {
     display: none;
 }
-
+.numerPage{
+    border-radius:0 5px 5px 0;
+}
+.numerPage1{
+    border-radius:5px 0 0 5px ;
+}
 /*TABLA DE EQUIPO*/
 #Nserie {
     width: 5%;

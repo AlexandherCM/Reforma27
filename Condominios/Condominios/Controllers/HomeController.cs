@@ -42,7 +42,7 @@ namespace Condominios.Controllers
         //[Authorize(Roles = "Administrador, General")]
         public IActionResult GastosDeMantenimiento()
         {
-            return RedirectToAction("", "");
+            return RedirectToAction("GastosMantenimiento", "Mantenimientos");
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

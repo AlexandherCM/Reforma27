@@ -51,7 +51,6 @@ main {
     color: #682121;
     text-decoration: underline;
     transform: scale(1.1);
-    
 }
 
 .search {
@@ -60,18 +59,21 @@ main {
     border-radius: 5px;
     border: solid 1px #652022;
 }
+
 .select {
     width: 100%;
-    padding:1%;
+    padding: 1%;
     border-radius: 5px;
     border: solid 1px #652022;
 }
+
 .txtForm {
     width: 70%;
     padding: 2%;
     border-radius: 5px;
     border: solid 1px #652022;
 }
+
 .subTxtForm {
     width: 100%;
     padding: 2%;
@@ -83,7 +85,7 @@ main {
     border: 1px solid #7b7676;
     font-family: inherit;
     width: 100%;
-    margin:auto;
+    margin: auto;
     background: #d5e8d4;
     border-radius: 5px;
     font-weight: bold;
@@ -104,7 +106,7 @@ main {
     font-weight: bold;
     width: 100%;
     width: 100%;
-    border:solid 3px;
+    border: solid 3px;
     color: aliceblue;
 }
 
@@ -128,8 +130,8 @@ main {
     }
 
 
-    @keyframes fade-in-animation {
-        0% {
+@keyframes fade-in-animation {
+    0% {
         opacity: 0;
         transform: translateY(20px);
     }

@@ -1,0 +1,126 @@
+﻿/*General*/
+/***********************************************************************/
+.btnDes {
+    width: 2rem;
+    padding-left: 2%;
+    cursor: pointer;
+}
+
+.titleDespegable, .headerDespegable {
+    background: #f0f0f0;
+    color: black;
+}
+.numDes {
+    width: 100%;
+    margin: auto;
+    padding: 1%;
+    border-radius: 5px;
+    border: solid 1px #652022;
+}
+.textDes {
+    width: 80%;
+    margin: auto;
+    padding: 1%;
+    border-radius: 5px;
+    border: solid 1px #652022;
+}
+
+.btn-des {
+    border: 1px solid #7b7676;
+    font-family: inherit;
+    width: 80%;
+    margin: auto;
+    background: #d5e8d4;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #545151;
+}
+
+    .btn-des:hover {
+        background: #8bb989;
+        color: #ffffff;
+    }
+
+/***********************************************************************/
+/*Despegable UP*/
+#despegableUP {
+    background-color: #652022;
+    color: aliceblue;
+    border-bottom-right-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+}
+
+#contenidoUP {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 2s ease, opacity 1s ease-in-out;
+    text-align: center;
+    z-index: 2;
+}
+
+#despegableUP.mostrarUP #contenidoUP {
+    opacity: 1;
+    max-height: 100%;
+}
+
+
+/***********************************************************************/
+
+/*Despegable DOWN*/
+
+.headerDespegable {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    padding-left: 4%;
+    border-radius: 5px;
+}
+
+
+#despegableDown {
+    width: 31%;
+    background-color: #652022;
+    color: aliceblue;
+    padding: 0;
+    margin-right: 2%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-top-left-radius: 10px;
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#contenidoDown {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    text-align:center;
+    transition: max-height 2s ease, opacity 1s ease-in-out;
+}
+
+
+#despegableDown.mostrarDown #contenidoDown {
+    opacity: 1;
+    max-height: 50%;
+}
+
+
+
+
+@media (max-width: 990px) {
+    #despegableDown {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .headerDespegable {
+        justify-content: center;
+    }
+
+    .titleDespegable {
+        text-align: center
+    }
+}

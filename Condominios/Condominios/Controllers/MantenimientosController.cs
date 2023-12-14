@@ -12,5 +12,9 @@ namespace Condominios.Controllers
         {
             return View();
         }
+        public IActionResult GastosMantenimiento()
+        {
+            return View();
+        }
     }
 }

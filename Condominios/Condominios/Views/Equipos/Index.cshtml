@@ -4,422 +4,424 @@
 #pragma warning disable CS8602
 }
 
-@* Despegable 1 *@
+@* Desplegable *@
 
-<aside class="row">
 
-    <article class="col-12 col-lg-3  border-R rounded-3 text-dark"  id="form" >
-        <button id="myBtn">Hola</button>
-        <section class="row text-center text-dark" style="background: #fff;">
+<aside class="row ">
 
-            <h3 class="p-1 ">
-                <span class="color-R">E</span>quipo <img src="~/images/down.svg"
-                                                         alt="down" class="down" id="down">
-                <img src="~/images/up.svg" class="down d-none" alt="up" id="up">
-            </h3>
+    <section class="col-12 col-lg-4 rounded-2" id="despegableUP">
+        <div class="row border-R titleDespegable rounded-2">
+            <h2> <span class="color-R">N</span>uevo equipo <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+        </div>
 
-            <div class="text-light text-center " id="form-body">
+        <div id="contenidoUP">
 
-                <h3 class="contorno bg-R mt-3 mx-auto p-3">Registra más de un equipo</h3>
+            <h4 class="pt-3">Registra un nuevo equipo</h4>
 
-                @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <form asp-action="Create" class="text-light text-center " id="formsEquipo">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2">
-                        <label name="options" class="select" id="text"><b>Selecciona el tipo de equipo</b></label>
+            @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            <form asp-action="Create" class="text-light text-center " id="formsEquipo">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label name="options" class="textDes"><b>Selecciona el tipo de equipo</b></label>
 
-                        <select asp-for="Plantilla.VarianteID" asp-items="Model.Variantes" class="select" id="text">
-                            <option value="">Selecciona un tipo de equipo</option>
-                        </select>
+                    <select asp-for="Plantilla.VarianteID" asp-items="Model.Variantes" class="textDes">
+                        <option value="">Selecciona un tipo de equipo</option>
+                    </select>
+                    <br />
+                    <span asp-validation-for="Plantilla.VarianteID" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>¿En qué estado se encuentra el equipo?</b></label>
+
+                    <select asp-for="Plantilla.EstatusID" asp-items="Model.Estados" class="textDes">
+                        <option value="">Selecciona un estado</option>
+                    </select>
+                    <span asp-validation-for="Plantilla.EstatusID" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2 ">
+                    <label><b>Precio de adquisición del equipo</b></label>
+                    <input asp-for="Plantilla.CostoAdquisicion" class="textDes" type="number" />
+                    <br />
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>Fecha de última aplicación</b></label>
+                    <input asp-for="Plantilla.UltimaAplicacion" class="textDes" type="month" />
+                    <br />
+                    <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>Selecciona la ubicación a la que pertenece</b></label>
+
+                    <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="textDes">
+                        <option value="">Selecciona una úbicación</option>
+                    </select>
+                    <br />
+                    <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>Función del equipo</b></label>
+                    <textarea asp-for="Plantilla.Funcion" rows="3" class="textDes" cols="50"></textarea>
+                    <br />
+                    <span asp-validation-for="Plantilla.Funcion" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+
+                <div class="input mx-auto">
+                    @*- - - - - - - - - - - - - -*@
+                    <label class="mb-2 control-label"><b id="numeroInputs"></b></label>
+                    @*- - - - - - - - - - - - - -*@
+                    <div id="contenedor-inputs" class="contorno mx-auto border border-2" style="width: 100%; max-height: 150px; overflow-y: auto;">
+                        <label class="mb-3 mt-3 control-label"><b>Número de serie</b></label>
+                        <input asp-for="NumerosSerie" class="InputSerie text-center textDes" />
                         <br />
-                        <span asp-validation-for="Plantilla.VarianteID" class="text-danger"></span>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2">
-                        <label><b>¿En qué estado se encuentra el equipo?</b></label>
-
-                        <select asp-for="Plantilla.EstatusID" asp-items="Model.Estados" class="select" id="text">
-                            <option value="">Selecciona un estado</option>
-                        </select>
-                        <span asp-validation-for="Plantilla.EstatusID" class="text-danger"></span>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2 ">
-                        <label><b>Precio de adquisición del equipo</b></label>
-                        <input asp-for="Plantilla.CostoAdquisicion" class="text-center" id="text" type="number" />
+                        <span asp-validation-for="NumerosSerie" class="text-danger"></span>
                         <br />
                     </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2">
-                        <label><b>Fecha de última aplicación</b></label>
-                        <input asp-for="Plantilla.UltimaAplicacion" class="text-center" id="text" type="month" />
-                        <br />
-                        <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2">
-                        <label><b>Selecciona la ubicación a la que pertenece</b></label>
-
-                        <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="select" id="text">
-                            <option value="">Selecciona una úbicación</option>
-                        </select>
-                        <br />
-                        <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                    <div class="row p-2">
-                        <label><b>Función del equipo</b></label>
-                        <textarea asp-for="Plantilla.Funcion" rows="3" id="text" cols="50"></textarea>
-                        <br />
-                        <span asp-validation-for="Plantilla.Funcion" class="text-danger"></span>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-
-                    <div class="input mx-auto">
+                    <div class="mt-4 row">
                         @*- - - - - - - - - - - - - -*@
-                        <label class="mb-2 control-label"><b id="numeroInputs"></b></label>
+                        <div class="col-6">
+                            <button type="button" onclick="agregarNuevoInput()" class="botonTrue">
+                                <b>Agregar Campo</b>
+                            </button>
+                        </div>
                         @*- - - - - - - - - - - - - -*@
-                        <div id="contenedor-inputs" class="contorno mx-auto border border-2" style="width: 100%; max-height: 150px; overflow-y: auto;">
-                            <label class="mb-3 mt-3 control-label"><b>Número de serie</b></label>
-                            <input asp-for="NumerosSerie" class="InputSerie text-center text" />
-                            <br />
-                            <span asp-validation-for="NumerosSerie" class="text-danger"></span>
-                            <br />
-                        </div>
-                        <div class="mt-4 row">
-                            @*- - - - - - - - - - - - - -*@
-                            <div class="col-6">
-                                <button type="button" onclick="agregarNuevoInput()" class="botonTrue">
-                                    <b>Agregar Campo</b>
-                                </button>
-                            </div>
-                            @*- - - - - - - - - - - - - -*@
-                            <div class="col-6">
-                                <button type="button" onclick="remover()" class="botonFalse">
-                                    <b>Remover</b>
-                                </button>
-                                @*- - - - - - - - - - - - - -*@
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 row ">
                         <div class="col-6">
-
-                            <button type="submit" class="botonTrue"><b>Registrar</b></button>
-
-                        </div>
-                        <div class="col-6">
-                            @*- - - - - - - - - - - - - -*@
-                            <button type="reset" onclick="location.reload()" class="botonFalse">
-                                <b>Cancelar</b>
+                            <button type="button" onclick="remover()" class="botonFalse">
+                                <b>Remover</b>
                             </button>
                             @*- - - - - - - - - - - - - -*@
                         </div>
                     </div>
-                    <br>
-                </form>
-                @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-
-            </div>
-
-        </section>
-
-    </article>
-
-    <article class="col-12 col-lg-9"></article>
-
-</aside>
-
-<br />
-
-<main class="container-fluid mt-5">
-
-    @* Titulo *@
-    <section class="row border-R text-center rounded-3">
-        <h1><span class="color-R">E</span>quipos registrados</h1>
-    </section>
-
-    @* Buscadores *@
-    <article class="row mt-4 text-center justify-content-between">
-
-        @* BUSCADOR POR NOMBRE *@
-        <section class="col-12 col-md-3 pt-2">
-            <aside class="row justify-content-start " style="height:100%">
-                <div class="col-md-11 col-12 border-R p-2">
-                    <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda por nombre del equipo</h5>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <form asp-action="SearchByNames" class="row text-center">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="col-12 col-md-6 pt-2">
-                            <input asp-for="CadenaBusqueda" type="text" placeholder="Buscar" class="search">
-                        </div>
-
-                        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center pt-2">
-                            <input type="submit" value="Buscar" class="botonTrue">
-                        </div>
-                    </form>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 </div>
-            </aside>
-        </section>
 
-        @* BUSCADOR POR FILTRO *@
-        <section class="col-12 col-md-7 pt-2">
-            <aside class="row justify-content-center" style="height:100%">
-                <form asp-action="SearchByFilters" class="col-12 border-R d-flex justify-content-center flex-column">
-                    <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda con filtros</h5>
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mt-4 row ">
+                    <div class="col-6">
 
-                    <div class="row text-center d-flex justify-content-between">
-
-                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                        <div class="col">
-                            <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="select">
-                                <option value="0">Marca</option>
-                            </select>
-                        </div>
-                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                        <div class="col">
-                            <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="select">
-                                <option value="0">Ubicación</option>
-                            </select>
-                        </div>
-                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                        <div class="col">
-                            <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="select">
-                                <option value="0">Equipo</option>
-                            </select>
-                        </div>
-                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                        <div class="col">
-                            <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="select">
-                                <option value="0">Motor</option>
-                            </select>
-                        </div>
-                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                        <div class="col">
-                            <input type="submit" value="Buscar" class="botonTrue">
-                        </div>
-                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                        <button type="submit" class="botonTrue"><b>Registrar</b></button>
 
                     </div>
-                    <br />
-                </form>
-            </aside>
-        </section>
-
-        @* BUSCADOR POR ESTATUS| *@
-        <section class="col-12 col-md-2 pt-2">
-            <aside class="row justify-content-end " style="height:100%">
-                <form asp-action="SearchByStatus" id="formsEstado" class="col-12 col-md-11 border-R d-flex justify-content-center flex-column">
-                    <h4 class="mt-2 mb-3"><span class="color-R">B</span>uscar por estatus</h4>
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <select asp-for="EstatusID" asp-items="Model.Estatus" id="SelectEstado" class="select ">
-                        <option value="0">Estados</option>
-                    </select>
-                </form>
-            </aside>
-        </section>
-
-
-
-
-    </article>
-
-    @* Tabla de resultados *@
-    <article class="row rounded-3 text-dark mt-3">
-
-        <table class="text-center border border-primary equipos" id="myTable">
-            <thead>
-
-                <tr class="border-R">
-                    <th class="border-R" id="Nserie">
-                        N°. Serie
-                    </th>
-                    <th class="border-R" id="Marca">
-                        Marca
-                    </th>
-                    <th class="border-R" id="Nombre">
-                        Nombre
-                    </th>
-                    <th class="border-R" id="Motor">
-                        Motor
-                    </th>
-                    <th class="border-R" id="Capacidad">
-                        Capacidad
-                    </th>
-                    <th class="border-R" id="Ubicación">
-                        Ubicación
-                    </th>
-                    <th class="border-R" id="Cantidad">
-                        Función
-                    </th>
-                    <th class="border-R" id="estado">
-                        Estatus
-                    </th>
-                    <th class="border-R" id="adquisición">
-                        Costo de adquisición
-                    </th>
-                    <th class="border-R" id="detalles">
-                        Estado
-                    </th>
-                    <th class="border-R" id="detalles">
-                        Editar
-                    </th>
-                    <th class="border-R" id="detalles">
-                        Detalles
-                    </th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-                @* |||||||||||||||||||||||||||||||||||||||||||||| *@
-                @for (int i = 0; i < Model.Equipos.Count; i++)
-                {
-                    <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <tr>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].NumSerie) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.TipoEquipo.Nombre) </td>
-                        <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Capacidad) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
-                        <td class="border-R p-1" style="text-align:justify">
-                                @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
-                        </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
-                        <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
-                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                        <td class="border-R">
-                            <input type="hidden" asp-for="Plantilla.ID" value="@(Model.Equipos[i].ID)" />
-                            <label class="toggle-switch">
-                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
-                                <input class="chbxEquipo" type="checkbox" asp-for="Equipos[i].Estado">
-                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
-                                <div class="toggle-switch-background">
-                                    <div class="toggle-switch-handle"></div>
-                                </div>
-                            </label>
-                        </td>
-                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                        <td class="border-R">
-                            <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                        </td>
-                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                        <td class="border-R">
-                            <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
-                                <img class="detalles" src="~/images/eye-solid.svg" />
-                            </a>
-                        </td>
-                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    </tr>
-                    </form>
-                }
-            </tbody>
-        </table>
-
-        <section class="row text-center">
-            <div class="pt-2">
-                <h5><span class="color-R">M</span>ás resultados</h5>
-            </div>
-            <div class="pagination d-flex justify-content-center">
-            </div>
-        </section>
-    </article>
-    <br />
-    <br />
-    <br />
-
-</main>
-
-
-@* Despegable 2 *@
-
-<aside class="row position-fixed fixed-bottom despegable2">
-
-    <article class="col-12 col-md-9 "></article>
-
-    <article class="col-12 col-md-3 border border-dark bg-R rounded-3" id="form-b">
-
-        <section class="row text-light text-center justify-content-center" id="fBody">
-
-            <h4 class="pt-3">Registra un mantenimiento</h4>
-
-            <section class="row  p-1">
-                <label for="">Descripción del trabajo a realizar</label>
-                <input type="text" placeholder=" " id="text">
-            </section>
-
-            <div class="row p-1">
-                <label for="">Seleccione el tipo de mantenimiento</label>
-                <select name="options" class="select" id="text">
-                    <option value="volvo">Opcion1</option>
-                    <option value="saab">Opcion2</option>
-                    <option value="mercedes">Opcion3</option>
-                    <option value="audi">Opcion4</option>
-                </select>
-            </div>
-
-            <div class="row p-1">
-                <label for="">Seleccione el proveedor que realizara el trabajo</label>
-                <select name="options" class="select" id="text">
-                    <option value="volvo">Opcion1</option>
-                    <option value="saab">Opcion2</option>
-                    <option value="mercedes">Opcion3</option>
-                    <option value="audi">Opcion4</option>
-                </select>
-            </div>
-
-            <div class="row p-1">
-                <label for="">Costo del mantenimiento</label>
-                <input type="text" placeholder=" " id="text">
-            </div>
-
-            <div class="row  p-1">
-                <label for="">(Si aplica). Escribe el costo del mantenimiento</label>
-                <input type="text" placeholder=" " id="text">
-            </div>
-
-            <div class="row  p-1">
-                <label for="">Observaciones</label>
-                <input type="text" rows="2" placeholder=" " id="text">
-            </div>
-
-
-            <div class="row  p-1 pb-2">
-                <input type="button" value="Agregar" class="btn-des" id="confirmar">
-            </div>
-            <br>
-        </section>
-
-        <div class="row text-center " style="background: #fff;">
-
-            <h3 class="pt-2 pb-1 ">
-
-                <span class="color-R">M</span>antenimiento <img src="~/images/up.svg" alt="up"
-                                                                class="down" id="up1">
-                <img src="~/images/down.svg" class="down d-none" alt="down" id="down1">
-
-            </h3>
-
+                    <div class="col-6">
+                        @*- - - - - - - - - - - - - -*@
+                        <button type="reset" onclick="location.reload()" class="botonFalse">
+                            <b>Cancelar</b>
+                        </button>
+                        @*- - - - - - - - - - - - - -*@
+                    </div>
+                </div>
+                <br>
+            </form>
+            @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
         </div>
 
-    </article>
+    </section>
+
+    <div class="col-12 col-lg-8">
+    </div>
 
 </aside>
+
+@* ********************************************************************************** *@
+<br />
+<br />
+
+
+
+@* Titulo *@
+<section class="row border-R text-center mt-3 rounded-2">
+    <h1><span class="color-R">E</span>quipos registrados</h1>
+</section>
+
+@* Buscadores *@
+<article class="row mt-4 text-center justify-content-between">
+
+    @* BUSCADOR POR NOMBRE *@
+    <section class="col-12 col-md-3 pt-2">
+        <aside class="row justify-content-start " style="height:100%">
+            <div class="col-md-11 col-12 border-R p-2">
+                <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda por nombre del equipo</h5>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                <form asp-action="SearchByNames" class="row text-center">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-12 col-md-6 pt-2">
+                        <input asp-for="CadenaBusqueda" type="text" placeholder="Buscar" class="search">
+                    </div>
+
+                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center pt-2">
+                        <input type="submit" value="Buscar" class="botonTrue">
+                    </div>
+                </form>
+
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            </div>
+        </aside>
+    </section>
+
+    @* BUSCADOR POR FILTRO *@
+    <section class="col-12 col-md-7 pt-2">
+        <aside class="row justify-content-center" style="height:100%">
+            <form asp-action="SearchByFilters" class="col-12 border-R d-flex justify-content-center flex-column">
+                <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda con filtros</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row text-center d-flex justify-content-between">
+
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="select">
+                            <option value="0">Marca</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="select">
+                            <option value="0">Ubicación</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="select">
+                            <option value="0">Equipo</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="select">
+                            <option value="0">Motor</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col">
+                        <input type="submit" value="Buscar" class="botonTrue">
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                </div>
+                <br />
+            </form>
+        </aside>
+    </section>
+
+    @* BUSCADOR POR ESTATUS| *@
+    <section class="col-12 col-md-2 pt-2">
+        <aside class="row justify-content-end " style="height:100%">
+            <form asp-action="SearchByStatus" id="formsEstado" class="col-12 col-md-11 border-R d-flex justify-content-center flex-column">
+                <h4 class="mt-2 mb-3"><span class="color-R">B</span>uscar por estatus</h4>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <select asp-for="EstatusID" asp-items="Model.Estatus" id="SelectEstado" class="select mb-2 ">
+                    <option value="0">Estados</option>
+                </select>
+            </form>
+        </aside>
+    </section>
+
+
+
+
+</article>
+
+@* Filtro por página *@
+<article class="row text-dark mt-3">
+    <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
+        <h4 for="rowsPerPage">Filas por página:</h4>
+    </section>
+
+    <section class="col-6 col-lg-2 bg-R p-1 d-flex numerPage justify-content-start">
+        <select id="rowsPerPage" class="select" onchange="cambiarFilasPorPagina()">
+            <option value="3">3</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="75">75</option>
+            <option value="100">100</option>
+        </select>
+    </section>
+
+    <section class="col-12 col-lg-8"></section>
+
+</article>
+
+@* Tabla de resultados *@
+<article class="row rounded-3 text-dark mt-3">
+
+    <table class="text-center border border-primary equipos" id="myTable">
+        <thead>
+
+            <tr class="border-R">
+                <th class="border-R" id="Nserie">
+                    N°. Serie
+                </th>
+                <th class="border-R" id="Marca">
+                    Marca
+                </th>
+                <th class="border-R" id="Nombre">
+                    Nombre
+                </th>
+                <th class="border-R" id="Motor">
+                    Motor
+                </th>
+                <th class="border-R" id="Capacidad">
+                    Capacidad
+                </th>
+                <th class="border-R" id="Ubicación">
+                    Ubicación
+                </th>
+                <th class="border-R" id="Cantidad">
+                    Función
+                </th>
+                <th class="border-R" id="estado">
+                    Estatus
+                </th>
+                <th class="border-R" id="adquisición">
+                    Costo de adquisición
+                </th>
+                <th class="border-R" id="detalles">
+                    Estado
+                </th>
+                <th class="border-R" id="detalles">
+                    Editar
+                </th>
+                <th class="border-R" id="detalles">
+                    Detalles
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @* |||||||||||||||||||||||||||||||||||||||||||||| *@
+            @for (int i = 0; i < Model.Equipos.Count; i++)
+            {
+                <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <tr>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].NumSerie) </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.TipoEquipo.Nombre) </td>
+                    <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Capacidad) </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
+                    <td class="border-R p-1" style="text-align:justify">
+                            @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
+                    </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <td class="border-R">
+                        <input type="hidden" asp-for="Plantilla.ID" value="@(Model.Equipos[i].ID)" />
+                        <label class="toggle-switch">
+                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                            <input class="chbxEquipo" type="checkbox" asp-for="Equipos[i].Estado">
+                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                            <div class="toggle-switch-background">
+                                <div class="toggle-switch-handle"></div>
+                            </div>
+                        </label>
+                    </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <td class="border-R">
+                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                    <td class="border-R">
+                        <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
+                            <img class="detalles" src="~/images/eye-solid.svg" />
+                        </a>
+                    </td>
+                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                </tr>
+                </form>
+            }
+        </tbody>
+    </table>
+
+    <section class="row text-center">
+        <div class="pt-2">
+            <h5><span class="color-R">M</span>ás resultados</h5>
+        </div>
+        <div class="pagination d-flex justify-content-center">
+        </div>
+    </section>
+</article>
+
+
+@* ********************************************************************************** *@
+
+@* Despegable DOWN *@
+<aside id="despegableDown" class="rounded-2 mt-5">
+    
+    <div id="contenidoDown">
+        <h4 class="pt-3">Registra un mantenimiento</h4>
+
+        <section class="row  p-1">
+            <label for="">Descripción del trabajo a realizar</label>
+            <input type="text" placeholder=" " class="textDes">
+        </section>
+
+        <div class="row p-1">
+            <label for="">Seleccione el tipo de mantenimiento</label>
+            <select name="options"  class="textDes">
+                <option value="volvo">Opcion1</option>
+                <option value="saab">Opcion2</option>
+                <option value="mercedes">Opcion3</option>
+                <option value="audi">Opcion4</option>
+            </select>
+        </div>
+
+        <div class="row p-1">
+            <label for="">Seleccione el proveedor que realizara el trabajo</label>
+            <select name="options" class="textDes">
+                <option value="volvo">Opcion1</option>
+                <option value="saab">Opcion2</option>
+                <option value="mercedes">Opcion3</option>
+                <option value="audi">Opcion4</option>
+            </select>
+        </div>
+
+        <div class="row p-1">
+            <label for="">Costo del mantenimiento</label>
+            <input type="text" placeholder=" " class="textDes">
+        </div>
+
+        <div class="row  p-1">
+            <label for="">(Si aplica). Escribe el costo del mantenimiento</label>
+            <input type="text" placeholder=" " class="textDes">
+        </div>
+
+        <div class="row  p-1">
+            <label for="">Observaciones</label>
+            <textarea rows="3" class="textDes" cols="50"></textarea>
+        </div>
+
+
+        <div class="row  p-1 pb-2">
+            <input type="button" value="Agregar" class="btn-des" id="confirmar">
+        </div>
+    </div>
+
+    <div class="headerDespegable border-R">
+        <h2> <span class="color-R">N</span>uevo mantenimiento</h2>
+        <img src="~/images/up.svg" class="btnDes" alt="DOWN" id="Down">
+    </div>
+</aside>
+
+
+
 
 @section Scripts {
     @{
         <script>
-            Modal('Alexandher', 'Cordoba', false);
+            // Modal('Alexandher', 'Cordoba', false);
         </script>
-        
-        <script src="~/js/Tablas.js" asp-append-version="true"></script>
-        
+
+        // <script src="~/js/Tablas.js" asp-append-version="true"></script>
+        <script src="~/js/Desplegable.js" asp-append-version="true"></script>
+
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_EquiposScripts");
     }

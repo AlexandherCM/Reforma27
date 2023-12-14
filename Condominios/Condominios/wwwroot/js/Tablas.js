@@ -1,17 +1,15 @@
-﻿
-var tabla = document.getElementById('myTable');
+﻿var tabla = document.getElementById('myTable');
 var filasDatos = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-var filasPorPagina = 10;
+var filasPorPagina = 3; // Valor predeterminado
 var totalFilas = filasDatos.length;
 var totalPaginas = Math.ceil(totalFilas / filasPorPagina);
-
 
 var paginacion = document.querySelector('.pagination');
 for (var i = 1; i <= totalPaginas; i++) {
     var enlace = document.createElement('a');
     enlace.href = '#';
-    enlace.textContent =i;
+    enlace.textContent = i;
     enlace.onclick = function (pagina) {
         return function () {
             mostrarPagina(pagina);
@@ -20,15 +18,12 @@ for (var i = 1; i <= totalPaginas; i++) {
     paginacion.appendChild(enlace);
 }
 
-
 mostrarPagina(1);
 
 function mostrarPagina(numeroPagina) {
-
     for (var i = 0; i < filasDatos.length; i++) {
         filasDatos[i].style.display = 'none';
     }
-
 
     var inicio = (numeroPagina - 1) * filasPorPagina;
     var fin = inicio + filasPorPagina;
@@ -36,10 +31,39 @@ function mostrarPagina(numeroPagina) {
         filasDatos[i].style.display = 'table-row';
     }
 
-
     var enlacesPaginacion = document.querySelectorAll('.pagination a');
     enlacesPaginacion.forEach(function (enlace) {
         enlace.classList.remove('active');
     });
     enlacesPaginacion[numeroPagina - 1].classList.add('active');
+}
+
+function cambiarFilasPorPagina() {
+    var select = document.getElementById("rowsPerPage");
+    filasPorPagina = parseInt(select.value);
+    totalPaginas = Math.ceil(filasDatos.length / filasPorPagina);
+    mostrarPagina(1);
+
+    // Actualizar los enlaces de paginación
+    actualizarEnlacesPaginacion();
+}
+
+function actualizarEnlacesPaginacion() {
+    // Eliminar los enlaces de paginación existentes
+    while (paginacion.firstChild) {
+        paginacion.removeChild(paginacion.firstChild);
+    }
+
+    // Volver a crear los enlaces de paginación según el nuevo número de páginas
+    for (var i = 1; i <= totalPaginas; i++) {
+        var enlace = document.createElement('a');
+        enlace.href = '#';
+        enlace.textContent = i;
+        enlace.onclick = function (pagina) {
+            return function () {
+                mostrarPagina(pagina);
+            };
+        }(i);
+        paginacion.appendChild(enlace);
+    }
 }

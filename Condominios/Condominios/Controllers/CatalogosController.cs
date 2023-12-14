@@ -57,9 +57,9 @@ namespace Condominios.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        public async Task<IActionResult> Update([FromBody] CatalogoViewModel model)
+        public async Task Update([FromBody] CatalogoViewModel model)
         {
-            return RedirectToAction(nameof(Index));
+            await _service.Update(model);
         }
     }
 }

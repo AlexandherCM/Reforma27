@@ -41,7 +41,8 @@ BtnEditar.forEach(function (element) {
 
     function ConsultaGET(Formulario, Parametro) {
         var InputNombre = Formulario.querySelector('[name="Nombre"]');
-
+        var InputHidden = Formulario.querySelector('[name="InputHidden"]');
+        InputHidden.value = Parametro;
         api.get(`Catalogos/ObtenerRegistro/${Parametro}`)
             .then(data => {
 
@@ -81,6 +82,7 @@ BtnEditar.forEach(function (element) {
                         InputNombre.value = UnidadMedidadID.nombre;
                         break;
                 }
+                
             })
             .catch(error => console.error('GET Error:', error));
     }

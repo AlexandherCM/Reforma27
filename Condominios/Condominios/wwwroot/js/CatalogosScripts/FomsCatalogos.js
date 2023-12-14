@@ -12,9 +12,8 @@ function CreateFormsListener(Propeties) {
 
         var BotonPresionado = event.submitter;
         let BotonValor = BotonPresionado.value;
-
-
-
+        var Formulario = document.getElementById(Propeties.Forms);
+        var ValorID = Formulario.querySelector('[name="InputHidden"]');
         
         
         let ViewModel = {};
@@ -41,7 +40,8 @@ function CreateFormsListener(Propeties) {
                 CatalogoGralViewModel: {
                     Nombre: Objetos.Nombre
                 },
-                Entidad: Objetos.Entidad
+                Entidad: Objetos.Entidad,
+                ID: parseInt(ValorID.value)
             };
         }
 

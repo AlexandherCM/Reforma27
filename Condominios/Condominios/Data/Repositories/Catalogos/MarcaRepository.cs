@@ -30,7 +30,7 @@ namespace Condominios.Data.Repositories.Catalogos
         }
         public void Update(CatalogoViewModel viewModel)
         {
-            var marca = context.Find<Marca>(viewModel.CatalogoGralViewModel.Nombre);
+            var marca = context.Find<Marca>(viewModel.ID);
             marca.Nombre = viewModel.CatalogoGralViewModel.Nombre;
         }
 

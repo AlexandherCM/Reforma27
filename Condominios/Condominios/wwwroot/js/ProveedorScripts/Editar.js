@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     var BtnEditar = document.querySelectorAll('.remover');
 
     // Datos del desplegable
-    var Desplegable = document.getElementById('form');
-    var FlechaAbajo = document.getElementById('down');
-    var FlechaArriba = document.getElementById('up');
+    var Desplegable = document.getElementById('despegableUP');
+    var Flecha = document.getElementById('up');
+
+    //var FlechaAbajo = document.getElementById('up');
+    //var FlechaArriba = document.getElementById('up');
 
     // Bandera
-
     var UltimoBotonPresionado = null;
 
     BtnEditar.forEach(function (element) {
@@ -35,23 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function AbrirDesplegable() {
-        if (!Desplegable.classList.contains('contract') && !Desplegable.classList.contains('expanded')) {
-            Desplegable.classList.add('expanded');
-            FlechaAbajo.classList.add('d-none');
-            FlechaArriba.classList.remove('d-none');
-        } else if (Desplegable.classList.contains('contract')) {
-            Desplegable.classList.remove('contract');
-            Desplegable.classList.add('expanded');
-            FlechaAbajo.classList.add('d-none');
-            FlechaArriba.classList.remove('d-none');
-        }
+        Desplegable.classList.add('mostrarUP');
+        Flecha.src = '/images/up.svg';
     }
 
     function CerrarDesplegable() {
-        Desplegable.classList.remove('expanded');
-        Desplegable.classList.add('contract');
-        FlechaAbajo.classList.remove('d-none');
-        FlechaArriba.classList.add('d-none');
+        Desplegable.classList.remove('mostrarUP');
+        Flecha.src = '/images/down.svg';
         Formulario.action = "/Proveedores/Agregar";
         BotonEnviar.value = "Agregar";
     }
@@ -71,9 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error('GET Error:', error));
     }
-    FlechaArriba.addEventListener('click', function () {
-        Formulario.reset();
-        Formulario.action = "/Proveedores/Agregar";
-        BotonEnviar.value = "Agregar";
-    });
+    console.log(Flecha.src);
+
+    if (Flecha.src == '/images/up.svg') {
+        console.log("hola");
+        //Formulario.reset();
+        //Formulario.action = "/Proveedores/Agregar";
+        //BotonEnviar.value = "Agregar";
+    }
+    //FlechaArriba.addEventListener('click', function () {
+    //    Formulario.reset();
+    //    Formulario.action = "/Proveedores/Agregar";
+    //    BotonEnviar.value = "Agregar";
+    //});
 });

@@ -56,7 +56,7 @@ function agregarNuevoInput() {
     // Crear un nuevo input
     let nuevoInput = document.createElement("input");
     nuevoInput.type = "text";
-    nuevoInput.className = "InputSerie input-new text-center text mb-3";
+    nuevoInput.className = "textDes";
     nuevoInput.name = "NumerosSerie";
 
     // Crear un nuevo span para validación

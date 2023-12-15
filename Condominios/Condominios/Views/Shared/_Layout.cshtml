@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="~/css/catalogos.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/tipo.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Condominios.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/AlertaStyle.css" asp-append-version="true" />
 </head>
 <body class="bg-light">
 
-    <main role="main" class="container-fluid">
+    <main id="content-main" role="main" class="container-fluid">
 
         <article class="row">
 
@@ -138,7 +139,7 @@
                             @*Proveedores*@
                             <div class="mt-3 t-none justify-content-start d-flex">
                                 <a asp-controller="Home" asp-action="Proveedores" class="t-none d-flex align-items-center link">
-                                    <img class="icons" src="~/images/users.svg" />
+                                    <img class="icons" src="~/images/briefcase-solid.svg" />
                                     <b>Proveedores</b>
                                 </a>
                             </div>
@@ -201,6 +202,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/AlertaScript.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

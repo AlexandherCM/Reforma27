@@ -1,4 +1,5 @@
-﻿var conte = document.getElementById('despegableUP');
+﻿/// <reference path="tipoequiposscripts/editar.js" />
+var conte = document.getElementById('despegableUP');
 var Mostrar = document.getElementById('up');
 
 

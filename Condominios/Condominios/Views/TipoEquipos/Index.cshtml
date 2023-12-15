@@ -144,13 +144,13 @@
 </article>
 
 @* Tabla1 *@
-<article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
 
-    <table class="text-center clasificacion ">
+<article class="row rounded-3 text-dark mt-3">
 
+    <table class="text-center border border-primary equipos" id="myTable">
         <thead>
 
-            <tr class="border-R text-center">
+            <tr class="border-R">
                 <th class="border">Tipo</th>
                 <th class="border">Marca</th>
                 <th class="border">Periodo</th>
@@ -159,10 +159,11 @@
                 <th class="border" style="width:9%;">Estado del registro</th>
                 <th class="border" style="width:5%;">Editar</th>
             </tr>
+
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Variantes.Count; i++)
-            {
+                @for (int i = 0; i < Model.Variantes.Count; i++)
+                {
                 <form asp-action="UpdateEstado" id="Update@(i)">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <tr>
@@ -184,9 +185,20 @@
                     </td>
                 </tr>
                 </form>
-            }
+                }
         </tbody>
     </table>
+
+
+
+
+    <section class="row text-center">
+        <div class="pt-2">
+            <h5><span class="color-R">M</span>ás resultados</h5>
+        </div>
+        <div class="pagination d-flex justify-content-center">
+        </div>
+    </section>
 </article>
 
 
@@ -197,6 +209,7 @@
         <script src="~/js/TipoEquiposScripts/Editar.js"></script>
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
         <script src="~/js/Desplegable.js"></script>
+        <script src="~/js/Tablas.js"></script>
 
     }
 }

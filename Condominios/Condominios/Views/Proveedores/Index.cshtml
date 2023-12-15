@@ -104,9 +104,9 @@
 </article>
 
 @* Tabla2 *@
-<article class="row border-R rounded-3 text-dark mt-3 mb-3 tabla-main">
+<article class="row rounded-3 text-dark mt-3 ">
 
-    <table class="text-center">
+    <table class="text-center border border-primary equipos" id="myTable">
 
         <thead>
 
@@ -161,6 +161,14 @@
 
     </table>
 
+    <section class="row text-center">
+        <div class="pt-2">
+            <h5><span class="color-R">M</span>ás resultados</h5>
+        </div>
+        <div class="pagination d-flex justify-content-center">
+        </div>
+    </section>
+
 </article>
 
 @section Scripts {
@@ -170,5 +178,6 @@
         <script src="~/js/ProveedorScripts/Editar.js"></script>
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
         <script src="~/js/Desplegable.js"></script>
+        <script src="~/js/Tablas.js"></script>
     }
 }

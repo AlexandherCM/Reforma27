@@ -44,7 +44,8 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void Update(CatalogoViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var tipoMantenimiento = context.Find<TipoMantenimiento>(viewModel.ID);
+            tipoMantenimiento.Nombre = viewModel.CatalogoGralViewModel.Nombre;
         }
     }
 }

@@ -119,8 +119,38 @@ namespace Condominios.Models.Services
 
         public async Task Update(CatalogoViewModel viewModel)
         {
-            _uniOfWork.MarcaRepository.Update(viewModel);
-            await _uniOfWork.Save();
+            switch (viewModel.Entidad)
+            {
+                case "Marca":
+                    _uniOfWork.MarcaRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+                case "Ubicacion":
+                    _uniOfWork.UbicacionRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+                case "Motor":
+                    _uniOfWork.MotorRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+                case "TipoMantenimiento":
+                    _uniOfWork.TipoMtoRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+                case "Estatus":
+                    _uniOfWork.EstatusRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+                case "TipoEquipo":
+                    _uniOfWork.TipoEquipoRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+                case "UnidadMedida":
+                    _uniOfWork.UnidadMedidaRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
+            }
+            
         }
     }
 }

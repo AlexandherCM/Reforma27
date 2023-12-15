@@ -50,13 +50,13 @@ function agregarNuevoInput() {
     let contenedor = document.getElementById("contenedor-inputs");
 
     let nuevoLabel = document.createElement("label");
-    nuevoLabel.className = "label-new mb-3 control-label";
+    nuevoLabel.className = "label-new mb-4 mt-4 text-center control-label";
     nuevoLabel.innerHTML = "<b>Numero de serie</b>";
 
     // Crear un nuevo input
     let nuevoInput = document.createElement("input");
     nuevoInput.type = "text";
-    nuevoInput.className = "textDes";
+    nuevoInput.className = "InputSerie input-new textDes text-center";
     nuevoInput.name = "NumerosSerie";
 
     // Crear un nuevo span para validación

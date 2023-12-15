@@ -76,12 +76,10 @@
                     @*- - - - - - - - - - - - - -*@
                     <label class="mb-2 control-label"><b id="numeroInputs"></b></label>
                     @*- - - - - - - - - - - - - -*@
-                    <div id="contenedor-inputs" class="contorno mx-auto border border-2" style="width: 100%; max-height: 150px; overflow-y: auto;">
+                    <div id="contenedor-inputs" class="contorno mx-auto border border-2 d-flex flex-column" style="width: 100%; max-height: 150px; overflow-y: auto;">
                         <label class="mb-3 mt-3 control-label"><b>Número de serie</b></label>
                         <input asp-for="NumerosSerie" class="InputSerie text-center textDes" />
-                        <br />
-                        <span asp-validation-for="NumerosSerie" class="text-danger"></span>
-                        <br />
+                        <span asp-validation-for="NumerosSerie" class="text-danger pb-2"></span>
                     </div>
                     <div class="mt-4 row">
                         @*- - - - - - - - - - - - - -*@

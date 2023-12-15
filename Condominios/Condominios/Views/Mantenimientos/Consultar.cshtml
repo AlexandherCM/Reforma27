@@ -5,238 +5,254 @@
     ViewData["Title"] = "Manteniminetos";
 }
 
+<aside class="row ">
 
+    <section class="col-12 col-lg-4 rounded-2" id="despegableUP">
+        <div class="row border-R titleDespegable rounded-2">
+            <h2> <span class="color-R">N</span>uevo equipo <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+        </div>
 
+        <div id="contenidoUP">
+
+            <h4 class="pt-3">Registra un nuevo equipo</h4>
+
+            @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+            @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+        </div>
+
+    </section>
+
+    <div class="col-12 col-lg-8">
+    </div>
+
+</aside>
+
+@* ********************************************************************************** *@
 <br />
-@* Contenido *@
-<main class="container-fluid mt-5">
+<br />
 
-    @* Titulo *@
-    <section class="row border-R text-center rounded-3">
-        <h1><span class="color-R">D</span>atos del equipo</h1>
+@* Contenido *@
+
+
+@* Titulo *@
+<section class="row border-R text-center rounded-3 mt-5">
+    <h1><span class="color-R">D</span>atos del equipo</h1>
+</section>
+
+
+@* Tabla de resultados *@
+<article class="row border-R rounded-3 text-dark mt-3 tabla-main">
+
+    <table class="text-center mantenimiento">
+
+        <thead>
+
+            <tr class="border-R">
+
+                <th class="border-R" id="Nserie">
+                    N°. Serie
+                </th>
+                <th class="border-R">
+                    Marca
+                </th>
+                <th class="border-R">
+                    Tipo
+                </th>
+                <th class="border-R">
+                    Estatus
+                </th>
+                <th class="border-R" id="adqui">
+                    Precio de adquisición
+                </th>
+                <th class="border-R" id="consultarMto">
+                    Consultar Mto
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">
+                    <input type="button" value="Seleccionar" class="boton">
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</article>
+
+@* Manteniminetos *@
+
+
+@*Titulo *@
+<aside class="row border-R text-center rounded-3 mt-2">
+    <h1><span class="color-R">M</span>antenimineto del equipo</h1>
+</aside>
+
+<article class="row mt-4  justify-content-between">
+
+    @* Buscador por filtros *@
+    <section class="col-12 col-md-8 text-center border-R rounded-2 align-items-center">
+
+        <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
+
+        <div class="row text-center d-flex justify-content-between mb-3">
+
+            <div class="col-4 col-lg-3 col-md-4 p-1">
+                <select name="Proveedores" class="search">
+                    <option value="opcion1">Proveedores</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-3 col-md-4 p-1">
+                <select name="Fecha 1" class="search">
+                    <option value="opcion1">Fecha 1</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-3 col-md-4 p-1">
+                <select name="Fecha 2" class="search">
+                    <option value="opcion1">Fecha 2</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+            </div>
+
+            <div class="col-4 col-lg-3 col-md-4 p-1">
+                <input type="button" value="Buscar" class="boton">
+            </div>
+
+        </div>
+
+    </section>
+
+    @* Estado de aplicación*@
+    <section class="col-12 col-md-3 text-center border-R rounded-2">
+
+        <h4 class="mt-2 mb-3"><span class="color-R">E</span>stado de aplicación</h4>
+
+        <div class="row text-center mb-2">
+
+            <div class="col-2 p-2"></div>
+
+            <div class="col-8 p-2">
+
+                <select name="Aplica" class="search" style="width:100%;">
+                    <option value="opcion1">Aplica</option>
+                    <option value="opcion2">Opcion2</option>
+                    <option value="opcion13">Opcion3</option>
+                </select>
+
+            </div>
+
+            <div class="col-2 p-2"></div>
+
+        </div>
+
     </section>
 
 
-    @* Tabla de resultados *@
-    <article class="row border-R rounded-3 text-dark mt-3 tabla-main">
-
-        <table class="text-center mantenimiento">
+</article>
 
-            <thead>
+@* Tabla de mantenimientos *@
+<article class="row rounded-3 text-dark mt-3 mb-5 tabla-main">
 
-                <tr class="border-R">
+    <table class="text-center mantenimiento">
 
-                    <th class="border-R" id="Nserie">
-                        N°. Serie
-                    </th>
-                    <th class="border-R">
-                        Marca
-                    </th>
-                    <th class="border-R">
-                        Tipo
-                    </th>
-                    <th class="border-R">
-                        Estatus
-                    </th>
-                    <th class="border-R" id="adqui">
-                        Precio de adquisición
-                    </th>
-                    <th class="border-R" id="consultarMto">
-                        Consultar Mto
-                    </th>
+        <thead>
 
-                </tr>
+            <tr class="border-R">
 
-            </thead>
+                <th class="border-R">
+                    Costo Mto.
+                </th>
+                <th class="border-R">
+                    Costo Rep
+                </th>
+                <th class="border-R Proveedor">
+                    Proveedor
+                </th>
+                <th class="border-R">
+                    Aplicado
+                </th>
+                <th class="border-R">
+                    U.Aplic
+                </th>
+                <th class="border-R">
+                    P.Aplicado
+                </th>
+                <th class="border-R">
+                    Consultar
+                </th>
 
-            <tbody>
+            </tr>
 
-                <tr>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">
-                        <input type="button" value="Seleccionar" class="boton">
-                    </td>
-                </tr>
+        </thead>
 
-            </tbody>
+        <tbody>
 
-        </table>
+            <tr>
 
-    </article>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">xxxxxxx</td>
+                <td class="border-R">
+                    <input type="button" value="Seleccionar" class="boton">
+                </td>
 
-    @* Manteniminetos *@
+            </tr>
 
+        </tbody>
 
-    @*Titulo *@
-    <aside class="row border-R text-center rounded-3 mt-2">
-        <h1><span class="color-R">M</span>antenimineto del equipo</h1>
-    </aside>
+    </table>
 
-    <article class="row mt-4  justify-content-between">
+</article>
 
-        @* Buscador por filtros *@
-        <section class="col-12 col-md-8 text-center border-R rounded-2 align-items-center">
+<br />
+@* Totales *@
+<aside class="row rounded-3 text-dark mt-3 mb-5 justify-content-between tabla-main">
 
-            <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
+    <div class="col-6 col-md-2 border-R">
+        <h3><span class="color-R">$</span> xxxx.xx</h3>
+    </div>
 
-            <div class="row text-center d-flex justify-content-between mb-3">
+    <div class="col-6 col-md-2 border-R">
+        <h3><span class="color-R">$</span> xxxx.xx</h3>
+    </div>
 
-                <div class="col-4 col-lg-3 col-md-4 p-1">
-                    <select name="Proveedores" class="search">
-                        <option value="opcion1">Proveedores</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
+    <div class="col-12 col-md-2"></div>
 
-                <div class="col-4 col-lg-3 col-md-4 p-1">
-                    <select name="Fecha 1" class="search">
-                        <option value="opcion1">Fecha 1</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
+    <div class="col-12 col-md-6 border-R text-center">
+        <h2><span class="color-R">T</span>otal de gastos</h2>
+    </div>
 
-                <div class="col-4 col-lg-3 col-md-4 p-1">
-                    <select name="Fecha 2" class="search">
-                        <option value="opcion1">Fecha 2</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-                </div>
+</aside>
 
-                <div class="col-4 col-lg-3 col-md-4 p-1">
-                    <input type="button" value="Buscar" class="boton">
-                </div>
-
-            </div>
-
-        </section>
-
-        @* Estado de aplicación*@
-        <section class="col-12 col-md-3 text-center border-R rounded-2">
-
-            <h4 class="mt-2 mb-3"><span class="color-R">E</span>stado de aplicación</h4>
-
-            <div class="row text-center mb-2">
-
-                <div class="col-2 p-2"></div>
-
-                <div class="col-8 p-2">
-
-                    <select name="Aplica" class="search" style="width:100%;">
-                        <option value="opcion1">Aplica</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
-                    </select>
-
-                </div>
-
-                <div class="col-2 p-2"></div>
-
-            </div>
-
-        </section>
-
-
-    </article>
-
-    @* Tabla de mantenimientos *@
-    <article class="row rounded-3 text-dark mt-3 mb-5 tabla-main">
-
-        <table class="text-center mantenimiento">
-
-            <thead>
-
-                <tr class="border-R">
-
-                    <th class="border-R">
-                        Costo Mto.
-                    </th>
-                    <th class="border-R">
-                        Costo Rep
-                    </th>
-                    <th class="border-R Proveedor">
-                        Proveedor
-                    </th>
-                    <th class="border-R">
-                        Aplicado
-                    </th>
-                    <th class="border-R">
-                        U.Aplic
-                    </th>
-                    <th class="border-R">
-                        P.Aplicado
-                    </th>
-                    <th class="border-R">
-                        Consultar
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">xxxxxxx</td>
-                    <td class="border-R">
-                        <input type="button" value="Seleccionar" class="boton">
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </article>
-
-    <br />
-    @* Totales *@
-    <aside class="row rounded-3 text-dark mt-3 mb-5 justify-content-between tabla-main">
-
-        <div class="col-6 col-md-2 border-R">
-            <h3><span class="color-R">$</span> xxxx.xx</h3>
-        </div>
-
-        <div class="col-6 col-md-2 border-R">
-            <h3><span class="color-R">$</span> xxxx.xx</h3>
-        </div>
-
-        <div class="col-12 col-md-2"></div>
-
-        <div class="col-12 col-md-6 border-R text-center">
-            <h2><span class="color-R">T</span>otal de gastos</h2>
-        </div>
-
-    </aside>
-
-    <br />
-
-
-
-
-</main>
-
-
-
-
+<br />
 
 
 
 @section Scripts {
     @{
+        <script src="~/js/Desplegable.js" asp-append-version="true"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

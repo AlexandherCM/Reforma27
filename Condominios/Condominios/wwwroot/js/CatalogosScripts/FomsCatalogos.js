@@ -1,4 +1,5 @@
 ﻿const api = new ApiClient();
+import { InicializarEditar } from './Editar.js';
 
 Object.keys(catalogos).forEach(key => {
     const catalogo = catalogos[key];
@@ -12,9 +13,9 @@ function CreateFormsListener(Propeties) {
 
         var BotonPresionado = event.submitter;
         let BotonValor = BotonPresionado.value;
-
-
-
+        var Formulario = document.getElementById(Propeties.Forms);
+        var ValorID = Formulario.querySelector('[name="InputHidden"]');
+        var InputName = Formulario.querySelector('[name="Nombre"]');
         
         
         let ViewModel = {};
@@ -41,7 +42,8 @@ function CreateFormsListener(Propeties) {
                 CatalogoGralViewModel: {
                     Nombre: Objetos.Nombre
                 },
-                Entidad: Objetos.Entidad
+                Entidad: Objetos.Entidad,
+                ID: parseInt(ValorID.value)
             };
         }
 
@@ -55,16 +57,40 @@ function CreateFormsListener(Propeties) {
                     let list = data[NameList];
                     let newObject = (list[list.length - 1]);
 
-                    AddNewFile(newObject, Propeties)
+                    AddNewFile(newObject, Propeties);
+                    InputName.value = "";
                 })
                 .catch(error => console.error('POST Error:', error));
         } else if (BotonValor == "Actualizar") {
-            api.SendPost(`Catalogos/Update` , ViewModel)
+            api.SendPost(`Catalogos/Update`, ViewModel)
                 .then(data => {
-                    
+                    CambiarNombre(Propeties.TableRowsID, data.id, data.catalogoGralViewModel.nombre);
                 })
+            InputName.value = "";
+            
         }
     });
+}
+
+function CambiarNombre(Tabla, ValorID, Nombre) {
+
+    var tbody = document.getElementById(Tabla);
+
+    var filas = tbody.getElementsByTagName('tr');
+
+    for (var i = 0; i < filas.length; i++) {
+        var NombreCell = filas[i].children[0];
+
+        var removerImg = filas[i].querySelector('.remover');
+        var ParametroValor = removerImg.dataset.parametro;
+
+        if (ParametroValor == ValorID) {
+            NombreCell.textContent = Nombre;
+        }
+    }
+
+
+
 }
 
 function AddNewFile(TheObject, Propeties) {
@@ -111,7 +137,7 @@ function AddNewFile(TheObject, Propeties) {
         }
     <td class="border-R"></td> <!-- Espacio para el checkbox -->
     <td class="border-R">
-        <img class="remover" src="../../images/pen-to-square-solid.svg" />
+        <img class="remover" src="../../images/pen-to-square-solid.svg" data-formulario="${Propeties.Forms}" data-parametro="${TheObject.id}"/>
     </td>
 
     ${Propeties.Entity === 'Marca' ?
@@ -134,6 +160,10 @@ function AddNewFile(TheObject, Propeties) {
         //console.log(`Forms: ${form.id}`);
         UpdateStatus(form.id);
     });
+    
+    InicializarEditar();
+
 }
+
 
 

@@ -43,7 +43,8 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void Update(CatalogoViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var unidadMedida = context.Find<UnidadMedida>(viewModel.ID);
+            unidadMedida.Nombre = viewModel.CatalogoGralViewModel.Nombre;
         }
 
         public void UpdateEstateById(int id)

@@ -31,6 +31,7 @@
                     <form id="FormsCrearMarca" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden"  name="Entidad" value="Marca" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -107,6 +108,7 @@
                     <form id="FormsCrearUbicacion" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden" name="Entidad" value="Ubicacion" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -153,7 +155,7 @@
                                     </td>
                                     @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                     <td class="border-R">
-                                        <img class="remover" src="~/images/pen-to-square-solid.svg" data-formulario="FormsCrearUbicacion" data-parametro="@(Model.Marcas[i].ID)" />
+                                        <img class="remover" src="~/images/pen-to-square-solid.svg" data-formulario="FormsCrearUbicacion" data-parametro="@(Model.Ubicaciones[i].ID)" />
                                     </td>
                                     @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                                 </tr>
@@ -178,6 +180,7 @@
                     <form id="FormsCrearMotor" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden" name="Entidad" value="Motor" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -345,6 +348,7 @@
                     <form id="FormsCrearTipoMTO" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden" name="Entidad" value="TipoMantenimiento" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -417,6 +421,7 @@
                     <form id="FormsCrearEstatus" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden" name="Entidad" value="Estatus" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -488,6 +493,7 @@
                     <form id="FormsCrearTipoEquipo" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden" name="Entidad" value="TipoEquipo" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -561,6 +567,7 @@
                     <form id="FormsCrearUnidadMedida" class="row align-items-center d-flex justify-content-center p-1">
                         <input type="hidden" name="Entidad" value="UnidadMedida" />
                         <div class="col-6">
+                            <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
                         </div>
                         <div class="col-6">
@@ -642,7 +649,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_CatalogosScripts");
-        <script src="~/js/CatalogosScripts/Editar.js"></script>
+        <script type="module" src="~/js/CatalogosScripts/Editar.js"></script>
     }
 }
 

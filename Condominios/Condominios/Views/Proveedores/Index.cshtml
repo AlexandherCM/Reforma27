@@ -175,7 +175,8 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script src="~/js/ProveedorScripts/ValidarProveedor.js"></script>
-        <script src="~/js/ProveedorScripts/Editar.js"></script>
+        <script type="module" src="~/js/ProveedorScripts/Editar.js"></script>
+        <script type="module" src="~/js/EditarProveedorEquipo.js"></script>
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
         <script src="~/js/Desplegable.js"></script>
         <script src="~/js/Tablas.js"></script>

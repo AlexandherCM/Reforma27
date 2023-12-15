@@ -44,7 +44,9 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void Update(CatalogoViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var periodo = context.Find<Periodo>(viewModel.ID);
+            periodo.Nombre = viewModel.PeriodoViewModel.Nombre;
+            periodo.Meses = viewModel.PeriodoViewModel.Meses();
         }
     }
 }

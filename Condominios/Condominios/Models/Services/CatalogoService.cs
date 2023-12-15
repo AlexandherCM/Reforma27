@@ -149,6 +149,10 @@ namespace Condominios.Models.Services
                     _uniOfWork.UnidadMedidaRepository.Update(viewModel);
                     await _uniOfWork.Save();
                     return;
+                case "Periodo":
+                    _uniOfWork.PeriodoRepository.Update(viewModel);
+                    await _uniOfWork.Save();
+                    return;
             }
             
         }

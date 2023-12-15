@@ -33,9 +33,10 @@
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
-                            <input type="submit" value="Agregar" class="boton" >
+                            <input type="submit" value="Agregar" class="boton">
                             <input type="submit" value="Cancelar" class="boton Cancelar">
                         </div>
                     </form>
@@ -105,11 +106,12 @@
 
                 <div class="row p-3">
                     @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    <form id="FormsCrearUbicacion" class="row align-items-center d-flex justify-content-center p-1">
+                    <form id="FormsCrearUbicacion" class="row align-items-center d-flex justify-content-center p-1" onsubmit="return ValidarForm('FormsCrearUbicacion')">
                         <input type="hidden" name="Entidad" value="Ubicacion" />
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -182,6 +184,7 @@
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -260,19 +263,20 @@
                                     <option value="true">Meses</option>
                                     <option value="false">Años</option>
                                 </select>
-                                <span asp-validation-for="PeriodoViewModel.Mes" class="text-danger"></span>
+                                <span class="text-danger MensajeMes" style="display: none;"></span>
                             </div>
                             <div class="col-6">
                                 <input asp-for="PeriodoViewModel.Cantidad" id="txtCantidad" name="Cantidad" type="number" placeholder="Cantidad" class="text" />
                                 <br />
-                                <span asp-validation-for="PeriodoViewModel.Cantidad" class="text-danger"></span>
+                                <span class="text-danger MensajeCantidad" style="display: none;"></span>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-6">
+                                <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                                 <input asp-for="PeriodoViewModel.Nombre" id="txtNombrePlazo" name="Nombre" type="text" placeholder="Nombre" class="text">
-                                <span asp-validation-for="PeriodoViewModel.Nombre" class="text-danger"></span>
+                                <span class="text-danger Mensaje" style="display: none;"></span>
                             </div>
                             <div class="col-6">
                                 <input type="submit" value="Agregar" class="boton mt-1">
@@ -350,6 +354,7 @@
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -423,6 +428,7 @@
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -495,6 +501,7 @@
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -569,6 +576,7 @@
                         <div class="col-6">
                             <input type="hidden" name="InputHidden" placeholder="Nombre" class="text" value="0">
                             <input type="text" name="Nombre" placeholder="Nombre" class="text">
+                            <span class="text-danger Mensaje" style="display: none;"></span>
                         </div>
                         <div class="col-6">
                             <input type="submit" value="Agregar" class="boton">
@@ -650,6 +658,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_CatalogosScripts");
         <script type="module" src="~/js/CatalogosScripts/Editar.js"></script>
+       
     }
 }
 

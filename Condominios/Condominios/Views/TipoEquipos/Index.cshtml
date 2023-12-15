@@ -206,7 +206,8 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_ValidarForm");
-        <script src="~/js/TipoEquiposScripts/Editar.js"></script>
+        <script type="module" src="~/js/TipoEquiposScripts/Editar.js"></script>
+        <script type="module" src="~/js/EditarProveedorEquipo.js"></script>
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
         <script src="~/js/Desplegable.js"></script>
         <script src="~/js/Tablas.js"></script>

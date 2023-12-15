@@ -14,10 +14,14 @@ function CreateFormsListener(Propeties) {
         var BotonPresionado = event.submitter;
         let BotonValor = BotonPresionado.value;
         var Formulario = document.getElementById(Propeties.Forms);
+        var BotonCancelar = Formulario.querySelector('[value="Cancelar"]')
         var ValorID = Formulario.querySelector('[name="InputHidden"]');
-        var InputName = Formulario.querySelector('[name="Nombre"]');
-        
-        
+
+        if (MensajeError(Formulario)) {
+            return;
+        }
+
+
         let ViewModel = {};
         const Objetos = {};
         const formData = new FormData(event.target);
@@ -34,7 +38,8 @@ function CreateFormsListener(Propeties) {
                     Cantidad: parseInt(Objetos.Cantidad),
                     Mes: Objetos.Mes.toLowerCase() === 'true'
                 },
-                Entidad: Objetos.Entidad
+                Entidad: Objetos.Entidad,
+                ID: parseInt(ValorID.value)
             };
         }
         else {
@@ -58,18 +63,93 @@ function CreateFormsListener(Propeties) {
                     let newObject = (list[list.length - 1]);
 
                     AddNewFile(newObject, Propeties);
-                    InputName.value = "";
+                    Formulario.reset();
                 })
                 .catch(error => console.error('POST Error:', error));
         } else if (BotonValor == "Actualizar") {
             api.SendPost(`Catalogos/Update`, ViewModel)
                 .then(data => {
-                    CambiarNombre(Propeties.TableRowsID, data.id, data.catalogoGralViewModel.nombre);
+
+                    if (data.entidad == "Periodo") {
+                        CambiarPeriodo(data.id, data.periodoViewModel);
+                    } else {
+                        CambiarNombre(Propeties.TableRowsID, data.id, data.catalogoGralViewModel.nombre);
+                    }
                 })
-            InputName.value = "";
-            
+            Formulario.reset();
+            BotonPresionado.value = "Agregar";
+            BotonCancelar.classList.add('d-none');
+
         }
     });
+}
+
+function MensajeError(Formulario) {
+    var InputNombre = Formulario.querySelector('[name="Nombre"]');
+    var Alerta = Formulario.querySelector(".Mensaje");
+    var Envio = false;
+
+    function mostrarMensaje(mensajeElement, mensaje) {
+        mensajeElement.innerText = mensaje;
+        mensajeElement.style.display = 'inline';
+        Envio = true;
+    }
+
+    function ocultarMensaje(mensajeElement) {
+        mensajeElement.style.display = 'none';
+    }
+
+    if (!InputNombre.value) {
+        mostrarMensaje(Alerta, "Este campo es requerido");
+    } else {
+        ocultarMensaje(Alerta);
+    }
+
+    if (Formulario.id == "FormsCrearPeriodo") {
+        var Cantidad = Formulario.querySelector('[name="Cantidad"]');
+        var Select = Formulario.querySelector('[name="Mes"]');
+        var AlertaCantidad = Formulario.querySelector(".MensajeCantidad");
+        var AlertaMes = Formulario.querySelector(".MensajeMes");
+
+        if (!Cantidad.value) {
+            mostrarMensaje(AlertaCantidad, "Este campo es requerido");
+        } else {
+            ocultarMensaje(AlertaCantidad);
+        }
+
+        if (!Select.value) {
+            mostrarMensaje(AlertaMes, "Este campo es requerido");
+        } else {
+            ocultarMensaje(AlertaMes);
+        }
+    }
+
+    return Envio;
+}
+
+function CambiarPeriodo(ValorID, periodoViewModel) {
+    var tbody = document.getElementById("FilasPeriodo");
+
+    var filas = tbody.getElementsByTagName('tr');
+
+    for (var i = 0; i < filas.length; i++) {
+        var NombreCell = filas[i].children[0];
+
+        var MesesCell = filas[i].children[1];
+
+        var removerImg = filas[i].querySelector('.remover');
+        var ParametroValor = removerImg.dataset.parametro;
+
+        if (ParametroValor == ValorID) {
+            NombreCell.textContent = periodoViewModel.nombre;
+            if (!periodoViewModel.mes) {
+                MesesCell.textContent = periodoViewModel.cantidad * 12;
+            } else {
+                MesesCell.textContent = periodoViewModel.cantidad;
+            }
+
+        }
+    }
 }
 
 function CambiarNombre(Tabla, ValorID, Nombre) {
@@ -88,9 +168,6 @@ function CambiarNombre(Tabla, ValorID, Nombre) {
             NombreCell.textContent = Nombre;
         }
     }
-
-
-
 }
 
 function AddNewFile(TheObject, Propeties) {
@@ -141,9 +218,9 @@ function AddNewFile(TheObject, Propeties) {
     </td>
 
     ${Propeties.Entity === 'Marca' ?
-        '<td class="border-R" >' +
+            '<td class="border-R" >' +
             '<img class="remover" src="../../images/eye-solid.svg" />' +
-        '</td >' : ''
+            '</td >' : ''
         }
     `;
 
@@ -160,7 +237,8 @@ function AddNewFile(TheObject, Propeties) {
         //console.log(`Forms: ${form.id}`);
         UpdateStatus(form.id);
     });
-    
+
+    // Se inicializan las acciones para editar 
     InicializarEditar();
 
 }

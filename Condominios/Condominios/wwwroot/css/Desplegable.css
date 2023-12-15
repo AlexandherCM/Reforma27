@@ -55,7 +55,7 @@
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 2s ease, opacity 1s ease-in-out;
+    transition: max-height .4s ease, opacity .5s ease-in-out;
     text-align: center;
     z-index: 2;
 }

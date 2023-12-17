@@ -84,13 +84,13 @@ namespace Condominios.Data.Repositories.Equipos
             int comparacion = present.CompareTo(viewModel.Plantilla.UltimaAplicacion);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            if (comparacion < 0)
-            {
-                _alertaEstado.Leyenda = "No se puede establecer un mes mayor al actual";
-                _alertaEstado.Estado = false;
+            //if (comparacion < 0)
+            //{
+            //    _alertaEstado.Leyenda = "No se puede establecer un mes mayor al actual";
+            //    _alertaEstado.Estado = false;
 
-                return _alertaEstado;
-            }
+            //    return _alertaEstado;
+            //}
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
             int meses = await _context.Variante

@@ -14,9 +14,8 @@ ddlUnidadTiempo.addEventListener('change', ValidarPeriodo);
 txtCantidad.addEventListener('input', ValidarPeriodo);
 
 function ValidarPeriodo() {
+    //ValidarRango(120); 
     ValidarRango(20);
-
-    
 
     if (!Cancelar.classList.contains('d-none')) {
         switch (ddlUnidadTiempo.value) {

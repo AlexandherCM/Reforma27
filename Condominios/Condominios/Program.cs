@@ -10,6 +10,7 @@ using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
+using Condominios.Models.Services.Classes.SegundoPlano;
 using Condominios.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Tareas en segundo plano - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+builder.Services.AddHostedService<WorkerAutomaticMtos>();
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 // Add services Scoped - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-// Servisios específicos
+// Servicios específicos
 builder.Services.AddScoped<IEpoch, EpochService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAutenticarService, AutenticarService>();
@@ -48,7 +53,6 @@ builder.Services.AddScoped<CtrlEquipoService>();
 builder.Services.AddScoped<VarianteService>();
 builder.Services.AddScoped<ProveedorService>();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-//builder.Services.AddHostedService<Worker>().AddSingleton<IFileData, FileData>();
 
 // Configuraciones de autenticación por roles - - - - - - - - - - - - - - - - - - - - - - - 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -63,7 +67,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Inject DataBase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 builder.Services.AddDbContext<Context>(options =>
 {
-    options.UseSqlServer( builder.Configuration.GetConnectionString("Context") );
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Context"));
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 

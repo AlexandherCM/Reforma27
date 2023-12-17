@@ -113,3 +113,52 @@ nuevoCheckbox.addEventListener('change', () => {
     </article>
 
 </aside>
+
+
+// Tareas en segundo plano - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+builder.Services.AddHostedService<WorkerAutomaticMtos>().AddSingleton<AutomaticMtos>();
+//builder.Services.AddHostedService<Worker>().AddSingleton<IFileData, FileDataService>();
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ //_logger.LogInformation("Background service is running.");
+
+ type="month"
+
+
+ using (IServiceScope scope = _serviceProvider.CreateScope())
+                {
+                    IMtoRepository mtoRepository = scope.ServiceProvider.GetService<IMtoRepository>();
+                    List<MtoProgramado> Mtos = await mtoRepository.GetMtosProgramados();
+
+                    DateTime NowTime = DateTime.Now;
+
+                    if (Mtos.Any())
+                    {
+                        Mtos.ForEach(mto =>
+                        {
+                            var ProximaAplicacion = mtoRepository.ObtenerFecha(mto.ProximaAplicacion);
+                            int comparacion = NowTime.CompareTo(ProximaAplicacion);
+
+                            if (comparacion > -1)
+                            {
+                                MtoProgramado newMto = new()
+                                {
+                                    EquipoID = mto.Equipo.ID,
+                                    UltimaAplicacion = mto.ProximaAplicacion,
+                                    ProximaAplicacion = mtoRepository.CrearEpoch(ProximaAplicacion.AddSeconds(mto.Equipo.Variante.Periodo.Meses)),
+                                    Aplicable = true,
+                                    Aplicado = false
+                                };
+
+                                // Agregar a la base de datos
+                                mtoRepository.AddEntity(newMto);
+                                mto.Aplicable = false;
+                            }
+                        });
+
+                        await mtoRepository.Save();
+                        await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken); // Delay de 5 segundos
+                    }
+                    else
+                        await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken); // Delay de 5 segundos
+                }

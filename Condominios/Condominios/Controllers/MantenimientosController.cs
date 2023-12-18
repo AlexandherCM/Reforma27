@@ -1,6 +1,7 @@
 ﻿using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.Catalogos;
+using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Condominios.Controllers
@@ -8,6 +9,10 @@ namespace Condominios.Controllers
     public class MantenimientosController : Controller
     {
         private readonly IMtoRepository _service;
+
+
+        private MantenimientosViewModel _model = new();
+
         public MantenimientosController(IMtoRepository service)
         {
             _service = service;
@@ -16,9 +21,10 @@ namespace Condominios.Controllers
         {
             return View();
         }
-        public IActionResult Crear()
+        public async IActionResult Crear()
         {
-            return View();
+            MantenimientosViewModel model = await _service.Listas();
+            return View(model);
         }
         public IActionResult GastosMantenimiento()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Condominios.Models.ViewModels.Catalogos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Condominios.Controllers
 {
@@ -15,6 +16,13 @@ namespace Condominios.Controllers
         public IActionResult GastosMantenimiento()
         {
             return View();
+        }
+
+        public async Task<IActionResult> GetMtoProgramado() 
+        {
+            //await _service.Update(model);
+            var jsonResult = new JsonResult("Hola");
+            return jsonResult;
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Condominios.Controllers
         {
             _service = service;
         }
-
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         //[Authorize(Roles = "Administrador, General")]

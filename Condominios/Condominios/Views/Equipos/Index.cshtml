@@ -322,7 +322,7 @@
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     <td class="border-R">
-                        <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID">
+                        <a class="btn-details" data-parametro="@Model.Equipos[i].ID">
                             <img class="detalles" src="~/images/eye-solid.svg" />
                         </a>
                     </td>
@@ -392,8 +392,10 @@
         </div>
 
 
-        <div class="row  p-1 pb-2">
+        <div class="row p-1 pb-2">
             <input type="button" value="Agregar" class="btn-des" id="confirmar">
+
+            <input id="btn-ConsultarMtos" type="button" value="Consultar mantenimientos" class="btn-des">
         </div>
     </div>
 
@@ -407,7 +409,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_EquiposScripts");
-        <script>AlertaJS( @Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
     }
 }
 

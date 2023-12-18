@@ -21,6 +21,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             List<Variante> variantes = await _context.Variante.Include(c => c.Marca)
                                       .Include(c => c.Motor)
                                       .Include(c => c.TipoEquipo)
+                                      .Include(c => c.Periodo)
                                       .ToListAsync();
             return Clone(variantes);
         }
@@ -33,23 +34,23 @@ namespace Condominios.Data.Repositories.CtrlEquipos
                 if (tipo != null)
                 {
                     tipo.Nombre += 
-                        $" - {tipo.NombreMarca} - {tipo.NombreMotor} - {tipo.Capacidad}";
+                        $" / Marca: {tipo.NombreMarca} / Motor: {tipo.NombreMotor} / Capacidad: {tipo.Capacidad} / Mantenimiento: {tipo.Periodo}";
                 }
             });
 
             return tipos;
         }
-
         private static List<VarianteDTO> Clone(List<Variante> datos)
         {
             List<VarianteDTO> tipos = (from tipo in datos
                                          select new VarianteDTO
                                          {
                                              ID = tipo.ID,
-                                             Nombre = tipo.TipoEquipo.Nombre,
+                                             Nombre = $"Tipo: {tipo.TipoEquipo.Nombre}",
                                              NombreMarca = tipo.Marca.Nombre,
                                              NombreMotor = tipo.Motor.Nombre,
-                                             Capacidad = tipo.Capacidad
+                                             Capacidad = tipo.Capacidad,
+                                             Periodo = tipo.Periodo.Nombre,
                                          }).ToList();
 
             return tipos;

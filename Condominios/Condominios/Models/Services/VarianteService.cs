@@ -3,6 +3,7 @@ using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 using Microsoft.AspNetCore.Mvc.Rendering;
+#pragma warning disable CS8600 
 
 namespace Condominios.Services
 {

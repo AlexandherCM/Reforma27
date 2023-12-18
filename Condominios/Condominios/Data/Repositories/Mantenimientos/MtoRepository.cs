@@ -35,28 +35,52 @@ namespace Condominios.Data.Repositories.Mantenimientos
             return mantenimiento;
         }
 
-        public async Task<List<MtoProgramado>> GetMtosProgramados() 
-            => await _context.MtoProgramado.Include(r => r.Equipo)
-                                           .Include(r => r.Equipo.Variante.Periodo)
-                                           .Where(c=>
-                                                  c.Aplicable == true && 
-                                                  c.Aplicado == false).ToListAsync();
-        // Save para la tarea en segundo plano
-        public void AddEntity(MtoProgramado mto)
-            => _context.Add(mto);
-
-        public async Task Save()
-            => await _context.SaveChangesAsync();
-
-        public DateTime ObtenerFecha(double epoch)
-            => _epoch.ObtenerFecha(epoch);
-
-        public long CrearEpoch(DateTime fecha)
-            => _epoch.CrearEpoch(fecha);
-
-        public string ObtenerMesYAnio(DateTime fecha)
+        public async Task CreateNewMtoProgram()
         {
-            throw new NotImplementedException();
+            DateTime now = DateTime.Now;
+            DateTime flagTime = new DateTime(now.Year, now.Month, 1, 0, 0, 0);
+
+            var Mtos = await _context.MtoProgramado
+                .Include(r => r.Equipo)
+                .Include(r => r.Equipo.Variante.Periodo)
+                .Where(c => !c.Aplicado)
+                .ToListAsync();
+
+            if (!Mtos.Any()) return;
+
+            foreach (var mto in Mtos.Where(m => m.ProximaAplicacion <= _epoch.CrearEpoch(flagTime)))
+            {
+                if(mto.ProximaAplicacion == _epoch.CrearEpoch(flagTime))
+                {
+                    mto.Aplicable = true;
+                    continue;
+                }
+
+                DateTime UltimaAplicacion = _epoch.ObtenerFecha(mto.ProximaAplicacion);
+                DateTime ProximaAplicacion = UltimaAplicacion.AddMonths(mto.Equipo.Variante.Periodo.Meses);
+
+                long EpochProxAplic = _epoch.CrearEpoch(ProximaAplicacion);
+
+
+                MtoProgramado newMto = new()
+                {
+                    EquipoID = mto.Equipo.ID,
+                    UltimaAplicacion = mto.ProximaAplicacion,
+                    ProximaAplicacion = EpochProxAplic,
+                    Aplicable =
+                        ProximaAplicacion.Month == DateTime.Now.Month && ProximaAplicacion.Year == DateTime.Now.Year,
+                    Aplicado = false
+                };
+
+                //Agregar a la base de datos
+                _context.Add(newMto);
+                mto.Aplicable = false;
+            }
+
+            // Verificar si hay cambios antes de guardar
+            if (_context.ChangeTracker.HasChanges())
+                await _context.SaveChangesAsync();
+
         }
 
     }

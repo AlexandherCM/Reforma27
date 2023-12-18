@@ -98,7 +98,7 @@
     max-height: 0;
     overflow: hidden;
     text-align:center;
-    transition: max-height 2s ease, opacity 1s ease-in-out;
+    transition: max-height .5s ease, opacity .5s ease-in-out;
 }
 
 

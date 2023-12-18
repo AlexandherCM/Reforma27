@@ -22,23 +22,21 @@ namespace Condominios.Models.Services.Classes.SegundoPlano
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var timeUntilNextExecution = AdjustDeadlines(0, 7, 0);
+                var timeUntilNextExecution = AdjustDeadlines(23, 59, 0);
 
                 using (IServiceScope scope = _serviceProvider.CreateScope())
                 {
                     IMtoRepository mtoRepository = scope.ServiceProvider.GetService<IMtoRepository>();
-                    List<MtoProgramado> Mantenimientos = await mtoRepository.GetMtosProgramados();
 
-                    if (Mantenimientos.Any())
-                        await UpdatePeriods(mtoRepository, Mantenimientos);
+                    await mtoRepository.CreateNewMtoProgram();
                 }
-                
-                // tiempo restante
+
+                // Tiempo restante
                 Console.WriteLine($"Tiempo restante para ejecutar nuevamente la tarea: " +
                     $"{timeUntilNextExecution.TotalHours} horas, {timeUntilNextExecution.TotalMinutes} minutos, {timeUntilNextExecution.TotalSeconds} segundos");
 
-
                 // Espera hasta la próxima ejecución
+                //await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken); // Delay de 5 segundos
                 await Task.Delay(timeUntilNextExecution, stoppingToken);
             }
         }
@@ -57,80 +55,6 @@ namespace Condominios.Models.Services.Classes.SegundoPlano
             // Se calcula el tiempo restante hasta la próxima ejecución
             return nextExecutionTimeToday - NowTime;
         }
-
-        private async Task UpdatePeriods(IMtoRepository mtoRepository, List<MtoProgramado> Mtos)
-        {
-            var NowTime = DateTime.Now;
-
-            Mtos.ForEach(mto =>
-            {
-                var ProximaAplicacion = mtoRepository.ObtenerFecha(mto.ProximaAplicacion);
-                int comparacion = NowTime.CompareTo(ProximaAplicacion);
-
-                if (comparacion > -1)
-                {
-                    MtoProgramado newMto = new()
-                    {
-                        EquipoID = mto.Equipo.ID,
-                        UltimaAplicacion = mto.ProximaAplicacion,
-                        ProximaAplicacion = mtoRepository.CrearEpoch(ProximaAplicacion.AddMonths(mto.Equipo.Variante.Periodo.Meses)),
-                        Aplicable = true,
-                        Aplicado = false
-                    };
-
-                    // Agregar a la base de datos
-                    mtoRepository.AddEntity(newMto);
-                    mto.Aplicable = false;
-                }
-            });
-
-            // Guardar todos los cambios de la base de datos
-            await mtoRepository.Save();
-        }
-
-        //protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        //{
-        //    while (!stoppingToken.IsCancellationRequested)
-        //    {
-        //        using (IServiceScope scope = _serviceProvider.CreateScope())
-        //        {
-        //            IMtoRepository mtoRepository = scope.ServiceProvider.GetService<IMtoRepository>();
-        //            List<MtoProgramado> Mtos = await mtoRepository.GetMtosProgramados();
-
-        //            DateTime NowTime = DateTime.Now;
-
-        //            if (Mtos.Any())
-        //            {
-        //                Mtos.ForEach(mto =>
-        //                {
-        //                    var ProximaAplicacion = mtoRepository.ObtenerFecha(mto.ProximaAplicacion);
-        //                    int comparacion = NowTime.CompareTo(ProximaAplicacion);
-
-        //                    if (comparacion > -1)
-        //                    {
-        //                        MtoProgramado newMto = new()
-        //                        {
-        //                            EquipoID = mto.Equipo.ID,
-        //                            UltimaAplicacion = mto.ProximaAplicacion,
-        //                            ProximaAplicacion = mtoRepository.CrearEpoch(ProximaAplicacion.AddSeconds(mto.Equipo.Variante.Periodo.Meses)),
-        //                            Aplicable = true,
-        //                            Aplicado = false
-        //                        };
-
-        //                        // Agregar a la base de datos
-        //                        mtoRepository.AddEntity(newMto);
-        //                        mto.Aplicable = false;
-        //                    }
-        //                });
-
-        //                await mtoRepository.Save();
-        //                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken); // Delay de 5 segundos
-        //            }
-        //            else
-        //                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken); // Delay de 5 segundos
-        //        }
-        //    }
-        //}
 
     }
 }

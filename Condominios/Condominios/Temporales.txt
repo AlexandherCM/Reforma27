@@ -195,3 +195,25 @@ builder.Services.AddHostedService<WorkerAutomaticMtos>().AddSingleton<AutomaticM
 
     timer.Stop();
 }
+
+
+        // Save para la tarea en segundo plano
+        public void AddEntity(MtoProgramado mto)
+            => _context.Add(mto);
+
+        public async Task Save()
+            => await _context.SaveChangesAsync();
+
+        public DateTime ObtenerFecha(double epoch)
+            => _epoch.ObtenerFecha(epoch);
+
+        public long CrearEpoch(DateTime fecha)
+            => _epoch.CrearEpoch(fecha);
+
+        public string ObtenerMesYAnio(DateTime fecha)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        @Model.Equipos[i].ID

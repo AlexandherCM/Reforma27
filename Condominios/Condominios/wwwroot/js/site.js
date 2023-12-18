@@ -9,6 +9,7 @@ const menuLogo = getElement('menuLogo');
 const hamburger = getElement('hamburger');
 const titles = getElements('titles');
 const hyperLink = getElements('hyperLink');
+const icons = getElements('icon-users');
 
 let isToggle = false;
 const menuSrcOpen = "/images/bars-solid.svg";
@@ -33,6 +34,9 @@ const toggle = isOpen => {
     Array.from(hyperLink).forEach(element => {
         element.style.justifyContent = isOpen && width === "6%" ? 'center' : 'flex-start';
         element.style.paddingLeft = isOpen && width === "6%" ? '0' : '1.8rem';
+    });
+    Array.from(icons).forEach(element => {
+        element.style.height = isOpen && width === "6%" ? '2.3rem' : '1.8rem';
     });
 };
 

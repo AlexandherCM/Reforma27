@@ -1,4 +1,20 @@
-﻿th {
+﻿.option {
+    width: auto;
+    padding: 1%;
+    border-radius: 5px;
+    border: solid 1px #652022;
+}
+
+.tabla-main{
+    height:21.5vh;
+    overflow:auto;
+}
+.thead {
+    position: sticky;
+    top: -1%;
+    z-index: 1;
+}
+th {
     background: #652022;
     color: aliceblue;
 }
@@ -52,11 +68,17 @@ td{
         transform: scale(1.1)
     }
 
+
+
 @media (max-width: 990px) {
+    .option {
+        width: 15%;
+    }
     table.equipos td:nth-child(4),
     table.equipos td:nth-child(5),
     table.equipos td:nth-child(6),
-    table.equipos td:nth-child(9), #Motor, #Capacidad, #Cantidad, #estado {
+    table.equipos td:nth-child(7),
+    table.equipos td:nth-child(8), #motor, #funcion, #capacidad, #ubicación, #estado {
         display: none;
     }
 }

@@ -16,5 +16,9 @@ namespace Condominios.Controllers
         {
             return View();
         }
+        public IActionResult Pendientes()
+        {
+            return View();
+        }
     }
 }

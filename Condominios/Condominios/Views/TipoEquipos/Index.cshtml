@@ -75,7 +75,7 @@
                     <h5>Capacidad</h5>
                 </div>
 
-                <div class="row pt-2 border d-flex justify-content-between" style="width:90%; margin:auto;">
+                <div class="row pt-2 d-flex justify-content-between" style="width:90%; margin:auto;">
 
                     <div class="col-6">
                         <input asp-for="VarianteEquipo.CapacidadValor" type="number" class="numDes">
@@ -123,13 +123,14 @@
 </article>
 
 @* Filtro por página *@
+@* Filtro por página *@
 <article class="row text-dark mt-3">
     <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
         <h4 for="rowsPerPage">Filas por página:</h4>
     </section>
 
-    <section class="col-6 col-lg-2 bg-R p-1 d-flex numerPage justify-content-start">
-        <select id="rowsPerPage" class="select" onchange="cambiarFilasPorPagina()">
+    <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
+        <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
             <option value="3">3</option>
             <option value="10">10</option>
             <option value="20">20</option>
@@ -139,10 +140,9 @@
         </select>
     </section>
 
-    <section class="col-12 col-lg-8"></section>
+    <section class="col-12 col-lg-9"></section>
 
 </article>
-
 @* Tabla1 *@
 
 <article class="row rounded-3 text-dark mt-3">

@@ -1,4 +1,7 @@
 ﻿@model Condominios.Models.ViewModels.CtrolProveedores.ProveedoresViewModel
+@{
+    ViewData["Title"] = "Proveedores";
+}
 
 <aside class="row">
 
@@ -88,8 +91,8 @@
         <h4 for="rowsPerPage">Filas por página:</h4>
     </section>
 
-    <section class="col-6 col-lg-2 bg-R p-1 d-flex numerPage justify-content-start">
-        <select id="rowsPerPage" class="select" onchange="cambiarFilasPorPagina()">
+    <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
+        <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
             <option value="3">3</option>
             <option value="10">10</option>
             <option value="20">20</option>
@@ -99,34 +102,34 @@
         </select>
     </section>
 
-    <section class="col-12 col-lg-8"></section>
+    <section class="col-12 col-lg-9"></section>
 
 </article>
 
 @* Tabla2 *@
 <article class="row rounded-3 text-dark mt-3 ">
 
-    <table class="text-center border border-primary equipos" id="myTable">
+    <table class="text-center" id="myTable">
 
         <thead>
 
             <tr class="border-R">
-                <th class="border-R" id="nombre">
+                <th class="border-R">
                     Nombre
                 </th>
                 <th class="border-R">
                     Teléfono
                 </th>
-                <th class="border-R" id="direccion">
+                <th class="border-R">
                     Dirección
                 </th>
-                <th class="border-R" id="correo">
+                <th class="border-R">
                     Correo
                 </th>
-                <th class="border-R" id="estado">
+                <th class="border-R">
                     Estado
                 </th>
-                <th class="border-R" id="detalles">
+                <th class="border-R">
                     Editar
                 </th>
             </tr>

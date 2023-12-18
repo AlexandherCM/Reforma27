@@ -53,6 +53,13 @@ namespace Condominios.Controllers
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        //[Authorize(Roles = "Administrador, General")]
+        public IActionResult Pendientes()
+        {
+            return RedirectToAction("Pendientes", "Mantenimientos");
+        }
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
         //[Authorize(Roles = "Administrador, General")]

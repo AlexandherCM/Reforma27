@@ -56,6 +56,9 @@ a b {
 .icon-menu {
     height: 2.3rem;
 }
+.icon-users{
+    height:1.8rem;
+}
 
 #list {
     display: none;

@@ -17,6 +17,10 @@ namespace Condominios.Controllers
         {
             return View();
         }
+        public IActionResult Pendientes()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> GetMtoProgramado() 
         {

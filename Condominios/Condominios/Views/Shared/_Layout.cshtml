@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/css/Desplegable.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/catalogos.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/tipo.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/task.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Condominios.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/AlertaStyle.css" asp-append-version="true" />
 </head>
@@ -37,10 +38,18 @@
                     <img src="~/images/Logo.svg" width="100%">
                 </div>
 
+                @*Inicio*@
+                <div class="row pt-4 d-flex align-items-center flex-row justify-content-center">
+                    <a asp-controller="Home" asp-action="Pendientes" class="hyperLink">
+                        <img src="~/images/house-solid.svg" class="icon-users " />
+                        <h6><b class="titles">Inicio</b></h6>
+                    </a>
+                </div>
+                
                 @*Catalogos*@
                 <div class="row pt-4 d-flex align-items-center flex-row justify-content-center">
                     <a asp-controller="Home" asp-action="Catalogos" class="hyperLink">
-                        <img src="~/images/Book-solid.svg" class="icon-menu" />
+                        <img src="~/images/Book-solid.svg" class="icon-menu " />
                         <h6><b class="titles">Catálogos</b></h6>
                     </a>
                 </div>
@@ -48,7 +57,7 @@
                 @*Proveedores*@
                 <div class="row pt-4 d-flex align-items-center flex-row justify-content-center">
                     <a asp-controller="Home" asp-action="Proveedores" class="hyperLink">
-                        <img src="~/images/briefcase-solid.svg" class="icon-menu" />
+                        <img src="~/images/users-solid.svg" class="icon-users" />
                         <h6><b class="titles">Proveedores</b></h6>
                     </a>
                 </div>
@@ -104,7 +113,7 @@
             <section id="content">
 
                 @*Header*@
-                <header class="row">
+                <header class="row ">
 
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -128,6 +137,14 @@
                     <div class="collapse" id="navbarResponsivo">
 
                         <div class="p-4">
+                            @*Inicio*@
+                            <div class="mt-3 t-none justify-content-start d-flex">
+                                <a asp-controller="Home" asp-action="Pendientes" class="t-none d-flex align-items-center link">
+                                    <img class="icons" src="~/images/house-solid.svg" />
+                                    <b> Inicio</b>
+                                </a>
+                            </div>
+
                             @*Catálogos*@
                             <div class="mt-3 t-none justify-content-start d-flex">
                                 <a asp-controller="Home" asp-action="Catalogos" class="t-none d-flex align-items-center link">
@@ -139,7 +156,7 @@
                             @*Proveedores*@
                             <div class="mt-3 t-none justify-content-start d-flex">
                                 <a asp-controller="Home" asp-action="Proveedores" class="t-none d-flex align-items-center link">
-                                    <img class="icons" src="~/images/briefcase-solid.svg" />
+                                    <img class="icons" src="~/images/users-solid.svg" />
                                     <b>Proveedores</b>
                                 </a>
                             </div>

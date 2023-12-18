@@ -2,6 +2,8 @@
 
 @{
 #pragma warning disable CS8602
+    ViewData["Title"] = "Equipos";
+
 }
 
 @* Desplegable *@
@@ -224,8 +226,8 @@
         <h4 for="rowsPerPage">Filas por página:</h4>
     </section>
 
-    <section class="col-6 col-lg-2 bg-R p-1 d-flex numerPage justify-content-start">
-        <select id="rowsPerPage" class="select" onchange="cambiarFilasPorPagina()">
+    <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
+        <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
             <option value="3">3</option>
             <option value="10">10</option>
             <option value="20">20</option>
@@ -235,7 +237,7 @@
         </select>
     </section>
 
-    <section class="col-12 col-lg-8"></section>
+    <section class="col-12 col-lg-9"></section>
 
 </article>
 
@@ -249,22 +251,22 @@
                 <th class="border-R" id="Nserie">
                     N°. Serie
                 </th>
-                <th class="border-R" id="Marca">
+                <th class="border-R" id="marca">
                     Marca
                 </th>
-                <th class="border-R" id="Nombre">
+                <th class="border-R" id="nombre">
                     Nombre
                 </th>
-                <th class="border-R" id="Motor">
+                <th class="border-R" id="motor">
                     Motor
                 </th>
-                <th class="border-R" id="Capacidad">
+                <th class="border-R" id="capacidad">
                     Capacidad
                 </th>
-                <th class="border-R" id="Ubicación">
+                <th class="border-R" id="ubicación">
                     Ubicación
                 </th>
-                <th class="border-R" id="Cantidad">
+                <th class="border-R" id="funcion">
                     Función
                 </th>
                 <th class="border-R" id="estado">

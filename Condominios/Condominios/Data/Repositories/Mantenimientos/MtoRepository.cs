@@ -4,7 +4,7 @@ using Condominios.Models;
 using Condominios.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
-#pragma warning disable CS8600
+#pragma warning disable CS8603
 
 namespace Condominios.Data.Repositories.Mantenimientos
 {
@@ -50,7 +50,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             foreach (var mto in Mtos.Where(m => m.ProximaAplicacion <= _epoch.CrearEpoch(flagTime)))
             {
-                if(mto.ProximaAplicacion == _epoch.CrearEpoch(flagTime))
+                if (mto.ProximaAplicacion == _epoch.CrearEpoch(flagTime))
                 {
                     mto.Aplicable = true;
                     continue;
@@ -83,5 +83,10 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
         }
 
+        public async Task<MtoProgramado> GetMtoProgramado(int ID)
+            => await _context.MtoProgramado
+                             .Where(c => c.ID == ID)
+                             .OrderByDescending(c => c.ProximaAplicacion)
+                             .FirstOrDefaultAsync();
     }
 }

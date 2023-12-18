@@ -52,6 +52,7 @@ builder.Services.AddScoped<CatalogoService>();
 builder.Services.AddScoped<CtrlEquipoService>();
 builder.Services.AddScoped<VarianteService>();
 builder.Services.AddScoped<ProveedorService>();
+builder.Services.AddScoped<MtoService>();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 // Configuraciones de autenticación por roles - - - - - - - - - - - - - - - - - - - - - - - 

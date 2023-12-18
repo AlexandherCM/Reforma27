@@ -1,10 +1,17 @@
-﻿using Condominios.Models.ViewModels.Catalogos;
+﻿using Condominios.Data.Interfaces.IRepositories;
+using Condominios.Models.Entities;
+using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Condominios.Controllers
 {
     public class MantenimientosController : Controller
     {
+        private readonly IMtoRepository _service;
+        public MantenimientosController(IMtoRepository service)
+        {
+            _service = service;
+        }
         public IActionResult Consultar(int id)
         {
             return View();
@@ -22,11 +29,10 @@ namespace Condominios.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetMtoProgramado() 
+        public async Task<IActionResult> GetMtoProgramado(int ID) 
         {
-            //await _service.Update(model);
-            var jsonResult = new JsonResult("Hola");
-            return jsonResult;
+            MtoProgramado mto = await _service.GetMtoProgramado(ID);
+            return new JsonResult(mto);
         }
     }
 }

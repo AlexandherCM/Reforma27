@@ -1,4 +1,5 @@
 ﻿using Condominios.Data;
+using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 
@@ -11,5 +12,8 @@ namespace Condominios.Models.Services
         {
             _unitOfWork = uniOfWork;
         }
+
+        public async Task<MtoProgramado> GetMtoProgramado(int ID)
+            => await _unitOfWork.MtoRepository.GetMtoProgramado(ID);
     }
 }

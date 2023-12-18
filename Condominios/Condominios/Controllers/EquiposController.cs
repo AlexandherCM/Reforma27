@@ -33,6 +33,12 @@ namespace Condominios.Controllers
                 json = (string)TempData["Equipos"];
                 model.Equipos = JsonConvert.DeserializeObject<List<Equipo>>(json);
             }
+            
+            if (TempData["AlertaJS"] != null)
+            {
+                json = (string)TempData["AlertaJS"];
+                model.AlertaEstado = JsonConvert.DeserializeObject<AlertaEstado>(json);
+            }
 
             return View(model);
         }
@@ -46,6 +52,12 @@ namespace Condominios.Controllers
             if (ModelState.IsValid)
             {
                 model.AlertaEstado = await _service.InsertarEquipos(model);
+
+                if (model.AlertaEstado.Estado)
+                {
+                    TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
+                    return RedirectToAction(nameof(Index));
+                }
 
                 model = await _service.GetLists(model);
                 return View("Index", model);

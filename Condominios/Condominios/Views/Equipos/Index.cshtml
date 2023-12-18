@@ -307,20 +307,29 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    <td class="border-R">
+                    @*<td class="border-R">
                         <input type="hidden" asp-for="Plantilla.ID" value="@(Model.Equipos[i].ID)" />
                         <label class="toggle-switch">
-                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
                             <input class="chbxEquipo" type="checkbox" asp-for="Equipos[i].Estado">
-                                @* - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - -  - - *@
+                            <div class="toggle-switch-background">
+                                <div class="toggle-switch-handle"></div>
+                            </div>
+                        </label>
+                    </td>*@
+                    <td class="border-R">
+                        <label class="toggle-switch">
+                            <input class="chbxEstado" data-url="Equipos/UpdateStatus/" type="checkbox" checked="@Model.Equipos[i].Estado" value="@(Model.Equipos[i].ID)">
                             <div class="toggle-switch-background">
                                 <div class="toggle-switch-handle"></div>
                             </div>
                         </label>
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    <td class="border-R">
+                    @*<td class="border-R">
                         <img class="detalles" src="~/images/pen-to-square-solid.svg" />
+                    </td>*@
+                    <td class="border-R">
+                        <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipos[i].ID)" />
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     <td class="border-R">

@@ -88,5 +88,18 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task UpdateStatus(int id)
+        {
+            await _service.ActualizarEstado(id);
+        }
+
+        public async Task<IActionResult> ObtenerRegistro(int id)
+        {
+            Equipo model = await _service.GetEquipo(id);
+
+            var jsonResult = new JsonResult(model);
+            return jsonResult;
+        }
+
     }
 }

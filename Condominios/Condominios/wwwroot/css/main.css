@@ -91,128 +91,138 @@ a {
         transform: scale(1.1);
     }
 
+.space {
+    padding: 0 9.8rem
+}
 
+@media (max-width: 1200px) {
+    .space {
+        padding: 0 5rem;
+    }
+}
+    @media (max-width: 990px) {
+        .menu {
+            height: 2rem;
+        }
 
+        #col-menu {
+            display: none;
+        }
 
-@media (max-width: 990px) {
-    .menu {
-        height: 2rem;
+        #content {
+            width: 100%;
+            margin: auto;
+        }
+
+        #list {
+            display: block;
+        }
+
+        #espacio {
+            display: none;
+        }
+
+        #render {
+            padding-left: 0rem;
+            padding-right: 0rem;
+        }
+        .space {
+            padding: 0 4rem;
+        }
+        
     }
 
-    #col-menu {
-        display: none;
+
+
+
+
+
+
+
+    /* switch  */
+
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        /* Reducido a la mitad */
+        height: 20px;
+        /* Reducido a la mitad */
+        cursor: pointer;
     }
 
-    #content {
+        .toggle-switch input[type="checkbox"] {
+            display: none;
+        }
+
+    .toggle-switch-background {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        margin: auto;
+        height: 100%;
+        background-color: #ddd;
+        border-radius: 10px;
+        /* Reducido a la mitad */
+        box-shadow: inset 0 0 0 1px #ccc;
+        /* Ajustado el grosor del borde */
+        transition: background-color 0.3s ease-in-out;
     }
 
-    #list {
-        display: block;
+    .toggle-switch-handle {
+        position: absolute;
+        top: 2.5px;
+        /* Ajustado a la mitad */
+        left: 2.5px;
+        /* Ajustado a la mitad */
+        width: 15px;
+        /* Reducido a la mitad */
+        height: 15px;
+        /* Reducido a la mitad */
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        /* Ajustado el sombreado */
+        transition: transform 0.3s ease-in-out;
     }
 
-    #espacio {
-        display: none;
+    .toggle-switch::before {
+        content: "";
+        position: absolute;
+        top: -12.5px;
+        /* Ajustado a la mitad */
+        right: -17.5px;
+        /* Ajustado a la mitad */
+        font-size: 6px;
+        /* Reducido a la mitad */
+        font-weight: bold;
+        color: #aaa;
+        text-shadow: 0.5px 0.5px #fff;
+        /* Ajustado el sombreado */
+        transition: color 0.3s ease-in-out;
     }
 
-    #render {
-        padding-left: 0rem;
-        padding-right: 0rem;
-    }
-}
-
-
-
-
-
-
-
-
-/* switch  */
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    /* Reducido a la mitad */
-    height: 20px;
-    /* Reducido a la mitad */
-    cursor: pointer;
-}
-
-    .toggle-switch input[type="checkbox"] {
-        display: none;
+    .toggle-switch input[type="checkbox"]:checked + .toggle-switch-handle {
+        transform: translateX(20px);
+        /* Ajustado para el nuevo tamaño y posición */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 1.5px #05c46b;
+        /* Ajustado el sombreado y el grosor del borde */
     }
 
-.toggle-switch-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ddd;
-    border-radius: 10px;
-    /* Reducido a la mitad */
-    box-shadow: inset 0 0 0 1px #ccc;
-    /* Ajustado el grosor del borde */
-    transition: background-color 0.3s ease-in-out;
-}
+    .toggle-switch input[type="checkbox"]:checked + .toggle-switch-background {
+        background-color: #05c46b;
+        box-shadow: inset 0 0 0 1px #04b360;
+        /* Ajustado el grosor del borde */
+    }
 
-.toggle-switch-handle {
-    position: absolute;
-    top: 2.5px;
-    /* Ajustado a la mitad */
-    left: 2.5px;
-    /* Ajustado a la mitad */
-    width: 15px;
-    /* Reducido a la mitad */
-    height: 15px;
-    /* Reducido a la mitad */
-    background-color: #fff;
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    /* Ajustado el sombreado */
-    transition: transform 0.3s ease-in-out;
-}
+    .toggle-switch input[type="checkbox"]:checked + .toggle-switch:before {
+        content: "On";
+        color: #05c46b;
+        right: -7.5px;
+        /* Ajustado a la mitad */
+    }
 
-.toggle-switch::before {
-    content: "";
-    position: absolute;
-    top: -12.5px;
-    /* Ajustado a la mitad */
-    right: -17.5px;
-    /* Ajustado a la mitad */
-    font-size: 6px;
-    /* Reducido a la mitad */
-    font-weight: bold;
-    color: #aaa;
-    text-shadow: 0.5px 0.5px #fff;
-    /* Ajustado el sombreado */
-    transition: color 0.3s ease-in-out;
-}
-
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-handle {
-    transform: translateX(20px);
-    /* Ajustado para el nuevo tamaño y posición */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 1.5px #05c46b;
-    /* Ajustado el sombreado y el grosor del borde */
-}
-
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-background {
-    background-color: #05c46b;
-    box-shadow: inset 0 0 0 1px #04b360;
-    /* Ajustado el grosor del borde */
-}
-
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch:before {
-    content: "On";
-    color: #05c46b;
-    right: -7.5px;
-    /* Ajustado a la mitad */
-}
-
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-background .toggle-switch-handle {
-    transform: translateX(20px);
-    /* Ajustado para el nuevo tamaño y posición */
-}
+    .toggle-switch input[type="checkbox"]:checked + .toggle-switch-background .toggle-switch-handle {
+        transform: translateX(20px);
+        /* Ajustado para el nuevo tamaño y posición */
+    }

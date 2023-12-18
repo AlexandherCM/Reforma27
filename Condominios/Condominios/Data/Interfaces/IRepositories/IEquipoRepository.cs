@@ -8,7 +8,7 @@ namespace Condominios.Data.Interfaces.IRepositories
 {
     public interface IEquipoRepository<Entidad>
     {
-        public Entidad GetById(int id);
+        Task<Equipo?> GetById(int id);
         public Task<List<Equipo>> GetList(FiltrosDTO filtros);
         public Task<List<Equipo>> GetList(string cadena);
         public Task<List<Equipo>> GetList(int id);
@@ -16,5 +16,6 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel);
         public void Update(Entidad entity);
         public void Delete(Entidad entity);
+        Task<Equipo?> UpdateID(int id);
     }
 }

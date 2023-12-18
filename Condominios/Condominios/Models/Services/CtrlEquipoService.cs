@@ -64,5 +64,18 @@ namespace Condominios.Models.Services
             return viewModel;
         }
 
+        public async Task<Equipo> ActualizarEstado(int id)
+        {
+            Equipo equipo = await _unitOfWork.EquipoRepository.UpdateID(id);
+            await _unitOfWork.Save();
+            return equipo;
+        }
+
+        public async Task<Equipo> GetEquipo(int id)
+        {
+            Equipo equipo = await _unitOfWork.EquipoRepository.GetById(id);
+            return equipo;
+        }
+
     }
 }

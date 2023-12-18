@@ -27,8 +27,11 @@ export function EditarProveedorEquipo(Pagina) {
                 UltimoBotonPresionado = Parametro;
                 if (Pagina == "Proveedor") {
                     ConsultaGETProveedor(Parametro);
+                } else if (Pagina == "TipoEquipo") {
+                    ConsultaGETTipoEquipo(Parametro);
                 } else if (Pagina == "Equipo") {
                     ConsultaGETEquipo(Parametro);
+
                 }
             }
         });
@@ -55,7 +58,7 @@ export function EditarProveedorEquipo(Pagina) {
         }
     });
 
-    function ConsultaGETEquipo(Parametro) {
+    function ConsultaGETTipoEquipo(Parametro) {
         api.get(`TipoEquipos/ObtenerRegistro/${Parametro}`)
             .then(data => {
 
@@ -99,6 +102,76 @@ export function EditarProveedorEquipo(Pagina) {
                 document.getElementById("Correo").value = data.correo;
                 Formulario.action = "/Proveedores/Actualizar";
                 BotonEnviar.value = "Actualizar";
+
+            })
+            .catch(error => console.error('GET Error:', error));
+    }
+    //////////////////////////////////////////////////////////
+    function ConsultaGETEquipo(Parametro) {
+        api.get(`Equipos/ObtenerRegistro/${Parametro}`)
+            .then(data => {
+
+                var VarianteSelect = document.getElementById("Plantilla_VarianteID");
+                var StatusSelect = document.getElementById("Plantilla_EstatusID");
+                //var CostoSelect = document.getElementById("Plantilla_CostoAdquisicion");
+                //var UltimaAplicacionSelect = document.getElementById("Plantilla_UltimaAplicacion");
+                var UbicacionSelect = document.getElementById("Plantilla_UbicacionID");
+
+
+
+                for (let i = 0; i < VarianteSelect.options.length; i++) {
+                    const option = VarianteSelect.options[i];
+                    if (option.value == data.varianteID) {
+                        option.selected = true;
+                        break;
+                    }
+                }
+
+                for (let i = 0; i < StatusSelect.options.length; i++) {
+                    const option = StatusSelect.options[i];
+                    if (option.value == data.estatusID) {
+                        option.selected = true;
+                        break;
+                    }
+                }
+
+                document.getElementById("Plantilla_CostoAdquisicion").value = data.costoAdquisicion;
+                //for (let i = 0; i < CostoSelect.options.length; i++) {
+                //    const option = CostoSelect.options[i];
+                //    if (option.value == data.costoAdquisicion) {
+                //        option.selected = true;
+                //        break;
+                //    }
+                //}
+
+                //for (let i = 0; i < UltimaAplicacionSelect.options.length; i++) {
+                //    const option = UltimaAplicacionSelect.options[i];
+                //    if (option.value == data.) {
+                //        option.selected = true;
+                //        break;
+                //    }
+                //}
+
+                for (let i = 0; i < UbicacionSelect.options.length; i++) {
+                    const option = UbicacionSelect.options[i];
+                    if (option.value == data.ubicacionID) {
+                        option.selected = true;
+                        break;
+                    }
+                }
+
+                document.getElementById("Plantilla_Funcion").value = data.funcion;
+                
+
+
+
+
+                //document.getElementById("Nombre").value = data.nombre;
+                //document.getElementById("Numero").value = data.telefono;
+                //document.getElementById("Direccion").value = data.direccion;
+                //document.getElementById("Correo").value = data.correo;
+                //Formulario.action = "/Proveedores/Actualizar";
+                //BotonEnviar.value = "Actualizar";
 
             })
             .catch(error => console.error('GET Error:', error));

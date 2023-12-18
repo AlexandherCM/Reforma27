@@ -155,15 +155,17 @@ namespace Condominios.Data.Repositories.Equipos
             throw new NotImplementedException();
         }
 
-        public Equipo GetById(int id)
+        public async Task<Equipo?> GetById(int id)
         {
-            throw new NotImplementedException();
+            var equipo = await _context.Equipo.FirstOrDefaultAsync(c => c.ID == id);
+            return equipo;
         }
 
         public void Update(Equipo entity)
         {
             throw new NotImplementedException();
         }
+
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         private async Task<int> GetMonths(CtrlEquipoViewModel viewModel)
@@ -173,5 +175,12 @@ namespace Condominios.Data.Repositories.Equipos
                         .FirstOrDefaultAsync();
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        public async Task<Equipo?> UpdateID(int id)
+        {
+            var equipo = await _context.Equipo.FirstOrDefaultAsync(c => c.ID == id);
+            equipo.Estado = !equipo.Estado;
+            return equipo;
+        }
     }
 }

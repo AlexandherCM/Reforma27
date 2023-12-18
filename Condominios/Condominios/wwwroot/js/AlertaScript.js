@@ -1,5 +1,12 @@
-﻿
-//Funcion de la alerta nromal
+﻿//Funcion de la alerta nromal
+function AlertaJS(alertaEstado) {
+
+    if (alertaEstado && alertaEstado.Estado) {
+        Modal('¡Éxito!', alertaEstado.Leyenda, true);
+    } else if (alertaEstado && !alertaEstado.Estado) {
+        Modal('¡Error!', alertaEstado.Leyenda, false);
+    } 
+}
 
 let modalActivo = null;
 var main = document.getElementById('content-main');

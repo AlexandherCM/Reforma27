@@ -15,10 +15,12 @@ namespace Condominios.Data.Repositories.Equipos
         private readonly Context _context;
         private IMtoRepository _service;
         private AlertaEstado _alertaEstado = new();
-        public EquipoRepository(Context context, IMtoRepository service)
+        private IEpoch _epoch;
+        public EquipoRepository(Context context, IMtoRepository service, IEpoch epoch)
         {
             _context = context;
             _service = service;
+            _epoch = epoch;
         }
 
         public async Task<List<Equipo>> GetList(int id)
@@ -74,29 +76,54 @@ namespace Condominios.Data.Repositories.Equipos
             return await query.ToListAsync();
         }
 
-        public async Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel)
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        private AlertaEstado DetectErrors(CtrlEquipoViewModel viewModel)
         {
             DateTime present = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-
-            // -1 = La fecha es menor que la segunda
-            // 0  = La fecha es igual que la segunda
-            // 1  = La fecha es mayor que la segunda
             int comparacion = present.CompareTo(viewModel.Plantilla.UltimaAplicacion);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            //if (comparacion < 0)
-            //{
-            //    _alertaEstado.Leyenda = "No se puede establecer un mes mayor al actual";
-            //    _alertaEstado.Estado = false;
+            if (comparacion < 0)
+            {
+                _alertaEstado.Leyenda = "No se puede establecer una fecha superior a la actual";
+                _alertaEstado.Estado = false;
 
-            //    return _alertaEstado;
-            //}
+                return _alertaEstado;
+            }
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            DateTime ProximoMto =
+                viewModel.Plantilla.UltimaAplicacion.AddMonths(GetMonths(viewModel).GetAwaiter().GetResult());
+
+            var MonthAndYear = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0); 
+
+            if (ProximoMto.CompareTo(MonthAndYear) == -1)
+            {
+                string fechaInicio = _epoch.ObtenerMesYAnio(viewModel.Plantilla.UltimaAplicacion);
+                string fechaProximoMantenimiento = _epoch.ObtenerMesYAnio(ProximoMto);
+
+                _alertaEstado.Leyenda = $"No es posible establecer \"{fechaInicio}\" como fecha de inicio, " +
+                    $"ya que la programación para el próximo mantenimiento sería en \"{fechaProximoMantenimiento}\", " +
+                    $"y esta fecha es menor a la actual.";
+
+                _alertaEstado.Estado = false;
+
+                return _alertaEstado;
+            }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-            int meses = await _context.Variante
-                        .Where(c => c.ID == viewModel.Plantilla.VarianteID)
-                        .Select(c => c.Periodo.Meses)
-                        .FirstOrDefaultAsync();
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+        }
+
+        public async Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel)
+        {
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            _alertaEstado = DetectErrors(viewModel);
+            if (!_alertaEstado.Estado)
+                return _alertaEstado;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+            int meses = await GetMonths(viewModel);
 
             var equipos = viewModel.NumerosSerie.Select(serie => new Equipo
             {
@@ -138,5 +165,13 @@ namespace Condominios.Data.Repositories.Equipos
             throw new NotImplementedException();
         }
 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        private async Task<int> GetMonths(CtrlEquipoViewModel viewModel)
+            => await _context.Variante
+                        .Where(c => c.ID == viewModel.Plantilla.VarianteID)
+                        .Select(c => c.Periodo.Meses)
+                        .FirstOrDefaultAsync();
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     }
 }

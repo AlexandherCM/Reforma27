@@ -162,3 +162,36 @@ builder.Services.AddHostedService<WorkerAutomaticMtos>().AddSingleton<AutomaticM
                     else
                         await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken); // Delay de 5 segundos
                 }
+
+
+                
+
+            // -1 = La fecha es menor que la segunda
+            // 0  = La fecha es igual que la segunda
+            // 1  = La fecha es mayor que la segunda
+
+
+            protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+{
+    var now = DateTime.Now;
+    var nextExecutionTime = new DateTime(now.Year, now.Month, now.Day, 22, 27, 0);
+    var delayUntilNextExecution = nextExecutionTime - now;
+
+    var timer = new System.Timers.Timer(delayUntilNextExecution.TotalMilliseconds);
+    timer.Elapsed += (sender, e) =>
+    {
+        Console.WriteLine("Hola Mundo");
+
+        // Establece el temporizador para que se dispare cada minuto
+        timer.Interval = TimeSpan.FromMinutes(1).TotalMilliseconds;
+    };
+
+    timer.Start();
+
+    while (!stoppingToken.IsCancellationRequested)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+    }
+
+    timer.Stop();
+}

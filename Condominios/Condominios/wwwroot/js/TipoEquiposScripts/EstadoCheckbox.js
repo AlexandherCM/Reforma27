@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function ConsultaGET(URL, CheckboxID) {
+        const api = new ApiClient();
+
         api.get(URL + CheckboxID);
     }
 });

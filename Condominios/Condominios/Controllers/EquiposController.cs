@@ -48,15 +48,8 @@ namespace Condominios.Controllers
             {
                 model.AlertaEstado = await _service.InsertarEquipos(model);
 
-                if (model.AlertaEstado.Estado != false)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    model = await _service.GetLists(model);
-                    return View("Index", model);
-                }
+                model = await _service.GetLists(model);
+                return View("Index", model);
             }
             return RedirectToAction(nameof(Index));
         }

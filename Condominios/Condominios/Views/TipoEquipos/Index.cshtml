@@ -206,11 +206,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_ValidarForm");
-        <script type="module" src="~/js/TipoEquiposScripts/Editar.js"></script>
-        <script type="module" src="~/js/EditarProveedorEquipo.js"></script>
-        <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js"></script>
-        <script src="~/js/Desplegable.js"></script>
-        <script src="~/js/Tablas.js"></script>
+        <script type="module" src="~/js/TipoEquiposScripts/Editar.js" asp-append-version="true"></script>
+        <script type="module" src="~/js/EditarProveedorEquipo.js" asp-append-version="true"></script>
+        <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js" asp-append-version="true"></script>
+        <script src="~/js/Desplegable.js" asp-append-version="true"></script>
+        <script src="~/js/Tablas.js" asp-append-version="true"></script>
 
     }
 }

@@ -11,7 +11,7 @@ main {
 
 .btnClose {
     border: 0;
-    width: 12%;
+    width: 30%;
     border-radius: 0.25em;
     background: initial;
     background-color: #7066e0;
@@ -35,7 +35,7 @@ main {
     padding: 20px;
     animation: alertaEntrada 0.5s ease-in-out;
     text-align: center;
-    width: 35%;
+    width: 20%;
     color: black;
     margin: auto;
     border-radius: 15px;

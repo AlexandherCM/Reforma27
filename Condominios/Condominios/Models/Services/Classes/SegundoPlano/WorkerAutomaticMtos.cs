@@ -73,7 +73,7 @@ namespace Condominios.Models.Services.Classes.SegundoPlano
                     {
                         EquipoID = mto.Equipo.ID,
                         UltimaAplicacion = mto.ProximaAplicacion,
-                        ProximaAplicacion = mtoRepository.CrearEpoch(ProximaAplicacion.AddSeconds(mto.Equipo.Variante.Periodo.Meses)),
+                        ProximaAplicacion = mtoRepository.CrearEpoch(ProximaAplicacion.AddMonths(mto.Equipo.Variante.Periodo.Meses)),
                         Aplicable = true,
                         Aplicado = false
                     };

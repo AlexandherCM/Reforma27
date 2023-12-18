@@ -10,10 +10,7 @@ namespace Condominios.Models.ViewModels.Catalogos
         [Required(ErrorMessage = "Selecciona el plazo de tiempo")]
         public bool Mes { get; set; }
 
-        //public int Meses()
-        //    => Mes ? Cantidad : Cantidad * 12;
-        
         public int Meses()
-            => Cantidad;
+            => Mes ? Cantidad : Cantidad * 12;
     }
 }

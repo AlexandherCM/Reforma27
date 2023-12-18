@@ -17,16 +17,18 @@ namespace Condominios.Data.Repositories.Mantenimientos
             _epoch = epoch;
             _context = context;
         }
+
         public MtoProgramado CrearObjeto(DateTime UltimaAplicacion, int meses)
         {
+            DateTime ProximaAplicacion = UltimaAplicacion.AddMonths(meses);
+
             MtoProgramado mantenimiento = new()
             {
                 UltimaAplicacion =
-                            _epoch.CrearEpoch(UltimaAplicacion),
-                ProximaAplicacion =
-                            _epoch.CrearEpoch(UltimaAplicacion.AddSeconds(meses)),
-
-                Aplicable = true,
+                    _epoch.CrearEpoch(UltimaAplicacion),
+                ProximaAplicacion = _epoch.CrearEpoch(ProximaAplicacion),
+                Aplicable =
+                    ProximaAplicacion.Month == DateTime.Now.Month && ProximaAplicacion.Year == DateTime.Now.Year,
                 Aplicado = false
             };
 

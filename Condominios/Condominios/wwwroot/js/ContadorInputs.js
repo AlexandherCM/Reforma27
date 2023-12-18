@@ -22,14 +22,14 @@ document.getElementById('formsEquipo').addEventListener('submit', (event) => {
 
         // Verificar si el valor ya está en el conjunto
         if (uniqueValues.has(inputValue)) {
-            alert('Los números de serie no pueden ser iguales.');
+            Modal('Error', 'Los números de serie no pueden ser iguales.', false);
 
             event.preventDefault();
             return;
         }
 
         if (inputValue === "") {
-            alert('Los campos no pueden ser nulos :V');
+            Modal('Error', 'Los campos no pueden ser nulos.', false);
 
             event.preventDefault();
             return;
@@ -83,7 +83,7 @@ function remover() {
 
         contarInputs();
     } else {
-        alert("No hay suficientes elementos para eliminar.");
+        Modal('Error', 'No hay suficientes elementos para eliminar.', false)
     }
 }
 

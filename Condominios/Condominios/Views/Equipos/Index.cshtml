@@ -49,7 +49,7 @@
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2">
                     <label><b>Fecha de última aplicación</b></label>
-                    <input asp-for="Plantilla.UltimaAplicacion" class="textDes"  />
+                    <input asp-for="Plantilla.UltimaAplicacion" class="textDes" type="month" />
                     <br />
                     <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
                 </div>
@@ -127,8 +127,6 @@
 @* ********************************************************************************** *@
 <br />
 <br />
-
-
 
 @* Titulo *@
 <section class="row border-R text-center mt-3 rounded-2">
@@ -218,9 +216,6 @@
         </aside>
     </section>
 
-
-
-
 </article>
 
 @* Filtro por página *@
@@ -304,7 +299,7 @@
                     <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Capacidad) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
-                    <td class="border-R p-1" style="text-align:justify">
+                    <td class="border-R p-1">
                             @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
                     </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
@@ -352,7 +347,7 @@
 
 @* Despegable DOWN *@
 <aside id="despegableDown" class="rounded-2 mt-5">
-    
+
     <div id="contenidoDown">
         <h4 class="pt-3">Registra un mantenimiento</h4>
 
@@ -363,7 +358,7 @@
 
         <div class="row p-1">
             <label for="">Seleccione el tipo de mantenimiento</label>
-            <select name="options"  class="textDes">
+            <select name="options" class="textDes">
                 <option value="volvo">Opcion1</option>
                 <option value="saab">Opcion2</option>
                 <option value="mercedes">Opcion3</option>
@@ -408,20 +403,11 @@
     </div>
 </aside>
 
-
-
-
 @section Scripts {
     @{
-        <script>
-            Modal('Alexandher', 'Cordoba', false);
-        </script>
-
-        <script src="~/js/Tablas.js" asp-append-version="true"></script>
-        <script src="~/js/Desplegable.js" asp-append-version="true"></script>
-
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_EquiposScripts");
+        <script>AlertaJS( @Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
     }
 }
 

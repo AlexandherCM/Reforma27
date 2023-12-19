@@ -113,11 +113,7 @@ export function EditarProveedorEquipo(Pagina) {
 
                 var VarianteSelect = document.getElementById("Plantilla_VarianteID");
                 var StatusSelect = document.getElementById("Plantilla_EstatusID");
-                //var CostoSelect = document.getElementById("Plantilla_CostoAdquisicion");
-                //var UltimaAplicacionSelect = document.getElementById("Plantilla_UltimaAplicacion");
                 var UbicacionSelect = document.getElementById("Plantilla_UbicacionID");
-
-
 
                 for (let i = 0; i < VarianteSelect.options.length; i++) {
                     const option = VarianteSelect.options[i];
@@ -136,21 +132,6 @@ export function EditarProveedorEquipo(Pagina) {
                 }
 
                 document.getElementById("Plantilla_CostoAdquisicion").value = data.costoAdquisicion;
-                //for (let i = 0; i < CostoSelect.options.length; i++) {
-                //    const option = CostoSelect.options[i];
-                //    if (option.value == data.costoAdquisicion) {
-                //        option.selected = true;
-                //        break;
-                //    }
-                //}
-
-                //for (let i = 0; i < UltimaAplicacionSelect.options.length; i++) {
-                //    const option = UltimaAplicacionSelect.options[i];
-                //    if (option.value == data.) {
-                //        option.selected = true;
-                //        break;
-                //    }
-                //}
 
                 for (let i = 0; i < UbicacionSelect.options.length; i++) {
                     const option = UbicacionSelect.options[i];
@@ -161,18 +142,6 @@ export function EditarProveedorEquipo(Pagina) {
                 }
 
                 document.getElementById("Plantilla_Funcion").value = data.funcion;
-                
-
-
-
-
-                //document.getElementById("Nombre").value = data.nombre;
-                //document.getElementById("Numero").value = data.telefono;
-                //document.getElementById("Direccion").value = data.direccion;
-                //document.getElementById("Correo").value = data.correo;
-                //Formulario.action = "/Proveedores/Actualizar";
-                //BotonEnviar.value = "Actualizar";
-
             })
             .catch(error => console.error('GET Error:', error));
     }

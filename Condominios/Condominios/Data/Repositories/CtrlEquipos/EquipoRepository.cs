@@ -155,11 +155,14 @@ namespace Condominios.Data.Repositories.Equipos
             throw new NotImplementedException();
         }
 
-        public async Task<Equipo?> GetById(int id)
-        {
-            var equipo = await _context.Equipo.FirstOrDefaultAsync(c => c.ID == id);
-            return equipo;
-        }
+        public async Task<Equipo?> GetById(int ID)
+            => await _context.Equipo.Include(c=>c.Variante)
+                                    .Include(c => c.Variante.Marca)
+                                    .Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Ubicacion)
+                                    .Include(c => c.Estatus)
+                                    .FirstOrDefaultAsync(c => c.ID == ID);
 
         public void Update(Equipo entity)
         {

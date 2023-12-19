@@ -292,8 +292,6 @@
             @* |||||||||||||||||||||||||||||||||||||||||||||| *@
             @for (int i = 0; i < Model.Equipos.Count; i++)
             {
-                <form asp-action="UpdateById" id="UpdatePeriodo@(i)">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <tr>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].NumSerie) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
@@ -307,15 +305,6 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    @*<td class="border-R">
-                        <input type="hidden" asp-for="Plantilla.ID" value="@(Model.Equipos[i].ID)" />
-                        <label class="toggle-switch">
-                            <input class="chbxEquipo" type="checkbox" asp-for="Equipos[i].Estado">
-                            <div class="toggle-switch-background">
-                                <div class="toggle-switch-handle"></div>
-                            </div>
-                        </label>
-                    </td>*@
                     <td class="border-R">
                         <label class="toggle-switch">
                             <input class="chbxEstado" data-url="Equipos/UpdateStatus/" type="checkbox" checked="@Model.Equipos[i].Estado" value="@(Model.Equipos[i].ID)">
@@ -325,9 +314,6 @@
                         </label>
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    @*<td class="border-R">
-                        <img class="detalles" src="~/images/pen-to-square-solid.svg" />
-                    </td>*@
                     <td class="border-R">
                         <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipos[i].ID)" />
                     </td>
@@ -339,7 +325,6 @@
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 </tr>
-                </form>
             }
         </tbody>
     </table>
@@ -355,66 +340,6 @@
 
 
 @* ********************************************************************************** *@
-
-@* Despegable DOWN *@
-@*<aside id="despegableDown" class="rounded-2 mt-5">
-
-    <div id="contenidoDown">
-        <h4 class="pt-3">Registra un mantenimiento</h4>
-
-        <section class="row  p-1">
-            <label for="">Descripción del trabajo a realizar</label>
-            <p id="Leyenda-Mto"></p>
-        </section>
-
-        <div class="row p-1">
-            <label for="">Seleccione el tipo de mantenimiento</label>
-            <select name="options" class="textDes">
-                <option value="volvo">Opcion1</option>
-                <option value="saab">Opcion2</option>
-                <option value="mercedes">Opcion3</option>
-                <option value="audi">Opcion4</option>
-            </select>
-        </div>
-
-        <div class="row p-1">
-            <label for="">Seleccione el proveedor que realizara el trabajo</label>
-            <select name="options" class="textDes">
-                <option value="volvo">Opcion1</option>
-                <option value="saab">Opcion2</option>
-                <option value="mercedes">Opcion3</option>
-                <option value="audi">Opcion4</option>
-            </select>
-        </div>
-
-        <div class="row p-1">
-            <label for="">Costo del mantenimiento</label>
-            <input type="text" placeholder=" " class="textDes">
-        </div>
-
-        <div class="row  p-1">
-            <label for="">(Si aplica). Escribe el costo del mantenimiento</label>
-            <input type="text" placeholder=" " class="textDes">
-        </div>
-
-        <div class="row  p-1">
-            <label for="">Observaciones</label>
-            <textarea rows="3" class="textDes" cols="50"></textarea>
-        </div>
-
-
-        <div class="row p-1 pb-2">
-            <input type="button" value="Agregar" class="btn-des" id="confirmar">
-
-            <input id="btn-ConsultarMtos" type="button" value="Consultar mantenimientos" class="btn-des">
-        </div>
-    </div>
-
-    <div class="headerDespegable border-R">
-        <h2> <span class="color-R">N</span>uevo mantenimiento</h2>
-        <img src="~/images/up.svg" class="btnDes" alt="DOWN" id="Down">
-    </div>
-</aside>*@
 
 @section Scripts {
     @{

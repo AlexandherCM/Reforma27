@@ -1,20 +1,24 @@
 ﻿using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models.Entities;
-using Condominios.Models.ViewModels.Catalogos;
+using Condominios.Models.Services;
+using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Condominios.Controllers
 {
     public class MantenimientosController : Controller
     {
-        private readonly IMtoRepository _service;
-        public MantenimientosController(IMtoRepository service)
+        private readonly MtoService _service;
+        public MantenimientosController(MtoService service)
         {
             _service = service;
         }
-        public IActionResult Consultar(int id)
+        public async Task<IActionResult> Consultar(int ID)
         {
-            return View();
+            CtrolMtosEquiposViewModels model = new();
+            model.Equipo = await _service.GetEquipo(ID);
+
+            return View(model);
         }
         public IActionResult Crear()
         {

@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
             var CheckboxID = event.currentTarget.getAttribute('value');
             var URL = event.currentTarget.getAttribute('data-url');
             ConsultaGET(URL, CheckboxID);
-           
         });
     });
 

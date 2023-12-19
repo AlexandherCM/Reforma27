@@ -1,7 +1,8 @@
-﻿@model ICollection<Condominios.Models.Entities.MtoProgramado>
+﻿@model Condominios.Models.ViewModels.CtrolEquipo.CtrolMtosEquiposViewModels
 @inject Condominios.Data.Interfaces.IEpoch service
 
 @{
+    #pragma warning disable CS8602
     ViewData["Title"] = "Consultar";
 }
 
@@ -14,10 +15,65 @@
 
         <div id="contenidoUP">
 
-            <h4 class="pt-3">Registra un nuevo equipo</h4>
+            <h4 class="pt-3">Editar equipo</h4>
 
             @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            <form asp-action="Edit" class="text-light text-center " id="formsEquipo">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label name="options" class="textDes"><b>Selecciona el tipo de equipo</b></label>
 
+                    <select asp-for="Plantilla.VarianteID" class="textDes">
+                        <option value="">Selecciona un tipo de equipo</option>
+                    </select>
+                    <br />
+                    <span asp-validation-for="Plantilla.VarianteID" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>¿En qué estado se encuentra el equipo?</b></label>
+
+                    <select asp-for="Plantilla.EstatusID"  class="textDes">
+                        <option value="">Selecciona un estado</option>
+                    </select>
+                    <span asp-validation-for="Plantilla.EstatusID" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2 ">
+                    <label><b>Precio de adquisición del equipo</b></label>
+                    <input asp-for="Plantilla.CostoAdquisicion" class="textDes" type="number" />
+                    <br />
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>Fecha de última aplicación</b></label>
+                    <input asp-for="Plantilla.UltimaAplicacion" class="textDes" type="month" />
+                    <br />
+                    <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>Selecciona la ubicación a la que pertenece</b></label>
+
+                    <select asp-for="Plantilla.UbicacionID" class="textDes">
+                        <option value="">Selecciona una úbicación</option>
+                    </select>
+                    <br />
+                    <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-2">
+                    <label><b>Función del equipo</b></label>
+                    <textarea asp-for="Plantilla.Funcion" rows="3" class="textDes" cols="50"></textarea>
+                    <br />
+                    <span asp-validation-for="Plantilla.Funcion" class="text-danger"></span>
+                </div>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div class="row p-1 pb-2">
+                    <input type="submit" value="Editar" class="btn-des" id="confirmar">
+                </div>
+            </form>
             @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
         </div>
 
@@ -47,45 +103,80 @@
     <table class="text-center mantenimiento">
 
         <thead>
-
             <tr class="border-R">
-
                 <th class="border-R" id="Nserie">
                     N°. Serie
                 </th>
-                <th class="border-R">
+                <th class="border-R" id="marca">
                     Marca
                 </th>
-                <th class="border-R">
-                    Tipo
+                <th class="border-R" id="nombre">
+                    Nombre
                 </th>
-                <th class="border-R">
+                <th class="border-R" id="motor">
+                    Motor
+                </th>
+                <th class="border-R" id="capacidad">
+                    Capacidad
+                </th>
+                <th class="border-R" id="ubicación">
+                    Ubicación
+                </th>
+                <th class="border-R" id="funcion">
+                    Función
+                </th>
+                <th class="border-R" id="estado">
                     Estatus
                 </th>
-                <th class="border-R" id="adqui">
-                    Precio de adquisición
+                <th class="border-R" id="adquisición">
+                    Costo de adquisición
                 </th>
-                <th class="border-R" id="consultarMto">
-                    Consultar Mto
+                <th class="border-R" id="detalles">
+                    Estado
                 </th>
-
+                <th class="border-R" id="detalles">
+                    Editar
+                </th>
+                @*<th class="border-R" id="detalles">
+                    Detalles
+                </th>*@
             </tr>
-
         </thead>
 
         <tbody>
-
             <tr>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">
-                    <input type="button" value="Seleccionar" class="boton">
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.NumSerie) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Marca.Nombre) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.TipoEquipo.Nombre) </td>
+                <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Motor.Nombre) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Capacidad) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Ubicacion.Nombre) </td>
+                <td class="border-R p-1">
+                    @Html.DisplayFor(modelItem => Model.Equipo.Funcion)
                 </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Estatus.Nombre) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.CostoAdquisicion) </td>
+                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                <td class="border-R">
+                    <label class="toggle-switch">
+                        <input class="chbxEstado" data-url="Equipos/UpdateStatus/" type="checkbox" checked="@Model.Equipo.Estado" value="@(Model.Equipo.ID)">
+                        <div class="toggle-switch-background">
+                            <div class="toggle-switch-handle"></div>
+                        </div>
+                    </label>
+                </td>
+                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                <td class="border-R">
+                    <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipo.ID)" />
+                </td>
+                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                @*<td class="border-R">
+                    <a class="btn-details" >
+                        <img class="detalles" src="~/images/eye-solid.svg" data-parametro="@Model.Equipo.ID" />
+                    </a>
+                </td>*@
+                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
             </tr>
-
         </tbody>
 
     </table>
@@ -247,11 +338,56 @@
 
 <br />
 
+@* Despegable DOWN *@
 <aside id="despegableDown" class="rounded-2 mt-5">
 
     <div id="contenidoDown">
-        <h4 class="pt-3">Registra un mantenimiento</h4>
+        <h4 class="pt-3">Registra el último mantenimiento programado</h4>
 
+        <div class="textDes">
+            <section class="row bg-white p-1 rounded text-black">
+                <p id="Leyenda-Mto">miaw</p>
+            </section>
+        </div>
+
+        <div class="row p-1">
+            <label for="">Seleccione el tipo de mantenimiento</label>
+            <select name="options" class="textDes">
+                <option value="volvo">Opcion1</option>
+                <option value="saab">Opcion2</option>
+                <option value="mercedes">Opcion3</option>
+                <option value="audi">Opcion4</option>
+            </select>
+        </div>
+
+        <div class="row p-1">
+            <label for="">Seleccione el proveedor que realizara el trabajo</label>
+            <select name="options" class="textDes">
+                <option value="volvo">Opcion1</option>
+                <option value="saab">Opcion2</option>
+                <option value="mercedes">Opcion3</option>
+                <option value="audi">Opcion4</option>
+            </select>
+        </div>
+
+        <div class="row p-1">
+            <label for="">Costo del mantenimiento</label>
+            <input type="text" placeholder=" " class="textDes">
+        </div>
+
+        <div class="row  p-1">
+            <label for="">(Si aplica). Escribe el costo del mantenimiento</label>
+            <input type="text" placeholder=" " class="textDes">
+        </div>
+
+        <div class="row  p-1">
+            <label for="">Observaciones</label>
+            <textarea rows="3" class="textDes" cols="50"></textarea>
+        </div>
+
+        <div class="row p-1 pb-2">
+            <input type="submit" value="Agregar" class="btn-des" id="confirmar">
+        </div>
     </div>
 
     <div class="headerDespegable border-R">
@@ -259,6 +395,7 @@
         <img src="~/images/up.svg" class="btnDes" alt="DOWN" id="Down">
     </div>
 </aside>
+
 
 @section Scripts {
     @{

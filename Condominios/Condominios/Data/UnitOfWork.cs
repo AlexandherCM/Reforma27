@@ -20,7 +20,7 @@ namespace Condominios.Data
         public ICatalogoRepository<TipoMantenimiento> TipoMtoRepository { get; }
         public IVarianteRepository<VarianteDTO> VarianteRepository { get; }
         public ICatalogoRepository<UnidadMedida> UnidadMedidaRepository { get; }
-        public IProveedoresRepository<Proveedor> ProveedorRepository { get; }
+        public IProveedorRepository<Proveedor> ProveedorRepository { get; }
         public IMtoRepository MtoRepository { get; }
 
         public UnitOfWork(Context context,
@@ -34,7 +34,7 @@ namespace Condominios.Data
             ICatalogoRepository<UnidadMedida> unidadMedidaRepository,
             IEquipoRepository<Equipo> equipoRepository,
             IVarianteRepository<VarianteDTO> varianteRepository,
-            IProveedoresRepository<Proveedor> proveedorRepository,
+            IProveedorRepository<Proveedor> proveedorRepository,
             IMtoRepository mtoRepository)
         {
             _context = context;

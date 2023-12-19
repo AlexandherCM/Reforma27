@@ -5,6 +5,9 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
 {
     public class EditEquipoViewModel
     {
+        //EL ID SE USA COMO PLANTILLA PARA OTROS CONCEPTOS QUE TENGAN IDENTIFICADOR
+        public int? ID { get; set; }
+
         [Required(ErrorMessage = "El campo es obligatorio")]
         public int UbicacionID { get; set; }
 

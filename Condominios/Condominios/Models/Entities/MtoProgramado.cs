@@ -10,6 +10,7 @@ namespace Condominios.Models.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        public int? MantenimientoID { get; set; }
         public int EquipoID { get; set; }
         public long UltimaAplicacion { get; set; }
         public long ProximaAplicacion { get; set; }
@@ -18,6 +19,9 @@ namespace Condominios.Models.Entities
 
         //Relaciones - - - - - - - - - - - - - - - - - - - - - 
         [ForeignKey(nameof(EquipoID))]
-        public virtual Equipo Equipo { get; set; }
+        public virtual Equipo Equipo { get; set; } 
+        
+        [ForeignKey(nameof(MantenimientoID))]
+        public virtual Mantenimiento? Mantenimiento { get; set; } 
     }
 }

@@ -3,7 +3,6 @@
 @{
 #pragma warning disable CS8602
     ViewData["Title"] = "Equipos";
-
 }
 
 @* Desplegable *@
@@ -248,7 +247,7 @@
         <thead>
 
             <tr class="border-R">
-                <th class="border-R" id="Nserie">
+                <th class="border-R" style="width: 10%;" id="Nserie">
                     N°. Serie
                 </th>
                 <th class="border-R" id="marca">
@@ -314,7 +313,7 @@
                         </label>
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    @* <td class="border-R">
+                   @*  <td class="border-R">
                         <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipos[i].ID)" />
                     </td> *@
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@

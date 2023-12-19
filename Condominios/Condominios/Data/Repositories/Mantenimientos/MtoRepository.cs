@@ -83,18 +83,16 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
         }
 
+        //public async Task<MtoProgramado> GetMtoProgramado(int ID)
+        //    => await _context.MtoProgramado
+        //                     .Where(c => c.ID == ID)
+        //                     .OrderByDescending(c => c.ProximaAplicacion)
+        //                     .FirstOrDefaultAsync();
 
-        public async Task<MtoProgramado> GetMtoProgramado(int ID)
-            => await _context.MtoProgramado
-                             .Where(c => c.ID == ID)
-                             .OrderByDescending(c => c.ProximaAplicacion)
-                             .FirstOrDefaultAsync();
-
-        public async Task<List<Mantenimiento>> GetListMtosByID(int ID)
-        {
-            var mtosProgramados = await _context.Mantenimiento.Where(c => c.ID == ID).ToListAsync();
-            return mtosProgramados;
-        }
+        public async Task<List<MtoProgramado>> GetListMtosByID(int ID)
+            => await _context.MtoProgramado.Include(c=>c.Mantenimiento)
+                                           .Include(c => c.Mantenimiento.Proveedor)
+                                           .Where(c => c.EquipoID == ID).ToListAsync();
 
 
     }

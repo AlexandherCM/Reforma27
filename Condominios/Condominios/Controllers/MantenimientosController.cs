@@ -16,10 +16,8 @@ namespace Condominios.Controllers
         }
         public async Task<IActionResult> Consultar(int ID)
         {
-            CtrolMtosEquiposViewModels model = new();
-
-            model.Equipo = await _service.GetEquipo(ID);
-
+            var model = await _service.GetEquipo(ID);
+            model = await _service.GetLists(model);
 
             return View(model);
         }

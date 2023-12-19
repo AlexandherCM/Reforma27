@@ -2,7 +2,7 @@
 @inject Condominios.Data.Interfaces.IEpoch service
 
 @{
-    #pragma warning disable CS8602
+#pragma warning disable CS8602
     ViewData["Title"] = "Consultar";
 }
 
@@ -10,7 +10,7 @@
 
     <section class="col-12 col-lg-4 rounded-2" id="despegableUP">
         <div class="row border-R titleDespegable rounded-2">
-            <h2> <span class="color-R">N</span>uevo equipo <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+            <h2> <span class="color-R">E</span>ditar equipo <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
         </div>
 
         <div id="contenidoUP">
@@ -21,6 +21,7 @@
             <form asp-action="Edit" class="text-light text-center " id="formsEquipo">
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                 <div class="row p-2">
                     <label><b>Número de serie</b></label>
                     <input asp-for="Plantilla.NumSerie" class="textDes">
@@ -46,8 +47,9 @@
                     <label><b>Selecciona la ubicación a la que pertenece</b></label>
 
                     <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="textDes">
-                        <option value="">Selecciona una úbicación</option>
+                        <option value="">Selecciona una ubicación</option>
                     </select>
+
                     <br />
                     <span asp-validation-for="Plantilla.UbicacionID" class="text-danger"></span>
                 </div>
@@ -91,7 +93,7 @@
 
         <thead>
             <tr class="border-R">
-                <th class="border-R" id="Nserie">
+                <th class="border-R" id="Nserie" style="width: 10%;">
                     N°. Serie
                 </th>
                 <th class="border-R" id="marca">
@@ -125,7 +127,7 @@
                     Editar
                 </th>
                 @*<th class="border-R" id="detalles">
-                    Detalles
+                Detalles
                 </th>*@
             </tr>
         </thead>
@@ -139,7 +141,7 @@
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Capacidad) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Ubicacion.Nombre) </td>
                 <td class="border-R p-1">
-                    @Html.DisplayFor(modelItem => Model.Plantilla.Funcion)
+                    @Html.DisplayFor(modelItem => Model.Equipo.Funcion)
                 </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Estatus.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.CostoAdquisicion) </td>
@@ -154,13 +156,13 @@
                 </td>
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 <td class="border-R">
-                    <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipo.ID)" />
+                    <img class="remover" src="~/images/pen-to-square-solid.svg" id="btn-edit" />
                 </td>
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 @*<td class="border-R">
-                    <a class="btn-details" >
-                        <img class="detalles" src="~/images/eye-solid.svg" data-parametro="@Model.Equipo.ID" />
-                    </a>
+                <a class="btn-details" >
+                <img class="detalles" src="~/images/eye-solid.svg" data-parametro="@Model.Equipo.ID" />
+                </a>
                 </td>*@
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
             </tr>
@@ -174,8 +176,8 @@
 
 
 @*Titulo *@
-<aside class="row border-R text-center rounded-3 mt-2">
-    <h1><span class="color-R">M</span>antenimineto del equipo</h1>
+<aside class="row border-R text-center rounded-3 mt-4">
+    <h1><span class="color-R">M</span>antenimiento del equipo</h1>
 </aside>
 
 <article class="row mt-4  justify-content-between">
@@ -188,10 +190,8 @@
         <div class="row text-center d-flex justify-content-between mb-3">
 
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <select name="Proveedores" class="search">
-                    <option value="opcion1">Proveedores</option>
-                    <option value="opcion2">Opcion2</option>
-                    <option value="opcion13">Opcion3</option>
+                <select name="Proveedores" asp-items="Model.Proveedores" class="search">
+                    <option value="">Selecciona un proveedor</option>
                 </select>
             </div>
 
@@ -221,10 +221,8 @@
 
             <div class="col-8 p-2">
 
-                <select name="Aplica" class="search" style="width:100%;">
-                    <option value="opcion1">Aplica</option>
-                    <option value="opcion2">Opcion2</option>
-                    <option value="opcion13">Opcion3</option>
+                <select asp-items="Model.Estatus" name="Aplica" class="search" style="width:100%;">
+                    <option value="">Selecciona un proveedor</option>
                 </select>
 
             </div>
@@ -239,7 +237,7 @@
 </article>
 
 @* Tabla de mantenimientos *@
-<article class="row rounded-3 text-dark mt-3 mb-5 tabla-main">
+<article class="row rounded-3 text-dark mt-3 mb-4 tabla-main">
 
     <table class="text-center mantenimiento">
 
@@ -247,10 +245,10 @@
 
             <tr class="border-R">
 
-                <th class="border-R">
+                <th class="border-R" style="width: 15%;">
                     Costo Mto.
                 </th>
-                <th class="border-R">
+                <th class="border-R" style="width: 15%;">
                     Costo Rep
                 </th>
                 <th class="border-R Proveedor">
@@ -275,19 +273,20 @@
 
         <tbody>
 
-            <tr>
-
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">xxxxxxx</td>
-                <td class="border-R">
-                    <input type="button" value="Seleccionar" class="boton">
-                </td>
-
-            </tr>
+            @foreach (var iteam in Model.MtosProgramados)
+            {
+                <tr>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Mantenimiento.CostoMantenimiento)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Mantenimiento.CostoReparacion)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Mantenimiento.Proveedor.Nombre)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Aplicado)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
+                    <td class="border-R">
+                        <input type="button" value="Registrar" class="btn-des">
+                    </td>
+                </tr>
+            }
 
         </tbody>
 
@@ -295,8 +294,27 @@
 
 </article>
 
+<article class="row rounded-3 text-dark">
+
+    <table class="text-center mantenimiento">
+        <thead>
+            <tr class="border-R">
+                <td class="border-R" style="width: 15%;">
+                    <h3><span class="color-R">$</span> xxxx.xx</h3>
+                </td>
+                <td class="border-R" style="width: 15%;">
+                    <h3><span class="color-R">$</span> xxxx.xx</h3>
+                </td>
+                <td colspan="5">
+                    <h2><span class="color-R">T</span>otal de gastos</h2>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</article>
+
 @* Totales *@
-<aside class="row rounded-3 text-dark mt-3 mb-5 justify-content-between">
+@* <aside class="row rounded-3 text-dark mt-3 mb-5 justify-content-between">
 
     <div class="col-6 col-md-2 border-R">
         <h3><span class="color-R">$</span> xxxx.xx</h3>
@@ -312,7 +330,7 @@
         <h2><span class="color-R">T</span>otal de gastos</h2>
     </div>
 
-</aside>
+</aside> *@
 
 <br />
 
@@ -373,6 +391,7 @@
     @{
         <script src="~/js/Desplegable.js" asp-append-version="true"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_MtosConsultar");
     }
 }
 

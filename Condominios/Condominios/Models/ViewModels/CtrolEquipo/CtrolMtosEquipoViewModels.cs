@@ -5,16 +5,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Condominios.Models.ViewModels.CtrolEquipo
 {
-    public class CtrolMtosEquiposViewModels
-    { 
+    public class CtrolMtosEquipoViewModels 
+    {
+        //public int MtoProgradoID { get; set; }  
         public Equipo Equipo { get; set; } 
         public EditEquipoViewModel Plantilla { get; set; }
         public Mantenimiento Mantenimiento { get; set; } 
-        public List<Mantenimiento> Mantenimientos { get; set; }
+        public List<MtoProgramado> MtosProgramados { get; set; } 
 
         public SelectList? Proveedores { get; set; } 
         public SelectList? Estatus { get; set; }
         public SelectList? Ubicaciones { get; set; }
         public SelectList? TipoMtos { get; set; }
-    } 
+    }
+    
+    public class MtoProgramadoViewModel
+    {
+
+    }
 }

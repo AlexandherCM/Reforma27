@@ -5,6 +5,8 @@ using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc.Rendering;
 #pragma warning disable CS8603
+#pragma warning disable CS8601
+#pragma warning disable CS8602
 
 namespace Condominios.Models.Services
 {
@@ -18,28 +20,36 @@ namespace Condominios.Models.Services
             _unitOfWork = uniOfWork;
         }
 
-        public async Task<MtoProgramado> GetMtoProgramado(int ID)
-            => await _unitOfWork.MtoRepository.GetMtoProgramado(ID);
+        //public async Task<MtoProgramado> GetMtoProgramado(int ID)
+        //    => await _unitOfWork.MtoRepository.GetMtoProgramado(ID);
 
-        public async Task<Equipo> GetEquipo(int id)
-            => await _unitOfWork.EquipoRepository.GetById(id);
-
-        public async Task<CtrolMtosEquipoViewModels> GetLists()
+        public async Task<CtrolMtosEquipoViewModels> GetEquipo(int id)
         {
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _mtosEquipoviewModel.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
-            _mtosEquipoviewModel.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
-            _mtosEquipoviewModel.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
-            _mtosEquipoviewModel.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            _mtosEquipoviewModel.Equipo = await _unitOfWork.EquipoRepository.GetById(id);
+            _mtosEquipoviewModel.Plantilla = new()
+            {
+                UbicacionID = _mtosEquipoviewModel.Equipo.UbicacionID,
+                EstatusID = _mtosEquipoviewModel.Equipo.EstatusID,
+                Funcion = _mtosEquipoviewModel.Equipo.Funcion,
+                NumSerie = _mtosEquipoviewModel.Equipo.NumSerie,
+                CostoAdquisicion = _mtosEquipoviewModel.Equipo.CostoAdquisicion
+            };
+
             return _mtosEquipoviewModel;
         }
 
-
-        public async Task<MantenimientosViewModel> Listas()
+        public async Task<CtrolMtosEquipoViewModels> GetLists(CtrolMtosEquipoViewModels model)
         {
-            _viewModel.Marcas = new List<Marca>(await _unitOfWork.MarcaRepository.GetList());
-            return _viewModel;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            model.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
+            model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
+            model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            model.MtosProgramados = await _unitOfWork.MtoRepository.GetListMtosByID(model.Equipo.ID);
+
+            return model;
         }
+
     }
 }

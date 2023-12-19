@@ -37,14 +37,14 @@
                 <div class="row p-2">
                     <label><b>¿En qué estado se encuentra el equipo?</b></label>
 
-                    <select asp-for="Plantilla.EstatusID" asp-items="Model.Estados" class="textDes">
+                    <select asp-for="Plantilla.EstatusID" asp-items="Model.Estatus" class="textDes">
                         <option value="">Selecciona un estado</option>
                     </select>
                     <span asp-validation-for="Plantilla.EstatusID" class="text-danger"></span>
                 </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2 ">
-                    <label><b>Precio de adquisición del equipo</b></label>
+                    <label><b>Costo de adquisición del equipo</b></label>
                     <input asp-for="Plantilla.CostoAdquisicion" class="textDes" type="number" />
                     <br />
                 </div>
@@ -278,9 +278,9 @@
                 <th class="border-R" id="detalles">
                     Estado
                 </th>
-                <th class="border-R" id="detalles">
+                @* <th class="border-R" id="detalles">
                     Editar
-                </th>
+                </th> *@
                 <th class="border-R" id="detalles">
                     Detalles
                 </th>
@@ -314,9 +314,9 @@
                         </label>
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    <td class="border-R">
+                    @* <td class="border-R">
                         <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipos[i].ID)" />
-                    </td>
+                    </td> *@
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     <td class="border-R">
                         <a class="btn-details" data-parametro="@Model.Equipos[i].ID">

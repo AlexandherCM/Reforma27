@@ -1,4 +1,4 @@
-﻿@model Condominios.Models.ViewModels.CtrolEquipo.CtrolMtosEquiposViewModels
+﻿@model Condominios.Models.ViewModels.CtrolEquipo.CtrolMtosEquipoViewModels
 @inject Condominios.Data.Interfaces.IEpoch service
 
 @{
@@ -19,44 +19,33 @@
 
             @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
             <form asp-action="Edit" class="text-light text-center " id="formsEquipo">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row p-2">
-                    <label name="options" class="textDes"><b>Selecciona el tipo de equipo</b></label>
-
-                    <select asp-for="Plantilla.VarianteID" class="textDes">
-                        <option value="">Selecciona un tipo de equipo</option>
-                    </select>
-                    <br />
-                    <span asp-validation-for="Plantilla.VarianteID" class="text-danger"></span>
+                    <label><b>Número de serie</b></label>
+                    <input asp-for="Plantilla.NumSerie" class="textDes">
+                    <span asp-validation-for="Plantilla.NumSerie" class="text-danger"></span>
                 </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2">
                     <label><b>¿En qué estado se encuentra el equipo?</b></label>
 
-                    <select asp-for="Plantilla.EstatusID"  class="textDes">
+                    <select asp-for="Plantilla.EstatusID" asp-items="Model.Estatus" class="textDes">
                         <option value="">Selecciona un estado</option>
                     </select>
                     <span asp-validation-for="Plantilla.EstatusID" class="text-danger"></span>
                 </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2 ">
-                    <label><b>Precio de adquisición del equipo</b></label>
+                    <label><b>Costo de adquisición del equipo</b></label>
                     <input asp-for="Plantilla.CostoAdquisicion" class="textDes" type="number" />
                     <br />
                 </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2">
-                    <label><b>Fecha de última aplicación</b></label>
-                    <input asp-for="Plantilla.UltimaAplicacion" class="textDes" type="month" />
-                    <br />
-                    <span asp-validation-for="Plantilla.UltimaAplicacion" class="text-danger"></span>
-                </div>
-                @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                <div class="row p-2">
                     <label><b>Selecciona la ubicación a la que pertenece</b></label>
 
-                    <select asp-for="Plantilla.UbicacionID" class="textDes">
+                    <select asp-for="Plantilla.UbicacionID" asp-items="Model.Ubicaciones" class="textDes">
                         <option value="">Selecciona una úbicación</option>
                     </select>
                     <br />
@@ -79,8 +68,7 @@
 
     </section>
 
-    <div class="col-12 col-lg-8">
-    </div>
+    <div class="col-12 col-lg-8"> </div>
 
 </aside>
 
@@ -89,7 +77,6 @@
 <br />
 
 @* Contenido *@
-
 
 @* Titulo *@
 <section class="row border-R text-center rounded-3 mt-5">
@@ -152,7 +139,7 @@
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Capacidad) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Ubicacion.Nombre) </td>
                 <td class="border-R p-1">
-                    @Html.DisplayFor(modelItem => Model.Equipo.Funcion)
+                    @Html.DisplayFor(modelItem => Model.Plantilla.Funcion)
                 </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Estatus.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.CostoAdquisicion) </td>
@@ -209,25 +196,16 @@
             </div>
 
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <select name="Fecha 1" class="search">
-                    <option value="opcion1">Fecha 1</option>
-                    <option value="opcion2">Opcion2</option>
-                    <option value="opcion13">Opcion3</option>
-                </select>
+                <input placeholder="Fecha 1" class="search" type="month" />
             </div>
 
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <select name="Fecha 2" class="search">
-                    <option value="opcion1">Fecha 2</option>
-                    <option value="opcion2">Opcion2</option>
-                    <option value="opcion13">Opcion3</option>
-                </select>
+                <input placeholder="Fecha 2" class="search" type="month" />
             </div>
 
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <input type="button" value="Buscar" class="boton">
+                <input type="submit" value="Buscar" class="btn-des">
             </div>
-
         </div>
 
     </section>
@@ -352,21 +330,15 @@
 
         <div class="row p-1">
             <label for="">Seleccione el tipo de mantenimiento</label>
-            <select name="options" class="textDes">
-                <option value="volvo">Opcion1</option>
-                <option value="saab">Opcion2</option>
-                <option value="mercedes">Opcion3</option>
-                <option value="audi">Opcion4</option>
+            <select name="options" asp-items="Model.TipoMtos" class="textDes">
+                <option value="">Selecciona un tipo de mantenimiento</option>
             </select>
         </div>
 
         <div class="row p-1">
             <label for="">Seleccione el proveedor que realizara el trabajo</label>
-            <select name="options" class="textDes">
-                <option value="volvo">Opcion1</option>
-                <option value="saab">Opcion2</option>
-                <option value="mercedes">Opcion3</option>
-                <option value="audi">Opcion4</option>
+            <select name="options" asp-items="Model.Proveedores" class="textDes">
+                <option value="">Selecciona un proveedor</option>
             </select>
         </div>
 

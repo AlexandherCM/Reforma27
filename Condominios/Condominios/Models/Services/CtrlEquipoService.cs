@@ -4,6 +4,8 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.AspNetCore.Mvc.Rendering;
+#pragma warning disable CS8600
+#pragma warning disable CS8603
 
 namespace Condominios.Models.Services
 {
@@ -48,7 +50,6 @@ namespace Condominios.Models.Services
 
         private async Task<CtrlEquipoViewModel> GetListsOnModel(CtrlEquipoViewModel viewModel)
         {
-            viewModel.Estados = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             viewModel.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
             viewModel.Variantes = new SelectList(await _unitOfWork.VarianteRepository.GetSpecialList(), "ID", "Nombre");
@@ -72,10 +73,7 @@ namespace Condominios.Models.Services
         }
 
         public async Task<Equipo> GetEquipo(int id)
-        {
-            Equipo equipo = await _unitOfWork.EquipoRepository.GetById(id);
-            return equipo;
-        }
+            => await _unitOfWork.EquipoRepository.GetById(id);
 
     }
 }

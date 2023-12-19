@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Condominios.Data.Repositories.Catalogos
 {
-    public class ProveedorRepository : IProveedoreRepository<Proveedor>
+    public class ProveedorRepository : IProveedorRepository<Proveedor>
     {
         private readonly Context _context;
         public ProveedorRepository(Context context)

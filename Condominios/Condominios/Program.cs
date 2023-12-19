@@ -39,11 +39,11 @@ builder.Services.AddScoped<ICatalogoRepository<Estatus>, EstatusRepository>();
 builder.Services.AddScoped<ICatalogoRepository<TipoEquipo>, TipoEquipoRepository>();
 builder.Services.AddScoped<ICatalogoRepository<TipoMantenimiento>, TipoMtoRepository>();
 builder.Services.AddScoped<ICatalogoRepository<UnidadMedida>, UnidadMedidaRepository>();
-
+ 
 // Servicios para el control de equipos
 builder.Services.AddScoped<IEquipoRepository<Equipo>, EquipoRepository>();
 builder.Services.AddScoped<IVarianteRepository<VarianteDTO>, VarianteRepository>();
-builder.Services.AddScoped<IProveedoreRepository<Proveedor>, ProveedorRepository>();
+builder.Services.AddScoped<IProveedorRepository<Proveedor>, ProveedorRepository>();
 builder.Services.AddScoped<IMtoRepository, MtoRepository>();
 
 // Servicios intermedios entre repositorio y Unidad de trabajo

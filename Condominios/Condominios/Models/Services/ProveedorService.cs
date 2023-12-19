@@ -18,31 +18,31 @@ namespace Condominios.Models.Services
 
         public async Task<ProveedoresViewModel> Listas()
         {
-            _viewModel.Proveedor = new List<Proveedor>(await _unitOfWork.ProveedoreRepository.GetList());
+            _viewModel.Proveedor = new List<Proveedor>(await _unitOfWork.ProveedorRepository.GetList());
             return _viewModel;
         }
 
         public async Task AddProveedor(ProveedoresViewModel model)
         {
-            _unitOfWork.ProveedoreRepository.Add(model);
+            _unitOfWork.ProveedorRepository.Add(model);
             await _unitOfWork.Save();
         }
 
         public async Task<Proveedor> GetEquipo(int id)
         {
-            Proveedor variante = await _unitOfWork.ProveedoreRepository.GetById(id);
+            Proveedor variante = await _unitOfWork.ProveedorRepository.GetById(id);
             return variante;
         }
 
         public async Task Update(ProveedoresViewModel model)
         {
-            _unitOfWork.ProveedoreRepository.Update(model);
+            _unitOfWork.ProveedorRepository.Update(model);
             await _unitOfWork.Save();
         }
 
         public async Task<Proveedor> ActualizarEstado(int id)
         {
-            Proveedor proveedor = await _unitOfWork.ProveedoreRepository.UpdateID(id);
+            Proveedor proveedor = await _unitOfWork.ProveedorRepository.UpdateID(id);
             await _unitOfWork.Save();
             return proveedor;
         }

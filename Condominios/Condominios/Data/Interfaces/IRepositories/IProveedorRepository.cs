@@ -5,7 +5,7 @@ using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 
 namespace Condominios.Data.Interfaces.IRepositories
 {
-    public interface IProveedoreRepository<Entidad>
+    public interface IProveedorRepository<Entidad>
     {
         public void Add(ProveedoresViewModel model);
         public Task<List<Entidad>> GetList();

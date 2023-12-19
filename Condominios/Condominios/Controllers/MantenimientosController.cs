@@ -17,7 +17,9 @@ namespace Condominios.Controllers
         public async Task<IActionResult> Consultar(int ID)
         {
             CtrolMtosEquiposViewModels model = new();
+
             model.Equipo = await _service.GetEquipo(ID);
+
 
             return View(model);
         }
@@ -35,10 +37,10 @@ namespace Condominios.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetMtoProgramado(int ID) 
-        {
-            MtoProgramado mto = await _service.GetMtoProgramado(ID);
-            return new JsonResult(mto);
-        }
+        //public async Task<IActionResult> GetMtoProgramado(int ID) 
+        //{
+        //    MtoProgramado mto = await _service.GetMtoProgramado(ID);
+        //    return new JsonResult(mto);
+        //}
     }
 }

@@ -2,6 +2,7 @@
 using Condominios.Models.Entities;
 using Condominios.Models.Services;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Condominios.Controllers
@@ -20,7 +21,7 @@ namespace Condominios.Controllers
 
             return View(model);
         }
-        public async IActionResult Crear()
+        public async Task<IActionResult> Crear()
         {
             MantenimientosViewModel model = await _service.Listas();
             return View(model);

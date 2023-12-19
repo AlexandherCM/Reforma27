@@ -20,9 +20,10 @@ namespace Condominios.Controllers
 
             return View(model);
         }
-        public IActionResult Crear()
+        public async IActionResult Crear()
         {
-            return View();
+            MantenimientosViewModel model = await _service.Listas();
+            return View(model);
         }
         public IActionResult GastosMantenimiento()
         {

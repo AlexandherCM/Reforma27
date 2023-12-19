@@ -21,11 +21,11 @@ namespace Condominios.Controllers
 
             return View(model);
         }
-        public async Task<IActionResult> Crear()
-        {
-            MantenimientosViewModel model = await _service.Listas();
-            return View(model);
-        }
+        //public async Task<IActionResult> Crear()
+        //{
+        //    MantenimientosViewModel model = await _service.Listas();
+        //    return View(model);
+        //}
         public IActionResult GastosMantenimiento()
         {
             return View();

@@ -11,7 +11,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public Equipo Equipo { get; set; } 
         public EditEquipoViewModel Plantilla { get; set; }
         public Mantenimiento Mantenimiento { get; set; } 
-        public List<MtoProgramado> MtosProgramados { get; set; } 
+        public List<MtoProgramadoViewModel> MtosProgramados { get; set; } 
 
         public SelectList? Proveedores { get; set; } 
         public SelectList? Estatus { get; set; }
@@ -21,6 +21,11 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
     
     public class MtoProgramadoViewModel
     {
-
+        public int ID { get; set; }
+        public long ProxAplicEpoch { get; set; }
+        public string UltimaAplicacion { get; set; }
+        public string ProximaAplicacion { get; set; }
+        public string Estado { get; set; } 
+        public Mantenimiento Mantenimiento { get; set; }
     }
 }

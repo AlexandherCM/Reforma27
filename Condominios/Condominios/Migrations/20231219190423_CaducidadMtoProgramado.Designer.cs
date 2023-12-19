@@ -4,6 +4,7 @@ using Condominios.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Condominios.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231219190423_CaducidadMtoProgramado")]
+    partial class CaducidadMtoProgramado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,11 +179,11 @@ namespace Condominios.Migrations
                     b.Property<bool>("Aplicado")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("Caducado")
+                        .HasColumnType("bit");
+
                     b.Property<int>("EquipoID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("MantenimientoID")
                         .HasColumnType("int");

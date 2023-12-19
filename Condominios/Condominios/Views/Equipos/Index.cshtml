@@ -274,6 +274,9 @@
                 <th class="border-R" id="adquisición">
                     Costo de adquisición
                 </th>
+                <th class="border-R" id="adquisición">
+                    Mantenimiento
+                </th>
                 <th class="border-R" id="detalles">
                     Estado
                 </th>
@@ -303,6 +306,7 @@
                     </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Periodo.Nombre) </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     <td class="border-R">
                         <label class="toggle-switch">

@@ -22,14 +22,21 @@ namespace Condominios.Data.Repositories.Mantenimientos
         {
             DateTime ProximaAplicacion = UltimaAplicacion.AddMonths(meses);
 
+            bool Estado = false;
+
+            if (ProximaAplicacion.Year > DateTime.Now.Year)
+                Estado = true;
+            else if(ProximaAplicacion.Year == DateTime.Now.Year)
+                Estado = ProximaAplicacion.Month <= DateTime.Now.Month;
+
             MtoProgramado mantenimiento = new()
             {
                 UltimaAplicacion =
                     _epoch.CrearEpoch(UltimaAplicacion),
                 ProximaAplicacion = _epoch.CrearEpoch(ProximaAplicacion),
-                Aplicable =
-                    ProximaAplicacion.Month == DateTime.Now.Month && ProximaAplicacion.Year == DateTime.Now.Year,
-                Aplicado = false
+                Aplicado = false,
+                Aplicable = ProximaAplicacion.Year == DateTime.Now.Year && ProximaAplicacion.Month == DateTime.Now.Month,
+                Estado = Estado
             };
 
             return mantenimiento;
@@ -37,8 +44,8 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
         public async Task CreateNewMtoProgram()
         {
-            DateTime now = DateTime.Now;
-            DateTime flagTime = new DateTime(now.Year, now.Month, 1, 0, 0, 0);
+            DateTime flagTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
+            long flagTimeEpoch = _epoch.CrearEpoch(flagTime);
 
             var Mtos = await _context.MtoProgramado
                 .Include(r => r.Equipo)
@@ -48,9 +55,9 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             if (!Mtos.Any()) return;
 
-            foreach (var mto in Mtos.Where(m => m.ProximaAplicacion <= _epoch.CrearEpoch(flagTime)))
+            foreach (var mto in Mtos.Where(m => m.ProximaAplicacion <= flagTimeEpoch))
             {
-                if (mto.ProximaAplicacion == _epoch.CrearEpoch(flagTime))
+                if (mto.ProximaAplicacion == flagTimeEpoch)
                 {
                     mto.Aplicable = true;
                     continue;
@@ -67,14 +74,15 @@ namespace Condominios.Data.Repositories.Mantenimientos
                     EquipoID = mto.Equipo.ID,
                     UltimaAplicacion = mto.ProximaAplicacion,
                     ProximaAplicacion = EpochProxAplic,
-                    Aplicable =
-                        ProximaAplicacion.Month == DateTime.Now.Month && ProximaAplicacion.Year == DateTime.Now.Year,
-                    Aplicado = false
+                    Aplicado = false,
+                    Aplicable = ProximaAplicacion.Month == DateTime.Now.Month && ProximaAplicacion.Year == DateTime.Now.Year,
+                    Estado = true
                 };
 
                 //Agregar a la base de datos
                 _context.Add(newMto);
                 mto.Aplicable = false;
+                mto.Estado = false;
             }
 
             // Verificar si hay cambios antes de guardar
@@ -90,10 +98,9 @@ namespace Condominios.Data.Repositories.Mantenimientos
         //                     .FirstOrDefaultAsync();
 
         public async Task<List<MtoProgramado>> GetListMtosByID(int ID)
-            => await _context.MtoProgramado.Include(c=>c.Mantenimiento)
-                                           .Include(c => c.Mantenimiento.Proveedor)
-                                           .Where(c => c.EquipoID == ID).ToListAsync();
-
+            => await _context.MtoProgramado.Include(c => c.Mantenimiento)
+                                                            .Include(c => c.Mantenimiento.Proveedor)
+                                                            .Where(c => c.EquipoID == ID).ToListAsync();
 
     }
 }

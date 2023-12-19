@@ -16,6 +16,7 @@ namespace Condominios.Models.Entities
         public long ProximaAplicacion { get; set; }
         public bool Aplicado { get; set; }
         public bool Aplicable { get; set; }
+        public bool Estado { get; set; }  
 
         //Relaciones - - - - - - - - - - - - - - - - - - - - - 
         [ForeignKey(nameof(EquipoID))]

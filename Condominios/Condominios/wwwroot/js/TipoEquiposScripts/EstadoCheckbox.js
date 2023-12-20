@@ -8,13 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
             var CheckboxID = event.currentTarget.getAttribute('value');
             var URL = event.currentTarget.getAttribute('data-url');
             ConsultaGET(URL, CheckboxID);
+            //console.log('ID: ' + CheckboxID + " URL: " + URL);
         });
     });
 
-    function ConsultaGET(URL, CheckboxID) {
+    async function ConsultaGET(URL, CheckboxID) {
         const api = new ApiClient();
 
-        api.get(URL + CheckboxID);
+        try {
+            const response = await api.get(URL + CheckboxID);
+            // Hacer algo con la respuesta si es necesario
+            //console.log(response);
+        } catch (error) {
+            // Manejar errores
+            console.error(error.message);
+        }
     }
 });
 

@@ -1,5 +1,6 @@
 ﻿@model Condominios.Models.ViewModels.CtrolEquipo.CtrolMtosEquipoViewModels
 @inject Condominios.Data.Interfaces.IEpoch service
+@using Newtonsoft.Json;
 
 @{
 #pragma warning disable CS8602
@@ -93,14 +94,14 @@
 
         <thead>
             <tr class="border-R">
-                <th class="border-R" id="Nserie" style="width: 10%;">
+                <th class="border-R" id="Nserie" style="width: 8%;">
                     N°. Serie
                 </th>
                 <th class="border-R" id="marca">
                     Marca
                 </th>
                 <th class="border-R" id="nombre">
-                    Nombre
+                    Tipo
                 </th>
                 <th class="border-R" id="motor">
                     Motor
@@ -118,7 +119,10 @@
                     Estatus
                 </th>
                 <th class="border-R" id="adquisición">
-                    Costo de adquisición
+                    Costo
+                </th>
+                <th class="border-R" id="adquisición">
+                    Mantenimiento
                 </th>
                 <th class="border-R" id="detalles">
                     Estado
@@ -137,14 +141,15 @@
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.NumSerie) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Marca.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.TipoEquipo.Nombre) </td>
-                <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Motor.Nombre) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Motor.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Capacidad) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Ubicacion.Nombre) </td>
-                <td class="border-R p-1">
+                <td class="border-R" style="text-align: justify;">
                     @Html.DisplayFor(modelItem => Model.Equipo.Funcion)
                 </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Estatus.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.CostoAdquisicion) </td>
+                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Periodo.Nombre) </td>
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 <td class="border-R">
                     <label class="toggle-switch">
@@ -246,10 +251,10 @@
             <tr class="border-R">
 
                 <th class="border-R" style="width: 15%;">
-                    Costo Mto.
+                    Costo de Mantenimiento.
                 </th>
                 <th class="border-R" style="width: 15%;">
-                    Costo Rep
+                    Costo de Reparación
                 </th>
                 <th class="border-R Proveedor">
                     Proveedor
@@ -258,10 +263,10 @@
                     Aplicado
                 </th>
                 <th class="border-R">
-                    U.Aplic
+                    Ultima Aplicación
                 </th>
                 <th class="border-R">
-                    P.Aplicado
+                    Proxima Aplicación
                 </th>
                 <th class="border-R">
                     Consultar
@@ -275,15 +280,21 @@
 
             @foreach (var iteam in Model.MtosProgramados)
             {
+                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+                string cadena = string.Empty;
+                if (iteam.Estado == "Pendiente") cadena = "Registrar";
+                else cadena = "Consultar";
+                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
+
                 <tr>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Mantenimiento.CostoMantenimiento)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Mantenimiento.CostoReparacion)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Mantenimiento.Proveedor.Nombre)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Estado)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
-                        <input type="button" value="Registrar" class="btn-des">
+                        <input type="button" class="btn-Mto btn-des" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
                     </td>
                 </tr>
             }
@@ -300,10 +311,10 @@
         <thead>
             <tr class="border-R">
                 <td class="border-R" style="width: 15%;">
-                    <h3><span class="color-R">$</span> xxxx.xx</h3>
+                    <h3><span class="color-R"></span> @Model.TotasGtosMto</h3>
                 </td>
                 <td class="border-R" style="width: 15%;">
-                    <h3><span class="color-R">$</span> xxxx.xx</h3>
+                    <h3><span class="color-R"></span> @Model.TotasGtosRep</h3>
                 </td>
                 <td colspan="5">
                     <h2><span class="color-R">T</span>otal de gastos</h2>
@@ -336,48 +347,57 @@
 
 @* Despegable DOWN *@
 <aside id="despegableDown" class="rounded-2 mt-5">
-
     <div id="contenidoDown">
-        <h4 class="pt-3">Registra el último mantenimiento programado</h4>
+        <form id="form-mto">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="EquipoID" value="@Model.Equipo.ID" type="hidden" name="InputHidden" placeholder="Nombre" class="text">
+            <h4 class="pt-3">Registra el último mantenimiento programado</h4>
 
-        <div class="textDes">
-            <section class="row bg-white p-1 rounded text-black">
-                <p id="Leyenda-Mto">miaw</p>
-            </section>
-        </div>
+            <div class="textDes" style="text-align:justify;">
+                <section class="row pt-3 bg-white p-2 rounded text-black">
+                    <h6 id="Leyenda-Mto"></h6>
+                </section>
+            </div>
 
-        <div class="row p-1">
-            <label for="">Seleccione el tipo de mantenimiento</label>
-            <select name="options" asp-items="Model.TipoMtos" class="textDes">
-                <option value="">Selecciona un tipo de mantenimiento</option>
-            </select>
-        </div>
+            <div class="row p-1">
+                <label for="">Seleccione el tipo de mantenimiento</label>
+                <select asp-for="Mantenimiento.TipoMantenimientoID" asp-items="Model.TipoMtos" class="textDes">
+                    <option value="">Selecciona un tipo de equipo</option>
+                </select>
+                <span asp-validation-for="Mantenimiento.TipoMantenimientoID" class="text-danger"></span>
+            </div>
 
-        <div class="row p-1">
-            <label for="">Seleccione el proveedor que realizara el trabajo</label>
-            <select name="options" asp-items="Model.Proveedores" class="textDes">
-                <option value="">Selecciona un proveedor</option>
-            </select>
-        </div>
+            <div class="row p-1">
+                <label for="">Seleccione el proveedor que realizara el trabajo</label>
+                <select asp-for="Mantenimiento.ProveedorID" asp-items="Model.Proveedores" class="textDes">
+                    <option value="">Selecciona un tipo de equipo</option>
+                </select>
+                <span asp-validation-for="Mantenimiento.ProveedorID" class="text-danger"></span>
+            </div>
 
-        <div class="row p-1">
-            <label for="">Costo del mantenimiento</label>
-            <input type="text" placeholder=" " class="textDes">
-        </div>
+            <div class="row p-1">
+                <label for="">Costo del mantenimiento</label>
+                <input asp-for="Mantenimiento.CostoMantenimiento" type="text" placeholder=" " class="textDes">
+                <span asp-validation-for="Mantenimiento.CostoMantenimiento" class="text-danger"></span>
+            </div>
 
-        <div class="row  p-1">
-            <label for="">(Si aplica). Escribe el costo del mantenimiento</label>
-            <input type="text" placeholder=" " class="textDes">
-        </div>
+            <div class="row  p-1">
+                <label for="">(Si aplica). Escribe el costo de Reparación</label>
+                <input asp-for="Mantenimiento.CostoReparacion" type="text" placeholder=" " class="textDes">
+                <span asp-validation-for="Mantenimiento.CostoReparacion" class="text-danger"></span>
+            </div>
 
-        <div class="row  p-1">
-            <label for="">Observaciones</label>
-            <textarea rows="3" class="textDes" cols="50"></textarea>
-        </div>
+            <div class="row  p-1">
+                <label for="">Observaciones</label>
+                <textarea asp-for="Mantenimiento.Observaciones" rows="3" class="textDes" cols="50"></textarea>
+                <span asp-validation-for="Mantenimiento.Observaciones" class="text-danger"></span>
+            </div>
 
-        <div class="row p-1 pb-2">
-            <input type="submit" value="Agregar" class="btn-des" id="confirmar">
-        </div>
+            <div class="row p-1 pb-2">
+                <input type="submit" value="Agregar" class="btn-des" id="btn-add">
+                <input type="submit" value="Editar" class="btn-des" id="btn-update">
+            </div>
+        </form>
     </div>
 
     <div class="headerDespegable border-R">
@@ -389,7 +409,7 @@
 
 @section Scripts {
     @{
-        <script src="~/js/Desplegable.js" asp-append-version="true"></script>
+        // <script src="~/js/Desplegable.js" asp-append-version="true"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_MtosConsultar");
     }

@@ -228,7 +228,7 @@
     <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
         <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
             <option value="3">3</option>
-            <option value="10">10</option>
+            <option selected value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
             <option value="75">75</option>
@@ -268,7 +268,7 @@
                 <th class="border-R" id="funcion">
                     Función
                 </th>
-                <th class="border-R" id="estado">
+                <th class="border-R p-2" id="estado">
                     Estatus
                 </th>
                 <th class="border-R" id="adquisición">
@@ -301,7 +301,7 @@
                     <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Motor.Nombre) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Capacidad) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Ubicacion.Nombre) </td>
-                    <td class="border-R p-1">
+                    <td class="border-R p-1" style="text-align:justify">
                             @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
                     </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
@@ -317,12 +317,8 @@
                         </label>
                     </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                   @*  <td class="border-R">
-                        <img class="remover" src="~/images/pen-to-square-solid.svg" data-parametro="@(Model.Equipos[i].ID)" />
-                    </td> *@
-                        @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     <td class="border-R">
-                        <a class="btn-details" data-parametro="@Model.Equipos[i].ID">
+                        <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID" data-parametro="@Model.Equipos[i].ID">
                             <img class="detalles" src="~/images/eye-solid.svg" />
                         </a>
                     </td>

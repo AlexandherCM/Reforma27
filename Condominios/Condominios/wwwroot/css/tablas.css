@@ -1,5 +1,5 @@
 ﻿.option {
-    width: auto;
+    width: 100%;
     padding: 1%;
     border-radius: 5px;
     border: solid 1px #652022;
@@ -71,9 +71,9 @@ td{
 
 
 @media (max-width: 990px) {
-    .option {
+    /*.option {
         width: 15%;
-    }
+    }*/
     table.equipos td:nth-child(4),
     table.equipos td:nth-child(5),
     table.equipos td:nth-child(6),

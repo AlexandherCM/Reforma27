@@ -50,7 +50,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             var Mtos = await _context.MtoProgramado
                 .Include(r => r.Equipo)
                 .Include(r => r.Equipo.Variante.Periodo)
-                .Where(c => !c.Aplicado)
+                .Where(c => !c.Aplicado && c.Estado)
                 .ToListAsync();
 
             if (!Mtos.Any()) return;
@@ -68,14 +68,13 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
                 long EpochProxAplic = _epoch.CrearEpoch(ProximaAplicacion);
 
-
                 MtoProgramado newMto = new()
                 {
                     EquipoID = mto.Equipo.ID,
                     UltimaAplicacion = mto.ProximaAplicacion,
                     ProximaAplicacion = EpochProxAplic,
                     Aplicado = false,
-                    Aplicable = ProximaAplicacion.Month == DateTime.Now.Month && ProximaAplicacion.Year == DateTime.Now.Year,
+                    Aplicable = ProximaAplicacion.Year == DateTime.Now.Year && ProximaAplicacion.Month == DateTime.Now.Month,
                     Estado = true
                 };
 
@@ -88,7 +87,6 @@ namespace Condominios.Data.Repositories.Mantenimientos
             // Verificar si hay cambios antes de guardar
             if (_context.ChangeTracker.HasChanges())
                 await _context.SaveChangesAsync();
-
         }
 
         //public async Task<MtoProgramado> GetMtoProgramado(int ID)
@@ -99,8 +97,9 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
         public async Task<List<MtoProgramado>> GetListMtosByID(int ID)
             => await _context.MtoProgramado.Include(c => c.Mantenimiento)
-                                                            .Include(c => c.Mantenimiento.Proveedor)
-                                                            .Where(c => c.EquipoID == ID).ToListAsync();
+                                           .Include(c => c.Mantenimiento.Proveedor)
+                                           .Include(c => c.Equipo)
+                                           .Where(c => c.EquipoID == ID).ToListAsync();
 
     }
 }

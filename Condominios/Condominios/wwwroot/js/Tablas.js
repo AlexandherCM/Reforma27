@@ -4,7 +4,7 @@ var filasDatos = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr
 if (tabla) {
 
 }
-var filasPorPagina = 3; // Valor predeterminado
+var filasPorPagina = 10; // Valor predeterminado
 var totalFilas = filasDatos.length;
 var totalPaginas = Math.ceil(totalFilas / filasPorPagina);
 

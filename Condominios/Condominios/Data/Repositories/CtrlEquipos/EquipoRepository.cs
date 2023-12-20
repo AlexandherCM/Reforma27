@@ -28,6 +28,7 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
                                     .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo)
                                     .ToListAsync();
         
         public async Task<List<Equipo>> GetList(string cadena)
@@ -35,6 +36,7 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
                                     .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo)
                                     .ToListAsync();
 
         public async Task<List<Equipo>> GetList()
@@ -42,6 +44,7 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Estatus)         .Include(c => c.Ubicacion)
                                     .Include(c => c.Variante)        .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)  .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo)
                                     .ToListAsync();
 
         public async Task<List<Equipo>> GetList(FiltrosDTO filtros)
@@ -51,6 +54,7 @@ namespace Condominios.Data.Repositories.Equipos
                                                       .Include(c => c.Variante)
                                                       .Include(c => c.Variante.Motor)
                                                       .Include(c => c.Variante.Marca)
+                                                      .Include(c => c.Variante.Periodo)
                                                       .Include(c => c.Variante.TipoEquipo);
             //TIPO
             if (filtros.TipoID != 0)
@@ -160,6 +164,7 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Variante.Marca)
                                     .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo)
                                     .Include(c => c.Ubicacion)
                                     .Include(c => c.Estatus)
                                     .FirstOrDefaultAsync(c => c.ID == ID);

@@ -21,11 +21,24 @@ namespace Condominios.Controllers
 
             return View(model);
         }
-        //public async Task<IActionResult> Crear()
-        //{
-        //    MantenimientosViewModel model = await _service.Listas();
-        //    return View(model);
-        //}
+        public async Task<IActionResult> CreateOneMto(CtrolMtosEquipoViewModels model)
+        {
+            // Hacer lo que necesitas con el modelo
+
+            // Redirigir a la acción Consultar manteniendo el ID
+            //PDT!!!!
+            return RedirectToAction(nameof(Consultar), new { ID = model.EquipoID });
+        }
+
+        public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels model)
+        {
+            return RedirectToAction(nameof(Consultar));
+        }
+        
+        public async Task<IActionResult> Crear()
+        {
+            return View();
+        }
         public IActionResult GastosMantenimiento()
         {
             return View();

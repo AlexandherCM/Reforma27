@@ -1,14 +1,25 @@
 ﻿class ApiClient {
 
+    static host = 'https://localhost:7223/';
     // Utiliza este metodo para mandar parametros a un controlador y recibir un JSON 
     async get(endpoint) {
+        const response = await fetch(`${ApiClient.host}${endpoint}`);
+
+        // (código de estado 200)
+        if (!response.ok) {
+            throw new Error(`Error al obtener datos. Código de estado: ${response.status}`);
+        }
+        return response;
+    }
+
+    async SendGet(endpoint) {
         const response = await fetch(endpoint);
         return await response.json();
     }
 
-    //Utiliza este metodo para pasar objetos a un controlador y recibir un JSON
+    //Utiliza este metodo solo para pasar objetos a un controlador
     async SetPost(endpoint, data) {
-        const response = await fetch(endpoint, {
+        const response = await fetch(`${ApiClient.host}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -17,9 +28,9 @@
         });
     }
 
-    //Utiliza este metodo solo para pasar objetos a un controlador
+    //Utiliza este metodo para pasar objetos a un controlador y recibir un JSON
     async SendPost(endpoint, data) {
-        const response = await fetch(endpoint, {
+        const response = await fetch(`${ApiClient.host}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,59 +39,4 @@
         });
         return await response.json();
     }
-
-
-    //async put(endpoint, data) {
-    //  const response = await fetch(`${this.baseURL}/${endpoint}`, {
-    //    method: 'PUT',
-    //    headers: {
-    //      'Content-Type': 'application/json',
-    //    },
-    //    body: JSON.stringify(data),
-    //  });
-    //  return await response.json();
-    //}
-
-    //async delete(endpoint) {
-    //  const response = await fetch(`${this.baseURL}/${endpoint}`, {
-    //    method: 'DELETE',
-    //  });
-    //  return await response.json();
-    //}
 }
-
-// Ejemplo de uso
-//const api = new ApiClient('https://jsonplaceholder.typicode.com');  // Reemplaza con tu URL de la API
-
-// GET
-//api.get('posts/1')
-//  .then(data => console.log('GET Result:', data))
-//  .catch(error => console.error('GET Error:', error));
-
-// POST
-//const postData = {
-//  title: 'foo',
-//  body: 'bar',
-//  userId: 1,
-//};
-
-//api.post('posts', postData)
-//  .then(data => console.log('POST Result:', data))
-//  .catch(error => console.error('POST Error:', error));
-
-// PUT
-//const putData = {
-//  id: 1,
-//  title: 'foo',
-//  body: 'bar',
-//  userId: 1,
-//};
-
-//api.put('posts/1', putData)
-//  .then(data => console.log('PUT Result:', data))
-//  .catch(error => console.error('PUT Error:', error));
-
-// DELETE
-//api.delete('posts/1')
-//  .then(data => console.log('DELETE Result:', data))
-//  .catch(error => console.error('DELETE Error:', error));

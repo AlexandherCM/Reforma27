@@ -4,7 +4,9 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 #pragma warning disable CS8603
 #pragma warning disable CS8601
 #pragma warning disable CS8602
@@ -15,9 +17,10 @@ namespace Condominios.Models.Services
     public class MtoService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private CtrolMtosEquipoViewModels _viewModelMtos = new(); 
-        private List<CtrolMtosEquipoViewModels> _listViewModelMtos = new(); 
-        private IEpoch _epoch; 
+
+        private CtrolMtosEquipoViewModels _viewModelMtos = new();
+        //private List<MtoProgramadoViewModel> _listViewModelMtos = new(); 
+        private IEpoch _epoch;
         public MtoService(IUnitOfWork uniOfWork, IEpoch epoch)
         {
             _unitOfWork = uniOfWork;
@@ -44,6 +47,9 @@ namespace Condominios.Models.Services
 
         public async Task<CtrolMtosEquipoViewModels> GetLists(CtrolMtosEquipoViewModels model)
         {
+            // Configuración de la cultura para México (es-MX)
+            CultureInfo cultureInfo = new CultureInfo("es-MX");
+
             long NowTimeEpoch = _epoch.CrearEpoch(DateTime.Now);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -54,18 +60,41 @@ namespace Condominios.Models.Services
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             List<MtoProgramado> Mtos = await _unitOfWork.MtoRepository.GetListMtosByID(model.Equipo.ID);
 
-            Mtos.ForEach(mto => 
+            Mtos.ForEach(mto =>
             {
+                string estado = string.Empty;
+
+                if (mto.Estado && !mto.Aplicado)
+                    estado = "Pendiente";
+                else if (!mto.Estado && mto.Aplicado)
+                    estado = "Aplicado";
+                else if (!mto.Estado && !mto.Aplicado)
+                    estado = "No Aplicado";
+
                 MtoProgramadoViewModel viewModel = new()
                 {
-                    ID = mto.ID,
+                    MantenimientoID = mto.ID,
+                    NumSerieEquipo = mto.Equipo.NumSerie,
                     ProxAplicEpoch = mto.ProximaAplicacion,
-                    UltimaAplicacion = 
+                    UltimaAplicacion =
                         _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(mto.UltimaAplicacion)),
-                    ProximaAplicacion = 
+                    ProximaAplicacion =
                         _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(mto.ProximaAplicacion)),
+                    Estado = estado,
+                    Pendiente = mto.Estado && !mto.Aplicado,
+                    Aplicable = mto.Aplicado,
+                    Proveedor = mto.Mantenimiento != null ? mto.Mantenimiento.Proveedor.Nombre : "No asignado",
+                    CostoReparacion = mto.Mantenimiento != null ? mto.Mantenimiento.CostoReparacion.ToString("C", cultureInfo) : 0.ToString("C", cultureInfo),
+                    CostoMantenimiento = mto.Mantenimiento != null ? mto.Mantenimiento.CostoMantenimiento.ToString("C", cultureInfo) : 0.ToString("C", cultureInfo),
                 };
+
+                model.MtosProgramados.Add(viewModel);
             });
+
+            model.MtosProgramados = model.MtosProgramados.OrderByDescending(c => c.ProxAplicEpoch).ToList();
+
+            model.TotasGtosMto = Mtos.Sum(m => m.Mantenimiento != null ? m.Mantenimiento.CostoMantenimiento : 0).ToString("C", cultureInfo);
+            model.TotasGtosRep = Mtos.Sum(m => m.Mantenimiento != null ? m.Mantenimiento.CostoReparacion : 0).ToString("C", cultureInfo);
 
             return model;
         }

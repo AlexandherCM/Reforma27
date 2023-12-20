@@ -1,6 +1,7 @@
 ﻿using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
@@ -9,21 +10,12 @@ namespace Condominios.Data.Repositories.Catalogos
 {
     public class UbicacionRepository : Catalogo, ICatalogoRepository<Ubicacion>
     {
+        private AlertaEstado _alertaEstado = new();
         public UbicacionRepository(Context context) : base(context) { }
 
         public async Task<List<Ubicacion>> GetList()
             => await context.Ubicacion.ToListAsync();
 
-        public void Add(CatalogoViewModel viewModel)
-        {
-            Ubicacion ubicacion = new()
-            {
-                Nombre = viewModel.CatalogoGralViewModel.Nombre,
-                Estado = true
-            };
-
-            context.Ubicacion.Add(ubicacion);
-        }
 
         public void Delete(Ubicacion entity)
         {
@@ -45,6 +37,26 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             var ubicacion = context.Find<Ubicacion>(viewModel.ID);
             ubicacion.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+        }
+
+        public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
+        {
+            if (context.Ubicacion.Any(u => u.Nombre == viewModel.CatalogoGralViewModel.Nombre))
+            {
+                _alertaEstado.Leyenda = "Ya existe una ubicacion con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            Ubicacion ubicacion = new()
+            {
+                Nombre = viewModel.CatalogoGralViewModel.Nombre,
+                Estado = true
+            };
+            context.Ubicacion.Add(ubicacion);
+            _alertaEstado.Leyenda = "Ubicacion registrada";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
         }
     }
 }

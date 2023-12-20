@@ -42,19 +42,26 @@ export function EditarProveedorEquipo(Pagina) {
         Flecha.src = '/images/up.svg';
     }
 
-    function CerrarDesplegable() {
-        Desplegable.classList.remove('mostrarUP');
-        Flecha.src = '/images/down.svg';
-        Formulario.action = "/TipoEquipos/Agregar";
+    function resetearFormulario() {
+        Formulario.reset();
+        UltimoBotonPresionado = null;
+        if (Pagina == "TipoEquipo") {
+            Formulario.action = "/TipoEquipos/Agregar";
+        } else if (Pagina == "Proveedor") {
+            Formulario.action = "/Proveedores/Agregar";
+        }
         BotonEnviar.value = "Agregar";
     }
 
+    function CerrarDesplegable() {
+        Desplegable.classList.remove('mostrarUP');
+        Flecha.src = '/images/down.svg';
+        resetearFormulario();
+    }
+
     Flecha.addEventListener('click', function () {
-        console.log("hola");
         if (Flecha.src.endsWith('/images/down.svg')) {
-            Formulario.reset();
-            Formulario.action = "/Proveedores/Agregar";
-            BotonEnviar.value = "Agregar";
+            resetearFormulario();
         }
     });
 

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Condominios.Models.Services;
 using Condominios.Models.Entities;
+using Newtonsoft.Json;
+using Condominios.Models.Services.Classes;
 
 namespace Condominios.Controllers
 {
@@ -20,6 +22,7 @@ namespace Condominios.Controllers
             CatalogoViewModel model = await _service.ObtenerCatalogos();
             return View(model);
         }
+
         public async Task UpdateById([FromBody] CatalogoViewModel model)
         {
             await _service.ActualizarEstado(model);
@@ -27,9 +30,9 @@ namespace Condominios.Controllers
 
         public async Task<CatalogoViewModel> Create([FromBody] CatalogoViewModel model)
         {
-            await _service.InsertarEntidad(model);
-
+            var alerta = await _service.InsertarEntidad(model);
             CatalogoViewModel json = await _service.ObtenerCatalogos();
+            json.AlertaEstado = alerta;
             return json;
         }
 

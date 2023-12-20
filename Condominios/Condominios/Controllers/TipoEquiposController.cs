@@ -5,6 +5,9 @@ using Condominios.Services;
 using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 using Condominios.Data.Repositories.CtrlEquipos;
 using Condominios.Models.ViewModels.Catalogos;
+using Newtonsoft.Json;
+using Condominios.Models.Services.Classes;
+#pragma warning disable CS8600
 
 namespace Condominios.Controllers
 {
@@ -19,16 +22,22 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> Index()
         {
+            string json = string.Empty;
             VarianteViewModel model = await _service.Listas();
 
+            if (TempData["AlertaJS"] != null)
+            {
+                json = (string)TempData["AlertaJS"];
+                model.AlertaEstado = JsonConvert.DeserializeObject<AlertaEstado>(json);
+            }
             return View(model);
         }
 
         public async Task<IActionResult> Agregar(VarianteViewModel model)
         {
-            await _service.AddEquipo(model);
-
-            return RedirectToAction("Index");
+            model.AlertaEstado = await _service.AddEquipo(model);
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> ObtenerRegistro(int id)

@@ -1,5 +1,6 @@
 ﻿using Condominios.Data;
 using Condominios.Models;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
 
 namespace Condominios.Models.Services
@@ -8,54 +9,81 @@ namespace Condominios.Models.Services
     {
         private readonly IUnitOfWork _uniOfWork;
         private readonly CatalogoViewModel _viewModel = new();
+        private AlertaEstado _alertaEstado = new();
         public CatalogoService(IUnitOfWork uniOfWork)
         {
             _uniOfWork = uniOfWork;
         }
-        public async Task InsertarEntidad(CatalogoViewModel viewModel)
+        public async Task<AlertaEstado> InsertarEntidad(CatalogoViewModel viewModel)
         {
             switch (viewModel.Entidad)
             {
                 case "Marca":
-                    _uniOfWork.MarcaRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.MarcaRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "Motor":
-                    _uniOfWork.MotorRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.MotorRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "Periodo":
-                    _uniOfWork.PeriodoRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.PeriodoRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "Ubicacion":
-                    _uniOfWork.UbicacionRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.UbicacionRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "Estatus":
-                    _uniOfWork.EstatusRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.EstatusRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "TipoMantenimiento":
-                    _uniOfWork.TipoMtoRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.TipoMtoRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "UnidadMedida":
-                    _uniOfWork.UnidadMedidaRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.UnidadMedidaRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
 
                 case "TipoEquipo":
-                    _uniOfWork.TipoEquipoRepository.Add(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.TipoEquipoRepository.add(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
             }
+
+            return _alertaEstado;
         }
 
         public async Task ActualizarEstado(CatalogoViewModel viewModel)

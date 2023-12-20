@@ -1,7 +1,9 @@
 ﻿using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
+using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
 
@@ -9,21 +11,34 @@ namespace Condominios.Data.Repositories.Catalogos
 {
     public class MarcaRepository : Catalogo, ICatalogoRepository<Marca>
     {
+        private AlertaEstado _alertaEstado = new();
         public MarcaRepository(Context context) : base(context) { }
 
         public async Task<List<Marca>> GetList()
             => await context.Marca.ToListAsync();
 
-        public void Add(CatalogoViewModel viewModel)
+
+        public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
         {
+            if (context.Marca.Any(e => e.Nombre == viewModel.CatalogoGralViewModel.Nombre))
+            {
+                _alertaEstado.Leyenda = "Ya existe una marca con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
             Marca marca = new()
             {
                 Nombre = viewModel.CatalogoGralViewModel.Nombre,
-                Estado = true
+                Estado = true,
             };
 
             context.Marca.Add(marca);
+            _alertaEstado.Leyenda = "Marca registrada";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
         }
+
         public void Delete(Marca entity)
         {
             throw new NotImplementedException();

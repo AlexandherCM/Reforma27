@@ -58,11 +58,16 @@ function CreateFormsListener(Propeties) {
         if (BotonValor == "Agregar") {
             api.SendPost(`Catalogos/Create`, ViewModel)
                 .then(data => {
-                    let NameList = Propeties.List;
-                    let list = data[NameList];
-                    let newObject = (list[list.length - 1]);
 
-                    AddNewFile(newObject, Propeties);
+                    if (data.alertaEstado.Estado) {
+                        let NameList = Propeties.List;
+                        let list = data[NameList];
+                        let newObject = (list[list.length - 1]);
+                        AddNewFile(newObject, Propeties);
+                        Modal('¡Éxito!', data.alertaEstado.Leyenda, true);
+                    } else {
+                        Modal('¡Error!', data.alertaEstado.Leyenda, false);
+                    }
                     Formulario.reset();
                 })
                 .catch(error => console.error('POST Error:', error));

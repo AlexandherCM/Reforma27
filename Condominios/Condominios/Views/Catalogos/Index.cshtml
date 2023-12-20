@@ -649,6 +649,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_CatalogosScripts");
         <script type="module" src="~/js/CatalogosScripts/Editar.js"></script>
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
        
     }
 }

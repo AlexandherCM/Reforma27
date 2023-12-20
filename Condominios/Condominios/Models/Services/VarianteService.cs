@@ -1,6 +1,7 @@
 ﻿using Condominios.Data;
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 using Microsoft.AspNetCore.Mvc.Rendering;
 #pragma warning disable CS8600 
@@ -11,6 +12,7 @@ namespace Condominios.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private VarianteViewModel _model = new();
+        private AlertaEstado _alertaEstado = new();
 
         public VarianteService(IUnitOfWork unitOfWork)
         {
@@ -28,11 +30,17 @@ namespace Condominios.Services
             return _model;
         }
 
-        public async Task AddEquipo(VarianteViewModel model)
+        public async Task<AlertaEstado> AddEquipo(VarianteViewModel model)
         {
             UnidadMedida capacidadString = await _unitOfWork.UnidadMedidaRepository.GetById(model.VarianteEquipo.CapacidadSelect);
-            _unitOfWork.VarianteRepository.Add(model, capacidadString?.Nombre ?? string.Empty);
-            await _unitOfWork.Save();
+
+            _alertaEstado = await _unitOfWork.VarianteRepository.Add(model, capacidadString?.Nombre ?? string.Empty);
+
+            if (_alertaEstado.Estado)
+            {
+                await _unitOfWork.Save();
+            }
+            return _alertaEstado;
         }
 
         public async Task<Variante> GetEquipo(int id)

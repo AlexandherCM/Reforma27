@@ -32,12 +32,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public void Update(CatalogoViewModel viewModel)
-        {
-            var motor = context.Find<Motor>(viewModel.ID);
-            motor.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
-
         public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
         {
             if(context.Motor.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre))
@@ -56,6 +50,24 @@ namespace Condominios.Data.Repositories.Catalogos
             _alertaEstado.Leyenda = "Motor registrado";
             _alertaEstado.Estado = true;
             return _alertaEstado;
+        }
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
+        {
+            var motor = context.Find<Motor>(viewModel.ID);
+
+            if (context.Motor.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe un motor con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            motor.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Motor actualizado correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

@@ -35,7 +35,8 @@ namespace Condominios.Data.Repositories.Catalogos
                 _alertaEstado.Leyenda = "Ya existe un periodo con ese nombre";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
-            }else if (context.Periodo.Any(p => p.Meses == viewModel.PeriodoViewModel.Meses()))
+            }
+            else if (context.Periodo.Any(p => p.Meses == viewModel.PeriodoViewModel.Meses()))
             {
                 _alertaEstado.Leyenda = "Ya existe un periodo con ese numero de meses";
                 _alertaEstado.Estado = false;
@@ -71,11 +72,30 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public void Update(CatalogoViewModel viewModel)
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
         {
             var periodo = context.Find<Periodo>(viewModel.ID);
+
+            if (context.Periodo.Any(p => p.Nombre == viewModel.PeriodoViewModel.Nombre && p.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe un periodo con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+            else if (context.Periodo.Any(p => p.Meses == viewModel.PeriodoViewModel.Meses() && p.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe un periodo con ese numero de meses";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
             periodo.Nombre = viewModel.PeriodoViewModel.Nombre;
             periodo.Meses = viewModel.PeriodoViewModel.Meses();
+
+            _alertaEstado.Leyenda = "Periodo actualizado correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

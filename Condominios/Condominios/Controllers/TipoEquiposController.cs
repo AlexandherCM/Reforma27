@@ -50,8 +50,9 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> Actualizar(VarianteViewModel model)
         {
-            await _service.Update(model);
-            return RedirectToAction("Index");
+            model.AlertaEstado = await _service.Update(model);
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task UpdateStatus(int id)

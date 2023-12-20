@@ -48,16 +48,28 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<TipoEquipo>> GetList()
             => await context.TipoEquipo.ToListAsync();
 
-        public void Update(CatalogoViewModel viewModel)
-        {
-            var tipoEquipo = context.Find<TipoEquipo>(viewModel.ID);
-            tipoEquipo.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
-
         public void UpdateEstateById(int id)
         {
             var tipoEquipo = context.Find<TipoEquipo>(id);
             tipoEquipo.Estado = !tipoEquipo.Estado;
+        }
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
+        {
+            var tipoEquipo = context.Find<TipoEquipo>(viewModel.ID);
+
+            if (context.TipoEquipo.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe un equipo con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            tipoEquipo.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Equipo actualizado correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

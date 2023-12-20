@@ -32,12 +32,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public void Update(CatalogoViewModel viewModel)
-        {
-            var estatus = context.Find<Estatus>(viewModel.ID);
-            estatus.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
-
         public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
         {
             if(context.Estatus.Any(e => e.Nombre == viewModel.CatalogoGralViewModel.Nombre))
@@ -58,5 +52,24 @@ namespace Condominios.Data.Repositories.Catalogos
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
+        {
+            var estatus = context.Find<Estatus>(viewModel.ID);
+
+            if (context.Estatus.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe un estatus con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            estatus.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Estatus actualizado correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
+        }
+
     }
 }

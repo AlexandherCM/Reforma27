@@ -43,12 +43,24 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             throw new NotImplementedException();
         }
-        public void Update(CatalogoViewModel viewModel)
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
         {
             var marca = context.Find<Marca>(viewModel.ID);
-            marca.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
 
+            if (context.Marca.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe una marca con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            marca.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Marca actualizada correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
+        }
 
         public void UpdateEstateById(int id)
         {

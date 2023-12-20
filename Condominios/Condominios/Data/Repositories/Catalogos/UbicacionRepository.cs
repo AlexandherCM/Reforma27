@@ -33,12 +33,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public void Update(CatalogoViewModel viewModel)
-        {
-            var ubicacion = context.Find<Ubicacion>(viewModel.ID);
-            ubicacion.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
-
         public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
         {
             if (context.Ubicacion.Any(u => u.Nombre == viewModel.CatalogoGralViewModel.Nombre))
@@ -57,6 +51,24 @@ namespace Condominios.Data.Repositories.Catalogos
             _alertaEstado.Leyenda = "Ubicacion registrada";
             _alertaEstado.Estado = true;
             return _alertaEstado;
+        }
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
+        {
+            var ubicacion = context.Find<Ubicacion>(viewModel.ID);
+
+            if (context.Ubicacion.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe una ubicacion con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            ubicacion.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Ubicacion actualizada correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

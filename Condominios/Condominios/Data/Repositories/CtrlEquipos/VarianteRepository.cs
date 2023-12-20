@@ -68,7 +68,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
                                       e.TipoEquipoID == model.VarianteEquipo.TipoEquipoID &&
                                       e.Capacidad == model.VarianteEquipo.Capacidad(medida)))
             {
-                _alertaEstado.Leyenda = "Ya existe un registro de esta claisficacion, ingrese uno diferente";
+                _alertaEstado.Leyenda = "Ya existe un registro de esta clasificacion, ingrese uno diferente";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -109,15 +109,31 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             return variante;
         }
 
-        public void Update(VarianteViewModel model, string medida)
+        public async Task<AlertaEstado> Update(VarianteViewModel model, string medida)
         {
             var variante = _context.Find<Variante>(model.VarianteEquipo.ID);
+
+            if (_context.Variante.Any(e => e.MarcaID == model.VarianteEquipo.MarcaID &&
+                                      e.MotorID == model.VarianteEquipo.MotorID &&
+                                      e.PeriodoID == model.VarianteEquipo.PeriodoID &&
+                                      e.TipoEquipoID == model.VarianteEquipo.TipoEquipoID &&
+                                      e.Capacidad == model.VarianteEquipo.Capacidad(medida)))
+            {
+                _alertaEstado.Leyenda = "Ya existe un registro de esta clasificacion, ingrese uno diferente";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
 
             variante.MarcaID = model.VarianteEquipo.MarcaID;
             variante.MotorID = model.VarianteEquipo.MotorID;
             variante.PeriodoID = model.VarianteEquipo.PeriodoID;
             variante.TipoEquipoID = model.VarianteEquipo.TipoEquipoID;
             variante.Capacidad = model.VarianteEquipo.Capacidad(medida);
+
+            _alertaEstado.Leyenda = "Datos actualizados correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

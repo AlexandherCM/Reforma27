@@ -33,12 +33,6 @@ namespace Condominios.Data.Repositories.Catalogos
             throw new NotImplementedException();
         }
 
-        public void Update(CatalogoViewModel viewModel)
-        {
-            var tipoMantenimiento = context.Find<TipoMantenimiento>(viewModel.ID);
-            tipoMantenimiento.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
-
         public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
         {
             if(context.TipoMantenimiento.Any(tm => tm.Nombre == viewModel.CatalogoGralViewModel.Nombre))
@@ -58,6 +52,24 @@ namespace Condominios.Data.Repositories.Catalogos
             _alertaEstado.Leyenda = "Tipo de mantenimiento registrado";
             _alertaEstado.Estado= true;
             return _alertaEstado;
+        }
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
+        {
+            var TipoMantenimiento = context.Find<TipoMantenimiento>(viewModel.ID);
+
+            if (context.TipoMantenimiento.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe un tipo de mantenimiento con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            TipoMantenimiento.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Tipo de mantenimiento actualizado correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

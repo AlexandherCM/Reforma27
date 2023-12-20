@@ -33,7 +33,6 @@ namespace Condominios.Services
         public async Task<AlertaEstado> AddEquipo(VarianteViewModel model)
         {
             UnidadMedida capacidadString = await _unitOfWork.UnidadMedidaRepository.GetById(model.VarianteEquipo.CapacidadSelect);
-
             _alertaEstado = await _unitOfWork.VarianteRepository.Add(model, capacidadString?.Nombre ?? string.Empty);
 
             if (_alertaEstado.Estado)
@@ -49,11 +48,15 @@ namespace Condominios.Services
             return variante;
         }
 
-        public async Task Update(VarianteViewModel model)
+        public async Task<AlertaEstado> Update(VarianteViewModel model)
         {
             UnidadMedida capacidadString = await _unitOfWork.UnidadMedidaRepository.GetById(model.VarianteEquipo.CapacidadSelect);
-            _unitOfWork.VarianteRepository.Update(model, capacidadString?.Nombre ?? string.Empty);
-            await _unitOfWork.Save();
+            _alertaEstado = await _unitOfWork.VarianteRepository.Update(model, capacidadString?.Nombre ?? string.Empty);
+            if (_alertaEstado.Estado)
+            {
+                await _unitOfWork.Save();
+            }
+            return _alertaEstado;
         }
 
         public async Task<Variante> ActualizarEstado(int id)

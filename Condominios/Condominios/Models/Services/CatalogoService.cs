@@ -145,43 +145,68 @@ namespace Condominios.Models.Services
             return _viewModel;
         }
 
-        public async Task Update(CatalogoViewModel viewModel)
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
         {
             switch (viewModel.Entidad)
             {
                 case "Marca":
-                    _uniOfWork.MarcaRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.MarcaRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "Ubicacion":
-                    _uniOfWork.UbicacionRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.UbicacionRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "Motor":
-                    _uniOfWork.MotorRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.MotorRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "TipoMantenimiento":
-                    _uniOfWork.TipoMtoRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.TipoMtoRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "Estatus":
-                    _uniOfWork.EstatusRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.EstatusRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "TipoEquipo":
-                    _uniOfWork.TipoEquipoRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.TipoEquipoRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "UnidadMedida":
-                    _uniOfWork.UnidadMedidaRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.UnidadMedidaRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
                 case "Periodo":
-                    _uniOfWork.PeriodoRepository.Update(viewModel);
-                    await _uniOfWork.Save();
-                    return;
+                    _alertaEstado = await _uniOfWork.PeriodoRepository.Update(viewModel);
+                    if (_alertaEstado.Estado)
+                    {
+                        await _uniOfWork.Save();
+                    }
+                    break;
             }
+            return _alertaEstado;
             
         }
     }

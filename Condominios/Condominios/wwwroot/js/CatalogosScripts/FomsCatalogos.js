@@ -75,10 +75,16 @@ function CreateFormsListener(Propeties) {
             api.SendPost(`Catalogos/Update`, ViewModel)
                 .then(data => {
 
-                    if (data.entidad == "Periodo") {
-                        CambiarPeriodo(data.id, data.periodoViewModel);
-                    } else {
+                    if (data.alertaEstado.Estado && data.entidad != "Periodo") {
                         CambiarNombre(Propeties.TableRowsID, data.id, data.catalogoGralViewModel.nombre);
+                        Modal('¡Éxito!', data.alertaEstado.Leyenda, true);
+                    } else if (!data.alertaEstado.Estado && data.entidad != "Periodo") {
+                        Modal('¡Error!', data.alertaEstado.Leyenda, false);
+                    } else if (data.alertaEstado.Estado && data.entidad == "Periodo") {
+                        CambiarPeriodo(data.id, data.periodoViewModel);
+                        Modal('¡Éxito!', data.alertaEstado.Leyenda, true);
+                    } else {
+                        Modal('¡Error!', data.alertaEstado.Leyenda, false);
                     }
                 })
             Formulario.reset();

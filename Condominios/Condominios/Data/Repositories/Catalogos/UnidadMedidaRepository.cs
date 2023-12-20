@@ -64,16 +64,28 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<UnidadMedida>> GetList()
           => await context.UnidadMedida.ToListAsync();
 
-        public void Update(CatalogoViewModel viewModel)
-        {
-            var unidadMedida = context.Find<UnidadMedida>(viewModel.ID);
-            unidadMedida.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-        }
-
         public void UpdateEstateById(int id)
         {
             var unidadMedida = context.Find<UnidadMedida>(id);
             unidadMedida.Estado = !unidadMedida.Estado;
+        }
+
+        public async Task<AlertaEstado> Update(CatalogoViewModel viewModel)
+        {
+            var unidadMedida = context.Find<UnidadMedida>(viewModel.ID);
+
+            if (context.UnidadMedida.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
+            {
+                _alertaEstado.Leyenda = "Ya existe una unidad de medida con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            unidadMedida.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+            _alertaEstado.Leyenda = "Unidad de medida actualizada correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
     }
 }

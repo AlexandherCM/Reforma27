@@ -62,7 +62,8 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> Update([FromBody] CatalogoViewModel model)
         {
-            await _service.Update(model);
+            var alerta = await _service.Update(model);
+            model.AlertaEstado = alerta;
             var jsonResult = new JsonResult(model);
             return jsonResult;
         }

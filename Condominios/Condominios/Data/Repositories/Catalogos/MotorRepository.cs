@@ -1,6 +1,7 @@
 ﻿using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
@@ -9,21 +10,12 @@ namespace Condominios.Data.Repositories.Catalogos
 {
     public class MotorRepository :Catalogo, ICatalogoRepository<Motor>
     {
+        private AlertaEstado _alertaEstado = new();
         public MotorRepository(Context context) : base(context) { }
 
         public async Task<List<Motor>> GetList()
             => await context.Motor.ToListAsync();
 
-        public void Add(CatalogoViewModel viewModel)
-        {
-            Motor motor = new()
-            {
-                Nombre = viewModel.CatalogoGralViewModel.Nombre,
-                Estado = true
-            };
-
-            context.Motor.Add(motor);
-        }
         public void Delete(Motor entity)
         {
             throw new NotImplementedException();
@@ -44,6 +36,26 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             var motor = context.Find<Motor>(viewModel.ID);
             motor.Nombre = viewModel.CatalogoGralViewModel.Nombre;
+        }
+
+        public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
+        {
+            if(context.Motor.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre))
+            {
+                _alertaEstado.Leyenda = "Ya existe un motor con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
+            Motor motor = new()
+            {
+                Nombre = viewModel.CatalogoGralViewModel.Nombre,
+                Estado = true
+            };
+            context.Motor.Add(motor);
+            _alertaEstado.Leyenda = "Motor registrado";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
         }
     }
 }

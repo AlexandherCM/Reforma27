@@ -1,4 +1,5 @@
-﻿using Condominios.Models.ViewModels.Catalogos;
+﻿using Condominios.Models.Services.Classes;
+using Condominios.Models.ViewModels.Catalogos;
 
 namespace Condominios.Data.Interfaces.IRepositories
 {
@@ -7,7 +8,9 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<Entidad?> GetById(int id);
         public void UpdateEstateById(int id);
         public Task<List<Entidad>> GetList();
-        public void Add(CatalogoViewModel viewModel);
+
+        public Task<AlertaEstado> add(CatalogoViewModel viewModel);
+        //public void Add(CatalogoViewModel viewModel);
         public void Update(CatalogoViewModel viewModel);
         public void Delete(Entidad entity);
     }

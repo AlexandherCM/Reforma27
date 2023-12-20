@@ -1,6 +1,7 @@
 ﻿using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
@@ -9,10 +10,18 @@ namespace Condominios.Data.Repositories.Catalogos
 {
     public class TipoEquipoRepository : Catalogo, ICatalogoRepository<TipoEquipo>
     {
+        private AlertaEstado _alertaEstado = new();
         public TipoEquipoRepository(Context context) : base(context) { }
 
-        public void Add(CatalogoViewModel viewModel)
+        public async Task<AlertaEstado> add(CatalogoViewModel viewModel)
         {
+            if (context.TipoEquipo.Any(te => te.Nombre == viewModel.CatalogoGralViewModel.Nombre))
+            {
+                _alertaEstado.Leyenda = "Ya existe un equipo con ese nombre";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
             TipoEquipo tipoEquipo = new()
             {
                 Nombre = viewModel.CatalogoGralViewModel.Nombre,
@@ -20,6 +29,10 @@ namespace Condominios.Data.Repositories.Catalogos
             };
 
             context.TipoEquipo.Add(tipoEquipo);
+            _alertaEstado.Leyenda = "Equipo registrado";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
+
         }
 
         public void Delete(TipoEquipo entity)

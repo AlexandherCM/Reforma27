@@ -1,4 +1,5 @@
 ﻿using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using System.ComponentModel.DataAnnotations;
 #pragma warning disable CS8618
 
@@ -20,5 +21,6 @@ namespace Condominios.Models.ViewModels.Catalogos
         [Required]
         public string Entidad { get; set; }
         public int ID { get; set; }
+        public AlertaEstado? AlertaEstado { get; set; }
     }
 }

@@ -58,6 +58,7 @@
 
     if (!ValidarEmail.test(CorreoValue) && CorreoValue !== "") {
         MostrarError(CorreoError, "Por favor, ingresa una dirección de correo electrónico válida");
+        CampoVacio = true;
     }
 
     return !CampoVacio;

@@ -66,7 +66,7 @@ export function EditarProveedorEquipo(Pagina) {
     });
 
     function ConsultaGETTipoEquipo(Parametro) {
-        api.get(`TipoEquipos/ObtenerRegistro/${Parametro}`)
+        api.SendGet(`TipoEquipos/ObtenerRegistro/${Parametro}`)
             .then(data => {
 
                 var CapacidadValue = data.capacidad;
@@ -99,7 +99,7 @@ export function EditarProveedorEquipo(Pagina) {
     }
 
     function ConsultaGETProveedor(Parametro) {
-        api.get(`Proveedores/ObtenerRegistro/${Parametro}`)
+        api.SendGet(`Proveedores/ObtenerRegistro/${Parametro}`)
             .then(data => {
 
                 document.getElementById("ID").value = data.id;
@@ -115,7 +115,7 @@ export function EditarProveedorEquipo(Pagina) {
     }
     //////////////////////////////////////////////////////////
     function ConsultaGETEquipo(Parametro) {
-        api.get(`Equipos/ObtenerRegistro/${Parametro}`)
+        api.SendGet(`Equipos/ObtenerRegistro/${Parametro}`)
             .then(data => {
 
                 var VarianteSelect = document.getElementById("Plantilla_VarianteID");

@@ -1,5 +1,6 @@
 ﻿using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Condominios.Models.ViewModels.CtrolVarianteEquipo
@@ -14,5 +15,6 @@ namespace Condominios.Models.ViewModels.CtrolVarianteEquipo
         public SelectList? Periodos { get; set; }
         public SelectList? TipoEquipo { get; set; }
         public SelectList? Capacidad { get; set; }
+        public AlertaEstado? AlertaEstado { get; set; }
     }
 }

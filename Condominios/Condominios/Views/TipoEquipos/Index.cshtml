@@ -211,6 +211,7 @@
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js" asp-append-version="true"></script>
         <script src="~/js/Desplegable.js" asp-append-version="true"></script>
         <script src="~/js/Tablas.js" asp-append-version="true"></script>
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
 
     }
 }

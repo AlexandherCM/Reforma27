@@ -2,6 +2,7 @@
 using Condominios.Models;
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolVarianteEquipo;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
@@ -11,6 +12,8 @@ namespace Condominios.Data.Repositories.CtrlEquipos
     public class VarianteRepository : IVarianteRepository<VarianteDTO>
     {
         private readonly Context _context;
+        private AlertaEstado _alertaEstado = new();
+
         public VarianteRepository(Context context)
         {
             _context = context;
@@ -33,7 +36,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             {
                 if (tipo != null)
                 {
-                    tipo.Nombre += 
+                    tipo.Nombre +=
                         $" / Marca: {tipo.NombreMarca} / Motor: {tipo.NombreMotor} / Capacidad: {tipo.Capacidad} / Mantenimiento: {tipo.Periodo}";
                 }
             });
@@ -43,21 +46,33 @@ namespace Condominios.Data.Repositories.CtrlEquipos
         private static List<VarianteDTO> Clone(List<Variante> datos)
         {
             List<VarianteDTO> tipos = (from tipo in datos
-                                         select new VarianteDTO
-                                         {
-                                             ID = tipo.ID,
-                                             Nombre = $"Tipo: {tipo.TipoEquipo.Nombre}",
-                                             NombreMarca = tipo.Marca.Nombre,
-                                             NombreMotor = tipo.Motor.Nombre,
-                                             Capacidad = tipo.Capacidad,
-                                             Periodo = tipo.Periodo.Nombre,
-                                         }).ToList();
+                                       select new VarianteDTO
+                                       {
+                                           ID = tipo.ID,
+                                           Nombre = $"Tipo: {tipo.TipoEquipo.Nombre}",
+                                           NombreMarca = tipo.Marca.Nombre,
+                                           NombreMotor = tipo.Motor.Nombre,
+                                           Capacidad = tipo.Capacidad,
+                                           Periodo = tipo.Periodo.Nombre,
+                                       }).ToList();
 
             return tipos;
         }
 
-        public void Add(VarianteViewModel model, string medida)
+        public async Task<AlertaEstado> Add(VarianteViewModel model, string medida)
         {
+
+            if (_context.Variante.Any(e => e.MarcaID == model.VarianteEquipo.MarcaID &&
+                                      e.MotorID == model.VarianteEquipo.MotorID &&
+                                      e.PeriodoID == model.VarianteEquipo.PeriodoID &&
+                                      e.TipoEquipoID == model.VarianteEquipo.TipoEquipoID &&
+                                      e.Capacidad == model.VarianteEquipo.Capacidad(medida)))
+            {
+                _alertaEstado.Leyenda = "Ya existe un registro de esta claisficacion, ingrese uno diferente";
+                _alertaEstado.Estado = false;
+                return _alertaEstado;
+            }
+
             Variante variante = new Variante()
             {
                 MarcaID = model.VarianteEquipo.MarcaID,
@@ -69,6 +84,10 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             };
 
             _context.Add(variante);
+
+            _alertaEstado.Leyenda = "Datos Registrados correctamente";
+            _alertaEstado.Estado = true;
+            return _alertaEstado;
         }
 
         public async Task<List<Variante>> GetList()

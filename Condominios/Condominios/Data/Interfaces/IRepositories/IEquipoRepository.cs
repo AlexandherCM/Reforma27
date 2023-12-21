@@ -14,7 +14,7 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<List<Equipo>> GetList(int id);
         public Task<List<Entidad>> GetList();
         public Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel);
-        public void Update(Entidad entity);
+        public AlertaEstado Update(EditEquipoViewModel model);
         public void Delete(Entidad entity);
         Task<Equipo?> UpdateID(int id);
     }

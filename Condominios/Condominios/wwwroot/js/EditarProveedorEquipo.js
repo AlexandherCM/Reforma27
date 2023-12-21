@@ -114,44 +114,44 @@ export function EditarProveedorEquipo(Pagina) {
             .catch(error => console.error('GET Error:', error));
     }
     //////////////////////////////////////////////////////////
-    function ConsultaGETEquipo(Parametro) {
-        api.SendGet(`Equipos/ObtenerRegistro/${Parametro}`)
-            .then(data => {
+    //function ConsultaGETEquipo(Parametro) {
+    //    api.SendGet(`Equipos/ObtenerRegistro/${Parametro}`)
+    //        .then(data => {
 
-                var VarianteSelect = document.getElementById("Plantilla_VarianteID");
-                var StatusSelect = document.getElementById("Plantilla_EstatusID");
-                var UbicacionSelect = document.getElementById("Plantilla_UbicacionID");
+    //            var VarianteSelect = document.getElementById("Plantilla_VarianteID");
+    //            var StatusSelect = document.getElementById("Plantilla_EstatusID");
+    //            var UbicacionSelect = document.getElementById("Plantilla_UbicacionID");
 
-                for (let i = 0; i < VarianteSelect.options.length; i++) {
-                    const option = VarianteSelect.options[i];
-                    if (option.value == data.varianteID) {
-                        option.selected = true;
-                        break;
-                    }
-                }
+    //            for (let i = 0; i < VarianteSelect.options.length; i++) {
+    //                const option = VarianteSelect.options[i];
+    //                if (option.value == data.varianteID) {
+    //                    option.selected = true;
+    //                    break;
+    //                }
+    //            }
 
-                for (let i = 0; i < StatusSelect.options.length; i++) {
-                    const option = StatusSelect.options[i];
-                    if (option.value == data.estatusID) {
-                        option.selected = true;
-                        break;
-                    }
-                }
+    //            for (let i = 0; i < StatusSelect.options.length; i++) {
+    //                const option = StatusSelect.options[i];
+    //                if (option.value == data.estatusID) {
+    //                    option.selected = true;
+    //                    break;
+    //                }
+    //            }
 
-                document.getElementById("Plantilla_CostoAdquisicion").value = data.costoAdquisicion;
+    //            document.getElementById("Plantilla_CostoAdquisicion").value = data.costoAdquisicion;
 
-                for (let i = 0; i < UbicacionSelect.options.length; i++) {
-                    const option = UbicacionSelect.options[i];
-                    if (option.value == data.ubicacionID) {
-                        option.selected = true;
-                        break;
-                    }
-                }
+    //            for (let i = 0; i < UbicacionSelect.options.length; i++) {
+    //                const option = UbicacionSelect.options[i];
+    //                if (option.value == data.ubicacionID) {
+    //                    option.selected = true;
+    //                    break;
+    //                }
+    //            }
 
-                document.getElementById("Plantilla_Funcion").value = data.funcion;
-            })
-            .catch(error => console.error('GET Error:', error));
-    }
+    //            document.getElementById("Plantilla_Funcion").value = data.funcion;
+    //        })
+    //        .catch(error => console.error('GET Error:', error));
+    //}
 }
 
 document.addEventListener('DOMContentLoaded', EditarProveedorEquipo);

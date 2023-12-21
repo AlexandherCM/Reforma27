@@ -13,7 +13,7 @@ namespace Condominios.Models.Services
             return epoch;
         }
 
-        public DateTime ObtenerFecha(double epoch)
+        public DateTime ObtenerFecha(long epoch)
         {
             DateTime fechaInicial = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             fechaInicial = fechaInicial.AddSeconds(epoch).ToLocalTime();

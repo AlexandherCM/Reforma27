@@ -1,9 +1,11 @@
-﻿using Condominios.Data.Interfaces.IRepositories;
-using Condominios.Models.Entities;
+﻿using Condominios.Models.Entities;
 using Condominios.Models.Services;
+using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
-using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+#pragma warning disable CS8600
+#pragma warning disable CS8604
 
 namespace Condominios.Controllers
 {
@@ -16,23 +18,41 @@ namespace Condominios.Controllers
         }
         public async Task<IActionResult> Consultar(int ID)
         {
+            string json = string.Empty;
+
             var model = await _service.GetEquipo(ID);
             model = await _service.GetLists(model);
 
+            if (TempData["AlertaJS"] != null)
+            {
+                json = (string)TempData["AlertaJS"];
+                model.AlertaEstado = JsonConvert.DeserializeObject<AlertaEstado>(json);
+            }
+
             return View(model);
         }
-        public async Task<IActionResult> CreateOneMto(CtrolMtosEquipoViewModels model)
+        public async Task<IActionResult> CreateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
-            // Hacer lo que necesitas con el modelo
+            viewModel.Mantenimiento.MtoProgramadoID = viewModel.MtoPendienteID;
+            viewModel.AlertaEstado = await _service.ConfirmarMto(viewModel.Mantenimiento);
 
-            // Redirigir a la acción Consultar manteniendo el ID
-            //PDT!!!!
-            return RedirectToAction(nameof(Consultar), new { ID = model.EquipoID });
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
+
+            //return View(nameof(Consultar), new { ID = viewModel.EquipoID });
+            return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }
 
-        public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SearchByEstateMto(int EdoAplicacion)
         {
-            return RedirectToAction(nameof(Consultar));
+            return RedirectToAction("Index", "Equipos");
+        }
+
+        public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
+        {
+            
+            return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }
         
         public async Task<IActionResult> Crear()

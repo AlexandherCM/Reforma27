@@ -19,9 +19,13 @@
             <h4 class="pt-3">Editar equipo</h4>
 
             @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <form asp-action="Edit" class="text-light text-center " id="formsEquipo">
+            <form asp-controller="Equipos" asp-action="Update" class="text-light text-center " id="formsEquipo">
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                <input asp-for="MtoPendienteID" type="hidden">
+                <input asp-for="EquipoID" type="hidden">
+                @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
                 <div class="row p-2">
                     <label><b>Número de serie</b></label>
@@ -141,7 +145,7 @@
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.NumSerie) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Marca.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.TipoEquipo.Nombre) </td>
-                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Motor.Nombre) </td>
+                <td class="border-R p-1"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Motor.Nombre) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Capacidad) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Ubicacion.Nombre) </td>
                 <td class="border-R" style="text-align: justify;">
@@ -163,12 +167,6 @@
                 <td class="border-R">
                     <img class="remover" src="~/images/pen-to-square-solid.svg" id="btn-edit" />
                 </td>
-                @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                @*<td class="border-R">
-                <a class="btn-details" >
-                <img class="detalles" src="~/images/eye-solid.svg" data-parametro="@Model.Equipo.ID" />
-                </a>
-                </td>*@
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
             </tr>
         </tbody>
@@ -225,11 +223,15 @@
             <div class="col-2 p-2"></div>
 
             <div class="col-8 p-2">
-
-                <select asp-items="Model.Estatus" name="Aplica" class="search" style="width:100%;">
-                    <option value="">Selecciona un proveedor</option>
-                </select>
-
+                <form asp-action="SearchByEstateMto" id="formsEstado">
+                    <select asp-for="EdoAplicacion" id="SelectEstado" class="search" style="width:100%;">
+                        <option value="0">Selecciona un proveedor</option>
+                        @foreach (var estado in Model.estados)
+                        {
+                            <option value="@estado.Key">@estado.Value</option>
+                        }
+                    </select>
+                </form>
             </div>
 
             <div class="col-2 p-2"></div>
@@ -263,6 +265,9 @@
                     Aplicado
                 </th>
                 <th class="border-R">
+                    Día de aplicación
+                </th>
+                <th class="border-R">
                     Ultima Aplicación
                 </th>
                 <th class="border-R">
@@ -291,6 +296,7 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Estado)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.DiaDeAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
@@ -349,8 +355,12 @@
 <aside id="despegableDown" class="rounded-2 mt-5">
     <div id="contenidoDown">
         <form id="form-mto">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="EquipoID" value="@Model.Equipo.ID" type="hidden" name="InputHidden" placeholder="Nombre" class="text">
+            <div asp-validation-summary="ModelOnly"  class="text-danger"></div>
+            @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            <input asp-for="MtoPendienteID" type="hidden">
+            <input asp-for="EquipoID" type="hidden"> 
+            @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
             <h4 class="pt-3">Registra el último mantenimiento programado</h4>
 
             <div class="textDes" style="text-align:justify;">
@@ -387,6 +397,12 @@
                 <span asp-validation-for="Mantenimiento.CostoReparacion" class="text-danger"></span>
             </div>
 
+            <div class="row p-1">
+                <label>Fecha de aplicación</label>
+                <input asp-for="Mantenimiento.FechaAplicacion" type="date" class="textDes">
+                <span asp-validation-for="Mantenimiento.FechaAplicacion" class="text-danger"></span>
+            </div>
+
             <div class="row  p-1">
                 <label for="">Observaciones</label>
                 <textarea asp-for="Mantenimiento.Observaciones" rows="3" class="textDes" cols="50"></textarea>
@@ -394,8 +410,8 @@
             </div>
 
             <div class="row p-1 pb-2">
-                <input type="submit" value="Agregar" class="btn-des" id="btn-add">
-                <input type="submit" value="Editar" class="btn-des" id="btn-update">
+                <input asp-action="CreateOneMto" asp-controller="Mantenimientos" type="submit" value="Agregar" class="btn-des" id="btn-add">
+                <input asp-action="UpdateOneMto" asp-controller="Mantenimientos" type="submit" value="Editar" class="btn-des d-none" id="btn-update">
             </div>
         </form>
     </div>
@@ -412,6 +428,7 @@
         // <script src="~/js/Desplegable.js" asp-append-version="true"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_MtosConsultar");
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
     }
 }
 

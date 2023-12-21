@@ -6,6 +6,7 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 #pragma warning disable CS8602
 
 namespace Condominios.Data.Repositories.Equipos
@@ -153,6 +154,37 @@ namespace Condominios.Data.Repositories.Equipos
             return _alertaEstado;
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         }
+        public AlertaEstado Update(EditEquipoViewModel model)
+        {
+            var equipo = _context.Find<Equipo>(model.ID);
+            var nombre = _context.Equipo.Any(c => c.NumSerie.Contains(model.NumSerie) && c.ID != model.ID);
+
+            if (!nombre)
+                equipo.NumSerie = model.NumSerie.Trim();
+            else
+            {
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                _alertaEstado.Leyenda = "El número de serie ingresado ya esta asignado a otro equipo.";
+                _alertaEstado.Estado = false;
+
+                return _alertaEstado;
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            }
+
+            if (model.CostoAdquisicion.HasValue && model.CostoAdquisicion.Value != 0)
+                equipo.CostoAdquisicion = model.CostoAdquisicion.Value;
+
+            equipo.UbicacionID = model.UbicacionID;
+            equipo.EstatusID = model.EstatusID;
+            equipo.Funcion = model.Funcion;
+
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            _alertaEstado.Leyenda = "Datos Actualizados correctamente";
+            _alertaEstado.Estado = true;
+
+            return _alertaEstado;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        }
 
         public void Delete(Equipo entity)
         {
@@ -169,10 +201,6 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Estatus)
                                     .FirstOrDefaultAsync(c => c.ID == ID);
 
-        public void Update(Equipo entity)
-        {
-            throw new NotImplementedException();
-        }
 
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

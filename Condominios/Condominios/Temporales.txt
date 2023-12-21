@@ -220,3 +220,14 @@ builder.Services.AddHostedService<WorkerAutomaticMtos>().AddSingleton<AutomaticM
 
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM}", ApplyFormatInEditMode = true)]
+
+
+        // timeMonth en segundo plano
+            Task<int> obtenerTimeMonthTask = Task.Run(async () =>
+            {
+                return await _context.MtoProgramado
+                    .Where(m => m.ID == viewModel.TipoMantenimientoID)
+                    .Include(m => m.Equipo.Variante.Periodo)
+                    .Select(p => p.Equipo.Variante.Periodo.Meses)
+                    .FirstOrDefaultAsync();
+            });

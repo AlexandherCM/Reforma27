@@ -33,7 +33,7 @@ namespace Condominios.Controllers
                 json = (string)TempData["Equipos"];
                 model.Equipos = JsonConvert.DeserializeObject<List<Equipo>>(json);
             }
-            
+
             if (TempData["AlertaJS"] != null)
             {
                 json = (string)TempData["AlertaJS"];
@@ -100,17 +100,20 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
         public async Task UpdateStatus(int id)
-        {
-            await _service.ActualizarEstado(id);
-        }
+            => await _service.ActualizarEstado(id);
 
-        public async Task<IActionResult> ObtenerRegistro(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(CtrolMtosEquipoViewModels viewModel)
         {
-            Equipo model = await _service.GetEquipo(id);
+            viewModel.Plantilla.ID = viewModel.EquipoID;
+            viewModel.AlertaEstado = _service.AactualizarEquipo(viewModel.Plantilla);
 
-            var jsonResult = new JsonResult(model);
-            return jsonResult;
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
+            return RedirectToAction("Consultar", "Mantenimientos", new { ID = viewModel.EquipoID });
         }
 
     }

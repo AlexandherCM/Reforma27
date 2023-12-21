@@ -2,6 +2,8 @@
 using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
 using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
+using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8602
 #pragma warning disable CS8603
@@ -11,11 +13,70 @@ namespace Condominios.Data.Repositories.Mantenimientos
     public class MtoRepository : IMtoRepository
     {
         private readonly IEpoch _epoch;
+        private AlertaEstado _alertaEstado = new();
         private Context _context;
         public MtoRepository(Context context, IEpoch epoch)
         {
             _epoch = epoch;
             _context = context;
+        }
+
+        public async Task<AlertaEstado> ConfirmMto(MantenimientoViewModel viewModel)
+        {
+            var mtoProgramado = await _context.MtoProgramado
+                                        .Include(m => m.Equipo.Variante.Periodo)
+                                        .FirstOrDefaultAsync(m => m.ID == viewModel.MtoProgramadoID);
+
+            DateTime Applic = viewModel.FechaAplicacion; 
+            DateTime MonthYear = new DateTime(Applic.Year, Applic.Month, 1, 0, 0, 0);
+            DateTime Programming = _epoch.ObtenerFecha(mtoProgramado.ProximaAplicacion); 
+
+            if (!mtoProgramado.Aplicable)
+            {
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                _alertaEstado.Leyenda = "Aún no esta activo el periodo de aplicación para este mantenimiento.";
+                _alertaEstado.Estado = false;
+
+                return _alertaEstado;
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            }
+
+            if (Programming.CompareTo(MonthYear) != 0)
+            {
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                _alertaEstado.Leyenda = "La fecha de aplicación debe estar dentro del periodo programado.";
+                _alertaEstado.Estado = false;
+
+                return _alertaEstado;
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            }
+
+            mtoProgramado.Mantenimiento = new()
+            {
+                TipoMantenimientoID = viewModel.TipoMantenimientoID,
+                ProveedorID = viewModel.ProveedorID,
+                CostoMantenimiento = viewModel.CostoMantenimiento,
+                CostoReparacion = viewModel.CostoReparacion ?? 0,
+                Observaciones = viewModel.Observaciones,
+                FechaAplicacion = _epoch.CrearEpoch(viewModel.FechaAplicacion)
+            };
+
+            mtoProgramado.Aplicado = true;
+            mtoProgramado.Aplicable = false;
+            mtoProgramado.Estado = false;
+
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            var newMto = CrearObjeto(Programming, mtoProgramado.Equipo.Variante.Periodo.Meses);
+            newMto.EquipoID = mtoProgramado.EquipoID;
+
+            _context.Add(newMto);
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            _alertaEstado.Leyenda = 
+                $"Mantenimiento aplicado. El proximo mantenimiento sera para {_epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(newMto.ProximaAplicacion))}";
+            _alertaEstado.Estado = true;
+
+            return _alertaEstado;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         }
 
         public MtoProgramado CrearObjeto(DateTime UltimaAplicacion, int meses)
@@ -88,12 +149,6 @@ namespace Condominios.Data.Repositories.Mantenimientos
             if (_context.ChangeTracker.HasChanges())
                 await _context.SaveChangesAsync();
         }
-
-        //public async Task<MtoProgramado> GetMtoProgramado(int ID)
-        //    => await _context.MtoProgramado
-        //                     .Where(c => c.ID == ID)
-        //                     .OrderByDescending(c => c.ProximaAplicacion)
-        //                     .FirstOrDefaultAsync();
 
         public async Task<List<MtoProgramado>> GetListMtosByID(int ID)
             => await _context.MtoProgramado.Include(c => c.Mantenimiento)

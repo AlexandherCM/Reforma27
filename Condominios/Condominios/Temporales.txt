@@ -231,3 +231,7 @@ builder.Services.AddHostedService<WorkerAutomaticMtos>().AddSingleton<AutomaticM
                     .Select(p => p.Equipo.Variante.Periodo.Meses)
                     .FirstOrDefaultAsync();
             });
+
+
+
+            return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });

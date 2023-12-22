@@ -26,7 +26,24 @@ namespace Condominios.Models.Services
             _unitOfWork = uniOfWork;
             _epoch = epoch;
         }
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+        public async Task GetSelects(CtrolMtosEquipoViewModels model)
+        {
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            model.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
+            model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
+            model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        }
+
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosApplicationStatus(string listMtos, int filter)
+            => _unitOfWork.MtoRepository.Filter(listMtos, filter);
+        
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosFilters(string listMtos, FilterMtos filterMtos)
+            => _unitOfWork.MtoRepository.Filter(listMtos, filterMtos);
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)  
         {
             _alertaEstado = await _unitOfWork.MtoRepository.ConfirmMto(viewModel);
@@ -36,7 +53,7 @@ namespace Condominios.Models.Services
 
             return _alertaEstado;
         }
-
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<CtrolMtosEquipoViewModels> GetEquipo(int id)
         {
             _viewModelMtos.Equipo = await _unitOfWork.EquipoRepository.GetById(id);
@@ -51,21 +68,13 @@ namespace Condominios.Models.Services
 
             return _viewModelMtos;
         }
-
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<CtrolMtosEquipoViewModels> GetLists(CtrolMtosEquipoViewModels model)
         {
-            // Configuración de la cultura para México (es-MX)
             CultureInfo cultureInfo = new CultureInfo("es-MX");
+            await GetSelects(model);
 
-            long NowTimeEpoch = _epoch.CrearEpoch(DateTime.Now);
-
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            model.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
-            model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
-            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
-            model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            List<MtoProgramado> Mtos = await _unitOfWork.MtoRepository.GetListMtosByID(model.Equipo.ID);
+            List<MtoProgramado> Mtos = await _unitOfWork.MtoRepository.GetListMtosProgramByID(model.Equipo.ID);
 
             Mtos.ForEach(mto =>
             {
@@ -73,11 +82,11 @@ namespace Condominios.Models.Services
                 string fechaTexto = string.Empty;
 
                 if (mto.Estado && !mto.Aplicado)
-                    estado = "Pendiente";
+                    estado = model.estados[1];
                 else if (!mto.Estado && mto.Aplicado)
-                    estado = "Aplicado";
+                    estado = model.estados[2];
                 else if (!mto.Estado && !mto.Aplicado)
-                    estado = "No Aplicado";
+                    estado = model.estados[3];
 
                 if(mto.Mantenimiento != null)
                     fechaTexto = _epoch.ObtenerFecha(mto.Mantenimiento.FechaAplicacion).ToLongDateString();
@@ -93,13 +102,19 @@ namespace Condominios.Models.Services
                         _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(mto.ProximaAplicacion)),
                     DiaDeAplicacion = mto.Mantenimiento != null 
                                       ? char.ToUpper(fechaTexto[0]) + fechaTexto.Substring(1) : "-",
+                    DiaDeAplicacionEpoch = mto.Mantenimiento != null
+                                         ? mto.Mantenimiento.FechaAplicacion : 0,
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                    Estado = estado,
+                    EstadoAplicacion = estado,
                     Pendiente = mto.Estado && !mto.Aplicado,
-                    Aplicable = mto.Aplicado,
+                    //Aplicable = mto.Aplicado, 
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                     Proveedor = mto.Mantenimiento != null 
-                              ? mto.Mantenimiento.Proveedor.Nombre : "No asignado",
+                              ? mto.Mantenimiento.Proveedor.Nombre : "-",
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                    ProveedorID = mto.Mantenimiento != null 
+                              ? mto.Mantenimiento.Proveedor.ID : 0,
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                     CostoReparacion = mto.Mantenimiento != null 
                               ? mto.Mantenimiento.CostoReparacion.ToString("C", cultureInfo) : 0.ToString("C", cultureInfo),
                     CostoMantenimiento = mto.Mantenimiento != null 
@@ -111,15 +126,16 @@ namespace Condominios.Models.Services
 
             model.MtosProgramados = model.MtosProgramados.OrderByDescending(c => c.ProxAplicEpoch).ToList();
 
-            model.TotasGtosMto = Mtos.Sum(m => m.Mantenimiento != null ? m.Mantenimiento.CostoMantenimiento : 0).ToString("C", cultureInfo);
-            model.TotasGtosRep = Mtos.Sum(m => m.Mantenimiento != null ? m.Mantenimiento.CostoReparacion : 0).ToString("C", cultureInfo);
+            model.TotalGtosMto = Mtos.Sum(m => m.Mantenimiento != null ? m.Mantenimiento.CostoMantenimiento : 0).ToString("C", cultureInfo);
+            model.TotalGtosRep = Mtos.Sum(m => m.Mantenimiento != null ? m.Mantenimiento.CostoReparacion : 0).ToString("C", cultureInfo);
 
             // Obtener el ID del mantenimiento programado pendiente
+            model.JsonMtosProgramados = model.CreateListMtosJson();
             model.MtoPendienteID = model.GetMtoPendienteID();
             model.EquipoID = model.GetEquipoID();
 
             return model;
         }
-
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     }
 }

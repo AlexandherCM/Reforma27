@@ -43,10 +43,38 @@ namespace Condominios.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SearchByEstateMto(int EdoAplicacion)
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> FilterByStatus(int EdoAplicacion, string JsonMtosProgramados, int EquipoID)  
         {
-            return RedirectToAction("Index", "Equipos");
+            if(EdoAplicacion > 3)
+                return RedirectToAction(nameof(Consultar), new { ID = EquipoID });
+
+            var model = await _service.GetEquipo(EquipoID);
+            await _service.GetSelects(model);
+
+            (var ListMtos, var DictGtos) = _service.GetMtosApplicationStatus(JsonMtosProgramados, EdoAplicacion);
+
+            model.MtosProgramados = ListMtos;
+            model.TotalGtosMto = DictGtos["GtosMto"];
+            model.TotalGtosRep = DictGtos["GtosRep"];
+
+            return View(nameof(Consultar), model);
+        } 
+         
+        [HttpPost]
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> FilterByTime(FilterMtos filterMtos, string JsonMtosProgramados, int EquipoID) 
+        {
+            var model = await _service.GetEquipo(EquipoID); 
+            await _service.GetSelects(model);
+
+            (var ListMtos, var DictGtos) = _service.GetMtosFilters(JsonMtosProgramados, filterMtos);
+
+            model.MtosProgramados = ListMtos;
+            model.TotalGtosMto = DictGtos["GtosMto"];
+            model.TotalGtosRep = DictGtos["GtosRep"];
+
+            return View(nameof(Consultar), model);
         }
 
         public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)

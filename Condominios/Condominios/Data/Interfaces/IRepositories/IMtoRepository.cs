@@ -8,8 +8,11 @@ namespace Condominios.Data.Interfaces.IRepositories
     {
         public MtoProgramado CrearObjeto(DateTime UltimaAplicacion, int meses);
         public Task CreateNewMtoProgram();
-        //public Task<MtoProgramado> GetMtoProgramado(int ID);
-        public Task<List<MtoProgramado>> GetListMtosByID(int ID);  
+        public Task<List<MtoProgramado>> GetListMtosProgramByID(int ID);  
         public Task<AlertaEstado> ConfirmMto(MantenimientoViewModel model);    
+
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, int filter);       
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, FilterMtos filters);        
     }
 } 
+ 

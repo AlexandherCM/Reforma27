@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Condominios.Models.DTOs;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
 //ragma warning disable CS8602
@@ -69,9 +70,23 @@ namespace Condominios.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SearchByFilters(CtrlEquipoViewModel model)
+        public async Task<IActionResult> SearchByFilters(FiltrosDTO FiltroID)
         {
-            List<Equipo> equipos = await _service.GetEquipos(model.FiltroID);
+            if(FiltroID.MarcaID == 0 && FiltroID.TipoID == 0 && FiltroID.UbicacionID == 0 && FiltroID.MotorID == 0)
+                return RedirectToAction(nameof(Index));
+
+            List<Equipo> equipos = await _service.GetEquipos(FiltroID);
+            string dato = JsonConvert.SerializeObject(equipos);
+
+            TempData["Equipos"] = dato; 
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SearchByNames(string CadenaBusqueda)
+        {
+            List<Equipo> equipos = await _service.GetEquipos(CadenaBusqueda);
             string dato = JsonConvert.SerializeObject(equipos);
 
             TempData["Equipos"] = dato;
@@ -80,20 +95,9 @@ namespace Condominios.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SearchByNames(CtrlEquipoViewModel model)
+        public async Task<IActionResult> SearchByStatus(int EstatusID = 0)
         {
-            List<Equipo> equipos = await _service.GetEquipos(model.CadenaBusqueda);
-            string dato = JsonConvert.SerializeObject(equipos);
-
-            TempData["Equipos"] = dato;
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SearchByStatus(CtrlEquipoViewModel model)
-        {
-            List<Equipo> equipos = await _service.GetEquipos(model.EstatusID ?? 0);
+            List<Equipo> equipos = await _service.GetEquipos(EstatusID);
             string dato = JsonConvert.SerializeObject(equipos);
 
             TempData["Equipos"] = dato;

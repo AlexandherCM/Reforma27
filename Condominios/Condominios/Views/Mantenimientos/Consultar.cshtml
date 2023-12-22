@@ -86,7 +86,7 @@
 @* Contenido *@
 
 @* Titulo *@
-<section class="row border-R text-center rounded-3 mt-5">
+<section class="row border-R text-center rounded-3 mt-4">
     <h1><span class="color-R">D</span>atos del equipo</h1>
 </section>
 
@@ -186,30 +186,38 @@
 <article class="row mt-4  justify-content-between">
 
     @* Buscador por filtros *@
-    <section class="col-12 col-md-8 text-center border-R rounded-2 align-items-center">
+    <section class="col-12 col-md-8 text-center border-R rounded-2 align-items-center px-4">
 
         <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
 
-        <div class="row text-center d-flex justify-content-between mb-3">
-
+        <form asp-action="FilterByTime" class="row text-center d-flex align-items-center mb-3">
+            @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            <input type="hidden" asp-for="JsonMtosProgramados" />
+            <input type="hidden" asp-for="EquipoID" />
+            @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <select name="Proveedores" asp-items="Model.Proveedores" class="search">
+                <strong>Proveedor</strong>
+                <select asp-for="filterMtos.ProveedorID" asp-items="Model.Proveedores" class="search">
                     <option value="">Selecciona un proveedor</option>
                 </select>
             </div>
 
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <input placeholder="Fecha 1" class="search" type="month" />
+                <strong>Fecha 1</strong>
+                <input asp-for="filterMtos.FechaUno" placeholder="Fecha 1" class="search" type="date" />
             </div>
 
             <div class="col-4 col-lg-3 col-md-4 p-1">
-                <input placeholder="Fecha 2" class="search" type="month" />
+                <strong>Fecha 2</strong>
+                <input asp-for="filterMtos.FechaDos" placeholder="Fecha 2" class="search" type="date" />
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4 p-1">
-                <input type="submit" value="Buscar" class="btn-des">
+            <div class="col-4 col-lg-3 col-md-4">
+                <input type="submit" value="Buscar" class="btn-des w-100 mt-4">
             </div>
-        </div>
+        </form>
 
     </section>
 
@@ -218,14 +226,17 @@
 
         <h4 class="mt-2 mb-3"><span class="color-R">E</span>stado de aplicación</h4>
 
-        <div class="row text-center mb-2">
-
-            <div class="col-2 p-2"></div>
-
-            <div class="col-8 p-2">
-                <form asp-action="SearchByEstateMto" id="formsEstado">
+        <div class="row text-center mb-2 d-flex align-content-center">
+            <div class="mt-3 px-5">
+                <form asp-action="FilterByStatus" id="formsEstado">
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <input type="hidden" asp-for="JsonMtosProgramados" />
+                    <input type="hidden" asp-for="EquipoID" />
+                    @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <select asp-for="EdoAplicacion" id="SelectEstado" class="search" style="width:100%;">
-                        <option value="0">Selecciona un proveedor</option>
+                        <option value="4">Mostrar Todos</option>
                         @foreach (var estado in Model.estados)
                         {
                             <option value="@estado.Key">@estado.Value</option>
@@ -233,9 +244,6 @@
                     </select>
                 </form>
             </div>
-
-            <div class="col-2 p-2"></div>
-
         </div>
 
     </section>
@@ -287,15 +295,14 @@
             {
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 string cadena = string.Empty;
-                if (iteam.Estado == "Pendiente") cadena = "Registrar";
+                if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
                 else cadena = "Consultar";
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-
                 <tr>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Estado)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.DiaDeAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
@@ -317,10 +324,10 @@
         <thead>
             <tr class="border-R">
                 <td class="border-R" style="width: 15%;">
-                    <h3><span class="color-R"></span> @Model.TotasGtosMto</h3>
+                    <h3><span class="color-R"></span> @Model.TotalGtosMto</h3>
                 </td>
                 <td class="border-R" style="width: 15%;">
-                    <h3><span class="color-R"></span> @Model.TotasGtosRep</h3>
+                    <h3><span class="color-R"></span> @Model.TotalGtosRep</h3>
                 </td>
                 <td colspan="5">
                     <h2><span class="color-R">T</span>otal de gastos</h2>
@@ -355,10 +362,10 @@
 <aside id="despegableDown" class="rounded-2 mt-5">
     <div id="contenidoDown">
         <form id="form-mto">
-            <div asp-validation-summary="ModelOnly"  class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
             <input asp-for="MtoPendienteID" type="hidden">
-            <input asp-for="EquipoID" type="hidden"> 
+            <input asp-for="EquipoID" type="hidden">
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
             <h4 class="pt-3">Registra el último mantenimiento programado</h4>

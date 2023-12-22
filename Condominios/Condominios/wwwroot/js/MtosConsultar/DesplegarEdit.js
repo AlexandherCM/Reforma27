@@ -60,6 +60,15 @@ Array.from(btnsMtos).forEach(btn => {
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+document.getElementById('SelectEstado').addEventListener('change', (event) => {
+    let forms = document.getElementById("formsEstado");
+    let seletValue = event.target.value;
+
+    if (parseInt(seletValue) != 0) {
+        forms.submit();
+    }
+});
+
 //let btnAdd = document.getElementById('btn-add');
 //let btnUpdate = document.getElementById('btn-update');
 //let formsMto = document.getElementById('form-mto');
@@ -74,14 +83,6 @@ Array.from(btnsMtos).forEach(btn => {
 //    formsMto.submit();
 //});
 
-document.getElementById('SelectEstado').addEventListener('change', (event) => {
-    let forms = document.getElementById("formsEstado");
-    let seletValue = event.target.value;
-
-    if (parseInt(seletValue) != 0) {
-        forms.submit();
-    }
-});
 
 
 

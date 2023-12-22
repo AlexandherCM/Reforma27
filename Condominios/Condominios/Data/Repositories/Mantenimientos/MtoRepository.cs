@@ -5,6 +5,8 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Globalization;
 #pragma warning disable CS8602
 #pragma warning disable CS8603
 
@@ -15,6 +17,18 @@ namespace Condominios.Data.Repositories.Mantenimientos
         private readonly IEpoch _epoch;
         private AlertaEstado _alertaEstado = new();
         private Context _context;
+        private Dictionary<int, string> Status { get; } = new Dictionary<int, string>
+        {
+            { 1, "Pendiente" },
+            { 2, "Aplicado" },
+            { 3, "No aplicado" }
+        };
+        private Dictionary<string, string> DictGtos = new Dictionary<string, string>
+        {
+            { "GtosMto", "" },
+            { "GtosRep", "" },
+        };
+
         public MtoRepository(Context context, IEpoch epoch)
         {
             _epoch = epoch;
@@ -27,9 +41,9 @@ namespace Condominios.Data.Repositories.Mantenimientos
                                         .Include(m => m.Equipo.Variante.Periodo)
                                         .FirstOrDefaultAsync(m => m.ID == viewModel.MtoProgramadoID);
 
-            DateTime Applic = viewModel.FechaAplicacion; 
+            DateTime Applic = viewModel.FechaAplicacion;
             DateTime MonthYear = new DateTime(Applic.Year, Applic.Month, 1, 0, 0, 0);
-            DateTime Programming = _epoch.ObtenerFecha(mtoProgramado.ProximaAplicacion); 
+            DateTime Programming = _epoch.ObtenerFecha(mtoProgramado.ProximaAplicacion);
 
             if (!mtoProgramado.Aplicable)
             {
@@ -71,7 +85,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             _context.Add(newMto);
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _alertaEstado.Leyenda = 
+            _alertaEstado.Leyenda =
                 $"Mantenimiento aplicado. El proximo mantenimiento sera para {_epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(newMto.ProximaAplicacion))}";
             _alertaEstado.Estado = true;
 
@@ -87,7 +101,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             if (ProximaAplicacion.Year > DateTime.Now.Year)
                 Estado = true;
-            else if(ProximaAplicacion.Year == DateTime.Now.Year)
+            else if (ProximaAplicacion.Year == DateTime.Now.Year)
                 Estado = ProximaAplicacion.Month <= DateTime.Now.Month;
 
             MtoProgramado mantenimiento = new()
@@ -150,11 +164,51 @@ namespace Condominios.Data.Repositories.Mantenimientos
                 await _context.SaveChangesAsync();
         }
 
-        public async Task<List<MtoProgramado>> GetListMtosByID(int ID)
+
+        public async Task<List<MtoProgramado>> GetListMtosProgramByID(int ID)
             => await _context.MtoProgramado.Include(c => c.Mantenimiento)
                                            .Include(c => c.Mantenimiento.Proveedor)
                                            .Include(c => c.Equipo)
                                            .Where(c => c.EquipoID == ID).ToListAsync();
+
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, int filter)
+        {
+            var listMtos = JsonConvert.DeserializeObject<List<MtoProgramadoViewModel>>(json) ?? new List<MtoProgramadoViewModel>();
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            var filteredMtos = listMtos
+                .Where(c => c.EstadoAplicacion == Status[filter])
+                .OrderByDescending(c => c.ProxAplicEpoch)
+                .ToList();
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            return CaculateGtos(filteredMtos);
+        }
+
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, FilterMtos filters)
+        {
+            var listMtos = JsonConvert.DeserializeObject<List<MtoProgramadoViewModel>>(json) ?? new List<MtoProgramadoViewModel>();
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            var filteredMtos = listMtos
+                .Where(c => c.ProveedorID != 0 && c.ProveedorID == filters.ProveedorID)
+                .Where(mto => mto.DiaDeAplicacionEpoch >= _epoch.CrearEpoch(filters.FechaUno) &&
+                              mto.DiaDeAplicacionEpoch <= _epoch.CrearEpoch(filters.FechaDos))
+                .OrderByDescending(c => c.ProxAplicEpoch)
+                .ToList();
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            return CaculateGtos(filteredMtos);
+        }
+
+        private (List<MtoProgramadoViewModel>, Dictionary<string, string>) CaculateGtos(List<MtoProgramadoViewModel> filteredMtos)
+        {
+            CultureInfo cultureInfo = new CultureInfo("es-MX");
+
+            decimal GtosMto = filteredMtos.Sum(g => decimal.Parse(g.CostoMantenimiento.Substring(1)));
+            decimal GtosRep = filteredMtos.Sum(g => decimal.Parse(g.CostoReparacion.Substring(1)));
+
+            this.DictGtos["GtosMto"] = GtosMto.ToString("C", cultureInfo);
+            this.DictGtos["GtosRep"] = GtosRep.ToString("C", cultureInfo);
+
+            return (filteredMtos, this.DictGtos);
+        }
 
     }
 }

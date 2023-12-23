@@ -67,8 +67,12 @@ namespace Condominios.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model)
+        public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model, string boton)
         {
+            if (boton == "Todos")
+            {
+                return RedirectToAction("GastosMantenimiento");
+            }
             model.FiltroID.Fecha1 = _epochService.CrearEpoch(model.Fecha1);
             model.FiltroID.Fecha2 = _epochService.CrearEpoch(model.Fecha2);
 
@@ -77,12 +81,6 @@ namespace Condominios.Controllers
             model = await _service.EquiposFiltrados(model);
             return View("GastosMantenimiento", model);
         }
-
-
-
-
-
-
 
         public IActionResult Pendientes()
         {

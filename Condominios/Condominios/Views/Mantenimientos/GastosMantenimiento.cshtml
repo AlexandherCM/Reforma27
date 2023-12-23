@@ -22,58 +22,54 @@
                 <div class="row text-center d-flex justify-content-between">
 
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <select asp-for="FiltroID.ProveedorID" class="select" asp-items="@Model.Proveedores">
                             <option value="">Proveedor</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="select">
                             <option value="0">Marca</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="select">
                             <option value="0">Ubicación</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="select">
                             <option value="0">Equipo</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="select">
                             <option value="0">Motor</option>
                         </select>
                     </div>
-
-
-
-
-
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <input asp-for="@Model.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col d-flex align-items-center justify-content-center">
                         <input asp-for="@Model.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
-                        <input type="submit" value="Buscar" class="botonTrue">
-                        <a href="/Mantenimientos/GastosMantenimiento" class="botonTrue">Todos</a>
+                    <div class="col row d-flex align-items-center justify-content-center">
+                        <input type="submit" value="Buscar" class="botonTrue col-12 mb-2" style="width: 90%">
+                        <button type="submit" name="boton" value="Todos" class="botonTrue col-12" style="width: 90%;">Todos</button>
+
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
                 </div>
                 <br />
-            </form>
+            </form> 
         </aside>
     </section>
 

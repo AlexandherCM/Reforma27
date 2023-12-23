@@ -20,7 +20,6 @@ namespace Condominios.Models.ViewModels.CtrolGastosMantenimiento
         public DateTime Fecha1 { get; set; }
         [DisplayFormat(DataFormatString = "Fecha 2", ApplyFormatInEditMode = true)]
         public DateTime Fecha2 { get; set; }
-
         public FiltrosDTO? FiltroID { get; set; }
 
         

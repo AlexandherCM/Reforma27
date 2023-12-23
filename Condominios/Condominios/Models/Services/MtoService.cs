@@ -125,123 +125,6 @@ namespace Condominios.Models.Services
             return model;
         }
 
-        //public async Task<CtrolGastosMantenimientoViewModel> Listas()
-        //{
-        //    _viewModelGastosMants.Equipos = await _unitOfWork.EquipoRepository.GetList();
-        //    _viewModelGastosMants.Mantenimientos = await _unitOfWork.MtoRepository.GetList();
-        //    _viewModelGastosMants.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
-
-        //    var equiposAgrupados = _viewModelGastosMants.Equipos
-        //        .GroupBy(equipo => equipo.Variante.TipoEquipo.Nombre)
-        //        .Select(group => new ConteoViewModel
-        //        {
-        //            Variante = group.Key,
-        //            Cantidad = group.Count(),
-        //            CostoAd = group.Sum(e => e.CostoAdquisicion),
-        //            CostoM = 0,
-        //            CostoR = 0,
-        //        })
-        //        .ToList();
-
-        //    var equiposMantenimientosAgrupados = _viewModelGastosMants.Equipos
-        //        .Join(
-        //            _viewModelGastosMants.Mantenimientos,
-        //            equipo => equipo.ID,
-        //            mantenimiento => mantenimiento.ID,
-        //            (equipo, mantenimiento) => new
-        //            {
-        //                Equipo = equipo,
-        //                Mantenimiento = mantenimiento
-        //            })
-        //        .GroupBy(
-        //            joined => joined.Equipo.Variante.TipoEquipo.Nombre,
-        //            (key, group) => new ConteoViewModel
-        //            {
-        //                Variante = key,
-        //                Cantidad = group.Count(),
-        //                CostoAd = group.Sum(e => e.Equipo.CostoAdquisicion),
-        //                CostoM = group.Sum(e => e.Mantenimiento.CostoMantenimiento),
-        //                CostoR = group.Sum(e => e.Mantenimiento.CostoReparacion)
-        //            })
-        //        .ToList();
-
-        //    _viewModelGastosMants.Conteo = equiposAgrupados
-        //        .Concat(equiposMantenimientosAgrupados)
-        //        .GroupBy(c => c.Variante)
-        //        .Select(g => new ConteoViewModel
-        //        {
-        //            Variante = g.Key,
-        //            Cantidad = g.First().Cantidad,
-        //            CostoAd = g.First().CostoAd,
-        //            CostoM = g.Sum(c => c.CostoM),
-        //            CostoR = g.Sum(c => c.CostoR),
-        //        })
-        //        .ToList();
-
-
-
-        //    return _viewModelGastosMants;
-        //}
-
-        //public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
-        //    => await _unitOfWork.EquipoRepository.GetList(filtros);
-
-        //public async Task<CtrolGastosMantenimientoViewModel> ListasFiltradas(CtrolGastosMantenimientoViewModel model)
-        //{
-        //    _viewModelGastosMants.Mantenimientos = await _unitOfWork.MtoRepository.GetList();
-        //    _viewModelGastosMants.Equipos = model.Equipos;
-        //    _viewModelGastosMants.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
-
-        //    var equipos = _viewModelGastosMants.Equipos
-        //        .GroupBy(equipo => equipo.Variante.TipoEquipo.Nombre)
-        //        .Select(group => new ConteoViewModel
-        //        {
-        //            Variante = group.Key,
-        //            Cantidad = group.Count(),
-        //            CostoAd = group.Sum(e => e.CostoAdquisicion),
-        //            CostoM = 0,
-        //            CostoR = 0,
-        //        })
-        //        .ToList();
-
-        //    var equiposMantenimientosAgrupados = _viewModelGastosMants.Equipos
-        //        .Join(
-        //            _viewModelGastosMants.Mantenimientos,
-        //            equipo => equipo.ID,
-        //            mantenimiento => mantenimiento.ID,
-        //            (equipo, mantenimiento) => new
-        //            {
-        //                Equipo = equipo,
-        //                Mantenimiento = mantenimiento
-        //            })
-        //        .GroupBy(
-        //            joined => joined.Equipo.Variante.TipoEquipo.Nombre,
-        //            (key, group) => new ConteoViewModel
-        //            {
-        //                Variante = key,
-        //                Cantidad = group.Count(),
-        //                CostoAd = group.Sum(e => e.Equipo.CostoAdquisicion),
-        //                CostoM = group.Sum(e => e.Mantenimiento.CostoMantenimiento),
-        //                CostoR = group.Sum(e => e.Mantenimiento.CostoReparacion)
-        //            })
-        //        .ToList();
-
-        //    _viewModelGastosMants.Conteo = equipos
-        //        .Concat(equiposMantenimientosAgrupados)
-        //        .GroupBy(c => c.Variante)
-        //        .Select(g => new ConteoViewModel
-        //        {
-        //            Variante = g.Key,
-        //            Cantidad = g.First().Cantidad,
-        //            CostoAd = g.First().CostoAd,
-        //            CostoM = g.Sum(c => c.CostoM),
-        //            CostoR = g.Sum(c => c.CostoR),
-        //        })
-        //        .ToList();
-
-        //    return _viewModelGastosMants;
-        //}
-
         public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
             => await _unitOfWork.EquipoRepository.GetList(filtros);
 
@@ -269,11 +152,6 @@ namespace Condominios.Models.Services
             _viewModelGastosMants.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
             _viewModelGastosMants.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
             _viewModelGastosMants.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
-
-
-
-
-
             _viewModelGastosMants.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
         }
 

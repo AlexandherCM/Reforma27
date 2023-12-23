@@ -156,5 +156,12 @@ namespace Condominios.Data.Repositories.Mantenimientos
                                            .Include(c => c.Equipo)
                                            .Where(c => c.EquipoID == ID).ToListAsync();
 
+
+        public async Task<List<Mantenimiento>> GetList()
+        {
+            var mto = await _context.Mantenimiento.ToListAsync();
+            return mto;
+        }
+
     }
 }

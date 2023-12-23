@@ -10,6 +10,7 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task CreateNewMtoProgram();
         //public Task<MtoProgramado> GetMtoProgramado(int ID);
         public Task<List<MtoProgramado>> GetListMtosByID(int ID);  
-        public Task<AlertaEstado> ConfirmMto(MantenimientoViewModel model);    
+        public Task<AlertaEstado> ConfirmMto(MantenimientoViewModel model);
+        public Task<List<Mantenimiento>> GetList();
     }
 } 

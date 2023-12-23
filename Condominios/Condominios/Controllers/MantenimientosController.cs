@@ -2,6 +2,7 @@
 using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 #pragma warning disable CS8600
@@ -12,6 +13,7 @@ namespace Condominios.Controllers
     public class MantenimientosController : Controller
     {
         private readonly MtoService _service;
+        private EpochService _epochService = new();
         public MantenimientosController(MtoService service)
         {
             _service = service;
@@ -51,18 +53,37 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
-            
+
             return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }
-        
+
         public async Task<IActionResult> Crear()
         {
             return View();
         }
-        public IActionResult GastosMantenimiento()
+        public async Task<IActionResult> GastosMantenimiento()
         {
-            return View();
+            CtrolGastosMantenimientoViewModel model = await _service.Equipos();
+            return View(model);
         }
+
+        public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model)
+        {
+            model.FiltroID.Fecha1 = _epochService.CrearEpoch(model.Fecha1);
+            model.FiltroID.Fecha2 = _epochService.CrearEpoch(model.Fecha2);
+
+            List<Equipo> equipos = await _service.GetEquipos(model.FiltroID);
+            model.Equipos = equipos;
+            model = await _service.EquiposFiltrados(model);
+            return View("GastosMantenimiento", model);
+        }
+
+
+
+
+
+
+
         public IActionResult Pendientes()
         {
             return View();

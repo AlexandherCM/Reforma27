@@ -77,6 +77,22 @@ namespace Condominios.Data.Repositories.Equipos
             {
                 query = query.Where(e => e.UbicacionID == filtros.UbicacionID);
             }
+            //PROVEEDOR
+            if (filtros.ProveedorID != 0)
+            {
+                query = query.Where(e => e.Programados.Any(mp => mp.Mantenimiento != null && mp.Mantenimiento.ProveedorID == filtros.ProveedorID));
+            }
+
+            if (filtros.Fecha1 != 0 && filtros.Fecha2 != 0)
+            {
+                long fecha1Epoch = filtros.Fecha1;
+                long fecha2Epoch = filtros.Fecha2;
+
+                query = query.Where(e => e.Programados
+                    .Any(mp => mp.Mantenimiento != null &&
+                               mp.Mantenimiento.FechaAplicacion >= fecha1Epoch &&
+                               mp.Mantenimiento.FechaAplicacion <= fecha2Epoch));
+            }
 
             return await query.ToListAsync();
         }

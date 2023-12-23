@@ -22,6 +22,10 @@ namespace Condominios.Models.ViewModels.CtrolGastosMantenimiento
         public DateTime Fecha2 { get; set; }
         public FiltrosDTO? FiltroID { get; set; }
 
-        
+        public decimal CostoAdTotal { get; set; }
+        public decimal CostoMTotal { get; set; }
+        public decimal CostoRTotal { get; set; }
+
+
     }
 }

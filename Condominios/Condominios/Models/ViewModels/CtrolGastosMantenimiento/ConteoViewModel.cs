@@ -7,5 +7,6 @@
         public decimal CostoAd {  get; set; }
         public decimal CostoM { get; set; }
         public decimal CostoR { get; set; }
+       
     }
 }

@@ -203,6 +203,9 @@ namespace Condominios.Models.Services
                     CostoR = g.Sum(c => c.CostoR),
                 })
                 .ToList();
+            _viewModelGastosMants.CostoMTotal = _viewModelGastosMants.Conteo.Sum(e => e.CostoM);
+            _viewModelGastosMants.CostoRTotal = _viewModelGastosMants.Conteo.Sum(e => e.CostoR);
+            _viewModelGastosMants.CostoAdTotal = _viewModelGastosMants.Equipos.Sum(e => e.CostoAdquisicion);
         }
 
     }

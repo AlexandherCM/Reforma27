@@ -69,7 +69,7 @@
 
                 </div>
                 <br />
-            </form> 
+            </form>
         </aside>
     </section>
 
@@ -98,34 +98,6 @@
     <section class="col-6 col-lg-3 border-R p-1 text-center">
         <h4><span class="color-R">R</span>esultados encontrados: <span class="color-R">@Model.Conteo.Count()</span></h4>
     </section>
-
-    @* RESULTADOS *@
-    @* <section class="col-12 col-md-3 pt-2">
-
-        <aside class="row justify-content-start " >
-
-            <div class="col-md-11 col-12 border-R p-2 d-flex align-items-center justify-content-center">
-
-                <div class="row ">
-
-                    <div class="col-6 col-md-8">
-                        <h4><span class="color-R">R</span>esultados encontrados</h4>
-                    </div>
-
-                    <div class="col-6 col-md-4  d-flex justify-content-center align-items-center">
-                        <h5><span class="color-R">@Model.Conteo.Count()</span></h5>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </aside>
-
-    </section> *@
-
-    @* <section class="col-12 col-lg-9"></section> *@
-
 </article>
 
 @* Tabla*@
@@ -156,7 +128,7 @@
 
         <tbody>
 
-            @for (int i = 0; i<Model.Conteo.Count; i++)
+            @for (int i = 0; i < Model.Conteo.Count; i++)
             {
                 <tr>
                     <td class="border-R">@Model.Conteo[i].Variante</td>
@@ -180,27 +152,48 @@
     </section>
 </article>
 
-<article class="row d-flex justify-content-cemter  mt-3">
-    <section class="col-3 col-md-6  numerPage1 border-R d-flex align-items-center justify-content-center" style="width:31.5%;">
-            <h2><span class="color-R">T</span>otal de gastos</h2>
-        
-    </section>
-    <section class="col-2 space"></section>
-    <section class="col-3 col-md-2 border-R d-flex align-items-center justify-content-center">
-        <h3><span class="color-R">$</span></h3>
-    </section>
-    <section class="col-3 col-md-2 border-R d-flex align-items-center justify-content-center">
-        <h3><span class="color-R">$ 223256</span></h3>
-    </section>
-    <section class="col-3 col-md-2 numerPage border-R d-flex align-items-center justify-content-center">
-        <h3><span class="color-R">$</span></h3>
-    </section>
+
+<article class="row rounded-3 text-dark mt-3">
+
+    <table class="text-center border border-primary manteniminetos" id="myTable">
+        <thead>
+
+            <tr class="border-R">
+                <th class="border-R">
+                    Cantidad
+                </th>
+                <th class="border-R">
+                    Costo total de mantenimineto
+                </th>
+                <th class="border-R">
+                    Costo total de reparaciones
+                </th>
+                <th class="border-R">
+                    Costo total de adquisición
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td class="border-R"> <h5>Total de gastos</h5>  </td>
+                <td class="border-R"><h3><span class="color-R">$ @Model.CostoMTotal</span></h3></td>
+                <td class="border-R"><h3><span class="color-R">$ @Model.CostoRTotal</span></h3></td>
+                <td class="border-R"><h3><span class="color-R">$ @Model.CostoAdTotal</span></h3></td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
 </article>
 
 @section Scripts {
     @{
         <script src="~/js/Desplegable.js"></script>
         <script src="~/js/Tablas.js"></script>
-        
+
     }
 }

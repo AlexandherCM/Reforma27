@@ -1,11 +1,16 @@
 ﻿using Condominios.Data;
 using Condominios.Data.Interfaces;
+using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
+using System.Linq;
+#pragma warning disable CS8603
+#pragma warning disable CS8601
 #pragma warning disable CS8602
 
 namespace Condominios.Models.Services
@@ -15,6 +20,7 @@ namespace Condominios.Models.Services
         private readonly IUnitOfWork _unitOfWork;
 
         private CtrolMtosEquipoViewModels _viewModelMtos = new();
+        private CtrolGastosMantenimientoViewModel _viewModelGastosMants = new();
         private AlertaEstado _alertaEstado = new();
         private IEpoch _epoch;
         public MtoService(IUnitOfWork uniOfWork, IEpoch epoch)
@@ -56,7 +62,7 @@ namespace Condominios.Models.Services
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
         {
-            _alertaEstado = await _unitOfWork.MtoRepository.ConfirmMto(viewModel);
+            _alertaEstado = await _unitOfWork.MtoRepository.ConfirmarMto(viewModel);
 
             if (_alertaEstado.Estado)
                 await _unitOfWork.Save();
@@ -153,5 +159,91 @@ namespace Condominios.Models.Services
             List<Equipo> equipos = await _unitOfWork.EquipoRepository.GetList();
             return _unitOfWork.MtoRepository.GetMtosPendientes(equipos);
         }
+        public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
+            => await _unitOfWork.EquipoRepository.GetList(filtros);
+
+
+
+        //Carlos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        public async Task<CtrolGastosMantenimientoViewModel> Equipos()
+        {
+            _viewModelGastosMants.Equipos = await _unitOfWork.EquipoRepository.GetList();
+            await Listas();
+            await Agrupacion();
+            return _viewModelGastosMants;
+        }
+
+        public async Task<CtrolGastosMantenimientoViewModel> EquiposFiltrados(CtrolGastosMantenimientoViewModel model)
+        {
+            await Listas();
+            _viewModelGastosMants.Equipos = model.Equipos;
+            await Agrupacion();
+            return _viewModelGastosMants;
+        }
+
+        private async Task Listas()
+        {
+            _viewModelGastosMants.Mantenimientos = await _unitOfWork.MtoRepository.GetList();
+            _viewModelGastosMants.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetList(), "ID", "Nombre");
+            _viewModelGastosMants.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
+            _viewModelGastosMants.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
+            _viewModelGastosMants.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
+            _viewModelGastosMants.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
+        }
+
+        private async Task Agrupacion()
+        {
+            var equiposAgrupados = _viewModelGastosMants.Equipos
+                .GroupBy(equipo => equipo.Variante.TipoEquipo.Nombre)
+                .Select(group => new ConteoViewModel
+                {
+                    Variante = group.Key,
+                    Cantidad = group.Count(),
+                    CostoAd = group.Sum(e => e.CostoAdquisicion),
+                    CostoM = 0,
+                    CostoR = 0,
+                })
+                .ToList();
+
+            var equiposMantenimientosAgrupados = _viewModelGastosMants.Equipos
+                .Join(
+                    _viewModelGastosMants.Mantenimientos,
+                    equipo => equipo.ID,
+                    mantenimiento => mantenimiento.ID,
+                    (equipo, mantenimiento) => new
+                    {
+                        Equipo = equipo,
+                        Mantenimiento = mantenimiento
+                    })
+                .GroupBy(
+                    joined => joined.Equipo.Variante.TipoEquipo.Nombre,
+                    (key, group) => new ConteoViewModel
+                    {
+                        Variante = key,
+                        Cantidad = group.Count(),
+                        CostoAd = group.Sum(e => e.Equipo.CostoAdquisicion),
+                        CostoM = group.Sum(e => e.Mantenimiento.CostoMantenimiento),
+                        CostoR = group.Sum(e => e.Mantenimiento.CostoReparacion)
+                    })
+                .ToList();
+
+            _viewModelGastosMants.Conteo = equiposAgrupados
+                .Concat(equiposMantenimientosAgrupados)
+                .GroupBy(c => c.Variante)
+                .Select(g => new ConteoViewModel
+                {
+                    Variante = g.Key,
+                    Cantidad = g.First().Cantidad,
+                    CostoAd = g.First().CostoAd,
+                    CostoM = g.Sum(c => c.CostoM),
+                    CostoR = g.Sum(c => c.CostoR),
+                })
+                .ToList();
+            _viewModelGastosMants.CostoMTotal = _viewModelGastosMants.Conteo.Sum(e => e.CostoM);
+            _viewModelGastosMants.CostoRTotal = _viewModelGastosMants.Conteo.Sum(e => e.CostoR);
+            _viewModelGastosMants.CostoAdTotal = _viewModelGastosMants.Equipos.Sum(e => e.CostoAdquisicion);
+        }
+
     }
 }

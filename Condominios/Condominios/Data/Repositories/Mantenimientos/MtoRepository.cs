@@ -36,7 +36,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             _context = context;
         }
 
-        public async Task<AlertaEstado> ConfirmMto(MantenimientoViewModel viewModel)
+        public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
         {
             var mtoProgramado = await _context.MtoProgramado
                                         .Include(m => m.Equipo.Variante.Periodo)
@@ -235,6 +235,13 @@ namespace Condominios.Data.Repositories.Mantenimientos
             }).ToList();
 
             return pendientes;
+        }
+
+
+        public async Task<List<Mantenimiento>> GetList()
+        {
+            var mto = await _context.Mantenimiento.ToListAsync();
+            return mto;
         }
 
     }

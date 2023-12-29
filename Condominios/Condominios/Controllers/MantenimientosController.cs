@@ -2,6 +2,7 @@
 using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ namespace Condominios.Controllers
     public class MantenimientosController : Controller
     {
         private readonly MtoService _service;
+        private EpochService _epochService = new();
         public MantenimientosController(MtoService service)
         {
             _service = service;
@@ -92,7 +94,7 @@ namespace Condominios.Controllers
             model.Conjuntos = await _service.GetMtosPendientes();
             return View(model);
         }
-        
+
         public async Task<IActionResult> ConfirmarMtos(string Json)
         {
             CrearMtosViewModel model = new();
@@ -101,9 +103,28 @@ namespace Condominios.Controllers
             return View(model);
         }
 
-        public IActionResult GastosMantenimiento()
+        // Carlos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        public async Task<IActionResult> GastosMantenimiento()
         {
-            return View();
+            CtrolGastosMantenimientoViewModel model = await _service.Equipos();
+            return View(model);
         }
+
+        public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model, string boton)
+        {
+            if (boton == "Todos")
+            {
+                return RedirectToAction("GastosMantenimiento");
+            }
+            model.FiltroID.Fecha1 = _epochService.CrearEpoch(model.Fecha1);
+            model.FiltroID.Fecha2 = _epochService.CrearEpoch(model.Fecha2);
+
+            List<Equipo> equipos = await _service.GetEquipos(model.FiltroID);
+            model.Equipos = equipos;
+            model = await _service.EquiposFiltrados(model);
+            return View("GastosMantenimiento", model);
+        }
+
     }
 }

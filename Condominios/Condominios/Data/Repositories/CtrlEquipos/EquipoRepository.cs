@@ -56,7 +56,8 @@ namespace Condominios.Data.Repositories.Equipos
                                                       .Include(c => c.Variante.Motor)
                                                       .Include(c => c.Variante.Marca)
                                                       .Include(c => c.Variante.Periodo)
-                                                      .Include(c => c.Variante.TipoEquipo);
+                                                      .Include(c => c.Variante.TipoEquipo)
+                                                      .Include(c => c.Programados).ThenInclude(m => m.Mantenimiento);
             //TIPO
             if (filtros.TipoID != 0)
             {
@@ -76,6 +77,23 @@ namespace Condominios.Data.Repositories.Equipos
             if (filtros.UbicacionID != 0)
             {
                 query = query.Where(e => e.UbicacionID == filtros.UbicacionID);
+            }
+
+            //PROVEEDOR
+            if (filtros.ProveedorID != 0)
+            {
+                query = query.Where(e => e.Programados.Any(mp => mp.Mantenimiento != null && mp.Mantenimiento.ProveedorID == filtros.ProveedorID));
+            }
+
+            if (filtros.Fecha1 >= 0 && filtros.Fecha2 >= 0)
+            {
+                long fecha1Epoch = filtros.Fecha1;
+                long fecha2Epoch = filtros.Fecha2;
+
+                query = query.Where(e => e.Programados
+                    .Any(mp => mp.Mantenimiento != null &&
+                               mp.Mantenimiento.FechaAplicacion >= fecha1Epoch &&
+                               mp.Mantenimiento.FechaAplicacion <= fecha2Epoch));
             }
 
             return await query.ToListAsync();

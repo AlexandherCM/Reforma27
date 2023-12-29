@@ -2,6 +2,7 @@
 using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 #pragma warning disable CS8600
@@ -16,6 +17,7 @@ namespace Condominios.Controllers
         {
             _service = service;
         }
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<IActionResult> Consultar(int ID)
         {
             string json = string.Empty;
@@ -79,27 +81,29 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
-            
             return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }
-        
-        public async Task<IActionResult> Crear()
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        public async Task<IActionResult> Pendientes()
         {
-            return View();
+            MtosPendientesViewModel model = new();
+            model.Conjuntos = await _service.GetMtosPendientes();
+            return View(model);
         }
+        
+        public async Task<IActionResult> ConfirmarMtos(string Json)
+        {
+            CrearMtosViewModel model = new();
+
+            model.equipos = JsonConvert.DeserializeObject<List<Equipo>>(Json) ?? new();
+            return View(model);
+        }
+
         public IActionResult GastosMantenimiento()
         {
             return View();
         }
-        public IActionResult Pendientes()
-        {
-            return View();
-        }
-
-        //public async Task<IActionResult> GetMtoProgramado(int ID) 
-        //{
-        //    MtoProgramado mto = await _service.GetMtoProgramado(ID);
-        //    return new JsonResult(mto);
-        //}
     }
 }

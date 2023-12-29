@@ -36,6 +36,17 @@
                     <span id="MarcaError" class="text-danger" style="display: none;"></span>
                 </div>
 
+                @*Tipo de equipo*@
+                <div class="row pt-1">
+                    <h5>Tipo de equipo</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <select asp-for="VarianteEquipo.TipoEquipoID" class="textDes" asp-items="@Model.TipoEquipo">
+                        <option value="">Selecciona el tipo equipo</option>
+                    </select>
+                    <span id="TipoEquipoError" class="text-danger" style="display: none;"></span>
+                </div>
+
                 @*Voltaje*@
                 <div class="row pt-2">
                     <h5>Voltaje</h5>
@@ -58,30 +69,17 @@
                     <span id="PeriodoError" class="text-danger" style="display: none;"></span>
                 </div>
 
-                @*Tipo de equipo*@
-                <div class="row pt-1">
-                    <h5>Tipo de equipo</h5>
-                </div>
-                <div class="row d-flex justify-content-center pt-1">
-                    <select asp-for="VarianteEquipo.TipoEquipoID" class="textDes" asp-items="@Model.TipoEquipo">
-                        <option value="">Selecciona el tipo equipo</option>
-                    </select>
-                    <span id="TipoEquipoError" class="text-danger" style="display: none;"></span>
-                </div>
-
-                @*Capacidad*@
-
                 <div class="row pt-2">
                     <h5>Capacidad</h5>
                 </div>
 
-                <div class="row pt-2 d-flex justify-content-between" style="width:90%; margin:auto;">
+                <div class="row pt-2 d-flex justify-content-center">
 
-                    <div class="col-6">
+                    <div class="col-5">
                         <input asp-for="VarianteEquipo.CapacidadValor" type="number" class="numDes">
                     </div>
 
-                    <div class="col-6 ">
+                    <div class="col-5 ">
                         <select asp-for="VarianteEquipo.CapacidadSelect" class="numDes" asp-items="@Model.Capacidad">
                             <option value="">N/A</option>
                         </select>
@@ -89,6 +87,9 @@
                     <span id="CapacidadError" class="text-danger" style="display: none;"></span>
 
                 </div>
+
+                @*Capacidad*@
+
 
                 @*Boton*@
                 <div class="row pt-3 d-flex justify-content-center">
@@ -162,8 +163,8 @@
 
         </thead>
         <tbody>
-                @for (int i = 0; i < Model.Variantes.Count; i++)
-                {
+            @for (int i = 0; i < Model.Variantes.Count; i++)
+            {
                 <form asp-action="UpdateEstado" id="Update@(i)">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <tr>
@@ -185,7 +186,7 @@
                     </td>
                 </tr>
                 </form>
-                }
+            }
         </tbody>
     </table>
 

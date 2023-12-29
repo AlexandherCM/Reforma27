@@ -5,21 +5,64 @@
     border: solid 1px #652022;
 }
 
-.tabla-main{
-    height:21.5vh;
-    overflow:auto;
+.tabla-main {
+    height: 21.5vh;
+    overflow: auto;
 }
+
+
+/*- - - - - - - - - - - - - - */
+
+.CONTAINER-SECTION {
+    height: 100%;
+}
+
+.Tabla-Create-GtosMtos {
+    height: 60rem;
+    overflow: auto;
+}
+
+.GRID-CONTAINER {
+    display: grid;
+    grid-template-columns: .9fr 2fr;
+    gap:1rem;
+}
+
+@media screen and (max-width: 2700px) {
+    .Tabla-Create-GtosMtos {
+        height: 38rem;
+        overflow: auto;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .GRID-CONTAINER {
+        grid-template-columns: 1fr;
+        gap:0;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .Tabla-Create-GtosMtos {
+        height: 10rem;
+        overflow: auto;
+    }
+}
+/*- - - - - - - - - - - - - - */
+
 .thead {
     position: sticky;
     top: -1%;
     z-index: 1;
 }
+
 th {
     background: #652022;
     color: aliceblue;
 }
-td{
-    padding:.5%;
+
+td {
+    padding: .5%;
 }
 
 .pagination {
@@ -40,11 +83,13 @@ td{
 .fila-dato {
     display: none;
 }
-.numerPage{
-    border-radius:0 5px 5px 0;
+
+.numerPage {
+    border-radius: 0 5px 5px 0;
 }
-.numerPage1{
-    border-radius:5px 0 0 5px ;
+
+.numerPage1 {
+    border-radius: 5px 0 0 5px;
 }
 /*TABLA DE EQUIPO*/
 #Nserie {
@@ -82,4 +127,3 @@ td{
         display: none;
     }
 }
-

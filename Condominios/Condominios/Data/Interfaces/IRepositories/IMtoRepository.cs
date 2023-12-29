@@ -1,6 +1,7 @@
 ﻿using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolMantenimientos;
 
 namespace Condominios.Data.Interfaces.IRepositories
 {
@@ -12,7 +13,8 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<AlertaEstado> ConfirmMto(MantenimientoViewModel model);    
 
         public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, int filter);       
-        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, FilterMtos filters);        
+        public (List<MtoProgramadoViewModel>, Dictionary<string, string>) Filter(string json, FilterMtos filters);
+        public List<ConjuntoMtosViewModel> GetMtosPendientes(List<Equipo> equipos);
     }
 } 
  

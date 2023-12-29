@@ -4,13 +4,9 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
-#pragma warning disable CS8603
-#pragma warning disable CS8601
 #pragma warning disable CS8602
-#pragma warning disable CS8619
 
 namespace Condominios.Models.Services
 {
@@ -37,14 +33,28 @@ namespace Condominios.Models.Services
             model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
+        //public async Task GetSelects(CrearMtosViewModel model)
+        //{
+        //    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        //    model.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
+        //    model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+        //    model.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
+        //    model.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetList(), "ID", "Nombre");
+        //    model.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
+        //    model.Periodos = new SelectList(await _unitOfWork.PeriodoRepository.GetList(), "ID", "Nombre");
+
+        //    model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
+        //    model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
+        //    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        //}
 
         public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosApplicationStatus(string listMtos, int filter)
             => _unitOfWork.MtoRepository.Filter(listMtos, filter);
-        
+
         public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosFilters(string listMtos, FilterMtos filterMtos)
             => _unitOfWork.MtoRepository.Filter(listMtos, filterMtos);
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)  
+        public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
         {
             _alertaEstado = await _unitOfWork.MtoRepository.ConfirmMto(viewModel);
 
@@ -88,7 +98,7 @@ namespace Condominios.Models.Services
                 else if (!mto.Estado && !mto.Aplicado)
                     estado = model.estados[3];
 
-                if(mto.Mantenimiento != null)
+                if (mto.Mantenimiento != null)
                     fechaTexto = _epoch.ObtenerFecha(mto.Mantenimiento.FechaAplicacion).ToLongDateString();
 
                 MtoProgramadoViewModel viewModel = new()
@@ -100,7 +110,7 @@ namespace Condominios.Models.Services
                         _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(mto.UltimaAplicacion)),
                     ProximaAplicacion =
                         _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(mto.ProximaAplicacion)),
-                    DiaDeAplicacion = mto.Mantenimiento != null 
+                    DiaDeAplicacion = mto.Mantenimiento != null
                                       ? char.ToUpper(fechaTexto[0]) + fechaTexto.Substring(1) : "-",
                     DiaDeAplicacionEpoch = mto.Mantenimiento != null
                                          ? mto.Mantenimiento.FechaAplicacion : 0,
@@ -109,15 +119,15 @@ namespace Condominios.Models.Services
                     Pendiente = mto.Estado && !mto.Aplicado,
                     //Aplicable = mto.Aplicado, 
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                    Proveedor = mto.Mantenimiento != null 
+                    Proveedor = mto.Mantenimiento != null
                               ? mto.Mantenimiento.Proveedor.Nombre : "-",
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                    ProveedorID = mto.Mantenimiento != null 
+                    ProveedorID = mto.Mantenimiento != null
                               ? mto.Mantenimiento.Proveedor.ID : 0,
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                    CostoReparacion = mto.Mantenimiento != null 
+                    CostoReparacion = mto.Mantenimiento != null
                               ? mto.Mantenimiento.CostoReparacion.ToString("C", cultureInfo) : 0.ToString("C", cultureInfo),
-                    CostoMantenimiento = mto.Mantenimiento != null 
+                    CostoMantenimiento = mto.Mantenimiento != null
                               ? mto.Mantenimiento.CostoMantenimiento.ToString("C", cultureInfo) : 0.ToString("C", cultureInfo),
                 };
 
@@ -137,5 +147,11 @@ namespace Condominios.Models.Services
             return model;
         }
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        public async Task<List<ConjuntoMtosViewModel>> GetMtosPendientes()
+        {
+            List<Equipo> equipos = await _unitOfWork.EquipoRepository.GetList();
+            return _unitOfWork.MtoRepository.GetMtosPendientes(equipos);
+        }
     }
 }

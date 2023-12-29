@@ -31,6 +31,6 @@ namespace Condominios.Models.Entities
         [ForeignKey(nameof(EstatusID))]
         public virtual Estatus Estatus { get; set; }
 
-        public virtual ICollection<MtoProgramado>  Programados{ get;set; }
+        public virtual ICollection<MtoProgramado> Programados{ get;set; }
     }
 }

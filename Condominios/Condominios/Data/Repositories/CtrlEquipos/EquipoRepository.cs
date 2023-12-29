@@ -42,10 +42,10 @@ namespace Condominios.Data.Repositories.Equipos
 
         public async Task<List<Equipo>> GetList()
             => await _context.Equipo
-                                    .Include(c => c.Estatus)         .Include(c => c.Ubicacion)
-                                    .Include(c => c.Variante)        .Include(c => c.Variante.Motor)
-                                    .Include(c => c.Variante.Marca)  .Include(c => c.Variante.TipoEquipo)
-                                    .Include(c => c.Variante.Periodo)
+                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo) .Include(c => c.Programados).ThenInclude(m => m.Mantenimiento)
                                     .ToListAsync();
 
         public async Task<List<Equipo>> GetList(FiltrosDTO filtros)

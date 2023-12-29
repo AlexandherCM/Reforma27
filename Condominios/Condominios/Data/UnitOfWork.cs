@@ -51,19 +51,12 @@ namespace Condominios.Data
             ProveedorRepository = proveedorRepository;
             MtoRepository = mtoRepository;
         }
+
         public async Task Save()
             => await _context.SaveChangesAsync();
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
+            _context.Dispose();
         }
     }
 }

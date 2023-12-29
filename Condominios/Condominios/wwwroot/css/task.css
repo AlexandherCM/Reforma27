@@ -1,5 +1,37 @@
-﻿.card-task {
-    width: 92%;
+﻿
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 3rem;
+}
+
+@media screen and (max-width: 600px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.card-container p{
+    font-size: 130%;
+    text-align:justify;
+}
+
+.card-container .card-text {
+    width:80%;
+    margin :auto;
+}
+
+.transparent-button {
+    background: none; 
+    border: none; 
+    padding: 0;
+    cursor: pointer; 
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.card-task {
     margin: auto;
     text-align:center;
     color:aliceblue;
@@ -8,11 +40,12 @@
     width: 2.7rem;
     cursor: pointer;
 }
-    .btn-task:hover, .btn-task-delete:hover {
-        transform: scale(1.1);
-    }
 
-.btn-task-delete {
+.btn-task:hover, .btn-task-delete:hover {
+    transform: scale(1.1);
+}
+
+/*.btn-task-delete {
     width: 2rem;
     cursor: pointer;
-}
+}*/

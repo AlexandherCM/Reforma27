@@ -4,6 +4,7 @@ using Condominios.Models;
 using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
+using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Globalization;
@@ -208,6 +209,32 @@ namespace Condominios.Data.Repositories.Mantenimientos
             this.DictGtos["GtosRep"] = GtosRep.ToString("C", cultureInfo);
 
             return (filteredMtos, this.DictGtos);
+        }
+
+        public List<ConjuntoMtosViewModel> GetMtosPendientes(List<Equipo> equipos)
+        {
+            var jsonSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            var pendientes = equipos.GroupBy(equipo => new
+            {
+                TipoEquipo = equipo.Variante.TipoEquipo.Nombre,
+                PeriodoNombre = equipo.Variante.Periodo.Nombre,
+                ProxAplic = equipo.Programados.First(c => c.Estado == true).ProximaAplicacion
+            })
+            .Select(group => new ConjuntoMtosViewModel
+            {
+                TipoEquipo = group.Key.TipoEquipo,
+                Periodo = group.Key.PeriodoNombre,
+                FormatDateAplic = 
+                    _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(group.Key.ProxAplic)),
+                Cantidad = group.Count(),
+                JsonEquipos = JsonConvert.SerializeObject(group.ToList(), jsonSettings)
+            }).ToList();
+
+            return pendientes;
         }
 
     }

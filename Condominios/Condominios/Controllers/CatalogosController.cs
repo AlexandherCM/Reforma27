@@ -44,22 +44,6 @@ namespace Condominios.Controllers
             return jsonResult;
         }
 
-        //[Authorize(Roles = "Administrador, General")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> NewCreate(CatalogoViewModel model) 
-        //{
-        //    await _service.InsertarEntidad(model);
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-
-        //public async Task<IActionResult> UpdateById(CatalogoViewModel model)
-        //{
-        //    await _service.ActualizarEstado(model);
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         public async Task<IActionResult> Update([FromBody] CatalogoViewModel model)
         {
             var alerta = await _service.Update(model);

@@ -206,6 +206,8 @@ namespace Condominios.Models.Services
                 })
                 .ToList();
 
+            //POSIBLE ERROR !!!
+
             var equiposMantenimientosAgrupados = _viewModelGastosMants.Equipos
                 .Join(
                     _viewModelGastosMants.Mantenimientos,

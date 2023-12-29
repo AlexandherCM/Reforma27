@@ -79,6 +79,8 @@ namespace Condominios.Data.Repositories.Equipos
                 query = query.Where(e => e.UbicacionID == filtros.UbicacionID);
             }
 
+            // CORREGIR PDT!!!
+
             //PROVEEDOR
             if (filtros.ProveedorID != 0)
             {

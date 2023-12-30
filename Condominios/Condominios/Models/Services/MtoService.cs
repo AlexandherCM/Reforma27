@@ -39,20 +39,14 @@ namespace Condominios.Models.Services
             model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
-        //public async Task GetSelects(CrearMtosViewModel model)
-        //{
-        //    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        //    model.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
-        //    model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
-        //    model.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
-        //    model.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetList(), "ID", "Nombre");
-        //    model.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
-        //    model.Periodos = new SelectList(await _unitOfWork.PeriodoRepository.GetList(), "ID", "Nombre");
 
-        //    model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
-        //    model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
-        //    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        //}
+        public async Task GetSelectsForConfirmarMtos(CrearMtosViewModel model)
+        {
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
+            model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetList(), "ID", "Nombre");
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        } 
 
         public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosApplicationStatus(string listMtos, int filter)
             => _unitOfWork.MtoRepository.Filter(listMtos, filter);
@@ -69,6 +63,17 @@ namespace Condominios.Models.Services
 
             return _alertaEstado;
         }
+
+        public async Task<AlertaEstado> ConfirmarMtos(MantenimientoViewModel viewModel, List<EquipoMtoViewModel> Equipos)
+        {
+            _alertaEstado = await _unitOfWork.MtoRepository.ConfirmarMtos(viewModel, Equipos);
+
+            if (_alertaEstado.Estado)
+                await _unitOfWork.Save();
+
+            return _alertaEstado;
+        }
+
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task<CtrolMtosEquipoViewModels> GetEquipo(int id)
         {
@@ -156,7 +161,7 @@ namespace Condominios.Models.Services
 
         public async Task<List<ConjuntoMtosViewModel>> GetMtosPendientes()
         {
-            List<Equipo> equipos = await _unitOfWork.EquipoRepository.GetList();
+            List<Equipo> equipos = await _unitOfWork.EquipoRepository.GetListWithMtoPending();
             return _unitOfWork.MtoRepository.GetMtosPendientes(equipos);
         }
         public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)

@@ -53,8 +53,7 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        // <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
-
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
     }
 }
 

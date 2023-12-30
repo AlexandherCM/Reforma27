@@ -9,9 +9,23 @@ namespace Condominios.Models.ViewModels.CtrolMantenimientos
 {
     public class CrearMtosViewModel
     {
-        public List<Equipo> equipos { get; set; } = new();
+        public List<EquipoMtoViewModel> equipos { get; set; } = new();
         public SelectList? Proveedores { get; set; }
         public SelectList? TipoMtos { get; set; }
+
         public MantenimientoViewModel Mantenimiento { get; set; }
+        public string JsonEquipos { get; set; } 
+    }
+
+    public class EquipoMtoViewModel 
+    {
+        public string NumSerie { get; set;}
+        public string Marca { get; set;}  
+        public string TipoEquipo { get; set;}
+        public string UltimaAplicion { get; set;}
+        public string ProximaAplicion { get; set; }
+
+        public MtoProgramado Programado { get; set; }
+        public bool AplicarReparacion { get; set; }  
     }
 }

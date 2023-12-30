@@ -1,5 +1,7 @@
 ﻿@model Condominios.Models.ViewModels.CtrolMantenimientos.CrearMtosViewModel
 @inject Condominios.Data.Interfaces.IEpoch _service
+@using Newtonsoft.Json;
+
 @{
     #pragma  warning disable CS8602
     ViewData["Title"] = "Crear";
@@ -22,56 +24,62 @@
 
         @* - - - - - - - - - - - - - - - - - - - - - - Aside 1 - - - - - - - - - - - - - - - - - - - - - - *@
         <aside class="col-12 col-xl-5 col-xxl-4 text-light">
-            <div class="CONTAINER-SECTION bg-R rounded-3 p-4 px-4" style="display:flex; flex-direction:column; justify-content:space-between">
+            <form asp-action="CrearMtos" class="CONTAINER-SECTION bg-R rounded-3 p-4 px-4" style="display:flex; flex-direction:column; justify-content:space-between">
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*- Campos Ocultos- - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                <input id="txtJsonEquipos" asp-for="JsonEquipos" type="hidden" />
+                <span asp-validation-for="JsonEquipos" class="text-danger"></span>
+                @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <div class="text-center">
                     <h2 style="font-size:clamp(35px, 30px, 60px)">Crear Mantenimientos</h2>
                 </div>
                 @* - - - - - - - - - - - 1 - - - - - - - - - - - *@
                 <div class="mt-2">
                     <h5 style="font-size:clamp(18px, 21px, 25px)">Selecciona el tipo de mantenimineto </h5>
-                    <select class="search">
-                        <option value="opcion1">Tipos</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
+                    <select asp-for="Mantenimiento.TipoMantenimientoID" asp-items="Model.TipoMtos" class="search">
+                        <option value="">Tipo de mantenimiento</option>
                     </select>
+                    <span asp-validation-for="Mantenimiento.TipoMantenimientoID" class="text-danger"></span>
                 </div>
 
                 @* - - - - - - - - - - - 2 - - - - - - - - - - - *@
                 <div class="mt-2">
                     <h5 style="font-size:clamp(18px, 21px, 25px)">Selecciona el proveedor que realiza el trabajo </h5>
-                    <select class="search">
-                        <option value="opcion1">Proveedor</option>
-                        <option value="opcion2">Opcion2</option>
-                        <option value="opcion13">Opcion3</option>
+                    <select asp-for="Mantenimiento.ProveedorID" asp-items="Model.Proveedores" class="search">
+                        <option value="">Proveedor</option>
                     </select>
+                    <span asp-validation-for="Mantenimiento.ProveedorID" class="text-danger"></span>
                 </div>
                 @* - - - - - - - - - - - 3 - - - - - - - - - - - *@
                 <div class="mt-2">
                     <h5 style="font-size:clamp(18px, 21px, 25px)">Registra el costo del mantenimiento </h5>
-                    <input type="text" placeholder="$" class="search">
+                    <input asp-for="Mantenimiento.CostoMantenimiento" type="text" placeholder="$" class="search">
+                    <span asp-validation-for="Mantenimiento.CostoMantenimiento" class="text-danger"></span>
                 </div>
                 @* - - - - - - - - - - - 4 - - - - - - - - - - - *@
                 <div class="mt-2">
                     <h5 style="font-size:clamp(18px, 21px, 25px)">(Si aplica). Escribe el costo de reparación </h5>
-                    <input type="text" placeholder="$" class="search">
+                    <input asp-for="Mantenimiento.CostoReparacion" type="text" placeholder="$" class="search">
+                    <span asp-validation-for="Mantenimiento.CostoReparacion" class="text-danger"></span>
                 </div>
                 @* - - - - - - - - - - - 5 - - - - - - - - - - - *@
                 <div class="mt-2">
                     <h5 style="font-size:clamp(18px, 21px, 25px)">Fecha de aplicación </h5>
                     <input asp-for="Mantenimiento.FechaAplicacion" type="date" class="search">
-                    @* <span asp-validation-for="Mantenimiento.FechaAplicacion" class="text-danger"></span> *@
+                    <span asp-validation-for="Mantenimiento.FechaAplicacion" class="text-danger"></span>
                 </div>
-
                 @* - - - - - - - - - - - 6 - - - - - - - - - - - *@
                 <div class="mt-2">
                     <h5 style="font-size:clamp(18px, 21px, 25px)">Escribe las observaciones </h5>
-                    <textarea class="search"></textarea>
+                    <textarea asp-for="Mantenimiento.Observaciones" class="search"></textarea>
+                    <span asp-validation-for="Mantenimiento.Observaciones" class="text-danger"></span>
                 </div>
                 @*Boton*@
                 <div class="mt-2">
-                    <input type="submit" value="Confirmar mantenimientos" class="btn-des w-100 py-2" formnovalidate>
+                    <input type="submit" value="Confirmar mantenimientos" class="btn-des w-100 py-2">
                 </div>
-            </div>
+            </form>
             @* - - - - - - - - - - - - - - - - - - - - - - Aside 1 - - - - - - - - - - - - - - - - - - - - - - *@
         </aside>
 
@@ -112,31 +120,25 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="RowsEquipos">
                             @foreach (var iteam in Model.equipos)
                             {
-                                DateTime DateUltima = _service.ObtenerFecha(iteam.Programados.FirstOrDefault(c=>c.Estado == true).UltimaAplicacion);
-                                DateTime DateProxima = _service.ObtenerFecha(iteam.Programados.FirstOrDefault(c => c.Estado == true).ProximaAplicacion);
-
-                                string UltimaAplicion = _service.ObtenerMesYAnio(DateUltima);
-                                string ProximaAplicion = _service.ObtenerMesYAnio(DateProxima);
-
-                                <tr>
+                                <tr id="Row@(iteam.NumSerie)">
                                     <td class="border-R">@iteam.NumSerie</td>
-                                    <td class="border-R">@iteam.Variante.Marca.Nombre</td>
-                                    <td class="border-R">@iteam.Variante.TipoEquipo.Nombre</td>
-                                    <td class="border-R">@UltimaAplicion</td>
-                                    <td class="border-R">@ProximaAplicion</td>
+                                    <td class="border-R">@iteam.Marca</td>
+                                    <td class="border-R">@iteam.TipoEquipo</td>
+                                    <td class="border-R">@iteam.UltimaAplicion</td>
+                                    <td class="border-R">@iteam.ProximaAplicion</td>
                                     <td class="border-R">
                                         <label class="toggle-switch mt-2">
-                                            <input type="checkbox">
+                                            <input class="ChbxReparacio" data-row="Row@(iteam.NumSerie)" type="checkbox">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
                                         </label>
                                     </td>
                                     <td class="border-R">
-                                        <img class="remover p-1" src="~/images/trash-solid.svg" />
+                                        <img data-row="Row@(iteam.NumSerie)" class="btnRemove remover p-1" src="~/images/trash-solid.svg" />
                                     </td>
                                 </tr>
                             }
@@ -157,14 +159,14 @@
                             <div class="bg-light text-black text-center">
                                 <h5><span class="color-R">C</span>osto total de mantenimientos</h5>
                             </div>
-                            <h3><span>$</span>*****.**</h3>
+                            <h3 id="txtTotalMtos"></h3>
                         </section>
 
                         <section class="rounded-3 bg-R border-R text-light">
                             <div class="bg-light text-black text-center">
                                 <h5><span class="color-R">C</span>osto total de reparación</h5>
                             </div>
-                            <h3><span>$</span>*****.**</h3>
+                            <h3 id="txtTotalRep"></h3>
                         </section>
                     </div>
                     @* - - - - - - - - - - - - - - - - - - - - - - *@
@@ -181,5 +183,7 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/CrearMtosScripts/RemoveEquipoMtos.js" asp-append-version="true"></script>
+        <script>GetEquipos(@Html.Raw(Json.Serialize(Model.equipos)) )</script>
     }
 }

@@ -5,7 +5,9 @@ using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Project;
 using Newtonsoft.Json;
+using System.IO;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
 
@@ -19,7 +21,8 @@ namespace Condominios.Controllers
         {
             _service = service;
         }
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        // CONTROLADORES-MTOS-EQUIPO- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         public async Task<IActionResult> Consultar(int ID)
         {
             string json = string.Empty;
@@ -47,10 +50,10 @@ namespace Condominios.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
-        public async Task<IActionResult> FilterByStatus(int EdoAplicacion, string JsonMtosProgramados, int EquipoID)  
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FilterByStatus(int EdoAplicacion, string JsonMtosProgramados, int EquipoID)
         {
-            if(EdoAplicacion > 3)
+            if (EdoAplicacion > 3)
                 return RedirectToAction(nameof(Consultar), new { ID = EquipoID });
 
             var model = await _service.GetEquipo(EquipoID);
@@ -63,13 +66,13 @@ namespace Condominios.Controllers
             model.TotalGtosRep = DictGtos["GtosRep"];
 
             return View(nameof(Consultar), model);
-        } 
-         
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken] 
-        public async Task<IActionResult> FilterByTime(FilterMtos filterMtos, string JsonMtosProgramados, int EquipoID) 
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FilterByTime(FilterMtos filterMtos, string JsonMtosProgramados, int EquipoID)
         {
-            var model = await _service.GetEquipo(EquipoID); 
+            var model = await _service.GetEquipo(EquipoID);
             await _service.GetSelects(model);
 
             (var ListMtos, var DictGtos) = _service.GetMtosFilters(JsonMtosProgramados, filterMtos);
@@ -81,16 +84,24 @@ namespace Condominios.Controllers
             return View(nameof(Consultar), model);
         }
 
-        public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
-        {
-            return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
-        }
+        //public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
+        //{
+        //    return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
+        //}
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // CONTROLADORES CREAR-MTOS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
         public async Task<IActionResult> Pendientes()
         {
+            string json = string.Empty;
             MtosPendientesViewModel model = new();
+
+            if (TempData["AlertaJS"] != null)
+            {
+                json = (string)TempData["AlertaJS"];
+                model.AlertaEstado = JsonConvert.DeserializeObject<AlertaEstado>(json);
+            }
+
             model.Conjuntos = await _service.GetMtosPendientes();
             return View(model);
         }
@@ -99,11 +110,52 @@ namespace Condominios.Controllers
         {
             CrearMtosViewModel model = new();
 
-            model.equipos = JsonConvert.DeserializeObject<List<Equipo>>(Json) ?? new();
+            await _service.GetSelectsForConfirmarMtos(model);
+            List<Equipo> equipos = JsonConvert.DeserializeObject<List<Equipo>>(Json) ?? new();
+            
+            //PDT Incorporar al servicio
+            equipos.ForEach(equipo =>
+            {
+                DateTime DateUltima = _epochService.ObtenerFecha(equipo.Programados.FirstOrDefault(c => c.Estado == true)?.UltimaAplicacion?? new());
+                DateTime DateProxima = _epochService.ObtenerFecha(equipo.Programados.FirstOrDefault(c => c.Estado == true)?.ProximaAplicacion?? new());
+
+                EquipoMtoViewModel Viewodel = new()
+                {
+                    NumSerie = equipo.NumSerie,
+                    Marca = equipo.Variante.Marca?.Nombre ?? "",
+                    TipoEquipo = equipo.Variante.TipoEquipo?.Nombre ?? "",
+                    UltimaAplicion = _epochService.ObtenerMesYAnio(DateUltima),
+                    ProximaAplicion = _epochService.ObtenerMesYAnio(DateProxima),
+                    Programado = equipo.Programados.First()
+                };
+
+                model.equipos.Add(Viewodel);
+            });
+
             return View(model);
         }
 
-        // Carlos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        public async Task<IActionResult> CrearMtos(MantenimientoViewModel Mantenimiento, string JsonEquipos)
+        {
+            var equipos = JsonConvert.DeserializeObject<List<EquipoMtoViewModel>>(JsonEquipos) ?? new();
+            AlertaEstado alertaEstado = new();
+
+            if (equipos.Count == 0)
+            {
+                alertaEstado.Leyenda = "No habia ningún equipo seleccionado";
+                alertaEstado.Estado = false;
+
+                TempData["AlertaJS"] = JsonConvert.SerializeObject(alertaEstado);
+                return RedirectToAction(nameof(Pendientes));
+            }
+
+            alertaEstado = await _service.ConfirmarMtos(Mantenimiento, equipos);
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(alertaEstado);
+
+            return RedirectToAction(nameof(Pendientes));
+        }
+
+        // Carlos CONTROLADORES-GTOS-MTOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         public async Task<IActionResult> GastosMantenimiento()
         {

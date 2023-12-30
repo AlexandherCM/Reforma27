@@ -1,4 +1,5 @@
 ﻿using Condominios.Models.Entities;
+using Condominios.Models.Services.Classes;
 
 namespace Condominios.Models.ViewModels.CtrolMantenimientos
 {
@@ -19,5 +20,7 @@ namespace Condominios.Models.ViewModels.CtrolMantenimientos
     {
         public string Json { get; set; } = string.Empty;
         public List<ConjuntoMtosViewModel> Conjuntos { get; set; } = new();
+
+        public AlertaEstado? AlertaEstado { get; set; }
     }
 }

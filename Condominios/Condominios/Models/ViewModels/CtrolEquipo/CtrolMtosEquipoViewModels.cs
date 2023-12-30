@@ -70,12 +70,24 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
     //Para confirma un mantenimiento programado
     public class MantenimientoViewModel
     {
-        public int MtoProgramadoID { get; set; }  
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int MtoProgramadoID { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
         public int TipoMantenimientoID { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
         public int ProveedorID { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
         public decimal CostoMantenimiento { get; set; }
+
         public decimal? CostoReparacion { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
         public string Observaciones { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
         public DateTime FechaAplicacion { get; set; }
     }
     

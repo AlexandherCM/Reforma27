@@ -131,7 +131,7 @@
                                     <td class="border-R">@iteam.ProximaAplicion</td>
                                     <td class="border-R">
                                         <label class="toggle-switch mt-2">
-                                            <input class="ChbxReparacio" data-row="Row@(iteam.NumSerie)" type="checkbox">
+                                            <input class="ChbxReparacion" data-row="Row@(iteam.NumSerie)" type="checkbox">
                                             <div class="toggle-switch-background">
                                                 <div class="toggle-switch-handle"></div>
                                             </div>
@@ -159,14 +159,14 @@
                             <div class="bg-light text-black text-center">
                                 <h5><span class="color-R">C</span>osto total de mantenimientos</h5>
                             </div>
-                            <h3 id="txtTotalMtos"></h3>
+                            <h3 id="h3TotalMto"> $ 0.00 </h3>
                         </section>
 
                         <section class="rounded-3 bg-R border-R text-light">
                             <div class="bg-light text-black text-center">
                                 <h5><span class="color-R">C</span>osto total de reparación</h5>
                             </div>
-                            <h3 id="txtTotalRep"></h3>
+                            <h3 id="h3TotalRep"> $ 0.00 </h3>
                         </section>
                     </div>
                     @* - - - - - - - - - - - - - - - - - - - - - - *@
@@ -184,6 +184,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script src="~/js/CrearMtosScripts/RemoveEquipoMtos.js" asp-append-version="true"></script>
-        <script>GetEquipos(@Html.Raw(Json.Serialize(Model.equipos)) )</script>
+
+        <script> GetEquipos(@Html.Raw(Json.Serialize(Model.equipos)) )</script>
     }
 }

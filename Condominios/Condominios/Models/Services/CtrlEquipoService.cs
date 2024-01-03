@@ -29,12 +29,12 @@ namespace Condominios.Models.Services
             return _alertaEstado;
         }
 
-        public AlertaEstado AactualizarEquipo(EditEquipoViewModel model)
+        public async Task<AlertaEstado> ActualizarEquipo(EditEquipoViewModel model)
         {
             _alertaEstado = _unitOfWork.EquipoRepository.Update(model);
 
             if (_alertaEstado.Estado)
-                 _unitOfWork.Save();
+                 await _unitOfWork.Save();
 
             return _alertaEstado;
         }

@@ -7,6 +7,7 @@ using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System.Globalization;
 using System.Linq;
 #pragma warning disable CS8603
@@ -28,8 +29,8 @@ namespace Condominios.Models.Services
             _unitOfWork = uniOfWork;
             _epoch = epoch;
         }
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public async Task GetSelects(CtrolMtosEquipoViewModels model)
         {
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -72,6 +73,31 @@ namespace Condominios.Models.Services
                 await _unitOfWork.Save();
 
             return _alertaEstado;
+        }
+        
+        public CrearMtosViewModel CreateMtosViewModel(CrearMtosViewModel model, string Json) 
+        {
+            List<Equipo> equipos = JsonConvert.DeserializeObject<List<Equipo>>(Json) ?? new();
+
+            equipos.ForEach(equipo =>
+            {
+                DateTime DateUltima = _epoch.ObtenerFecha(equipo.Programados.FirstOrDefault(c => c.Estado == true)?.UltimaAplicacion ?? new());
+                DateTime DateProxima = _epoch.ObtenerFecha(equipo.Programados.FirstOrDefault(c => c.Estado == true)?.ProximaAplicacion ?? new());
+
+                EquipoMtoViewModel Viewodel = new()
+                {
+                    NumSerie = equipo.NumSerie,
+                    Marca = equipo.Variante.Marca?.Nombre ?? "",
+                    TipoEquipo = equipo.Variante.TipoEquipo?.Nombre ?? "",
+                    UltimaAplicion = _epoch.ObtenerMesYAnio(DateUltima),
+                    ProximaAplicion = _epoch.ObtenerMesYAnio(DateProxima),
+                    Programado = equipo.Programados.First(c => c.Estado == true)
+                };
+
+                model.equipos.Add(Viewodel);
+            });
+
+            return model;
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -164,25 +190,38 @@ namespace Condominios.Models.Services
             List<Equipo> equipos = await _unitOfWork.EquipoRepository.GetListWithMtoPending();
             return _unitOfWork.MtoRepository.GetMtosPendientes(equipos);
         }
-        public async Task<List<Equipo>> GetEquipos(FiltrosDTO filtros)
-            => await _unitOfWork.EquipoRepository.GetList(filtros);
-
 
 
         //Carlos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-        public async Task<CtrolGastosMantenimientoViewModel> Equipos()
+        public async Task<CtrolGastosMantenimientoViewModel> AgruparGtosMtosEquipos()
         {
-            _viewModelGastosMants.Equipos = await _unitOfWork.EquipoRepository.GetList();
+            List<Equipo> listaEquipos = await _unitOfWork.EquipoRepository.GetList() ?? new();
+            _viewModelGastosMants.Equipos = listaEquipos.Where(e => e.Programados.Any(mto => mto.Aplicado == true)).ToList();
+
             await Listas();
             await Agrupacion();
             return _viewModelGastosMants;
         }
 
-        public async Task<CtrolGastosMantenimientoViewModel> EquiposFiltrados(CtrolGastosMantenimientoViewModel model)
+        public async Task<CtrolGastosMantenimientoViewModel> GtosMtosEquiposFiltrados(CtrolGastosMantenimientoViewModel model)
         {
+            model.Filtros ??= new();
+            model.Filtros.Fecha1 = _epoch.CrearEpoch(model.Fecha1);
+            model.Filtros.Fecha2 = _epoch.CrearEpoch(model.Fecha2);
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            FiltrosDTO filtros = new()
+            {
+                MarcaID = model.Filtros.MarcaID,
+                TipoID = model.Filtros.TipoID,
+                UbicacionID = model.Filtros.
+                MotorID = model.Filtros.MotorID,    
+            };
+            _viewModelGastosMants.Equipos = await _unitOfWork.EquipoRepository.GetList(filtros); // Obtengo el primer cnjunto de filtros
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            _viewModelGastosMants.Equipos = _unitOfWork.MtoRepository.FilterGtosMto(_viewModelGastosMants.Equipos, model.Filtros); // Obtengo el segundo conjunto de filtros
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            
             await Listas();
-            _viewModelGastosMants.Equipos = model.Equipos;
             await Agrupacion();
             return _viewModelGastosMants;
         }
@@ -212,10 +251,9 @@ namespace Condominios.Models.Services
                 .ToList();
 
             //POSIBLE ERROR !!!
-
             var equiposMantenimientosAgrupados = _viewModelGastosMants.Equipos
                 .Join(
-                    _viewModelGastosMants.Mantenimientos,
+                    _viewModelGastosMants.Mantenimientos,  //MTOS!!!!
                     equipo => equipo.ID,
                     mantenimiento => mantenimiento.ID,
                     (equipo, mantenimiento) => new

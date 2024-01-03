@@ -1,6 +1,7 @@
 ﻿using Condominios.Data.Interfaces;
 using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
+using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
@@ -8,6 +9,7 @@ using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Globalization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 #pragma warning disable CS8602
 #pragma warning disable CS8603
 
@@ -29,7 +31,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             { "GtosMto", "" },
             { "GtosRep", "" },
         };
-        
+
         private Dictionary<string, bool> DictNumberMtos = new Dictionary<string, bool>
         {
             { "Mtos", false },
@@ -42,7 +44,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             _context = context;
         }
 
-        public class ResultMto 
+        public class ResultMto
         {
             public MtoProgramado mto = new();
             public AlertaEstado Alerta = new();
@@ -62,7 +64,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             {
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                 result.Alerta.Leyenda = ManyMtos["Mtos"]
-                    ? "Aún no esta activo el mantenimiento para estos equipos." 
+                    ? "Aún no esta activo el mantenimiento para estos equipos."
                     : "Aún no esta activo el periodo de aplicación para este mantenimiento.";
                 result.Alerta.Estado = false;
 
@@ -85,9 +87,9 @@ namespace Condominios.Data.Repositories.Mantenimientos
                 TipoMantenimientoID = viewModel.TipoMantenimientoID,
                 ProveedorID = viewModel.ProveedorID,
                 CostoMantenimiento = viewModel.CostoMantenimiento,
-                CostoReparacion = ManyMtos["AplicarReparacion"] ? viewModel.CostoReparacion?? 0 : 0,
+                CostoReparacion = ManyMtos["AplicarReparacion"] ? viewModel.CostoReparacion ?? 0 : 0,
                 Observaciones = viewModel.Observaciones,
-                FechaAplicacion = _epoch.CrearEpoch(viewModel.FechaAplicacion)
+                FechaAplicacion = _epoch.CrearEpoch(viewModel.FechaAplicacion),
             };
 
             mtoProgramado.Aplicado = true;
@@ -128,7 +130,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             string leyenda = equipos.Count > 1
-                ? "Mantenimiento aplicado. El proximo mantenimiento para los equipos es para" 
+                ? "Mantenimiento aplicado. El proximo mantenimiento para los equipos es para"
                 : "Mantenimiento aplicado. El proximo mantenimiento para el equipo es para";
 
             _alertaEstado.Leyenda =
@@ -148,12 +150,12 @@ namespace Condominios.Data.Repositories.Mantenimientos
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
             result = StructureNewMto(viewModel, mtoProgramado, DictNumberMtos);
 
-            if(result.Alerta.Estado == false)
+            if (result.Alerta.Estado == false)
                 return result.Alerta;
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             _alertaEstado.Leyenda =
-                $"Mantenimiento aplicado. El proximo mantenimiento sera para {_epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(result.mto.ProximaAplicacion))}";
+                $"Mantenimiento aplicado. El proximo mantenimiento será para {_epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(result.mto.ProximaAplicacion))}";
             _alertaEstado.Estado = true;
 
             return _alertaEstado;
@@ -169,7 +171,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             if (ProximaAplicacion.Year > DateTime.Now.Year)
                 Estado = true;
             else if (ProximaAplicacion.Year == DateTime.Now.Year)
-                Estado = ProximaAplicacion.Month <= DateTime.Now.Month;
+                Estado = DateTime.Now.Month <= ProximaAplicacion.Month;
 
             MtoProgramado mantenimiento = new()
             {
@@ -222,6 +224,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
                 //Agregar a la base de datos
                 _context.Add(newMto);
+
                 mto.Aplicable = false;
                 mto.Estado = false;
             }
@@ -230,7 +233,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             if (_context.ChangeTracker.HasChanges())
                 await _context.SaveChangesAsync();
         }
-
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
 
         public async Task<List<MtoProgramado>> GetListMtosProgramByID(int ID)
             => await _context.MtoProgramado.Include(c => c.Mantenimiento)
@@ -294,7 +297,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             {
                 TipoEquipo = group.Key.TipoEquipo,
                 Periodo = group.Key.PeriodoNombre,
-                FormatDateAplic = 
+                FormatDateAplic =
                     _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(group.Key.ProxAplic)),
                 Cantidad = group.Count(),
                 JsonEquipos = JsonConvert.SerializeObject(group.ToList(), jsonSettings)
@@ -303,12 +306,31 @@ namespace Condominios.Data.Repositories.Mantenimientos
             return pendientes;
         }
 
-
+        //CARLOS
         public async Task<List<Mantenimiento>> GetList()
-        {
-            var mto = await _context.Mantenimiento.ToListAsync();
-            return mto;
-        }
+            => await _context.Mantenimiento.ToListAsync();
 
+
+        //PDT !!!!
+        public List<Equipo> FilterGtosMto(List<Equipo> ListaEquipos, FiltrosGtosMtosDTO Filtros)
+        {
+            //PROVEEDOR
+            if (Filtros.ProveedorID != 0)
+            {
+                ListaEquipos = ListaEquipos.Where(e => e.Programados.Any(mp => mp.Mantenimiento != null && mp.Mantenimiento.ProveedorID == Filtros.ProveedorID)).ToList();
+            }
+
+            if (Filtros.Fecha1 >= 0 && Filtros.Fecha2 >= 0)
+            {
+                long fecha1Epoch = Filtros.Fecha1;
+                long fecha2Epoch = Filtros.Fecha2;
+
+                ListaEquipos = ListaEquipos.Where(e => e.Programados .Any(mp => mp.Mantenimiento != null &&
+                               mp.Mantenimiento.FechaAplicacion >= fecha1Epoch &&
+                               mp.Mantenimiento.FechaAplicacion <= fecha2Epoch)).ToList();
+            }
+
+            return ListaEquipos;
+        }
     }
 }

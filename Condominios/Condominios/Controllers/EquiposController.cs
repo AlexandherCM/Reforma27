@@ -75,8 +75,13 @@ namespace Condominios.Controllers
             if(FiltroID.MarcaID == 0 && FiltroID.TipoID == 0 && FiltroID.UbicacionID == 0 && FiltroID.MotorID == 0)
                 return RedirectToAction(nameof(Index));
 
+            var jsonSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
             List<Equipo> equipos = await _service.GetEquipos(FiltroID);
-            string dato = JsonConvert.SerializeObject(equipos);
+            string dato = JsonConvert.SerializeObject(equipos, jsonSettings);
 
             TempData["Equipos"] = dato; 
             return RedirectToAction(nameof(Index));
@@ -111,10 +116,10 @@ namespace Condominios.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(CtrolMtosEquipoViewModels viewModel)
+        public async Task<IActionResult> Update(CtrolMtosEquipoViewModels viewModel)
         {
             viewModel.Plantilla.ID = viewModel.EquipoID;
-            viewModel.AlertaEstado = _service.AactualizarEquipo(viewModel.Plantilla);
+            viewModel.AlertaEstado = await _service.ActualizarEquipo(viewModel.Plantilla);
 
             TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
             return RedirectToAction("Consultar", "Mantenimientos", new { ID = viewModel.EquipoID });

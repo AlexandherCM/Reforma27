@@ -111,26 +111,7 @@ namespace Condominios.Controllers
             CrearMtosViewModel model = new();
 
             await _service.GetSelectsForConfirmarMtos(model);
-            List<Equipo> equipos = JsonConvert.DeserializeObject<List<Equipo>>(Json) ?? new();
-            
-            //PDT Incorporar al servicio
-            equipos.ForEach(equipo =>
-            {
-                DateTime DateUltima = _epochService.ObtenerFecha(equipo.Programados.FirstOrDefault(c => c.Estado == true)?.UltimaAplicacion?? new());
-                DateTime DateProxima = _epochService.ObtenerFecha(equipo.Programados.FirstOrDefault(c => c.Estado == true)?.ProximaAplicacion?? new());
-
-                EquipoMtoViewModel Viewodel = new()
-                {
-                    NumSerie = equipo.NumSerie,
-                    Marca = equipo.Variante.Marca?.Nombre ?? "",
-                    TipoEquipo = equipo.Variante.TipoEquipo?.Nombre ?? "",
-                    UltimaAplicion = _epochService.ObtenerMesYAnio(DateUltima),
-                    ProximaAplicion = _epochService.ObtenerMesYAnio(DateProxima),
-                    Programado = equipo.Programados.First()
-                };
-
-                model.equipos.Add(Viewodel);
-            });
+            model = _service.CreateMtosViewModel(model, Json);
 
             return View(model);
         }
@@ -159,23 +140,17 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> GastosMantenimiento()
         {
-            CtrolGastosMantenimientoViewModel model = await _service.Equipos();
+            CtrolGastosMantenimientoViewModel model = await _service.AgruparGtosMtosEquipos();
             return View(model);
         }
 
         public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model, string boton)
         {
             if (boton == "Todos")
-            {
-                return RedirectToAction("GastosMantenimiento");
-            }
-            model.FiltroID.Fecha1 = _epochService.CrearEpoch(model.Fecha1);
-            model.FiltroID.Fecha2 = _epochService.CrearEpoch(model.Fecha2);
+                return RedirectToAction(nameof(GastosMantenimiento));
 
-            List<Equipo> equipos = await _service.GetEquipos(model.FiltroID);
-            model.Equipos = equipos;
-            model = await _service.EquiposFiltrados(model);
-            return View("GastosMantenimiento", model);
+            model = await _service.GtosMtosEquiposFiltrados(model);
+            return View(nameof(GastosMantenimiento), model);
         }
 
     }

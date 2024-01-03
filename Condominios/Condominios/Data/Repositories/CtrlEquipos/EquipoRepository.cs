@@ -87,25 +87,6 @@ namespace Condominios.Data.Repositories.Equipos
                 query = query.Where(e => e.UbicacionID == filtros.UbicacionID);
             }
 
-            // CORREGIR PDT!!!
-
-            //PROVEEDOR
-            if (filtros.ProveedorID != 0)
-            {
-                query = query.Where(e => e.Programados.Any(mp => mp.Mantenimiento != null && mp.Mantenimiento.ProveedorID == filtros.ProveedorID));
-            }
-
-            if (filtros.Fecha1 >= 0 && filtros.Fecha2 >= 0)
-            {
-                long fecha1Epoch = filtros.Fecha1;
-                long fecha2Epoch = filtros.Fecha2;
-
-                query = query.Where(e => e.Programados
-                    .Any(mp => mp.Mantenimiento != null &&
-                               mp.Mantenimiento.FechaAplicacion >= fecha1Epoch &&
-                               mp.Mantenimiento.FechaAplicacion <= fecha2Epoch));
-            }
-
             return await query.ToListAsync();
         }
 
@@ -199,9 +180,7 @@ namespace Condominios.Data.Repositories.Equipos
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             }
 
-            if (model.CostoAdquisicion.HasValue && model.CostoAdquisicion.Value != 0)
-                equipo.CostoAdquisicion = model.CostoAdquisicion.Value;
-
+            equipo.CostoAdquisicion = model.CostoAdquisicion ?? 0;
             equipo.UbicacionID = model.UbicacionID;
             equipo.EstatusID = model.EstatusID;
             equipo.Funcion = model.Funcion;

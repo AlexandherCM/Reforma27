@@ -23,31 +23,31 @@
 
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="FiltroID.ProveedorID" class="select" asp-items="@Model.Proveedores">
+                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
                             <option value="">Proveedor</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="select">
+                        <select asp-for="Filtros.MarcaID" asp-items="Model.Marcas" class="select">
                             <option value="0">Marca</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="select">
+                        <select asp-for="Filtros.UbicacionID" asp-items="Model.Ubicaciones" class="select">
                             <option value="0">Ubicación</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="select">
+                        <select asp-for="Filtros.TipoID" asp-items="Model.TipoEquipos" class="select">
                             <option value="0">Equipo</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="select">
+                        <select asp-for="Filtros.MotorID" asp-items="Model.Motores" class="select">
                             <option value="0">Motor</option>
                         </select>
                     </div>

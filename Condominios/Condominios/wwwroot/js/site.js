@@ -10,6 +10,7 @@ const hamburger = getElement('hamburger');
 const titles = getElements('titles');
 const hyperLink = getElements('hyperLink');
 const icons = getElements('icon-users');
+const nav = getElement('navbarResponsivo');
 
 let isToggle = false;
 const menuSrcOpen = "/images/bars-solid.svg";
@@ -28,6 +29,7 @@ const toggle = isOpen => {
     hamburger.style.justifyContent = isOpen && width === "6%" ? 'center' : 'flex-end';
     colMenu.style.alignItems = isOpen && width === "6%" ? 'center' : 'start';
     menuLogo.style.visibility = isOpen && width === "6%" ? 'hidden' : 'visible';
+    nav.classList.remove("show", isOpen);
 
     Array.from(titles).forEach(element => element.style.display = isOpen ? "none" : "block");
 
@@ -47,3 +49,11 @@ const handleClick = () => {
 
 overlay.onclick = handleClick;
 menuIcon.onclick = handleClick;
+
+window.addEventListener('resize', function () {
+    var nuevoAnchoPantalla = window.innerWidth;
+
+    if (nuevoAnchoPantalla > 900) {
+        nav.classList.remove("show");
+    }
+});

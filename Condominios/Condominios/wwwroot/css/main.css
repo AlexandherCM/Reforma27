@@ -20,6 +20,7 @@
     flex-direction: column;
 }
 
+
 .overlay {
     display: none;
     position: fixed;
@@ -129,6 +130,7 @@ a {
         .space {
             padding: 0 4rem;
         }
+        
         
     }
 

@@ -124,6 +124,29 @@ namespace Condominios.Data.Repositories.Equipos
                 return _alertaEstado;
             }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            var numerosSerieProcesados = new HashSet<string>();
+
+            foreach (var SerieEquipo in viewModel.NumerosSerie)
+            {
+                // Verificar si el número de serie ya fue procesado
+                if (numerosSerieProcesados.Contains(SerieEquipo))
+                {
+                    _alertaEstado.Leyenda = "Los números de serie no pueden ser iguales.";
+                    _alertaEstado.Estado = false;
+                    return _alertaEstado;
+                }
+
+                // Verificar si el número de serie está asignado a otro equipo
+                if (_context.Equipo.Any(c => c.NumSerie.Equals(SerieEquipo)))
+                {
+                    _alertaEstado.Leyenda = $"El número de serie \"{SerieEquipo}\" ya está asignado a otro equipo.";
+                    _alertaEstado.Estado = false;
+                    return _alertaEstado;
+                }
+
+                // Agregar el número de serie a la lista de procesados
+                numerosSerieProcesados.Add(SerieEquipo);
+            }
 
             _alertaEstado.Estado = true;
             return _alertaEstado;
@@ -166,9 +189,9 @@ namespace Condominios.Data.Repositories.Equipos
         public AlertaEstado Update(EditEquipoViewModel model)
         {
             var equipo = _context.Find<Equipo>(model.ID);
-            var nombre = _context.Equipo.Any(c => c.NumSerie.Contains(model.NumSerie) && c.ID != model.ID);
+            var equipoEncontrado = _context.Equipo.Any(c => c.NumSerie.Equals(model.NumSerie) && c.ID != model.ID);
 
-            if (!nombre)
+            if (!equipoEncontrado)
                 equipo.NumSerie = model.NumSerie.Trim();
             else
             {

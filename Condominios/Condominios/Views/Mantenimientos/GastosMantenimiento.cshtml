@@ -1,6 +1,7 @@
 ﻿@model Condominios.Models.ViewModels.CtrolGastosMantenimiento.CtrolGastosMantenimientoViewModel
 @{
     ViewData["Title"] = "Gastos";
+#pragma warning disable CS8602
 }
 
 @*Contenido*@
@@ -24,7 +25,7 @@
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
                         <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
-                            <option value="">Proveedor</option>
+                            <option value="0">Proveedor</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
@@ -53,17 +54,16 @@
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <input asp-for="@Model.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
+                        <input asp-for="@Model.Filtros.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col d-flex align-items-center justify-content-center">
-                        <input asp-for="@Model.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
+                        <input asp-for="@Model.Filtros.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col row d-flex align-items-center justify-content-center">
-                        <input type="submit" value="Buscar" class="botonTrue col-12 mb-2" style="width: 90%">
-                        <button type="submit" name="boton" value="Todos" class="botonTrue col-12" style="width: 90%;">Todos</button>
-
+                        <input type="submit" value="Buscar" class="botonTrue" style="width: 90%">
+                        @* <button type="submit" name="boton" value="Todos" class="botonTrue col-12" style="width: 90%;">Todos</button> *@
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
@@ -75,30 +75,34 @@
 
 </article>
 
-@* Filtro por página *@
-<article class="row text-dark mt-3">
-    <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
-        <h4 for="rowsPerPage">Filas por página:</h4>
-    </section>
+@* Filtro por página ARREGLAR LA CHINGADERA ESTA!!!! *@ 
+<article class="row text-dark mt-3 HEADER-SECTION-GTOS-MTO">
 
-    <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
-        <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
-            <option value="3">3</option>
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="75">75</option>
-            <option value="100">100</option>
-        </select>
-    </section>
+    <div class="bg-R rounded-3" style="display:grid; grid-template-columns: repeat(2, 1fr)" >
+        <section class="p-1 text-light numerPage1 text-center">
+            <h4 for="rowsPerPage">Filas por página:</h4>
+        </section>
 
-    <section class="col-6 col-lg-1 p-1 text-light numerPage1 text-center">
-    </section>
+        <section class="p-1 d-flex numerPage justify-content-start">
+            <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
+                <option value="3">3</option>
+                <option selected value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+                <option value="100">100</option>
+            </select>
+        </section>
+    </div>
 
-    <section class="col-6 col-lg-3 border-R p-1 text-center">
-        <h4><span class="color-R">R</span>esultados encontrados: <span class="color-R">@Model.Conteo.Count()</span></h4>
-    </section>
+    <div class="border-R">
+        <section class="p-1 text-center">
+            <h4><span class="color-R">R</span>esultados encontrados: <span class="color-R">@Model.ConjuntoViewModel.Count()</span></h4>
+        </section>
+    </div>
+
 </article>
+
 
 @* Tabla*@
 <article class="row rounded-3 text-dark mt-3">
@@ -107,14 +111,14 @@
         <thead>
 
             <tr class="border-R">
-                <th class="border-R">
+                <th style="width: 15%;" class="border-R">
                     Tipo
                 </th>
-                <th class="border-R">
+                <th style="width: 10%;" class="border-R">
                     Cantidad
                 </th>
                 <th class="border-R">
-                    Costo total de mantenimineto
+                    Costo total de mantenimientos
                 </th>
                 <th class="border-R">
                     Costo total de reparaciones
@@ -128,14 +132,14 @@
 
         <tbody>
 
-            @for (int i = 0; i < Model.Conteo.Count; i++)
+            @for (int i = 0; i < Model.ConjuntoViewModel.Count; i++)
             {
                 <tr>
-                    <td class="border-R">@Model.Conteo[i].Variante</td>
-                    <td class="border-R">@Model.Conteo[i].Cantidad</td>
-                    <td class="border-R">@Model.Conteo[i].CostoM</td>
-                    <td class="border-R">@Model.Conteo[i].CostoR</td>
-                    <td class="border-R">@Model.Conteo[i].CostoAd</td>
+                    <td class="border-R">@Model.ConjuntoViewModel[i].Variante</td>
+                    <td class="border-R">@Model.ConjuntoViewModel[i].Cantidad</td>
+                    <td class="border-R">@Model.ConjuntoViewModel[i].CostoMto</td>
+                    <td class="border-R">@Model.ConjuntoViewModel[i].CostoReparacion</td>
+                    <td class="border-R">@Model.ConjuntoViewModel[i].CostoAdquisicion</td>
 
                 </tr>
             }
@@ -159,11 +163,11 @@
         <thead>
 
             <tr class="border-R">
-                <th class="border-R">
+                <th style="width: 25%;" class="border-R">
                     Cantidad
                 </th>
                 <th class="border-R">
-                    Costo total de mantenimiento
+                    Costo total de mantenimientos
                 </th>
                 <th class="border-R">
                     Costo total de reparaciones
@@ -179,9 +183,9 @@
 
             <tr>
                 <td class="border-R"> <h5>Total de gastos</h5>  </td>
-                <td class="border-R"><h3><span class="color-R">$ @Model.CostoMTotal</span></h3></td>
-                <td class="border-R"><h3><span class="color-R">$ @Model.CostoRTotal</span></h3></td>
-                <td class="border-R"><h3><span class="color-R">$ @Model.CostoAdTotal</span></h3></td>
+                <td class="border-R"><h3><span class="color-R">@Model.TotalCostoMtos</span></h3></td>
+                <td class="border-R"><h3><span class="color-R">@Model.TotalCostoReparacion</span></h3></td>
+                <td class="border-R"><h3><span class="color-R">@Model.TotalCostoAdquisicion</span></h3></td>
 
             </tr>
 
@@ -192,8 +196,9 @@
 
 @section Scripts {
     @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script src="~/js/Desplegable.js"></script>
         <script src="~/js/Tablas.js"></script>
-
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
     }
 }

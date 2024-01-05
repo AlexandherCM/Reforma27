@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Condominios.Models.DTOs;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
-//ragma warning disable CS8602
 
 namespace Condominios.Controllers
 {

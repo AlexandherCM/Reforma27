@@ -11,8 +11,23 @@
 }
 
 
-/*- - - - - - - - - - - - - - */
+/* GTOS-MTO - - - - - - - - - - - - - - */
 
+.HEADER-SECTION-GTOS-MTO {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+}
+
+/*CONSULTAR-MTOS - - - - - - - - - */
+
+.HEADER-SECTION-CONSULTAR-MTOS {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1rem;
+}
+
+/*- - - - - - - - - - - - - - */
 .CONTAINER-SECTION {
     height: 100%;
 }
@@ -39,6 +54,11 @@
     .GRID-CONTAINER {
         grid-template-columns: 1fr;
         gap:0;
+    }
+
+    .HEADER-SECTION-GTOS-MTO, 
+    .HEADER-SECTION-CONSULTAR-MTOS {
+        grid-template-columns: 1fr;
     }
 }
 

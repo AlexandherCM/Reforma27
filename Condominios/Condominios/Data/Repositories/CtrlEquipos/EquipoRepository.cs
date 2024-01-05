@@ -150,7 +150,7 @@ namespace Condominios.Data.Repositories.Equipos
                 Funcion = viewModel.Plantilla.Funcion,
                 Programados = new List<MtoProgramado>
                 {
-                    _service.CrearObjeto(viewModel.Plantilla.UltimaAplicacion, meses)
+                    _service.CreateObjectOfNewMtoProgrammed(viewModel.Plantilla.UltimaAplicacion, meses)
                 }
             }).ToList();
 

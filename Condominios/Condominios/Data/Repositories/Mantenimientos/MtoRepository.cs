@@ -97,7 +97,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             mtoProgramado.Estado = false;
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            newMto = CrearObjeto(Programming, mtoProgramado.Equipo.Variante.Periodo.Meses);
+            newMto = CreateObjectOfNewMtoProgrammed(Programming, mtoProgramado.Equipo.Variante.Periodo.Meses);
             newMto.EquipoID = mtoProgramado.EquipoID;
 
             _context.Add(newMto);
@@ -162,7 +162,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         }
 
-        public MtoProgramado CrearObjeto(DateTime UltimaAplicacion, int meses)
+        public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses)
         {
             DateTime ProximaAplicacion = UltimaAplicacion.AddMonths(meses);
 
@@ -186,7 +186,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             return mantenimiento;
         }
 
-        public async Task CreateNewMtoProgram()
+        public async Task CreateNewMtoProgramOfBackground()
         {
             DateTime flagTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
             long flagTimeEpoch = _epoch.CrearEpoch(flagTime);
@@ -306,11 +306,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             return pendientes;
         }
 
-        //CARLOS
-        public async Task<List<Mantenimiento>> GetList()
-            => await _context.Mantenimiento.ToListAsync();
-
-
+        //CARLOS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         //PDT !!!!
         public List<Equipo> FilterGtosMto(List<Equipo> ListaEquipos, FiltrosGtosMtosDTO Filtros)
         {
@@ -320,12 +316,12 @@ namespace Condominios.Data.Repositories.Mantenimientos
                 ListaEquipos = ListaEquipos.Where(e => e.Programados.Any(mp => mp.Mantenimiento != null && mp.Mantenimiento.ProveedorID == Filtros.ProveedorID)).ToList();
             }
 
-            if (Filtros.Fecha1 >= 0 && Filtros.Fecha2 >= 0)
+            if (Filtros.FechaEpoch1 > 0 && Filtros.FechaEpoch2 > 0)
             {
-                long fecha1Epoch = Filtros.Fecha1;
-                long fecha2Epoch = Filtros.Fecha2;
+                long fecha1Epoch = Filtros.FechaEpoch1;
+                long fecha2Epoch = Filtros.FechaEpoch2;
 
-                ListaEquipos = ListaEquipos.Where(e => e.Programados .Any(mp => mp.Mantenimiento != null &&
+                ListaEquipos = ListaEquipos.Where(e => e.Programados.Any(mp => mp.Mantenimiento != null &&
                                mp.Mantenimiento.FechaAplicacion >= fecha1Epoch &&
                                mp.Mantenimiento.FechaAplicacion <= fecha2Epoch)).ToList();
             }

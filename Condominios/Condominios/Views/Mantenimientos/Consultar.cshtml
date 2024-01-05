@@ -7,7 +7,7 @@
     ViewData["Title"] = "Consultar";
 }
 
-<aside class="row ">
+<aside class="row">
 
     <section class="col-12 col-lg-4 rounded-2" id="despegableUP">
         <div class="row border-R titleDespegable rounded-2">
@@ -183,10 +183,10 @@
     <h1><span class="color-R">M</span>antenimiento del equipo</h1>
 </aside>
 
-<article class="row mt-4  justify-content-between">
+<article class="row mt-4 justify-content-between HEADER-SECTION-CONSULTAR-MTOS">
 
     @* Buscador por filtros *@
-    <section class="col-12 col-md-8 text-center border-R rounded-2 align-items-center px-4">
+    <section class="text-center border-R rounded-2 align-items-center px-4">
 
         <h4 class="mt-3 mb-3"><span class="color-R">B</span>usqueda con filtros</h4>
 
@@ -222,9 +222,9 @@
     </section>
 
     @* Estado de aplicación*@
-    <section class="col-12 col-md-3 text-center border-R rounded-2">
+    <section class="text-center border-R rounded-2">
 
-        <h4 class="mt-2 mb-3"><span class="color-R">E</span>stado de aplicación</h4>
+        <h4 class="mt-2 mb-3 mt-3"><span class="color-R">E</span>stado de aplicación</h4>
 
         <div class="row text-center mb-2 d-flex align-content-center">
             <div class="mt-3 px-5">
@@ -235,7 +235,7 @@
                     <input type="hidden" asp-for="JsonMtosProgramados" />
                     <input type="hidden" asp-for="EquipoID" />
                     @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <select asp-for="EdoAplicacion" id="SelectEstado" class="search" style="width:100%;">
+                    <select asp-for="EdoAplicacion" id="SelectEstado" class="search mb-3" style="width:100%;">
                         <option value="4">Mostrar Todos</option>
                         @foreach (var estado in Model.estados)
                         {
@@ -247,8 +247,6 @@
         </div>
 
     </section>
-
-
 </article>
 
 @* Tabla de mantenimientos *@
@@ -268,6 +266,9 @@
                 </th>
                 <th class="border-R Proveedor">
                     Proveedor
+                </th>
+                <th class="border-R Proveedor">
+                    Observaciones
                 </th>
                 <th class="border-R">
                     Aplicado
@@ -302,12 +303,13 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Obseraciones)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.DiaDeAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
-                        <input type="button" class="btn-Mto btn-des" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
+                        <input type="button" class="btn-Mto btn-des w-100" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
                     </td>
                 </tr>
             }

@@ -535,3 +535,42 @@ public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
             return _alertaEstado;
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         }
+
+
+         //POSIBLE ERROR !!!
+            //var equiposMantenimientosAgrupados = _viewModelGastosMants.Equipos
+            //    .Join(
+            //        _viewModelGastosMants.Mantenimientos,  //MTOS!!!!b 
+            //        equipo => equipo.ID,
+            //        mantenimiento => mantenimiento.ID,
+            //        (equipo, mantenimiento) => new
+            //        {
+            //            Equipo = equipo,
+            //            Mantenimiento = mantenimiento
+            //        })
+            //    .GroupBy(
+            //        joined => joined.Equipo.Variante.TipoEquipo.Nombre,
+            //        (key, group) => new ConteoViewModel
+            //        {
+            //            Variante = key,
+            //            Cantidad = group.Count(),
+            //            CostoAd = group.Sum(e => e.Equipo.CostoAdquisicion),
+            //            CostoM = group.Sum(e => e.Mantenimiento.CostoMantenimiento),
+            //            CostoR = group.Sum(e => e.Mantenimiento.CostoReparacion)
+            //        })
+            //    .ToList();
+
+
+
+            //_viewModelGastosMants.Conteo = equiposAgrupados
+            //    .Concat(equiposMantenimientosAgrupados)
+            //    .GroupBy(c => c.Variante)
+            //    .Select(g => new ConteoViewModel
+            //    {
+            //        Variante = g.Key,
+            //        Cantidad = g.First().Cantidad,
+            //        CostoAd = g.First().CostoAd,
+            //        CostoM = g.Sum(c => c.CostoM),
+            //        CostoR = g.Sum(c => c.CostoR),
+            //    })
+            //    .ToList();

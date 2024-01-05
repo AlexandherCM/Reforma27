@@ -10,13 +10,13 @@ using Newtonsoft.Json;
 using System.IO;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
+#pragma warning disable CS8602
 
 namespace Condominios.Controllers
 {
     public class MantenimientosController : Controller
     {
         private readonly MtoService _service;
-        private EpochService _epochService = new();
         public MantenimientosController(MtoService service)
         {
             _service = service;
@@ -28,7 +28,7 @@ namespace Condominios.Controllers
             string json = string.Empty;
 
             var model = await _service.GetEquipo(ID);
-            model = await _service.GetLists(model);
+            model = await _service.GetListsForConsultarMtos(model);
 
             if (TempData["AlertaJS"] != null)
             {
@@ -57,7 +57,7 @@ namespace Condominios.Controllers
                 return RedirectToAction(nameof(Consultar), new { ID = EquipoID });
 
             var model = await _service.GetEquipo(EquipoID);
-            await _service.GetSelects(model);
+            await _service.GetSelectsForConsultarMto(model);
 
             (var ListMtos, var DictGtos) = _service.GetMtosApplicationStatus(JsonMtosProgramados, EdoAplicacion);
 
@@ -73,7 +73,7 @@ namespace Condominios.Controllers
         public async Task<IActionResult> FilterByTime(FilterMtos filterMtos, string JsonMtosProgramados, int EquipoID)
         {
             var model = await _service.GetEquipo(EquipoID);
-            await _service.GetSelects(model);
+            await _service.GetSelectsForConsultarMto(model);
 
             (var ListMtos, var DictGtos) = _service.GetMtosFilters(JsonMtosProgramados, filterMtos);
 
@@ -138,16 +138,37 @@ namespace Condominios.Controllers
 
         // Carlos CONTROLADORES-GTOS-MTOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         public async Task<IActionResult> GastosMantenimiento()
         {
-            CtrolGastosMantenimientoViewModel model = await _service.AgruparGtosMtosEquipos();
+            string json = string.Empty;
+            var model = await _service.AgruparGtosMtosEquipos();
+
+            if (TempData["AlertaJS"] != null)
+            {
+                json = (string)TempData["AlertaJS"];
+                model.AlertaEstado = JsonConvert.DeserializeObject<AlertaEstado>(json) ?? new AlertaEstado();
+            }
+
             return View(model);
         }
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model, string boton)
         {
+            AlertaEstado alertaEstado = new();
+
             if (boton == "Todos")
                 return RedirectToAction(nameof(GastosMantenimiento));
+
+            if (model.Filtros.Fecha1 > model.Filtros.Fecha2)
+            {
+                alertaEstado.Leyenda = "La primera fecha debe ser menor a la segunda fecha de busqueda.";
+                alertaEstado.Estado = false;
+
+                TempData["AlertaJS"] = JsonConvert.SerializeObject(alertaEstado);
+                return RedirectToAction(nameof(GastosMantenimiento));
+            }
 
             model = await _service.GtosMtosEquiposFiltrados(model);
             return View(nameof(GastosMantenimiento), model);

@@ -28,7 +28,7 @@ namespace Condominios.Models.Services.Classes.SegundoPlano
                 {
                     IMtoRepository mtoRepository = scope.ServiceProvider.GetService<IMtoRepository>();
 
-                    await mtoRepository.CreateNewMtoProgram();
+                    await mtoRepository.CreateNewMtoProgramOfBackground();
                 }
 
                 // Tiempo restante

@@ -112,6 +112,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public string CostoMantenimiento { get; set; }
         public string CostoReparacion { get; set; }
         public string Proveedor { get; set; }
+        public string Obseraciones { get; set; }
         public int ProveedorID { get; set; }
     }
 

@@ -381,7 +381,7 @@
             <div class="row p-1">
                 <label for="">Seleccione el tipo de mantenimiento</label>
                 <select asp-for="Mantenimiento.TipoMantenimientoID" asp-items="Model.TipoMtos" class="textDes">
-                    <option value="">Selecciona un tipo de equipo</option>
+                    <option value="">Tipo de mantenimiento</option>
                 </select>
                 <span asp-validation-for="Mantenimiento.TipoMantenimientoID" class="text-danger"></span>
             </div>
@@ -389,7 +389,7 @@
             <div class="row p-1">
                 <label for="">Seleccione el proveedor que realizara el trabajo</label>
                 <select asp-for="Mantenimiento.ProveedorID" asp-items="Model.Proveedores" class="textDes">
-                    <option value="">Selecciona un tipo de equipo</option>
+                    <option value="">Proveedor</option>
                 </select>
                 <span asp-validation-for="Mantenimiento.ProveedorID" class="text-danger"></span>
             </div>

@@ -48,6 +48,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<TipoEquipo>> GetList()
             => await context.TipoEquipo.ToListAsync();
 
+        public async Task<List<TipoEquipo>> GetActiveList()
+            => await context.TipoEquipo.Where(c => c.Estado).ToListAsync();
+
         public void UpdateEstateById(int id)
         {
             var tipoEquipo = context.Find<TipoEquipo>(id);

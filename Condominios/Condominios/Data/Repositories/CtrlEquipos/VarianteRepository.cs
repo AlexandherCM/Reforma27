@@ -18,19 +18,24 @@ namespace Condominios.Data.Repositories.CtrlEquipos
         {
             _context = context;
         }
-
-        public async Task<List<VarianteDTO>> GetNormalList()
-        {
-            List<Variante> variantes = await _context.Variante.Include(c => c.Marca)
+        public async Task<List<Variante>> GetList()
+            => await _context.Variante.Include(c => c.Marca)
                                       .Include(c => c.Motor)
                                       .Include(c => c.TipoEquipo)
                                       .Include(c => c.Periodo)
                                       .ToListAsync();
+
+        private async Task<List<VarianteDTO>> GetFormatActiveList()
+        {
+            List<Variante> variantes = await GetList();
+            variantes = variantes.Where(c=>c.Estado).ToList();
+
             return Clone(variantes);
         }
+
         public async Task<List<VarianteDTO>> GetSpecialList()
         {
-            List<VarianteDTO> tipos = await GetNormalList();
+            List<VarianteDTO> tipos = await GetFormatActiveList();
 
             tipos.ForEach(tipo =>
             {
@@ -43,6 +48,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
 
             return tipos;
         }
+
         private static List<VarianteDTO> Clone(List<Variante> datos)
         {
             List<VarianteDTO> tipos = (from tipo in datos
@@ -90,11 +96,6 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             return _alertaEstado;
         }
 
-        public async Task<List<Variante>> GetList()
-        {
-            var variantes = await _context.Variante.ToListAsync();
-            return variantes;
-        }
 
         public async Task<Variante?> GetById(int id)
         {

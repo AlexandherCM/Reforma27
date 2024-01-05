@@ -62,14 +62,14 @@ namespace Condominios.Models.Services
         private async Task<CtrlEquipoViewModel> GetListsOnModel(CtrlEquipoViewModel viewModel)
         {
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            viewModel.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
+            viewModel.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetActiveList(), "ID", "Nombre");
             viewModel.Variantes = new SelectList(await _unitOfWork.VarianteRepository.GetSpecialList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            viewModel.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
-            viewModel.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetList(), "ID", "Nombre");
-            viewModel.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
+            viewModel.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetActiveList(), "ID", "Nombre");
+            viewModel.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetActiveList(), "ID", "Nombre");
+            viewModel.Motores = new SelectList(await _unitOfWork.MotorRepository.GetActiveList(), "ID", "Nombre");
 
-            viewModel.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetList(), "ID", "Nombre");
+            viewModel.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetActiveList(), "ID", "Nombre");
 
             viewModel.Equipos = await GetEquipos();
 

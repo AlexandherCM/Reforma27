@@ -16,6 +16,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<Ubicacion>> GetList()
             => await context.Ubicacion.ToListAsync();
 
+        public async Task<List<Ubicacion>> GetActiveList()
+            => await context.Ubicacion.Where(c => c.Estado).ToListAsync();
+
 
         public void Delete(Ubicacion entity)
         {

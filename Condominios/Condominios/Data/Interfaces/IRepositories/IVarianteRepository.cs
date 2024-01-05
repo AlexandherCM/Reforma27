@@ -7,7 +7,7 @@ namespace Condominios.Data.Interfaces.IRepositories
 {
     public interface IVarianteRepository<Entidad>
     {
-        public Task<List<Entidad>> GetNormalList();
+        //public Task<List<Entidad>> GetNormalList();
         public Task<List<Entidad>> GetSpecialList();
         Task<AlertaEstado> Add(VarianteViewModel model, string medida);
         public Task<List<Variante>> GetList();

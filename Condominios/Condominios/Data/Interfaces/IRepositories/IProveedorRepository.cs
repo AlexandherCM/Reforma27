@@ -7,10 +7,11 @@ namespace Condominios.Data.Interfaces.IRepositories
 {
     public interface IProveedorRepository<Entidad>
     {
-        public void Add(ProveedoresViewModel model);
-        public Task<List<Entidad>> GetList();
         public Task<Proveedor?> GetById(int id);
-        public void Update(ProveedoresViewModel model);
         public Task<Proveedor?> UpdateID(int id);
+        public Task<List<Entidad>> GetList();
+        public Task<List<Entidad>> GetActiveList();
+        public void Add(ProveedoresViewModel model);
+        public void Update(ProveedoresViewModel model);
     }
 }

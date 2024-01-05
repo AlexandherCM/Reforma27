@@ -17,6 +17,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<TipoMantenimiento>> GetList()
             => await context.TipoMantenimiento.ToListAsync();
 
+        public async Task<List<TipoMantenimiento>> GetActiveList()
+            => await context.TipoMantenimiento.Where(c => c.Estado).ToListAsync();
+
         public void Delete(TipoMantenimiento entity)
         {
             throw new NotImplementedException();

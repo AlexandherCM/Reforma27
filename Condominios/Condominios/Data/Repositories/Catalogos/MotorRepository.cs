@@ -16,6 +16,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<Motor>> GetList()
             => await context.Motor.ToListAsync();
 
+        public async Task<List<Motor>> GetActiveList()
+            => await context.Motor.Where(c => c.Estado).ToListAsync();
+
         public void Delete(Motor entity)
         {
             throw new NotImplementedException();

@@ -21,11 +21,11 @@ namespace Condominios.Services
 
         public async Task<VarianteViewModel> Listas()
         {
-            _model.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetList(), "ID", "Nombre");
-            _model.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
-            _model.Periodos = new SelectList(await _unitOfWork.PeriodoRepository.GetList(), "ID", "Nombre");
-            _model.TipoEquipo = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
-            _model.Capacidad = new SelectList(await _unitOfWork.UnidadMedidaRepository.GetList(), "ID", "Nombre");
+            _model.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetActiveList(), "ID", "Nombre");
+            _model.Motores = new SelectList(await _unitOfWork.MotorRepository.GetActiveList(), "ID", "Nombre");
+            _model.Periodos = new SelectList(await _unitOfWork.PeriodoRepository.GetActiveList(), "ID", "Nombre");
+            _model.TipoEquipo = new SelectList(await _unitOfWork.TipoEquipoRepository.GetActiveList(), "ID", "Nombre");
+            _model.Capacidad = new SelectList(await _unitOfWork.UnidadMedidaRepository.GetActiveList(), "ID", "Nombre");
             _model.Variantes = new List<Variante>(await _unitOfWork.VarianteRepository.GetList()); 
             return _model;
         }

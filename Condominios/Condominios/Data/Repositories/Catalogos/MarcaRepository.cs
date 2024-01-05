@@ -16,6 +16,9 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public async Task<List<Marca>> GetList()
             => await context.Marca.ToListAsync();
+        
+        public async Task<List<Marca>> GetActiveList()
+            => await context.Marca.Where(c=>c.Estado).ToListAsync();
 
 
         public async Task<AlertaEstado> add(CatalogoViewModel viewModel)

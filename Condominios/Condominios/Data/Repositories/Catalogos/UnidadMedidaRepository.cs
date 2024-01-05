@@ -64,6 +64,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<UnidadMedida>> GetList()
           => await context.UnidadMedida.ToListAsync();
 
+        public async Task<List<UnidadMedida>> GetActiveList()
+            => await context.UnidadMedida.Where(c => c.Estado).ToListAsync();
+
         public void UpdateEstateById(int id)
         {
             var unidadMedida = context.Find<UnidadMedida>(id);

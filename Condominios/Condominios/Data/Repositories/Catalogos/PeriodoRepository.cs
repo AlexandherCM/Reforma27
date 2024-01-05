@@ -16,6 +16,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<Periodo>> GetList()
             => await context.Periodo.ToListAsync();
 
+        public async Task<List<Periodo>> GetActiveList()
+            => await context.Periodo.Where(c => c.Estado).ToListAsync();
+
         public void Add(CatalogoViewModel viewModel)
         {
             Periodo periodo = new()

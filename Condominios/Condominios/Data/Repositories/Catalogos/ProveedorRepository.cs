@@ -7,14 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Condominios.Data.Repositories.Catalogos
 {
-    public class ProveedorRepository : IProveedorRepository<Proveedor>
+    public class ProveedorRepository : Catalogo ,IProveedorRepository<Proveedor>
     {
-        private readonly Context _context;
-        public ProveedorRepository(Context context)
-        {
-            _context = context;
-        }
-            
+        public ProveedorRepository(Context context) : base(context) { }
+
         public void Add(ProveedoresViewModel model)
         {
             Proveedor proveedor = new()
@@ -26,24 +22,24 @@ namespace Condominios.Data.Repositories.Catalogos
                 Estado = true
             };
 
-            _context.Add(proveedor);
+            context.Add(proveedor);
         }
 
         public async Task<List<Proveedor>> GetList()
-        {
-            var proveedor = await _context.Proveedor.ToListAsync();
-            return proveedor;
-        }
+            => await context.Proveedor.ToListAsync();
+        
+        public async Task<List<Proveedor>> GetActiveList()
+            => await context.Proveedor.Where(c => c.Estado).ToListAsync();
 
         public async Task<Proveedor?> GetById(int id)
         {
-            var proveedor = await _context.Proveedor.FirstOrDefaultAsync(c => c.ID == id);
+            var proveedor = await context.Proveedor.FirstOrDefaultAsync(c => c.ID == id);
             return proveedor;
         }
 
         public void Update(ProveedoresViewModel model)
         {
-            var proveedor = _context.Find<Proveedor>(model.ID);
+            var proveedor = context.Find<Proveedor>(model.ID);
 
             proveedor.Nombre = model.Nombre;
             proveedor.Telefono = model.Numero;
@@ -53,7 +49,7 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public async Task<Proveedor?> UpdateID(int id)
         {
-            var proveedor = await _context.Proveedor.FirstOrDefaultAsync(c => c.ID == id);
+            var proveedor = await context.Proveedor.FirstOrDefaultAsync(c => c.ID == id);
             proveedor.Estado = !proveedor.Estado;
             return proveedor;
         }

@@ -16,6 +16,9 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<Estatus>> GetList()
            => await context.Estatus.ToListAsync();
 
+        public async Task<List<Estatus>> GetActiveList()
+            => await context.Estatus.Where(c => c.Estado).ToListAsync();
+
         public void Delete(Estatus entity)
         {
             throw new NotImplementedException();

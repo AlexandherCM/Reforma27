@@ -133,23 +133,25 @@ a, #registrar {
     }
 
 
-@media (max-width: 1150px) {
+@media (max-width: 1050px) {
     .body-login {
-        width: 100%;
+        width: 95%;
+        margin: auto;
     }
 
     .img-content {
-        display:none;
+        height: 38vh;
     }
 
+    .radius {
+        border-radius: 7px 7px 0 0;
+    }
 
     .radius-b {
-        border-radius:7px;
+        border-radius: 0 0 7px 7px;
     }
 
     .form {
         height: auto;
-        width:90%;
-        margin:auto;
     }
 }

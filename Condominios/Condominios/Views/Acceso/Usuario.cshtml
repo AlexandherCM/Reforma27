@@ -1,7 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Contraseña";
+    ViewData["Title"] = "Usuarios";
     Layout = null;
 }
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -27,30 +28,22 @@
         </div>
     </header>
 
-    <h1 class="pt-2 pb-2">Recuperar contraseña</h1>
+    <h1 class="pt-2 pb-2">Recuperar Correo</h1>
     <main class="d-flex justify-content-center align-items-center" style="flex: 1;">
         <section class="rounded-3 bg-light text-dark" style="width:55%; margin:auto;">
-            <h4>Para recuperar la contraseña es necesario ingresar los siguientes datos</h4>
+            <h4>Para recuperar el correo es necesario ingresar los siguientes datos</h4>
             <form style="width:70%; margin:auto;">
 
-                @* Nombre *@
                 <section class="row pt-3">
                     <div class="sesion-input">
-                        <label class="label">Nueva contraseña</label>
-                        <input type="text" class="pass">
-                    </div>
-                </section>
-
-                <section class="row pt-3">
-                    <div class="sesion-input">
-                        <label class="label">Confirmar contraseña</label>
+                        <label class="label">Correo</label>
                         <input type="email" class="pass">
                     </div>
                 </section>
 
                 <section class="row pt-3 pb-3">
                     <div class="sesion-input">
-                        <input type="submit" value="Cambiar" class="boton" />
+                        <input type="submit" value="Recuperar" class="boton" />
                     </div>
                 </section>
 

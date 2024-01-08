@@ -14,11 +14,18 @@ using Condominios.Models.Services.Classes.SegundoPlano;
 using Condominios.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Settings for Mexico Spanish - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+var culture = new CultureInfo("es-MX");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // Tareas en segundo plano - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 builder.Services.AddHostedService<WorkerAutomaticMtos>();

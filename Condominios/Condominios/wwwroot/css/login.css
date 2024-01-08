@@ -39,17 +39,18 @@ main {
 }
 
 .body-login {
-    width: 55%;
+    width: 63%;
     margin: auto;
 }
 
 .img-content {
-    height: 58vh;
+    height: 64vh;
     background-image: url('../images/login/Edificio.jpeg');
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .edificio {
@@ -61,7 +62,11 @@ main {
 }
 
 .form {
-    height: 58vh;
+    height: 64vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
 }
 
 .logo {
@@ -91,15 +96,19 @@ main {
     transition: border-bottom 0.3s ease;
 }
 
-a {
+a, #registrar {
     color: #652022;
     text-decoration: none;
 }
 
-    a:hover {
+    a:hover{
         color: #652022;
         text-decoration: underline;
     }
+#registrar:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .boton {
     width: 100%;
@@ -124,25 +133,23 @@ a {
     }
 
 
-@media (max-width: 1050px) {
+@media (max-width: 1150px) {
     .body-login {
-        width: 95%;
-        margin: auto;
+        width: 100%;
     }
 
     .img-content {
-        height: 38vh;
+        display:none;
     }
 
-    .radius {
-        border-radius: 7px 7px 0 0;
-    }
 
     .radius-b {
-        border-radius: 0 0 7px 7px;
+        border-radius:7px;
     }
 
     .form {
         height: auto;
+        width:90%;
+        margin:auto;
     }
 }

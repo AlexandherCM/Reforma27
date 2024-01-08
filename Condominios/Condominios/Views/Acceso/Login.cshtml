@@ -22,21 +22,28 @@
                 <img src="~/images/login/Edificio.jpeg" alt="Condominio" class="edificio radius">
             </section>
 
-            <section class="col-12 col-lg-5 bg-light form radius-b  d-flex flex-column justify-content-center">
+            <section class="col-12 col-lg-5 bg-light form radius-b text-center">
+                @* Logo *@
+                <section class="row pt-2">
+                    <img src="~/images/login/Logo.svg" alt="Logo" class="logo">
+                </section>
 
-                <form asp-action="ValidarAcceso">
+                <form asp-action="ValidarAcceso" id="form">
+                    
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <section class="row pt-2">
-                        <img src="~/images/login/Logo.svg" alt="Logo" class="logo">
-                    </section>
-
-                    <section class="row text-center pb-3">
+                   
+                    @* Bienvenida *@
+                    <section class="row text-center">
                         <h2>
-                            <span class="color-R">I</span>niciar sesi<span class="color-R">ó</span>n
+                            <b>
+                                <span class="color-R">I</span>niciar sesi<span class="color-R">ó</span>n
+                            </b>
                         </h2>
                     </section>
 
-                    <section class="row">
+                    @* Correo *@
+
+                    <section class="row mt-2">
                         <div class="sesion-input">
                             <label asp-for="Correo" for="exampleInputEmail1" class="label">Dirección de correo eléctronico</label>
                             <input asp-for="Correo" type="email" class="email">
@@ -44,7 +51,9 @@
                         </div>
                     </section>
 
-                    <section class="row pt-4 ">
+                    @* Contraseña *@
+
+                    <section class="row pt-3">
                         <div class="sesion-input">
                             <label asp-for="Clave" for="exampleInputPassword1" class="label">Contraseña</label>
                             <input asp-for="Clave" type="password" class="pass">
@@ -52,18 +61,62 @@
                         </div>
                     </section>
 
-                    <section class="row pt-3 text-center">
-                        <a href="">¿Olvidaste tu contraseña?</a>
+                    @* Registrarse *@
+                    <section class="row mt-2 text-center">
+                        <p>¿Aún no tienes una cuenta? <b id="registrar">Registrate aquí</b></p>
                     </section>
 
-                    <section class="row  p-1">
+                    @* Olvidaste tu contraseña *@
+                    <section class="row mb-2 text-center">
+                        <b>
+                            <a href="">¿Olvidaste tu contraseña?</a>
+                        </b>
+                    </section>
+
+                    <section class="row pb-3">
                         <div class="sesion-input">
                             <input type="submit" value="Iniciar sesión" class="boton" />
                         </div>
                     </section>
 
+                </form>
 
+                @* Registrar *@
+                <form id="formRegistrar" class="d-none">
+                    <section class="row text-center">
+                        <h2>
+                            <b>
+                                <span class="color-R">R</span>egistrate
+                            </b>
+                        </h2>
+                    </section>
 
+                    @* Nombre *@
+                    <section class="row pt-3">
+                        <div class="sesion-input">
+                            <label class="label">Nombre</label>
+                            <input type="text" class="pass">
+                        </div>
+                    </section>
+
+                    <section class="row pt-3">
+                        <div class="sesion-input">
+                            <label  class="label">Correo</label>
+                            <input type="email" class="pass">
+                        </div>
+                    </section>
+
+                    <section class="row pt-3">
+                        <div class="sesion-input">
+                            <label class="label">Contraseña</label>
+                            <input type="password" class="pass">
+                        </div>
+                    </section>
+                    <section class="row pt-2 pb-3">
+                        <div class="sesion-input">
+                            <input type="submit" value="Registrarse" class="boton" />
+                        </div>
+                    </section>
                 </form>
 
 
@@ -72,7 +125,19 @@
         </article>
 
     </main>
+    <script>
+        const registrar = document.getElementById('registrar');
+        const formulario = document.getElementById('form');
+        const formularioR = document.getElementById('formRegistrar');
+        if (registrar) {
+            registrar.addEventListener('click', () => {
+                formulario.classList.add("d-none")
+                formularioR.classList.toggle("d-none")
+            });
+        }
 
+
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

@@ -48,6 +48,7 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Variante.Periodo) .Include(c => c.Programados).ThenInclude(m => m.Mantenimiento)
                                     .ToListAsync();
         
+        // Modificar para obtener equipos activos
         public async Task<List<Equipo>> GetListWithMtoPending()
             => await _context.Equipo
                                     .Include(c => c.Estatus)          .Include(c => c.Ubicacion)

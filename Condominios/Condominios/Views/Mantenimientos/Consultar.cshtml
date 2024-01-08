@@ -1,10 +1,13 @@
 ﻿@model Condominios.Models.ViewModels.CtrolEquipo.CtrolMtosEquipoViewModels
-@inject Condominios.Data.Interfaces.IEpoch service
 @using Newtonsoft.Json;
+@using System.Globalization;
 
 @{
 #pragma warning disable CS8602
     ViewData["Title"] = "Consultar";
+
+    CultureInfo cultureInfo = new CultureInfo("es-MX");
+    decimal CostoAdquisicion = Model.Equipo.CostoAdquisicion;
 }
 
 <aside class="row">
@@ -128,15 +131,12 @@
                 <th class="border-R" id="adquisición">
                     Mantenimiento
                 </th>
-                <th class="border-R" id="detalles">
-                    Estado
-                </th>
+                @* <th class="border-R" id="detalles">
+                Estado
+                </th> *@
                 <th class="border-R" id="detalles">
                     Editar
                 </th>
-                @*<th class="border-R" id="detalles">
-                Detalles
-                </th>*@
             </tr>
         </thead>
 
@@ -152,17 +152,17 @@
                     @Html.DisplayFor(modelItem => Model.Equipo.Funcion)
                 </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Estatus.Nombre) </td>
-                <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.CostoAdquisicion) </td>
+                <td class="border-R"> @CostoAdquisicion.ToString("C", cultureInfo) </td>
                 <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipo.Variante.Periodo.Nombre) </td>
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                <td class="border-R">
-                    <label class="toggle-switch">
-                        <input class="chbxEstado" data-url="Equipos/UpdateStatus/" type="checkbox" checked="@Model.Equipo.Estado" value="@(Model.Equipo.ID)">
-                        <div class="toggle-switch-background">
-                            <div class="toggle-switch-handle"></div>
-                        </div>
-                    </label>
-                </td>
+                @* <td class="border-R">
+                <label class="toggle-switch">
+                <input class="chbxEstado" data-url="Equipos/UpdateStatus/" type="checkbox" checked="@Model.Equipo.Estado" value="@(Model.Equipo.ID)">
+                <div class="toggle-switch-background">
+                <div class="toggle-switch-handle"></div>
+                </div>
+                </label>
+                </td> *@
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 <td class="border-R">
                     <img class="remover" src="~/images/pen-to-square-solid.svg" id="btn-edit" />
@@ -295,9 +295,9 @@
             @foreach (var iteam in Model.MtosProgramados)
             {
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                string cadena = string.Empty;
-                if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
-                else cadena = "Consultar";
+                //string cadena = string.Empty;
+                @* if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
+                   else cadena = "Consultar"; *@
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 <tr>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
@@ -309,7 +309,14 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
-                        <input type="button" class="btn-Mto btn-des w-100" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
+                        @if (iteam.EstadoAplicacion == "Pendiente")
+                        {
+                            <input type="button" class="btn-Mto btn-des w-100" value="Pendiente" data-object="@JsonConvert.SerializeObject(iteam)">
+                        }else
+                        {
+                            <br />
+                            <p> - </p>
+                        }
                     </td>
                 </tr>
             }

@@ -55,13 +55,10 @@
                 </div>
 
                 @*Boton*@
-                <div class="row pt-3 mb-2 d-flex justify-content-center">
+                <div class="row pt-3 d-flex justify-content-center">
                     <input type="submit" value="Agregar" class="btn-des" formnovalidate>
                 </div>
-
                 <br>
-
-                <br />
                 @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
             </form>
         </div>
@@ -87,11 +84,11 @@
 
 @* Filtro por página *@
 <article class="row text-dark mt-3">
-    <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
+    <section class="col-6 col-xl-2 bg-R p-1 text-light numerPage1 text-center">
         <h4 for="rowsPerPage">Filas por página:</h4>
     </section>
 
-    <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
+    <section class="col-6 col-xl-1 bg-R p-1 d-flex numerPage justify-content-start">
         <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
             <option value="3">3</option>
             <option selected value="10">10</option>
@@ -101,9 +98,6 @@
             <option value="100">100</option>
         </select>
     </section>
-
-    <section class="col-12 col-lg-9"></section>
-
 </article>
 
 @* Tabla2 *@

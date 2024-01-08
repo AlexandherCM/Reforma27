@@ -1,4 +1,5 @@
-﻿@model Condominios.Models.ViewModels.CtrolEquipo.CtrlEquipoViewModel
+﻿@using System.Globalization;
+@model Condominios.Models.ViewModels.CtrolEquipo.CtrlEquipoViewModel
 
 @{
 #pragma warning disable CS8602
@@ -221,11 +222,11 @@
 
 @* Filtro por página *@
 <article class="row text-dark mt-3">
-    <section class="col-6 col-lg-2 bg-R p-1 text-light numerPage1 text-center">
+    <section class="col-6 col-xl-2 bg-R p-1 text-light numerPage1 text-center">
         <h4 for="rowsPerPage">Filas por página:</h4>
     </section>
 
-    <section class="col-6 col-lg-1 bg-R p-1 d-flex numerPage justify-content-start">
+    <section class="col-6 col-xl-1 bg-R p-1 d-flex numerPage justify-content-start">
         <select id="rowsPerPage" class="option" onchange="cambiarFilasPorPagina()">
             <option value="3">3</option>
             <option selected value="10">10</option>
@@ -235,9 +236,6 @@
             <option value="100">100</option>
         </select>
     </section>
-
-    <section class="col-12 col-lg-9"></section>
-
 </article>
 
 @* Tabla de resultados *@
@@ -277,11 +275,8 @@
                 <th class="border-R" id="adquisición">
                     Mantenimiento
                 </th>
-                <th class="border-R" id="detalles">
+               @*  <th class="border-R" id="detalles">
                     Estado
-                </th>
-                @* <th class="border-R" id="detalles">
-                    Editar
                 </th> *@
                 <th class="border-R" id="detalles">
                     Detalles
@@ -294,6 +289,9 @@
             @* |||||||||||||||||||||||||||||||||||||||||||||| *@
             @for (int i = 0; i < Model.Equipos.Count; i++)
             {
+                CultureInfo cultureInfo = new CultureInfo("es-MX");
+                decimal CostoAdquisicion = Model.Equipos[i].CostoAdquisicion;
+
                 <tr>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].NumSerie) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Marca.Nombre) </td>
@@ -305,17 +303,17 @@
                             @Html.DisplayFor(modelItem => Model.Equipos[i].Funcion)
                     </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Estatus.Nombre) </td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].CostoAdquisicion) </td>
+                    <td class="border-R"> @CostoAdquisicion.ToString("C", cultureInfo) </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => Model.Equipos[i].Variante.Periodo.Nombre) </td>
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                    <td class="border-R">
+                    @* <td class="border-R">
                         <label class="toggle-switch">
                             <input class="chbxEstado" data-url="Equipos/UpdateStatus/" type="checkbox" checked="@Model.Equipos[i].Estado" value="@(Model.Equipos[i].ID)">
                             <div class="toggle-switch-background">
                                 <div class="toggle-switch-handle"></div>
                             </div>
                         </label>
-                    </td>
+                    </td> *@
                         @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                     <td class="border-R">
                         <a asp-controller="Mantenimientos" asp-action="Consultar" asp-route-id="@Model.Equipos[i].ID" data-parametro="@Model.Equipos[i].ID">

@@ -146,11 +146,11 @@
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                 <form asp-action="SearchByNames" class="row text-center">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="col-12 col-md-6 pt-2">
+                    <div class="col-12  pt-2">
                         <input asp-for="CadenaBusqueda" type="text" placeholder="Buscar" class="search">
                     </div>
 
-                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center pt-2">
+                    <div class="col-12  d-flex justify-content-center align-items-center pt-2">
                         <input type="submit" value="Buscar" class="botonTrue">
                     </div>
                 </form>
@@ -170,31 +170,31 @@
                 <div class="row text-center d-flex justify-content-between">
 
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col-sm-6 col-md-3 pt-2">
                         <select asp-for="FiltroID.MarcaID" asp-items="Model.Marcas" class="select">
                             <option value="0">Marca</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col-sm-6 col-md-3 pt-2">
                         <select asp-for="FiltroID.UbicacionID" asp-items="Model.Ubicaciones" class="select">
                             <option value="0">Ubicación</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col-sm-6 col-md-3 pt-2">
                         <select asp-for="FiltroID.TipoID" asp-items="Model.TipoEquipos" class="select">
                             <option value="0">Equipo</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col-sm-6 col-md-3 pt-2">
                         <select asp-for="FiltroID.MotorID" asp-items="Model.Motores" class="select">
                             <option value="0">Motor</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col">
+                    <div class="col-12 pt-2">
                         <input type="submit" value="Buscar" class="botonTrue">
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@

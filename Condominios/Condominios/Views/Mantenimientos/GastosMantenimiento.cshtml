@@ -21,47 +21,50 @@
                 <div class="text-danger"></div>
 
                 <div class="row text-center d-flex justify-content-between">
-
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
-                            <option value="0">Proveedor</option>
-                        </select>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="Filtros.MarcaID" asp-items="Model.Marcas" class="select">
-                            <option value="0">Marca</option>
-                        </select>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <select asp-for="Filtros.UbicacionID" asp-items="Model.Ubicaciones" class="select">
-                            <option value="0">Ubicación</option>
-                        </select>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
+                    <div class="col-6 col-md-1 mx-auto  d-flex align-items-center justify-content-center">
                         <select asp-for="Filtros.TipoID" asp-items="Model.TipoEquipos" class="select">
                             <option value="0">Equipo</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
+                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
+                            <option value="0">Proveedor</option>
+                        </select>
+                    </div>
+                    
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                        <input asp-for="@Model.Filtros.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                        <input asp-for="@Model.Filtros.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                        <select asp-for="Filtros.UbicacionID" asp-items="Model.Ubicaciones" class="select">
+                            <option value="0">Ubicación</option>
+                        </select>
+                    </div>
+                  
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                        <select asp-for="Filtros.MarcaID" asp-items="Model.Marcas" class="select">
+                            <option value="0">Marca</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+
+                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
                         <select asp-for="Filtros.MotorID" asp-items="Model.Motores" class="select">
                             <option value="0">Motor</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <input asp-for="@Model.Filtros.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <input asp-for="@Model.Filtros.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col row d-flex align-items-center justify-content-center">
+                    
+                    <div class="co-12 pt-2 row d-flex align-items-center justify-content-center">
                         <input type="submit" value="Buscar" class="botonTrue" style="width: 90%">
                         @* <button type="submit" name="boton" value="Todos" class="botonTrue col-12" style="width: 90%;">Todos</button> *@
                     </div>
@@ -75,7 +78,6 @@
 
 </article>
 
-@* Filtro por página ARREGLAR LA CHINGADERA ESTA!!!! *@ 
 <article class="row text-dark mt-3 HEADER-SECTION-GTOS-MTO">
 
     <div class="bg-R rounded-3" style="display:grid; grid-template-columns: repeat(2, 1fr)" >
@@ -107,7 +109,7 @@
 @* Tabla*@
 <article class="row rounded-3 tablas text-dark mt-3">
 
-    <table class="text-center border border-primary manteniminetos" id="myTable">
+    <table class="text-center border border-primary " id="myTable">
         <thead>
 
             <tr class="border-R">
@@ -157,9 +159,9 @@
 </section>
 
 
-<article class="row rounded-3 text-dark mt-3">
+<article class="row rounded-3 tablas text-dark mt-3">
 
-    <table class="text-center border tablas border-primary manteniminetos" id="myTable">
+    <table class="text-center border  border-primary manteniminetos" id="myTable">
         <thead>
 
             <tr class="border-R">

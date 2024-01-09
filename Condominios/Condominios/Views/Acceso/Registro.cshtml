@@ -1,4 +1,5 @@
-﻿@model Condominios.Models.ViewModels.SesionViewModel
+﻿@model Condominios.Models.DTOs.UsuarioDTO
+
 @{
     Layout = null;
 }
@@ -28,59 +29,63 @@
                     <img src="~/images/login/Logo.svg" alt="Logo" class="logo">
                 </section>
 
-                <form asp-action="ValidarAcceso" id="form">
-                    
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                   
-                    @* Bienvenida *@
+                @* Registrar *@
+                <form asp-action="Registro">
                     <section class="row text-center">
                         <h2>
                             <b>
-                                <span class="color-R">I</span>niciar sesi<span class="color-R">ó</span>n
+                                <span class="color-R">R</span>egistrate
                             </b>
                         </h2>
                     </section>
 
-                    @* Correo *@
-
-                    <section class="row mt-2">
+                    @* Nombre *@
+                    <section class="row pt-2">
                         <div class="sesion-input">
-                            <label asp-for="Correo" for="exampleInputEmail1" class="label">Dirección de correo eléctronico</label>
-                            <input asp-for="Correo" type="email" class="email">
-                            <span asp-validation-for="Correo" class="text-danger"></span>
+                            <label class="label">Nombre</label>
+                            <input asp-for="Nombre" type="text" class="pass">
                         </div>
                     </section>
 
-                    @* Contraseña *@
-
-                    <section class="row pt-3">
+                    <section class="row pt-2">
                         <div class="sesion-input">
-                            <label asp-for="Clave" for="exampleInputPassword1" class="label">Contraseña</label>
-                            <input asp-for="Clave" type="password" class="pass">
-                            <span asp-validation-for="Clave" class="text-danger"></span>
+                            <label class="label">Correo</label>
+                            <input asp-for="Correo" type="email" class="pass">
                         </div>
                     </section>
 
-                    @* Registrarse *@
+                    <section class="row pt-2">
+                        <div class="sesion-input">
+                            <label class="label">Contraseña</label>
+                            <input asp-for="Password" type="password" class="pass">
+                        </div>
+                    </section>
+                    <section class="row pt-2">
+                        <div class="sesion-input">
+                            <label class="label">Confirmar contraseña</label>
+                            <input asp-for="ConfPassword" type="password" class="pass">
+                        </div>
+                    </section>
+
+                    <section class="row pt-4">
+                        <div class="sesion-input">
+                            @if (ViewBag.MensajeClave != null)
+                            {
+                                <span class="text-danger">@ViewBag.MensajeClave</span>
+                            }
+                        </div>
+                    </section>
+
+
                     <section class="row mt-2 text-center">
-                        <a asp-controller="Acceso" asp-action="Registro"><p>¿Aún no tienes una cuenta? <b id="registrar">Registrate aquí</b></p></a>
+                        <a asp-controller="Acceso" asp-action="Login"><p>¿Ya tienes cuenta? <b id="registrar">Iniciar sesion</b></p></a>
                     </section>
-
-                    @* Olvidaste tu contraseña *@
-                    <section class="row mb-2 text-center">
-                        <b>
-                            <a href="">¿Olvidaste tu contraseña?</a>
-                        </b>
-                    </section>
-
-                    <section class="row pb-3">
+                    <section class="row pt-2 pb-3">
                         <div class="sesion-input">
-                            <input type="submit" value="Iniciar sesión" class="boton" />
+                            <input type="submit" value="Registrarse" class="boton" />
                         </div>
                     </section>
-
                 </form>
-
             </section>
 
         </article>

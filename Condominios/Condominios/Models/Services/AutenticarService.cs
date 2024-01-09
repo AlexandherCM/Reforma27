@@ -13,6 +13,7 @@ namespace Condominios.Models.Services
     {
         public Task<bool> IniciarSesion(SesionViewModel sesion, HttpContext HttpContext);
         public Task CerrarSesion(HttpContext HttpContext);
+        public Task UsuarioExistente(Usuario user);
     }
     public class AutenticarService : IAutenticarService
     {
@@ -51,6 +52,16 @@ namespace Condominios.Models.Services
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+        }
+
+        public async Task UsuarioExistente(Usuario user)
+        {
+            var usuario = await _context.Usuario.FirstOrDefaultAsync(u => u.Correo == user.Correo);
+
+            if(usuario == null)
+            {
+
+            }
         }
     }
 }

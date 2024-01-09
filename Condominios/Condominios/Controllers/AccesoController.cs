@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Condominios.Models.ViewModels;
 using Condominios.Models.Services;
+using Condominios.Models.Entities;
+using Condominios.Models.DTOs;
 
 namespace Condominios.Controllers
 {
@@ -15,6 +17,24 @@ namespace Condominios.Controllers
         {
             return View();
         }
+
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Registro(UsuarioDTO user)
+        {
+            if(user.Password == user.ConfPassword)
+            {
+                
+            }
+            ViewBag.MensajeClave = "Las contraseñas tienen que ser iguales";
+            return View();
+
+        }
+
         public async Task<IActionResult> ValidarAcceso(SesionViewModel sesion)
         {
             bool estado = await _service.IniciarSesion(sesion, HttpContext);

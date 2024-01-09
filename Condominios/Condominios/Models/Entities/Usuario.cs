@@ -14,6 +14,10 @@ namespace Condominios.Models.Entities
         public string Nombre { get; set; }
         public string Correo { get; set; }
         public string Clave { get; set; }
+        public bool Restablecer { get; set; }
+        public bool Validado { get; set; }
+        public string Token { get; set; }
+
         //public string token { get; set; }
         //public bool Restablecer { get; set; }
         //public bool Validado { get; set; }

@@ -47,17 +47,17 @@
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
-                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
-                            <option value="0">Proveedor</option>
-                        </select>
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
                         <input asp-for="@Model.Filtros.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
                         <input asp-for="@Model.Filtros.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
+                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
+                            <option value="0">Proveedor</option>
+                        </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
                     <div class="col-6 col-lg-3">

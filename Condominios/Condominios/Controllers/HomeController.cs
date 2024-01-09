@@ -8,6 +8,12 @@ namespace Condominios.Controllers
     public class HomeController : Controller
     {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        //[Authorize(Roles = "Administrador, General")]
+        public IActionResult Pendientes()
+        {
+            return RedirectToAction("Pendientes", "Mantenimientos");
+        }
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         //[Authorize(Roles = "Administrador, General")]
         public IActionResult Catalogos()
@@ -52,12 +58,6 @@ namespace Condominios.Controllers
             return RedirectToAction("Crear", "Mantenimientos");
         }
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        //[Authorize(Roles = "Administrador, General")]
-        public IActionResult Pendientes()
-        {
-            return RedirectToAction("Pendientes", "Mantenimientos");
-        }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

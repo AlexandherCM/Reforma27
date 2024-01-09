@@ -16,18 +16,20 @@ namespace Condominios.Controllers
             _service = service;
         }
 
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Index()
         {
             CatalogoViewModel model = await _service.ObtenerCatalogos();
             return View(model);
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task UpdateById([FromBody] CatalogoViewModel model)
         {
             await _service.ActualizarEstado(model);
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<CatalogoViewModel> Create([FromBody] CatalogoViewModel model)
         {
             var alerta = await _service.InsertarEntidad(model);
@@ -36,6 +38,7 @@ namespace Condominios.Controllers
             return json;
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> ObtenerRegistro()
         {
             CatalogoViewModel model = await _service.ObtenerCatalogos();
@@ -44,6 +47,7 @@ namespace Condominios.Controllers
             return jsonResult;
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Update([FromBody] CatalogoViewModel model)
         {
             var alerta = await _service.Update(model);

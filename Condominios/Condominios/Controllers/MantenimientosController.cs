@@ -4,9 +4,11 @@ using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Project;
 using Newtonsoft.Json;
+using System.Data;
 using System.IO;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
@@ -23,6 +25,8 @@ namespace Condominios.Controllers
         }
 
         // CONTROLADORES-MTOS-EQUIPO- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Consultar(int ID)
         {
             string json = string.Empty;
@@ -38,6 +42,8 @@ namespace Condominios.Controllers
 
             return View(model);
         }
+
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> CreateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
             viewModel.Mantenimiento.MtoProgramadoID = viewModel.MtoPendienteID;
@@ -50,7 +56,7 @@ namespace Condominios.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> FilterByStatus(int EdoAplicacion, string JsonMtosProgramados, int EquipoID)
         {
             if (EdoAplicacion > 3)
@@ -69,7 +75,7 @@ namespace Condominios.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> FilterByTime(FilterMtos filterMtos, string JsonMtosProgramados, int EquipoID)
         {
             var model = await _service.GetEquipo(EquipoID);
@@ -90,7 +96,7 @@ namespace Condominios.Controllers
         //}
 
         // CONTROLADORES CREAR-MTOS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Pendientes()
         {
             string json = string.Empty;
@@ -106,6 +112,7 @@ namespace Condominios.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> ConfirmarMtos(string Json)
         {
             CrearMtosViewModel model = new();
@@ -116,6 +123,7 @@ namespace Condominios.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> CrearMtos(MantenimientoViewModel Mantenimiento, string JsonEquipos)
         {
             var equipos = JsonConvert.DeserializeObject<List<EquipoMtoViewModel>>(JsonEquipos) ?? new();
@@ -138,7 +146,7 @@ namespace Condominios.Controllers
 
         // Carlos CONTROLADORES-GTOS-MTOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> GastosMantenimiento()
         {
             string json = string.Empty;
@@ -154,6 +162,7 @@ namespace Condominios.Controllers
         }
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> BusquedaFiltros(CtrolGastosMantenimientoViewModel model, string boton)
         {
             AlertaEstado alertaEstado = new();

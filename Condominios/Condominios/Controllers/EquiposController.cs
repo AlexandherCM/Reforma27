@@ -21,8 +21,7 @@ namespace Condominios.Controllers
         }
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        //[Authorize(Roles = "Administrador, General")]
-        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
@@ -45,8 +44,7 @@ namespace Condominios.Controllers
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Create(CtrlEquipoViewModel model)
         {
             if (ModelState.IsValid)
@@ -68,7 +66,7 @@ namespace Condominios.Controllers
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> SearchByFilters(FiltrosDTO FiltroID)
         {
             if(FiltroID.MarcaID == 0 && FiltroID.TipoID == 0 && FiltroID.UbicacionID == 0 && FiltroID.MotorID == 0)
@@ -87,7 +85,7 @@ namespace Condominios.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> SearchByNames(string CadenaBusqueda)
         {
             List<Equipo> equipos = await _service.GetEquipos(CadenaBusqueda);
@@ -98,7 +96,7 @@ namespace Condominios.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> SearchByStatus(int EstatusID = 0)
         {
             List<Equipo> equipos = await _service.GetEquipos(EstatusID);
@@ -109,12 +107,12 @@ namespace Condominios.Controllers
         }
 
         [HttpGet]
-        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task UpdateStatus(int id)
             => await _service.ActualizarEstado(id);
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Update(CtrolMtosEquipoViewModels viewModel)
         {
             viewModel.Plantilla.ID = viewModel.EquipoID;

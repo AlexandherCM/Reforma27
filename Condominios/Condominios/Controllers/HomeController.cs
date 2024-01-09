@@ -8,8 +8,13 @@ namespace Condominios.Controllers
     public class HomeController : Controller
     {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
+        public IActionResult Pendientes()
+        {
+            return RedirectToAction("Pendientes", "Mantenimientos");
+        }
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult Catalogos()
         {
             return RedirectToAction("Index", "Catalogos");
@@ -17,14 +22,14 @@ namespace Condominios.Controllers
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult Proveedores() 
         {
             return RedirectToAction("Index", "Proveedores");
         }
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult TipoEquipos()
         {
             return RedirectToAction("Index", "TipoEquipos");
@@ -32,37 +37,31 @@ namespace Condominios.Controllers
         
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Equipos()
         {
             return RedirectToAction("Index", "Equipos");
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult GastosDeMantenimiento()
         {
             return RedirectToAction("GastosMantenimiento", "Mantenimientos");
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult Mantenimientos()
         {
             return RedirectToAction("Crear", "Mantenimientos");
         }
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        //[Authorize(Roles = "Administrador, General")]
-        public IActionResult Pendientes()
-        {
-            return RedirectToAction("Pendientes", "Mantenimientos");
-        }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-        //[Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult Privacy()
         {
             return View();

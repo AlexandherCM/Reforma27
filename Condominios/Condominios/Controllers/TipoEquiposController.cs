@@ -7,6 +7,8 @@ using Condominios.Data.Repositories.CtrlEquipos;
 using Condominios.Models.ViewModels.Catalogos;
 using Newtonsoft.Json;
 using Condominios.Models.Services.Classes;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 #pragma warning disable CS8600
 
 namespace Condominios.Controllers
@@ -20,6 +22,7 @@ namespace Condominios.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
@@ -33,6 +36,7 @@ namespace Condominios.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Agregar(VarianteViewModel model)
         {
             model.AlertaEstado = await _service.AddEquipo(model);
@@ -40,6 +44,7 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> ObtenerRegistro(int id)
         {
             Variante model = await _service.GetEquipo(id);
@@ -48,6 +53,7 @@ namespace Condominios.Controllers
             return jsonResult;
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Actualizar(VarianteViewModel model)
         {
             model.AlertaEstado = await _service.Update(model);
@@ -55,6 +61,7 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrador, General")]
         public async Task UpdateStatus(int id)
         {
             await _service.ActualizarEstado(id);

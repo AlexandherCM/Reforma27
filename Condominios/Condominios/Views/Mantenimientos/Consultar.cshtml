@@ -119,7 +119,7 @@
                 <th class="border-R" id="ubicación">
                     Ubicación
                 </th>
-                <th class="border-R" id="funcion">
+                <th class="border-R" id="funcion" style="width:15%">
                     Función
                 </th>
                 <th class="border-R" id="estado">
@@ -131,9 +131,6 @@
                 <th class="border-R" id="adquisición">
                     Mantenimiento
                 </th>
-                @* <th class="border-R" id="detalles">
-                Estado
-                </th> *@
                 <th class="border-R" id="detalles">
                     Editar
                 </th>
@@ -197,25 +194,25 @@
             <input type="hidden" asp-for="JsonMtosProgramados" />
             <input type="hidden" asp-for="EquipoID" />
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <div class="col-4 col-lg-3 col-md-4 p-1">
+            <div class="col-4 col-lg-3">
                 <strong>Proveedor</strong>
                 <select asp-for="filterMtos.ProveedorID" asp-items="Model.Proveedores" class="search">
                     <option value="">Selecciona un proveedor</option>
                 </select>
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4 p-1">
+            <div class="col-4 col-lg-3">
                 <strong>Fecha 1</strong>
                 <input asp-for="filterMtos.FechaUno" class="search" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4 p-1">
+            <div class="col-4 col-lg-3">
                 <strong>Fecha 2</strong>
                 <input asp-for="filterMtos.FechaDos" class="search" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4">
-                <input type="submit" value="Buscar" class="btn-des w-100 mt-4">
+            <div class="col-12 col-lg-3">
+                <input type="submit" value="Buscar" class="btn-des w-100 mt-4" style="padding:2%;">
             </div>
         </form>
 
@@ -267,11 +264,11 @@
                 <th class="border-R Proveedor">
                     Proveedor
                 </th>
-                <th class="border-R Proveedor">
+                <th class="border-R Proveedor" style="width:10%;">
                     Observaciones
                 </th>
-                <th class="border-R">
-                    Aplicado
+                <th class="border-R" style="width:6%;">
+                    Estado
                 </th>
                 <th class="border-R">
                     Día de aplicación
@@ -303,7 +300,9 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Obseraciones)</td>
+                    <td class="border-R" style="text-align:justify;"> 
+                        @Html.DisplayFor(modelItem => iteam.Obseraciones)
+                    </td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.DiaDeAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
@@ -332,10 +331,10 @@
     <table class="text-center mantenimiento">
         <thead>
             <tr class="border-R">
-                <td class="border-R" style="width: 15%;">
+                <td class="border-R px-2" style="width: 15%;">
                     <h3><span class="color-R"></span> @Model.TotalGtosMto</h3>
                 </td>
-                <td class="border-R" style="width: 15%;">
+                <td class="border-R px-2" style="width: 15%;">
                     <h3><span class="color-R"></span> @Model.TotalGtosRep</h3>
                 </td>
                 <td colspan="5">

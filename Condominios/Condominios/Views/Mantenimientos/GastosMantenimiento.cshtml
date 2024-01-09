@@ -14,59 +14,54 @@
 
     @* BUSCADOR POR FILTRO *@
 
-    <section class="col-12 col-md-12  pt-2">
+    <section class="col-12 col-md-12 pt-2">
         <aside class="row justify-content-center" style="height:100%">
             <form asp-action="BusquedaFiltros" class="col-12 border-R d-flex justify-content-center flex-column">
                 <h5 class="mt-2 mb-3"><span class="color-R">B</span>úsqueda con filtros</h5>
                 <div class="text-danger"></div>
 
-                <div class="row text-center d-flex justify-content-between">
+                <div class="row text-center d-flex justify-content-between g-3">
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-md-1 mx-auto  d-flex align-items-center justify-content-center">
+                    <div class="col-6 col-lg-3 mx-auto  d-flex align-items-center justify-content-center">
                         <select asp-for="Filtros.TipoID" asp-items="Model.TipoEquipos" class="select">
                             <option value="0">Equipo</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
-                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
-                            <option value="0">Proveedor</option>
-                        </select>
-                    </div>
-                    
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
-                        <input asp-for="@Model.Filtros.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
-                        <input asp-for="@Model.Filtros.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
-                    </div>
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
-                        <select asp-for="Filtros.UbicacionID" asp-items="Model.Ubicaciones" class="select">
-                            <option value="0">Ubicación</option>
-                        </select>
-                    </div>
-                  
-                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
                         <select asp-for="Filtros.MarcaID" asp-items="Model.Marcas" class="select">
                             <option value="0">Marca</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-
-                    <div class="col-6 col-md-1 mx-auto d-flex align-items-center justify-content-center">
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
                         <select asp-for="Filtros.MotorID" asp-items="Model.Motores" class="select">
                             <option value="0">Motor</option>
                         </select>
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                    
-                    <div class="co-12 pt-2 row d-flex align-items-center justify-content-center">
-                        <input type="submit" value="Buscar" class="botonTrue" style="width: 90%">
-                        @* <button type="submit" name="boton" value="Todos" class="botonTrue col-12" style="width: 90%;">Todos</button> *@
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
+                        <select asp-for="Filtros.UbicacionID" asp-items="Model.Ubicaciones" class="select">
+                            <option value="0">Ubicación</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
+                        <select asp-for="Filtros.ProveedorID" class="select" asp-items="@Model.Proveedores">
+                            <option value="0">Proveedor</option>
+                        </select>
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
+                        <input asp-for="@Model.Filtros.Fecha1" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-lg-3 mx-auto d-flex align-items-center justify-content-center">
+                        <input asp-for="@Model.Filtros.Fecha2" class="select" type="text" id="fechaInput" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
+                    </div>
+                    @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+                    <div class="col-6 col-lg-3">
+                        <input type="submit" value="Buscar" class="botonTrue h-100">
                     </div>
                     @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 

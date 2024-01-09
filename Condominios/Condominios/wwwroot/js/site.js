@@ -12,6 +12,7 @@ const hyperLink = getElements('hyperLink');
 const icons = getElements('icon-users');
 const nav = getElement('navbarResponsivo');
 
+
 let isToggle = false;
 const menuSrcOpen = "/images/bars-solid.svg";
 const menuSrcClosed = "/images/x-solid.svg";
@@ -57,3 +58,5 @@ window.addEventListener('resize', function () {
         nav.classList.remove("show");
     }
 });
+
+

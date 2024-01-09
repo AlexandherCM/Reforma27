@@ -6,10 +6,9 @@
 }
 
 .tabla-main {
-    height: 21.5vh;
+    height: 24.7vh;
     overflow: auto;
 }
-
 
 /* GTOS-MTO - - - - - - - - - - - - - - */
 
@@ -53,18 +52,28 @@
 @media screen and (max-width: 1400px) {
     .GRID-CONTAINER {
         grid-template-columns: 1fr;
-        gap:0;
+        gap:1rem;
     }
 
     .HEADER-SECTION-GTOS-MTO, 
     .HEADER-SECTION-CONSULTAR-MTOS {
         grid-template-columns: 1fr;
     }
+
+    .tabla-main {
+        height: 38.5vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (max-width: 1200px) {
     .Tabla-Create-GtosMtos {
         height: 10rem;
+        overflow: auto;
+    }
+
+    .tabla-main {
+        height: 30vh;
         overflow: auto;
     }
 }
@@ -134,16 +143,10 @@ td {
     }
 
 
-
-@media (max-width: 990px) {
-    /*.option {
-        width: 15%;
-    }*/
-    table.equipos td:nth-child(4),
-    table.equipos td:nth-child(5),
-    table.equipos td:nth-child(6),
-    table.equipos td:nth-child(7),
-    table.equipos td:nth-child(8), #motor, #funcion, #capacidad, #ubicación, #estado {
-        display: none;
+@media (max-width: 1000px) {
+        .tablas {
+            overflow:auto;
+            width:100%;
+            margin: auto;
+        }
     }
-}

@@ -29,5 +29,11 @@ namespace Condominios.Controllers
             await _service.CerrarSesion(HttpContext);
             return RedirectToAction(nameof(Login));
         }
+
+        public IActionResult Usuario()
+        {
+            return View();
+        }
+
     }
 }

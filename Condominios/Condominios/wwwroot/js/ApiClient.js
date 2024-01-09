@@ -15,7 +15,7 @@
     }
 
     async SendGet(endpoint) {
-        const response = await fetch(endpoint);
+        const response = await fetch(`${ApiClient.host}${endpoint}`);
         return await response.json();
     }
 

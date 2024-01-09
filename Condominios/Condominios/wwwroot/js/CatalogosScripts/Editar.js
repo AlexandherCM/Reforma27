@@ -43,7 +43,7 @@
             var InputNombre = Formulario.querySelector('[name="Nombre"]');
             var InputHidden = Formulario.querySelector('[name="InputHidden"]');
             InputHidden.value = Parametro;
-            api.SendGet(`Catalogos/ObtenerRegistro/${Parametro}`)
+            api.SendGet(`ObtenerRegistro/${Parametro}`)
                 .then(data => {
 
                     switch (Formulario.id) {

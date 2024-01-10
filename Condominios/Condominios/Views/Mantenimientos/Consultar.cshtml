@@ -312,7 +312,7 @@
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
-                        <input type="button" class="btn-Mto btn-des px-2" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
+                        <input type="button" class="btn-Mto btn-des" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
                         @*@if (iteam.EstadoAplicacion == "Pendiente")
                     {
                     <input type="button" class="btn-Mto btn-des w-100" value="Pendiente" data-object="@JsonConvert.SerializeObject(iteam)">
@@ -372,7 +372,7 @@
 
             <div class="row p-1">
                 <label for="">Seleccione el tipo de mantenimiento</label>
-                <select asp-for="Mantenimiento.TipoMantenimientoID" asp-items="Model.TipoMtos" class="textDes">
+                <select asp-for="Mantenimiento.TipoMantenimientoID" id="ddlTipoMto" asp-items="Model.TipoMtos" class="textDes">
                     <option value="">Tipo de mantenimiento</option>
                 </select>
                 <span asp-validation-for="Mantenimiento.TipoMantenimientoID" class="text-danger"></span>
@@ -380,7 +380,7 @@
 
             <div class="row p-1">
                 <label for="">Seleccione el proveedor que realizara el trabajo</label>
-                <select asp-for="Mantenimiento.ProveedorID" asp-items="Model.Proveedores" class="textDes">
+                <select asp-for="Mantenimiento.ProveedorID" id="ddlProveedor" asp-items="Model.Proveedores" class="textDes">
                     <option value="">Proveedor</option>
                 </select>
                 <span asp-validation-for="Mantenimiento.ProveedorID" class="text-danger"></span>

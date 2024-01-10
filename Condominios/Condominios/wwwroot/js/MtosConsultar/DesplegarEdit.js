@@ -46,6 +46,8 @@
     let btnUpdate = document.getElementById('btn-update'); // Bóton para editar un mantenimiento pasado
 
     let txtMantenimientoID = document.getElementById('txtMantenimientoID'); // Input del formulario que manda el ID del mto pasado
+    let ddlTipoMto = document.getElementById('ddlTipoMto');
+    let ddlProveedor = document.getElementById('ddlProveedor');
 
     Array.from(btnsMtos).forEach(btn => {
         btn.addEventListener('click', (event) => {
@@ -60,6 +62,7 @@
             let accion = document.getElementById('accion-forms');
 
             txtMantenimientoID.value = parseInt(object.MantenimientoID); // asignación del ID del mto pendiente o pasado
+            console.log(object);
 
             if (object.Pendiente) {
                 accion.innerHTML = 'Registra el último mantenimiento programado';
@@ -79,8 +82,12 @@
                 // Alternar Botones - - - - - - - - - - - - - - - - - - - - - 
                 btnUpdate.classList.remove('d-none');
                 btnAdd.classList.add('d-none');
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+                // Igualar campos - - - - - - - - - - - - - - - - - - - - - - - - -
+                //PDT !!
+                ddlTipoMto.value = parseInt(object.TipoMantenimientoID);
+                ddlProveedor.value = parseInt(object.ProveedorID);
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                 //Abrir el modal
                 contenedor.classList.toggle('mostrarDown');
                 MostrarMas.src = contenedor.classList.contains('mostrarDown') ? '/images/down.svg' : '/images/up.svg';

@@ -51,9 +51,9 @@ a b {
 }
 
 .icons {
-    height: 2rem;
-    padding-right: 3%;
-    /*width:2rem;*/
+    height: 1.7rem;
+    width:1.7rem;
+    margin-right:10%;
 }
 
 .book {
@@ -143,24 +143,28 @@ a {
         
     }
 
+/*Usuarios*/
+.usuario {
+    height:3.5rem;
+}
+.editarUsuario {
+    height: 1.6rem;
+    cursor:pointer;
+}
+.editarUsuario:hover {
+    height: 1.8rem;
+}
 
-
-
-
-
-
-
-    /* switch  */
-
-    .toggle-switch {
-        position: relative;
-        display: inline-block;
-        width: 40px;
-        /* Reducido a la mitad */
-        height: 20px;
-        /* Reducido a la mitad */
-        cursor: pointer;
-    }
+/* switch  */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    /* Reducido a la mitad */
+    height: 20px;
+    /* Reducido a la mitad */
+    cursor: pointer;
+}
 
         .toggle-switch input[type="checkbox"] {
             display: none;

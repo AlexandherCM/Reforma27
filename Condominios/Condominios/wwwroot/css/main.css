@@ -46,19 +46,28 @@ a b {
 
 .titles {
     display: none;
-    padding-left: 2rem;
+    padding-left: 1rem;
+    justify-content:flex-start;
 }
 
 .icons {
-    height: 2.2rem;
-    padding-right: 10%;
+    height: 2rem;
+    padding-right: 3%;
+    /*width:2rem;*/
+}
+
+.book {
+    height: 2.1rem;
+    padding-right: 1%;
+    width: 2rem;
 }
 
 .icon-menu {
-    height: 2.2rem;
+    height: 2.1rem;
 }
-.icon-users{
-    height:2.2rem;
+.icon-users {
+    height: 2.2rem;
+    width: 2rem;
 }
 
 #list {

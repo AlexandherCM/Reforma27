@@ -172,6 +172,8 @@ namespace Condominios.Data.Repositories.Mantenimientos
                                         .Include(m => m.Equipo.Variante.Periodo)
                                         .FirstOrDefaultAsync(m => m.ID == viewModel.MtoProgramadoID) ?? new();
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+            DictNumberMtos["AplicarReparacion"] = true;
+
             result = StructureNewMto(viewModel, mtoProgramado, DictNumberMtos);
 
             if (result.Alerta.Estado == false)

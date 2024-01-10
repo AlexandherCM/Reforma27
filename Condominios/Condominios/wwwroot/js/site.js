@@ -39,7 +39,7 @@ const toggle = isOpen => {
         element.style.paddingLeft = isOpen && width === "6%" ? '0' : '1.8rem';
     });
     Array.from(icons).forEach(element => {
-        element.style.height = isOpen && width === "6%" ? '2.3rem' : '1.8rem';
+        element.style.height = isOpen && width === "6%" ? '2.2rem' : '1.8rem';
     });
 };
 
@@ -54,9 +54,16 @@ menuIcon.onclick = handleClick;
 window.addEventListener('resize', function () {
     var nuevoAnchoPantalla = window.innerWidth;
 
-    if (nuevoAnchoPantalla > 900) {
+    if (nuevoAnchoPantalla > 990) {
         nav.classList.remove("show");
+        isToggle = true;
+        
+    } else if (nuevoAnchoPantalla < 991) {
+        isToggle = true;
     }
+    toggle(isToggle);
+    isToggle = !isToggle;
 });
+
 
 

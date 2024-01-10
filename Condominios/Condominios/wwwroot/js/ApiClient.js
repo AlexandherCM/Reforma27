@@ -1,6 +1,6 @@
 ﻿class ApiClient {
     static host = 'https://reforma27.cohabi.com.mx/';
-    //static host = 'https://webapitest.bsite.net/';
+    ////static host = 'https://webapitest.bsite.net/';
     //static host = 'https://localhost:7223/';
 
     // Utiliza este metodo para mandar parametros a un controlador y recibir un JSON 

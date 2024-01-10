@@ -55,10 +55,10 @@ a b {
 }
 
 .icon-menu {
-    height: 2.3rem;
+    height: 2.2rem;
 }
 .icon-users{
-    height:1.8rem;
+    height:2.2rem;
 }
 
 #list {
@@ -66,7 +66,7 @@ a b {
 }
 
 .txt {
-    padding: 2%;
+    /*padding: 2%;*/
     border-radius: 5px;
     border: solid 1px #652022;
 }

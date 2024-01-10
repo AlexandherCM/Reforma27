@@ -26,7 +26,7 @@
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <input asp-for="MtoPendienteID" type="hidden">
+                <input asp-for="MantenimientoID" type="hidden">
                 <input asp-for="EquipoID" type="hidden">
                 @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
@@ -264,7 +264,10 @@
                 <th class="border-R Proveedor">
                     Proveedor
                 </th>
-                <th class="border-R Proveedor" style="width:10%;">
+                <th class="border-R Proveedor">
+                    Tipo de Mantenimiento
+                </th>
+                <th class="border-R Proveedor" style="width:18%;">
                     Observaciones
                 </th>
                 <th class="border-R" style="width:6%;">
@@ -279,7 +282,7 @@
                 <th class="border-R">
                     Proxima Aplicación
                 </th>
-                <th class="border-R">
+                <th class="border-R" style="width:7%;">
                     Consultar
                 </th>
 
@@ -292,30 +295,32 @@
             @foreach (var iteam in Model.MtosProgramados)
             {
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                //string cadena = string.Empty;
-                @* if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
-                   else cadena = "Consultar"; *@
+                string cadena = string.Empty;
+                if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
+                else cadena = "Editar";
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 <tr>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
-                    <td class="border-R" style="text-align:justify;"> 
-                        @Html.DisplayFor(modelItem => iteam.Obseraciones)
+                    <td class="border-R px-1"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.TipoMantenimiento)</td>
+                    <td class="border-R" style="text-align:justify;">
+                        @Html.DisplayFor(modelItem => iteam.Observaciones)
                     </td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
+                    <td class="border-R px-1"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.DiaDeAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
-                        @if (iteam.EstadoAplicacion == "Pendiente")
-                        {
-                            <input type="button" class="btn-Mto btn-des w-100" value="Pendiente" data-object="@JsonConvert.SerializeObject(iteam)">
-                        }else
-                        {
-                            <br />
-                            <p> - </p>
-                        }
+                        <input type="button" class="btn-Mto btn-des px-2" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
+                        @*@if (iteam.EstadoAplicacion == "Pendiente")
+                    {
+                    <input type="button" class="btn-Mto btn-des w-100" value="Pendiente" data-object="@JsonConvert.SerializeObject(iteam)">
+                    }else
+                    {
+                    <br />
+                    <p> - </p>
+                    }*@
                     </td>
                 </tr>
             }
@@ -345,25 +350,6 @@
     </table>
 </article>
 
-@* Totales *@
-@* <aside class="row rounded-3 text-dark mt-3 mb-5 justify-content-between">
-
-    <div class="col-6 col-md-2 border-R">
-        <h3><span class="color-R">$</span> xxxx.xx</h3>
-    </div>
-
-    <div class="col-6 col-md-2 border-R">
-        <h3><span class="color-R">$</span> xxxx.xx</h3>
-    </div>
-
-    <div class="col-12 col-md-2"></div>
-
-    <div class="col-12 col-md-6 border-R text-center">
-        <h2><span class="color-R">T</span>otal de gastos</h2>
-    </div>
-
-</aside> *@
-
 <br />
 
 @* Despegable DOWN *@
@@ -372,11 +358,11 @@
         <form id="form-mto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <input asp-for="MtoPendienteID" type="hidden">
+            <input asp-for="MantenimientoID" id="txtMantenimientoID" type="hidden">
             <input asp-for="EquipoID" type="hidden">
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
-            <h4 class="pt-3">Registra el último mantenimiento programado</h4>
+            <h4 id="accion-forms" class="pt-3"></h4>
 
             <div class="textDes" style="text-align:justify;">
                 <section class="row pt-3 bg-white p-2 rounded text-black">

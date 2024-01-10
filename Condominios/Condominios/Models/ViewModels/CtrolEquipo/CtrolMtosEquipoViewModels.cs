@@ -14,7 +14,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
     {
         // ID's requeridos
         [Required]
-        public int MtoPendienteID { get; set; }
+        public int MantenimientoID { get; set; }
 
         [Required]
         public int EquipoID { get; set; } 
@@ -112,8 +112,11 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public string CostoMantenimiento { get; set; }
         public string CostoReparacion { get; set; }
         public string Proveedor { get; set; }
-        public string Obseraciones { get; set; }
+        public string Observaciones { get; set; }
         public int ProveedorID { get; set; }
+
+        public int TipoMantenimientoID { get; set; }
+        public string TipoMantenimiento { get; set; }
     }
 
     public class FilterMtos

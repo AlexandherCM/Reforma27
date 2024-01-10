@@ -1,87 +1,107 @@
-﻿//Despelgable 1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-let conte = document.getElementById('despegableUP');
-let Mostrar = document.getElementById('up');
+﻿document.addEventListener('DOMContentLoaded', function () {
 
-if (conte && Mostrar) {
-    Mostrar.addEventListener('click', function () {
+
+
+    //Despelgable 1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    let conte = document.getElementById('despegableUP');
+    let Mostrar = document.getElementById('up');
+
+    if (conte && Mostrar) {
+        Mostrar.addEventListener('click', function () {
+            conte.classList.toggle('mostrarUP');
+            Mostrar.src = conte.classList.contains('mostrarUP') ? '/images/up.svg' : '/images/down.svg';
+        });
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+    let btnsDetails = document.getElementById('btn-edit');
+
+    btnsDetails.addEventListener('click', () => {
         conte.classList.toggle('mostrarUP');
         Mostrar.src = conte.classList.contains('mostrarUP') ? '/images/up.svg' : '/images/down.svg';
     });
-}
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    //Despelgable 2 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-let btnsDetails = document.getElementById('btn-edit');
+    let flagModal = false;
 
-btnsDetails.addEventListener('click', () => {
-    conte.classList.toggle('mostrarUP');
-    Mostrar.src = conte.classList.contains('mostrarUP') ? '/images/up.svg' : '/images/down.svg';
-});
+    let contenedor = document.getElementById('despegableDown');
+    let MostrarMas = document.getElementById('Down');
 
-//Despelgable 2 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    if (contenedor && MostrarMas) {
+        MostrarMas.addEventListener('click', function () {
+            if (flagModal) {
+                contenedor.classList.toggle('mostrarDown');
+                MostrarMas.src = contenedor.classList.contains('mostrarDown') ? '/images/down.svg' : '/images/up.svg';
 
-let flagModal = false;
+                flagModal = false
+            }
+        });
+    }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    let btnsMtos = document.getElementsByClassName('btn-Mto'); // Botones de los diferentes mantenimientos
 
-let contenedor = document.getElementById('despegableDown');
-let MostrarMas = document.getElementById('Down');
+    let btnAdd = document.getElementById('btn-add'); // Botón para confirmar el mto pendiente 
+    let btnUpdate = document.getElementById('btn-update'); // Bóton para editar un mantenimiento pasado
 
-if (contenedor && MostrarMas) {
-    MostrarMas.addEventListener('click', function () {
-        if (flagModal) {
-            contenedor.classList.toggle('mostrarDown');
-            MostrarMas.src = contenedor.classList.contains('mostrarDown') ? '/images/down.svg' : '/images/up.svg';
+    let txtMantenimientoID = document.getElementById('txtMantenimientoID'); // Input del formulario que manda el ID del mto pasado
 
-            flagModal = false
-        }
-    });
-}
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-let btnsMtos = document.getElementsByClassName('btn-Mto');
+    Array.from(btnsMtos).forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            // Alternar Botones - - - - - - - - - - - - - - - - - - - - - 
+            btnUpdate.classList.add('d-none');
+            btnAdd.classList.remove('d-none');
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-Array.from(btnsMtos).forEach(btn => {
-    btn.addEventListener('click', (event) => {
-        flagModal = true;
-        let object = JSON.parse(event.currentTarget.getAttribute('data-object'));
-        let leyendaMto = document.getElementById('Leyenda-Mto');
+            flagModal = true;
+            let object = JSON.parse(event.currentTarget.getAttribute('data-object'));
+            let leyendaMto = document.getElementById('Leyenda-Mto');
+            let accion = document.getElementById('accion-forms');
 
-        console.log(object);
+            txtMantenimientoID.value = parseInt(object.MantenimientoID); // asignación del ID del mto pendiente o pasado
 
-        if (object.Pendiente) {
-            leyendaMto.innerHTML = `Este equipo con número de serie <strong>"${object.NumSerieEquipo}"</strong>
+            if (object.Pendiente) {
+                accion.innerHTML = 'Registra el último mantenimiento programado';
+
+                leyendaMto.innerHTML = `Este equipo con número de serie <strong>"${object.NumSerieEquipo}"</strong>
                                     tiene un mantenimiento programado para: <strong>"${object.ProximaAplicacion}"</strong>`;
 
-            contenedor.classList.toggle('mostrarDown');
-            MostrarMas.src = contenedor.classList.contains('mostrarDown') ? '/images/down.svg' : '/images/up.svg';
-        } else {
-            Modal("Hola", "Mantenimientos realizado", true);
-        }
+                //Abrir el modal
+                contenedor.classList.toggle('mostrarDown');
+                MostrarMas.src = contenedor.classList.contains('mostrarDown') ? '/images/down.svg' : '/images/up.svg';
+            } else {
+                accion.innerHTML = 'Actualiza los datos de este mantenimiento pasado';
 
+                leyendaMto.innerHTML = `Este equipo con número de serie <strong>"${object.NumSerieEquipo}"</strong>
+                                    tenia un mantenimiento programado para: <strong>"${object.ProximaAplicacion}"</strong>`;
+
+                // Alternar Botones - - - - - - - - - - - - - - - - - - - - - 
+                btnUpdate.classList.remove('d-none');
+                btnAdd.classList.add('d-none');
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                //Abrir el modal
+                contenedor.classList.toggle('mostrarDown');
+                MostrarMas.src = contenedor.classList.contains('mostrarDown') ? '/images/down.svg' : '/images/up.svg';
+            }
+
+        });
     });
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    document.getElementById('SelectEstado').addEventListener('change', (event) => {
+        let forms = document.getElementById("formsEstado");
+        let seletValue = event.target.value;
+
+        if (parseInt(seletValue) != 0) {
+            forms.submit();
+        }
+    });
+
+
+
 });
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-document.getElementById('SelectEstado').addEventListener('change', (event) => {
-    let forms = document.getElementById("formsEstado");
-    let seletValue = event.target.value;
-
-    if (parseInt(seletValue) != 0) {
-        forms.submit();
-    }
-});
-
-//let btnAdd = document.getElementById('btn-add');
-//let btnUpdate = document.getElementById('btn-update');
-//let formsMto = document.getElementById('form-mto');
-
-//btnAdd.addEventListener('click', (event) => {
-//    formsMto.action = '/' + 'Mantenimientos' + '/' + 'CreateOneMto';
-//    formsMto.submit();
-//});
-
-//btnUpdate.addEventListener('click', (event) => {
-//    formsMto.action = '/' + 'Mantenimientos' + '/' + 'UpdateOneMto';
-//    formsMto.submit();
-//});
 
 
 

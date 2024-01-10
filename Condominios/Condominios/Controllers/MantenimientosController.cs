@@ -1,15 +1,12 @@
-﻿using Condominios.Models.Entities;
-using Condominios.Models.Services;
+﻿using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolGastosMantenimiento;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Project;
 using Newtonsoft.Json;
-using System.Data;
-using System.IO;
+using Microsoft.AspNetCore.Identity;
 #pragma warning disable CS8600
 #pragma warning disable CS8604
 #pragma warning disable CS8602
@@ -46,12 +43,32 @@ namespace Condominios.Controllers
         [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> CreateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
-            viewModel.Mantenimiento.MtoProgramadoID = viewModel.MtoPendienteID;
+            viewModel.Mantenimiento.MtoProgramadoID = viewModel.MantenimientoID;
             viewModel.AlertaEstado = await _service.ConfirmarMto(viewModel.Mantenimiento);
 
             TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
 
             //return View(nameof(Consultar), new { ID = viewModel.EquipoID });
+            return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
+        }
+
+        [Authorize(Roles = "Administrador, General")]
+        public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
+        {
+            string rol = 
+                User.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value;
+
+            if (!rol.Equals("Administrador"))
+            {
+                viewModel.AlertaEstado = new()
+                {
+                    Estado = false,
+                    Leyenda = $"Solo el administrador puede editar los mantenimientos pasados."
+                };
+
+                TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
+            }
+
             return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }
 
@@ -89,11 +106,6 @@ namespace Condominios.Controllers
 
             return View(nameof(Consultar), model);
         }
-
-        //public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
-        //{
-        //    return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
-        //}
 
         // CONTROLADORES CREAR-MTOS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         [Authorize(Roles = "Administrador, General")]

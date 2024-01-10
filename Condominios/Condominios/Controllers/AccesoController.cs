@@ -20,7 +20,7 @@ namespace Condominios.Controllers
             bool estado = await _service.IniciarSesion(sesion, HttpContext);
             if (estado != false)
             {
-                return RedirectToAction("Equipos", "Home");
+                return RedirectToAction("Pendientes", "Home");
             }
             return RedirectToAction(nameof(Login));
         }

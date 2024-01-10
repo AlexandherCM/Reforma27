@@ -15,6 +15,7 @@ namespace Condominios.Controllers
         }
         public IActionResult Login()
         {
+            ViewBag.Sesion = TempData["Mensaje"];
             return View();
         }
 
@@ -28,11 +29,20 @@ namespace Condominios.Controllers
         {
             if(user.Password == user.ConfPassword)
             {
-                
+                var Registrado = await _service.UsuarioExistente(user, HttpContext);
+                ViewBag.Mensaje = Registrado;
+                return View();
             }
             ViewBag.MensajeClave = "Las contraseñas tienen que ser iguales";
             return View();
 
+        }
+
+        public async Task<IActionResult> Confirmar(string token)
+        {
+            var Confirmado = await _service.ConfirmarUsuario(token, HttpContext);
+            ViewBag.Confirmado = Confirmado;
+            return View();
         }
 
         public async Task<IActionResult> ValidarAcceso(SesionViewModel sesion)
@@ -42,6 +52,7 @@ namespace Condominios.Controllers
             {
                 return RedirectToAction("Equipos", "Home");
             }
+            TempData["Sesion"] = "Las credenciales son incorrectas";
             return RedirectToAction(nameof(Login));
         }
         public async Task<IActionResult> Logout()

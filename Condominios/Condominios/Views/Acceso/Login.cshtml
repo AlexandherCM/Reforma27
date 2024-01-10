@@ -29,9 +29,9 @@
                 </section>
 
                 <form asp-action="ValidarAcceso" id="form">
-                    
+
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                   
+
                     @* Bienvenida *@
                     <section class="row text-center">
                         <h2>
@@ -58,6 +58,15 @@
                             <label asp-for="Clave" for="exampleInputPassword1" class="label">Contraseña</label>
                             <input asp-for="Clave" type="password" class="pass">
                             <span asp-validation-for="Clave" class="text-danger"></span>
+                        </div>
+                    </section>
+
+                    <section class="row pt-3">
+                        <div class="sesion-input">
+                            @if (ViewBag.Sesion != null)
+                            {
+                                <span class="text-danger">@ViewBag.Sesion</span>
+                            }
                         </div>
                     </section>
 

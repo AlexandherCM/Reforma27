@@ -21,6 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
 // Settings for Mexico Spanish - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 var culture = new CultureInfo("es-MX");
 CultureInfo.DefaultThreadCurrentCulture = culture;
@@ -61,7 +62,6 @@ builder.Services.AddScoped<VarianteService>();
 builder.Services.AddScoped<ProveedorService>();
 builder.Services.AddScoped<MtoService>();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 // Configuraciones de autenticación por roles - - - - - - - - - - - - - - - - - - - - - - - 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
@@ -92,11 +92,18 @@ using (var serviceScope = app.Services.CreateScope())
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsProduction())
 {
+    // Manejador de exepciones
     app.UseExceptionHandler("/Home/Error");
+    // Habilita la politica de seguridad de HTTPS, el uso de HSTP (HTTP Strict Transport Security)
     app.UseHsts();
 }
+else if (app.Environment.IsDevelopment())
+{
+
+}
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

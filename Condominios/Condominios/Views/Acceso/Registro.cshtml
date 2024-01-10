@@ -29,63 +29,77 @@
                     <img src="~/images/login/Logo.svg" alt="Logo" class="logo">
                 </section>
 
-                @* Registrar *@
-                <form asp-action="Registro">
-                    <section class="row text-center">
-                        <h2>
-                            <b>
-                                <span class="color-R">R</span>egistrate
-                            </b>
-                        </h2>
-                    </section>
+                @if (ViewBag.Mensaje == null)
+                {
+                    @* Registrar *@
+                    <form asp-action="Registro">
+                        <section class="row text-center">
+                            <h2>
+                                <b>
+                                    <span class="color-R">R</span>egistrate
+                                </b>
+                            </h2>
+                        </section>
 
-                    @* Nombre *@
-                    <section class="row pt-2">
-                        <div class="sesion-input">
-                            <label class="label">Nombre</label>
-                            <input asp-for="Nombre" type="text" class="pass">
-                        </div>
-                    </section>
+                        @* Nombre *@
+                        <section class="row pt-2">
+                            <div class="sesion-input">
+                                <label class="label">Nombre</label>
+                                <input asp-for="Nombre" type="text" class="pass">
+                            </div>
+                        </section>
 
-                    <section class="row pt-2">
-                        <div class="sesion-input">
-                            <label class="label">Correo</label>
-                            <input asp-for="Correo" type="email" class="pass">
-                        </div>
-                    </section>
+                        <section class="row pt-2">
+                            <div class="sesion-input">
+                                <label class="label">Correo</label>
+                                <input asp-for="Correo" type="email" class="pass">
+                            </div>
+                        </section>
 
-                    <section class="row pt-2">
-                        <div class="sesion-input">
-                            <label class="label">Contraseña</label>
-                            <input asp-for="Password" type="password" class="pass">
-                        </div>
-                    </section>
-                    <section class="row pt-2">
-                        <div class="sesion-input">
-                            <label class="label">Confirmar contraseña</label>
-                            <input asp-for="ConfPassword" type="password" class="pass">
-                        </div>
-                    </section>
+                        <section class="row pt-2">
+                            <div class="sesion-input">
+                                <label class="label">Contraseña</label>
+                                <input asp-for="Password" type="password" class="pass">
+                            </div>
+                        </section>
+                        <section class="row pt-2">
+                            <div class="sesion-input">
+                                <label class="label">Confirmar contraseña</label>
+                                <input asp-for="ConfPassword" type="password" class="pass">
+                            </div>
+                        </section>
 
-                    <section class="row pt-4">
-                        <div class="sesion-input">
-                            @if (ViewBag.MensajeClave != null)
-                            {
-                                <span class="text-danger">@ViewBag.MensajeClave</span>
-                            }
-                        </div>
-                    </section>
+                        <section class="row pt-4">
+                            <div class="sesion-input">
+                                @if (ViewBag.MensajeClave != null)
+                                {
+                                    <span class="text-danger">@ViewBag.MensajeClave</span>
+                                }
+                            </div>
+                        </section>
 
 
-                    <section class="row mt-2 text-center">
-                        <a asp-controller="Acceso" asp-action="Login"><p>¿Ya tienes cuenta? <b id="registrar">Iniciar sesion</b></p></a>
-                    </section>
-                    <section class="row pt-2 pb-3">
-                        <div class="sesion-input">
-                            <input type="submit" value="Registrarse" class="boton" />
-                        </div>
-                    </section>
-                </form>
+                        <section class="row mt-2 text-center">
+                            <a asp-controller="Acceso" asp-action="Login"><p>¿Ya tienes cuenta? <b id="registrar">Iniciar sesion</b></p></a>
+                        </section>
+                        <section class="row pt-2 pb-3">
+                            <div class="sesion-input">
+                                <input type="submit" value="Registrarse" class="boton" />
+                            </div>
+                        </section>
+                    </form>
+                }
+                else
+                {
+                    <div class="mt-5 pb-3" style="border: 2px solid red; border-radius: 5px ">
+                        <h2 class="m-3">Aviso</h2>
+                        <span class="text-danger m-3"><b> @ViewBag.Mensaje</b></span>
+                    </div>
+
+                    <div class="mt-5 ">
+                        <a asp-action="Login"><p><b id="registrar">Regresar</b></p></a>
+                    </div>
+                }
             </section>
 
         </article>

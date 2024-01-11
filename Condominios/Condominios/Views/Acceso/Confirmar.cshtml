@@ -2,7 +2,48 @@
     Layout = null;
 }
 
-@if (ViewBag.Confirmado != null)
-{
-    <span class="text-danger">@ViewBag.Confirmado</span>
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recuperar @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Condominios.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+
+
+
+</head>
+<body>
+    <main class="bg-index container-fluid">
+
+        <div class="container bg-white">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <img src="~/images/login/Logo.svg" alt="Logo" class="">
+                </div>
+                <div class="col-12">
+                    <h2 class="text-center">Confirmar cuenta</h2>
+                </div>
+            </div>
+
+            @if (ViewBag.Confirmado != null)
+            {
+                <div class="row mb-5">
+                    <div class="col-8 mx-auto mt-5 pb-3" style="border: 2px solid red; border-radius: 5px ">
+                        <h2 class="m-3 text-center">Aviso</h2>
+                        <p class="text-center"><span class="text-danger m-3"><b> @ViewBag.Confirmado</b></span></p>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+
+</html>

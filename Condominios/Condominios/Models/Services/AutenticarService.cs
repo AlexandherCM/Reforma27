@@ -43,8 +43,12 @@ namespace Condominios.Models.Services
             {
                 if (usuario.Validado != false)
                 {
-                    await CrearCoockie(usuario, HttpContext);
-                    return Mensaje = "ok";
+                    if (usuario.Restablecer != true)
+                    {
+                        await CrearCoockie(usuario, HttpContext);
+                        return Mensaje = "ok";
+                    }
+                    return Mensaje = "Ha solicitado la recuperacion de la cuenta, favor de revisar su correo";
                 }
                 return Mensaje = "La cuenta esta en espera de validacion";
             }
@@ -117,5 +121,53 @@ namespace Condominios.Models.Services
             return Mensaje = "El correo del usuario ya esta dado de alta";
         }
 
+        public async Task<string> RestablecerCuenta(UsuarioDTO user, HttpContext httpContext)
+        {
+            var Mensaje = string.Empty;
+            var usuario = await _context.Usuario.FirstOrDefaultAsync(u => u.Correo == user.Correo);
+            if (usuario != null && usuario.Validado == true)
+            {
+                if (usuario.Restablecer == false)
+                {
+                    var Destinatario = usuario.Correo;
+                    var Plantilla = "Recuperar.html";
+                    var Ruta = $"Acceso/CambiarPassword?token={usuario.Token}";
+                    var Correo = _herramientaRegistro.CrearPlantilla(_hostingEnvironment, httpContext, usuario, Destinatario, Plantilla, Ruta);
+                    bool Enviado = _herramientaRegistro.EnviarCorreo(Correo);
+
+                    usuario.Restablecer = true;
+
+                    if (Enviado)
+                    {
+                        await _context.SaveChangesAsync();
+
+                        return Mensaje = "Restablecer cuenta, favor de revisar la bandeja de entrada de su correo para seguir con el proceso";
+                    }
+                    return Mensaje = "No se pudo restablecer la cuenta, intentelo de nuevo";
+                }
+                return Mensaje = "Ya ha solicitado el restablecimiento de su cuenta, favor de revisar la bandeja de entrada de su correo";
+            }
+            return Mensaje = "No hay ningun usuario asociado a esa cuenta";
+        }
+
+        public async Task<string> CambiarPass(string token, UsuarioDTO user)
+        {
+            var Mensaje = string.Empty;
+            var usuario = await _context.Usuario.FirstOrDefaultAsync(u => u.Token == token);
+            if (usuario != null)
+            {
+                if (usuario.Restablecer == false)
+                {
+                    return Mensaje = "La cuenta ya sido restablecida";
+                }
+
+                usuario.Clave = _herramientaRegistro.EncriptarPassword(user.Password); 
+                usuario.Restablecer = false;
+
+                await _context.SaveChangesAsync();
+                return Mensaje = "La cuenta ha sido restablecida correctamente";
+            }
+            return Mensaje = "Usuario no encontrado";
+        }
     }
 }

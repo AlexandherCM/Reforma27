@@ -3,6 +3,7 @@ using Condominios.Models.ViewModels;
 using Condominios.Models.Services;
 using Condominios.Models.Entities;
 using Condominios.Models.DTOs;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Condominios.Controllers
 {
@@ -24,10 +25,20 @@ namespace Condominios.Controllers
             return View();
         }
 
+        public IActionResult Recuperar()
+        {
+            return View();
+        }
+
+        public IActionResult CambiarPassword()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Registro(UsuarioDTO user)
         {
-            if(user.Password == user.ConfPassword)
+            if (user.Password == user.ConfPassword)
             {
                 var Registrado = await _service.UsuarioExistente(user, HttpContext);
                 ViewBag.Mensaje = Registrado;
@@ -38,12 +49,34 @@ namespace Condominios.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Recuperar(UsuarioDTO user)
+        {
+            var Recuperado = await _service.RestablecerCuenta(user, HttpContext);
+            ViewBag.Recuperado = Recuperado;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CambiarPassword(string token, UsuarioDTO user)
+        {
+            if (user.Password == user.ConfPassword)
+            {
+                var Cambio = await _service.CambiarPass(token, user);
+                ViewBag.Cambiopas = Cambio;
+                return View();
+            }
+            ViewBag.Cambio = "Las contraseñas tienen que ser iguales";
+            return View();
+        }
+
         public async Task<IActionResult> Confirmar(string token)
         {
             var Confirmado = await _service.ConfirmarUsuario(token, HttpContext);
             ViewBag.Confirmado = Confirmado;
             return View();
         }
+
 
         public async Task<IActionResult> ValidarAcceso(SesionViewModel sesion)
         {

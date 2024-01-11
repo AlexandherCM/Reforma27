@@ -15,7 +15,7 @@ namespace Condominios.Controllers
         }
         public IActionResult Login()
         {
-            ViewBag.Sesion = TempData["Mensaje"];
+            ViewBag.Sesion = TempData["Sesion"];
             return View();
         }
 
@@ -47,12 +47,12 @@ namespace Condominios.Controllers
 
         public async Task<IActionResult> ValidarAcceso(SesionViewModel sesion)
         {
-            bool estado = await _service.IniciarSesion(sesion, HttpContext);
-            if (estado != false)
+            var Acceso = await _service.IniciarSesion(sesion, HttpContext);
+            if (Acceso == "ok")
             {
                 return RedirectToAction("Equipos", "Home");
             }
-            TempData["Sesion"] = "Las credenciales son incorrectas";
+            TempData["Sesion"] = Acceso;
             return RedirectToAction(nameof(Login));
         }
         public async Task<IActionResult> Logout()

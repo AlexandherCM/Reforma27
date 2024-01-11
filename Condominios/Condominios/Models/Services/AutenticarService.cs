@@ -15,7 +15,7 @@ namespace Condominios.Models.Services
 {
     public interface IAutenticarService
     {
-        public Task<bool> IniciarSesion(SesionViewModel sesion, HttpContext HttpContext);
+        public Task<string> IniciarSesion(SesionViewModel sesion, HttpContext HttpContext);
         public Task CerrarSesion(HttpContext HttpContext);
         public Task<string> UsuarioExistente(UsuarioDTO user, HttpContext httpContext);
     }
@@ -29,8 +29,9 @@ namespace Condominios.Models.Services
             _context = context;
             _hostingEnvironment = webHostEnvironment;
         }
-        public async Task<bool> IniciarSesion(SesionViewModel sesion, HttpContext HttpContext)
+        public async Task<string> IniciarSesion(SesionViewModel sesion, HttpContext HttpContext)
         {
+            var Mensaje = string.Empty;
             var Clave = _herramientaRegistro.EncriptarPassword(sesion.Clave);
             List<Usuario> Usuarios = await _context.Usuario
             .Where(c => c.Correo == sesion.Correo && c.Clave == Clave)
@@ -40,10 +41,14 @@ namespace Condominios.Models.Services
             var usuario = Usuarios.FirstOrDefault();
             if (usuario != null)
             {
-                await CrearCoockie(usuario, HttpContext);
-                return true;
+                if (usuario.Validado != false)
+                {
+                    await CrearCoockie(usuario, HttpContext);
+                    return Mensaje = "ok";
+                }
+                return Mensaje = "La cuenta esta en espera de validacion";
             }
-            return false;
+            return Mensaje = "Las credenciales son incorrectas";
         }
 
         public async Task CerrarSesion(HttpContext HttpContext)

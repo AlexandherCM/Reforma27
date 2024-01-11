@@ -13,32 +13,47 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 
-
-
 </head>
 <body>
+
     <main class="bg-index container-fluid">
+        <article class="row body-login ">
 
-        <div class="container bg-white">
-            <div class="row mt-5">
-                <div class="col-12">
-                    <img src="~/images/login/Logo.svg" alt="Logo" class="">
-                </div>
-                <div class="col-12">
-                    <h2 class="text-center">Confirmar cuenta</h2>
-                </div>
-            </div>
+            <section class="col-12 col-lg-7 img-content position-relative radius">
+                <img src="~/images/login/Edificio.jpeg" alt="Condominio" class="edificio radius">
+            </section>
 
-            @if (ViewBag.Confirmado != null)
-            {
-                <div class="row mb-5">
-                    <div class="col-8 mx-auto mt-5 pb-3" style="border: 2px solid red; border-radius: 5px ">
-                        <h2 class="m-3 text-center">Aviso</h2>
-                        <p class="text-center"><span class="text-danger m-3"><b> @ViewBag.Confirmado</b></span></p>
+            <section class="col-12 col-lg-5 bg-light form radius-b text-center">
+                @* Logo *@
+                
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <img src="~/images/login/Logo.svg" alt="Logo" class="">
+                        </div>
+                        <div class="col-12">
+                            <h2 class="text-center">Confirmar cuenta</h2>
+                        </div>
                     </div>
+
+                    @if (ViewBag.Confirmado != null)
+                    {
+                        <div class="row mb-5">
+                            <div class="col-8 mx-auto mt-5 pb-3" style="border: 2px solid red; border-radius: 5px ">
+                                <h2 class="m-3 text-center">Aviso</h2>
+                                <p class="text-center"><span class="text-danger m-3"><b> @ViewBag.Confirmado</b></span></p>
+                            </div>
+                        </div>
+                        <div class="row mt-5 mb-5">
+                            <div class="col-8 mx-auto">
+                                <a asp-action="Login"><p class="text-center"><b id="registrar">Iniciar sesión</b></p></a>
+                            </div>
+                        </div>
+                    }
                 </div>
-            }
-        </div>
+            </section>
+
+        </article>
     </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

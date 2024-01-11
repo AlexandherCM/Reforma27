@@ -55,6 +55,26 @@ namespace Condominios.Models.Services
         public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosFilters(string listMtos, FilterMtos filterMtos)
             => _unitOfWork.MtoRepository.Filter(listMtos, filterMtos);
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        public async Task<AlertaEstado> UpdateMtoProgrammed(MantenimientoViewModel viewModel, string rol) 
+        {
+            if (!rol.Equals("Administrador"))
+            {
+                _alertaEstado = new() 
+                {
+                    Estado = false,
+                    Leyenda = $"Solo el administrador puede editar los mantenimientos pasados."
+                };
+
+                return _alertaEstado;
+            }
+
+            _alertaEstado = await _unitOfWork.MtoRepository.UpdateMto(viewModel);
+
+            if (_alertaEstado.Estado)
+                await _unitOfWork.Save();
+
+            return _alertaEstado;
+        }
         public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
         {
             _alertaEstado = await _unitOfWork.MtoRepository.ConfirmarMto(viewModel);
@@ -151,6 +171,9 @@ namespace Condominios.Models.Services
                                       ? char.ToUpper(fechaTexto[0]) + fechaTexto.Substring(1) : "-",
                     DiaDeAplicacionEpoch = mto.Mantenimiento != null
                                          ? mto.Mantenimiento.FechaAplicacion : 0,
+
+                    TipoMantenimiento = mto.Mantenimiento != null ? mto.Mantenimiento.TipoMantenimiento.Nombre : "-",
+                    TipoMantenimientoID = mto.Mantenimiento != null ? mto.Mantenimiento.TipoMantenimientoID : 0,
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                     EstadoAplicacion = estado,
                     Pendiente = mto.Estado && !mto.Aplicado,
@@ -159,7 +182,7 @@ namespace Condominios.Models.Services
                     Proveedor = mto.Mantenimiento != null
                               ? mto.Mantenimiento.Proveedor.Nombre : "-",
 
-                    Obseraciones = mto.Mantenimiento != null
+                    Observaciones = mto.Mantenimiento != null
                               ? mto.Mantenimiento.Observaciones : "-",
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                     ProveedorID = mto.Mantenimiento != null
@@ -181,7 +204,7 @@ namespace Condominios.Models.Services
 
             // Obtener el ID del mantenimiento programado pendiente
             model.JsonMtosProgramados = model.CreateListMtosJson();
-            model.MtoPendienteID = model.GetMtoPendienteID();
+            //model.MantenimientoID = model.GetMtoPendienteID();
             model.EquipoID = model.GetEquipoID();
 
             return model;

@@ -40,7 +40,7 @@ function UpdateStatus(FormID) {
 
     api.SetPost('Catalogos/UpdateById', CatalogoViewModel)
         .then(data => {
-            console.log('POST Successful: Actualización de estado')
+            //console.log('POST Successful: Actualización de estado')
         })
         .catch(error => console.error('POST Error:', error));
 }

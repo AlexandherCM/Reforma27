@@ -230,7 +230,7 @@ function AddNewFile(TheObject, Propeties) {
 
     ${Propeties.Entity === 'Marca' ?
             '<td class="border-R" >' +
-            '<img class="remover" src="../../images/eye-solid.svg" />' +
+            /*'<img class="remover" src="../../images/eye-solid.svg" />' +*/
             '</td >' : ''
         }
     `;

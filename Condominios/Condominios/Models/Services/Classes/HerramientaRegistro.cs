@@ -95,24 +95,39 @@ namespace Condominios.Models.Services.Classes
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        public string GenerarToken()
+        private string GenerarToken()
         {
             string token = Guid.NewGuid().ToString("N");
             return token;
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        public Usuario CrearUsuario(UsuarioDTO user)
+        public Usuario CrearUsuario(UsuarioDTO user, int GralID)
         {
             var usuarioNuevo = new Usuario()
             {
-                PerfilID = 2,
+                PerfilID = GralID,
                 Nombre = user.Nombre,
                 Correo = user.Correo,
                 Clave = EncriptarPassword(user.Password),
                 Restablecer = false,
                 Token = GenerarToken(),
                 Validado = false
+            };
+            return usuarioNuevo;
+        }
+         
+        public Usuario CrearAdmin(UsuarioDTO admin, int AdminID)
+        {
+            var usuarioNuevo = new Usuario()
+            {
+                PerfilID = AdminID,
+                Nombre = admin.Nombre,
+                Correo = admin.Correo,
+                Clave = EncriptarPassword(admin.Password),
+                Restablecer = false,
+                Token = GenerarToken(),
+                Validado = true
             };
             return usuarioNuevo;
         }

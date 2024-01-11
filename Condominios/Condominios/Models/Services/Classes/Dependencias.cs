@@ -1,16 +1,26 @@
 ﻿using Condominios.Models;
+using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Condominios.Models.Services.Classes
 {
     public class Dependencias
     {
         private readonly Context _context;
+        private readonly HerramientaRegistro _initAdmin = new(); 
         public Dependencias(Context context)
         {
             _context = context;
         }
+
+        private readonly UsuarioDTO _suarioDTO = new() 
+        { 
+            Nombre = "Admin",
+            Correo = "correo@gmail.com",
+            Password = "Reforma27",
+        };
 
         private readonly List<string> Perfiles = new()
         {
@@ -40,8 +50,23 @@ namespace Condominios.Models.Services.Classes
         {
             await AgregarTiposMto();
             await AgregarEstatus();
-            await AgregarPerfiles();
             await AgregarMotores();
+            await AgregarPerfiles();
+            await AgregarAdmin();
+        }
+        private async Task AgregarAdmin()
+        {
+            int AdminID = _context.Perfil.Where(c=>c.Nombre == "Administrador").Select(c=>c.ID).First();
+
+            var flag =
+                    await _context.Usuario.FirstOrDefaultAsync(c =>
+                        c.PerfilID == AdminID);
+
+            if (flag == null)
+            {
+                _context.Add(_initAdmin.CrearAdmin(_suarioDTO, AdminID));
+                await _context.SaveChangesAsync();
+            }
         }
         private async Task AgregarMotores()
         {

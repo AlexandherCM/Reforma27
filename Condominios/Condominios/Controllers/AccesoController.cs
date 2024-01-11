@@ -4,6 +4,8 @@ using Condominios.Models.Services;
 using Condominios.Models.Entities;
 using Condominios.Models.DTOs;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Condominios.Controllers
 {
@@ -44,9 +46,8 @@ namespace Condominios.Controllers
                 ViewBag.Mensaje = Registrado;
                 return View();
             }
-            ViewBag.MensajeClave = "Las contraseñas tienen que ser iguales";
+            ViewBag.MensajeClave = "Las contraseñas no coinciden";
             return View();
-
         }
 
         [HttpPost]
@@ -66,7 +67,7 @@ namespace Condominios.Controllers
                 ViewBag.Cambiopas = Cambio;
                 return View();
             }
-            ViewBag.Cambio = "Las contraseñas tienen que ser iguales";
+            ViewBag.Cambio = "Las contraseñas no coinciden";
             return View();
         }
 
@@ -83,20 +84,17 @@ namespace Condominios.Controllers
             var Acceso = await _service.IniciarSesion(sesion, HttpContext);
             if (Acceso == "ok")
             {
-                return RedirectToAction("Equipos", "Home");
+                return RedirectToAction("Pendientes", "Home");
             }
             TempData["Sesion"] = Acceso;
             return RedirectToAction(nameof(Login));
         }
+
+        [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> Logout()
         {
             await _service.CerrarSesion(HttpContext);
             return RedirectToAction(nameof(Login));
-        }
-
-        public IActionResult Usuario()
-        {
-            return View();
         }
 
     }

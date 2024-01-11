@@ -26,7 +26,7 @@
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-                <input asp-for="MtoPendienteID" type="hidden">
+                <input asp-for="MantenimientoID" type="hidden">
                 <input asp-for="EquipoID" type="hidden">
                 @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
@@ -119,7 +119,7 @@
                 <th class="border-R" id="ubicación">
                     Ubicación
                 </th>
-                <th class="border-R" id="funcion">
+                <th class="border-R" id="funcion" style="width:15%">
                     Función
                 </th>
                 <th class="border-R" id="estado">
@@ -131,9 +131,6 @@
                 <th class="border-R" id="adquisición">
                     Mantenimiento
                 </th>
-                @* <th class="border-R" id="detalles">
-                Estado
-                </th> *@
                 <th class="border-R" id="detalles">
                     Editar
                 </th>
@@ -197,25 +194,25 @@
             <input type="hidden" asp-for="JsonMtosProgramados" />
             <input type="hidden" asp-for="EquipoID" />
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <div class="col-4 col-lg-3 col-md-4 p-1">
+            <div class="col-4 col-lg-3">
                 <strong>Proveedor</strong>
                 <select asp-for="filterMtos.ProveedorID" asp-items="Model.Proveedores" class="search">
                     <option value="">Selecciona un proveedor</option>
                 </select>
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4 p-1">
+            <div class="col-4 col-lg-3">
                 <strong>Fecha 1</strong>
                 <input asp-for="filterMtos.FechaUno" class="search" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 1" />
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4 p-1">
+            <div class="col-4 col-lg-3">
                 <strong>Fecha 2</strong>
                 <input asp-for="filterMtos.FechaDos" class="search" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Fecha 2" />
             </div>
 
-            <div class="col-4 col-lg-3 col-md-4">
-                <input type="submit" value="Buscar" class="btn-des w-100 mt-4">
+            <div class="col-12 col-lg-3">
+                <input type="submit" value="Buscar" class="btn-des w-100 mt-4" style="padding:2%;">
             </div>
         </form>
 
@@ -268,10 +265,13 @@
                     Proveedor
                 </th>
                 <th class="border-R Proveedor">
+                    Tipo de Mantenimiento
+                </th>
+                <th class="border-R Proveedor" style="width:18%;">
                     Observaciones
                 </th>
-                <th class="border-R">
-                    Aplicado
+                <th class="border-R" style="width:6%;">
+                    Estado
                 </th>
                 <th class="border-R">
                     Día de aplicación
@@ -282,7 +282,7 @@
                 <th class="border-R">
                     Proxima Aplicación
                 </th>
-                <th class="border-R">
+                <th class="border-R" style="width:7%;">
                     Consultar
                 </th>
 
@@ -295,28 +295,32 @@
             @foreach (var iteam in Model.MtosProgramados)
             {
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
-                //string cadena = string.Empty;
-                @* if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
-                   else cadena = "Consultar"; *@
+                string cadena = string.Empty;
+                if (iteam.EstadoAplicacion == "Pendiente") cadena = "Registrar";
+                else cadena = "Editar";
                 @* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *@
                 <tr>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoMantenimiento)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.CostoReparacion)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.Obseraciones)</td>
-                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
+                    <td class="border-R px-1"> @Html.DisplayFor(modelItem => iteam.Proveedor)</td>
+                    <td class="border-R"> @Html.DisplayFor(modelItem => iteam.TipoMantenimiento)</td>
+                    <td class="border-R" style="text-align:justify;">
+                        @Html.DisplayFor(modelItem => iteam.Observaciones)
+                    </td>
+                    <td class="border-R px-1"> @Html.DisplayFor(modelItem => iteam.EstadoAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.DiaDeAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.UltimaAplicacion)</td>
                     <td class="border-R"> @Html.DisplayFor(modelItem => iteam.ProximaAplicacion)</td>
                     <td class="border-R">
-                        @if (iteam.EstadoAplicacion == "Pendiente")
-                        {
-                            <input type="button" class="btn-Mto btn-des w-100" value="Pendiente" data-object="@JsonConvert.SerializeObject(iteam)">
-                        }else
-                        {
-                            <br />
-                            <p> - </p>
-                        }
+                        <input type="button" class="btn-Mto btn-des" value="@cadena" data-object="@JsonConvert.SerializeObject(iteam)">
+                        @*@if (iteam.EstadoAplicacion == "Pendiente")
+                    {
+                    <input type="button" class="btn-Mto btn-des w-100" value="Pendiente" data-object="@JsonConvert.SerializeObject(iteam)">
+                    }else
+                    {
+                    <br />
+                    <p> - </p>
+                    }*@
                     </td>
                 </tr>
             }
@@ -327,15 +331,15 @@
 
 </article>
 
-<article class="row rounded-3 text-dark">
+<article class="row rounded-3 text-dark pb-4">
 
     <table class="text-center mantenimiento">
         <thead>
             <tr class="border-R">
-                <td class="border-R" style="width: 15%;">
+                <td class="border-R px-2" style="width: 15%;">
                     <h3><span class="color-R"></span> @Model.TotalGtosMto</h3>
                 </td>
-                <td class="border-R" style="width: 15%;">
+                <td class="border-R px-2" style="width: 15%;">
                     <h3><span class="color-R"></span> @Model.TotalGtosRep</h3>
                 </td>
                 <td colspan="5">
@@ -346,25 +350,6 @@
     </table>
 </article>
 
-@* Totales *@
-@* <aside class="row rounded-3 text-dark mt-3 mb-5 justify-content-between">
-
-    <div class="col-6 col-md-2 border-R">
-        <h3><span class="color-R">$</span> xxxx.xx</h3>
-    </div>
-
-    <div class="col-6 col-md-2 border-R">
-        <h3><span class="color-R">$</span> xxxx.xx</h3>
-    </div>
-
-    <div class="col-12 col-md-2"></div>
-
-    <div class="col-12 col-md-6 border-R text-center">
-        <h2><span class="color-R">T</span>otal de gastos</h2>
-    </div>
-
-</aside> *@
-
 <br />
 
 @* Despegable DOWN *@
@@ -373,11 +358,11 @@
         <form id="form-mto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <input asp-for="MtoPendienteID" type="hidden">
+            <input asp-for="MantenimientoID" id="txtMantenimientoID" type="hidden">
             <input asp-for="EquipoID" type="hidden">
             @* Campos ocultos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
 
-            <h4 class="pt-3">Registra el último mantenimiento programado</h4>
+            <h4 id="accion-forms" class="pt-3"></h4>
 
             <div class="textDes" style="text-align:justify;">
                 <section class="row pt-3 bg-white p-2 rounded text-black">
@@ -387,7 +372,7 @@
 
             <div class="row p-1">
                 <label for="">Seleccione el tipo de mantenimiento</label>
-                <select asp-for="Mantenimiento.TipoMantenimientoID" asp-items="Model.TipoMtos" class="textDes">
+                <select asp-for="Mantenimiento.TipoMantenimientoID" id="ddlTipoMto" asp-items="Model.TipoMtos" class="textDes">
                     <option value="">Tipo de mantenimiento</option>
                 </select>
                 <span asp-validation-for="Mantenimiento.TipoMantenimientoID" class="text-danger"></span>
@@ -395,7 +380,7 @@
 
             <div class="row p-1">
                 <label for="">Seleccione el proveedor que realizara el trabajo</label>
-                <select asp-for="Mantenimiento.ProveedorID" asp-items="Model.Proveedores" class="textDes">
+                <select asp-for="Mantenimiento.ProveedorID" id="ddlProveedor" asp-items="Model.Proveedores" class="textDes">
                     <option value="">Proveedor</option>
                 </select>
                 <span asp-validation-for="Mantenimiento.ProveedorID" class="text-danger"></span>
@@ -403,25 +388,25 @@
 
             <div class="row p-1">
                 <label for="">Costo del mantenimiento</label>
-                <input asp-for="Mantenimiento.CostoMantenimiento" type="text" placeholder=" " class="textDes">
+                <input asp-for="Mantenimiento.CostoMantenimiento" id="txtCostoMantenimiento" type="text" class="textDes">
                 <span asp-validation-for="Mantenimiento.CostoMantenimiento" class="text-danger"></span>
             </div>
 
             <div class="row  p-1">
                 <label for="">(Si aplica). Escribe el costo de Reparación</label>
-                <input asp-for="Mantenimiento.CostoReparacion" type="text" placeholder=" " class="textDes">
+                <input asp-for="Mantenimiento.CostoReparacion" id="txtCostoReparacion" type="text" placeholder=" " class="textDes">
                 <span asp-validation-for="Mantenimiento.CostoReparacion" class="text-danger"></span>
             </div>
 
             <div class="row p-1">
                 <label>Fecha de aplicación</label>
-                <input asp-for="Mantenimiento.FechaAplicacion" type="date" class="textDes">
+                <input asp-for="Mantenimiento.FechaAplicacion" id="txtFechaAplicacion" type="date" class="textDes">
                 <span asp-validation-for="Mantenimiento.FechaAplicacion" class="text-danger"></span>
             </div>
 
             <div class="row  p-1">
                 <label for="">Observaciones</label>
-                <textarea asp-for="Mantenimiento.Observaciones" rows="3" class="textDes" cols="50"></textarea>
+                <textarea asp-for="Mantenimiento.Observaciones" id="txtObservaciones" rows="3" class="textDes" cols="50"></textarea>
                 <span asp-validation-for="Mantenimiento.Observaciones" class="text-danger"></span>
             </div>
 
@@ -433,7 +418,7 @@
     </div>
 
     <div class="headerDespegable border-R">
-        <h2> <span class="color-R">N</span>uevo mantenimiento</h2>
+        <h2> <span class="color-R">M</span>antenimiento</h2>
         <img src="~/images/up.svg" class="btnDes" alt="DOWN" id="Down">
     </div>
 </aside>

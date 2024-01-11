@@ -7,6 +7,7 @@ using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Newtonsoft.Json;
 using System.Globalization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -31,12 +32,16 @@ namespace Condominios.Data.Repositories.Mantenimientos
             { "GtosMto", "" },
             { "GtosRep", "" },
         };
-
         private Dictionary<string, bool> DictNumberMtos = new Dictionary<string, bool>
         {
             { "Mtos", false },
             { "AplicarReparacion", false },
         };
+        private class ResultMto
+        {
+            public MtoProgramado mto = new();
+            public AlertaEstado Alerta = new();
+        }
 
         public MtoRepository(Context context, IEpoch epoch)
         {
@@ -44,23 +49,39 @@ namespace Condominios.Data.Repositories.Mantenimientos
             _context = context;
         }
 
-        public class ResultMto
+        private AlertaEstado ValidateTimes(DateTime FechaAplicacion, long TimeLimit)
         {
-            public MtoProgramado mto = new();
-            public AlertaEstado Alerta = new();
+            DateTime Applic = new(), MonthYear = new(), Programming = new();
+
+            Applic = FechaAplicacion;
+            MonthYear = new DateTime(Applic.Year, Applic.Month, 1, 0, 0, 0);
+            Programming = _epoch.ObtenerFecha(TimeLimit);
+
+            if (Programming.CompareTo(MonthYear) != 0)
+            {
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                _alertaEstado.Leyenda = "La fecha de aplicación debe estar dentro del periodo programado.";
+                _alertaEstado.Estado = false;
+
+                return _alertaEstado;
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            }
+            _alertaEstado.Estado = true;
+            _alertaEstado.Leyenda = "";
+            return _alertaEstado;
         }
 
         private ResultMto StructureNewMto(MantenimientoViewModel viewModel, MtoProgramado mtoProgramado, Dictionary<string, bool> ManyMtos)
         {
             MtoProgramado newMto = new();
             ResultMto result = new();
-            DateTime Applic = new(), MonthYear = new(), Programming = new();
 
-            Applic = viewModel.FechaAplicacion;
-            MonthYear = new DateTime(Applic.Year, Applic.Month, 1, 0, 0, 0);
-            Programming = _epoch.ObtenerFecha(mtoProgramado.ProximaAplicacion);
+            // Fecha de la proxima aplicación de este mto que pasa a ser la ultima aplicación para programar un nuevo mto
+            DateTime Programming = _epoch.ObtenerFecha(mtoProgramado.ProximaAplicacion);
 
-            if (!mtoProgramado.Aplicable)
+            _alertaEstado = ValidateTimes(viewModel.FechaAplicacion, mtoProgramado.ProximaAplicacion);
+
+            if (!mtoProgramado.Aplicable && !viewModel.TimedOut)
             {
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                 result.Alerta.Leyenda = ManyMtos["Mtos"]
@@ -72,11 +93,11 @@ namespace Condominios.Data.Repositories.Mantenimientos
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             }
 
-            if (Programming.CompareTo(MonthYear) != 0)
+            if (!_alertaEstado.Estado)
             {
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                result.Alerta.Leyenda = "La fecha de aplicación debe estar dentro del periodo programado.";
-                result.Alerta.Estado = false;
+                result.Alerta.Leyenda = _alertaEstado.Leyenda;
+                result.Alerta.Estado = _alertaEstado.Estado;
 
                 return result;
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -96,15 +117,18 @@ namespace Condominios.Data.Repositories.Mantenimientos
             mtoProgramado.Aplicable = false;
             mtoProgramado.Estado = false;
 
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            newMto = CreateObjectOfNewMtoProgrammed(Programming, mtoProgramado.Equipo.Variante.Periodo.Meses);
-            newMto.EquipoID = mtoProgramado.EquipoID;
+            // Programar el proximo mantenimiento solo si este no es uno caducado - - - - - - - - - 
+            if (!viewModel.TimedOut)
+            {
+                newMto = CreateObjectOfNewMtoProgrammed(Programming, mtoProgramado.Equipo.Variante.Periodo.Meses);
+                newMto.EquipoID = mtoProgramado.EquipoID;
 
-            _context.Add(newMto);
+                _context.Add(newMto);
+            }
 
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             result.mto = newMto;
             result.Alerta.Estado = true;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             return result;
         }
 
@@ -148,6 +172,8 @@ namespace Condominios.Data.Repositories.Mantenimientos
                                         .Include(m => m.Equipo.Variante.Periodo)
                                         .FirstOrDefaultAsync(m => m.ID == viewModel.MtoProgramadoID) ?? new();
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+            DictNumberMtos["AplicarReparacion"] = true;
+
             result = StructureNewMto(viewModel, mtoProgramado, DictNumberMtos);
 
             if (result.Alerta.Estado == false)
@@ -160,6 +186,50 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             return _alertaEstado;
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        }
+
+        public async Task<AlertaEstado> UpdateMto(MantenimientoViewModel viewModel)
+        {
+            var mtoProgramado = await _context.MtoProgramado.Include(c => c.Mantenimiento)
+                                        .FirstOrDefaultAsync(m => m.ID == viewModel.MtoProgramadoID) ?? new();
+
+            if (mtoProgramado.Mantenimiento == null)
+            {
+                _alertaEstado = await ConfirmarMto(viewModel);
+
+                _alertaEstado.Leyenda = _alertaEstado.Estado ? "Mantenimiento actualizado" : _alertaEstado.Leyenda;
+                return _alertaEstado;
+            }
+
+            _alertaEstado = ValidateTimes(viewModel.FechaAplicacion, mtoProgramado.ProximaAplicacion);
+
+            if (!_alertaEstado.Estado)
+            {
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                _alertaEstado.Leyenda = _alertaEstado.Leyenda;
+                _alertaEstado.Estado = _alertaEstado.Estado;
+
+                return _alertaEstado;
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            }
+
+            Mantenimiento mto = new()
+            {
+                ID = mtoProgramado.Mantenimiento.ID,
+                TipoMantenimientoID = viewModel.TipoMantenimientoID,
+                ProveedorID = viewModel.ProveedorID,
+                CostoMantenimiento = viewModel.CostoMantenimiento,
+                CostoReparacion = viewModel.CostoReparacion ?? 0,
+                Observaciones = viewModel.Observaciones,
+                FechaAplicacion = _epoch.CrearEpoch(viewModel.FechaAplicacion)
+            };
+            
+            _context.Entry(mtoProgramado.Mantenimiento).CurrentValues.SetValues(mto);
+
+            _alertaEstado.Leyenda = "Mantenimiento actualizado";
+            _alertaEstado.Estado = true;
+
+            return _alertaEstado;
         }
 
         public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses)

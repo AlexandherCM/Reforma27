@@ -29,15 +29,15 @@ namespace Condominios.Controllers
         }
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult TipoEquipos()
         {
             return RedirectToAction("Index", "TipoEquipos");
         }
-        
+
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador, General")]
         public IActionResult Equipos()
         {
             return RedirectToAction("Index", "Equipos");

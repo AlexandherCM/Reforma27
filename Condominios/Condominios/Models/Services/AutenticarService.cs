@@ -78,7 +78,9 @@ namespace Condominios.Models.Services
 
             if(usuario == null)
             {
-                var NuevoUsuario = _herramientaRegistro.CrearUsuario(user);
+                int GralID = _context.Perfil.Where(c => c.Nombre == "General").Select(c => c.ID).First();
+
+                var NuevoUsuario = _herramientaRegistro.CrearUsuario(user, GralID);
                 var Destinatario = "carlosivan12.ci2@gmail.com";
                 var Plantilla = "Confirmar.html";
                 var Ruta = $"Acceso/Confirmar?token={NuevoUsuario.Token}";

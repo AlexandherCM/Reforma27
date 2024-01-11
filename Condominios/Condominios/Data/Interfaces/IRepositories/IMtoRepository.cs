@@ -12,7 +12,8 @@ namespace Condominios.Data.Interfaces.IRepositories
         public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses);
         public Task CreateNewMtoProgramOfBackground();
 
-        public Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel model);
+        public Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel);
+        public Task<AlertaEstado> UpdateMto(MantenimientoViewModel viewModel); 
         public Task<AlertaEstado> ConfirmarMtos(MantenimientoViewModel viewModel, List<EquipoMtoViewModel> equipos);
 
         //public Task<List<Mantenimiento>> GetList();

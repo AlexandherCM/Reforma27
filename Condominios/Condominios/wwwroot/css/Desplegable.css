@@ -49,6 +49,7 @@
     border-bottom-right-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     position: absolute;
+    z-index:2;
 }
 
 #contenidoUP {
@@ -81,7 +82,7 @@
 
 
 #despegableDown {
-    width: 31%;
+    width: 33%;
     background-color: #652022;
     color: aliceblue;
     padding: 0;

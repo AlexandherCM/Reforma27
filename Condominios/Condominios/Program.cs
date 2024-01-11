@@ -99,11 +99,7 @@ if (app.Environment.IsProduction())
     // Habilita la politica de seguridad de HTTPS, el uso de HSTP (HTTP Strict Transport Security)
     app.UseHsts();
 }
-else if (app.Environment.IsDevelopment())
-{
-
-}
-
+else if (app.Environment.IsDevelopment()) {  }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

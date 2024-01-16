@@ -8,6 +8,7 @@ using Condominios.Models.ViewModels.CtrolEquipo;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 #pragma warning disable CS8602
+#pragma warning disable CS8600
 
 namespace Condominios.Data.Repositories.Equipos
 {
@@ -26,36 +27,36 @@ namespace Condominios.Data.Repositories.Equipos
 
         public async Task<List<Equipo>> GetList(int id)
             => await _context.Equipo.Where(i => i.Estatus.ID == id)
-                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
-                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
-                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Estatus).Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante).Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca).Include(c => c.Variante.TipoEquipo)
                                     .Include(c => c.Variante.Periodo)
                                     .ToListAsync();
-        
+
         public async Task<List<Equipo>> GetList(string cadena)
             => await _context.Equipo.Where(name => name.Variante.TipoEquipo.Nombre.Contains(cadena))
-                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
-                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
-                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Estatus).Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante).Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca).Include(c => c.Variante.TipoEquipo)
                                     .Include(c => c.Variante.Periodo)
                                     .ToListAsync();
 
         public async Task<List<Equipo>> GetList()
             => await _context.Equipo
-                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
-                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
-                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
-                                    .Include(c => c.Variante.Periodo) .Include(c => c.Programados).ThenInclude(m => m.Mantenimiento)
+                                    .Include(c => c.Estatus).Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante).Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca).Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo).Include(c => c.Programados).ThenInclude(m => m.Mantenimiento)
                                     .ToListAsync();
-        
+
         // Modificar para obtener equipos activos
         public async Task<List<Equipo>> GetListWithMtoPending()
             => await _context.Equipo
-                                    .Include(c => c.Estatus)          .Include(c => c.Ubicacion)
-                                    .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
-                                    .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
-                                    .Include(c => c.Variante.Periodo) .Include(c => c.Programados.Where(c => c.Estado == true))
-                                    .Where(c=>c.Estado)
+                                    .Include(c => c.Estatus).Include(c => c.Ubicacion)
+                                    .Include(c => c.Variante).Include(c => c.Variante.Motor)
+                                    .Include(c => c.Variante.Marca).Include(c => c.Variante.TipoEquipo)
+                                    .Include(c => c.Variante.Periodo).Include(c => c.Programados.Where(c => c.Estado == true))
+                                    .Where(c => c.Estado)
                                     .ToListAsync();
 
         public async Task<List<Equipo>> GetList(FiltrosDTO filtros)
@@ -108,9 +109,9 @@ namespace Condominios.Data.Repositories.Equipos
             }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             DateTime ProximoMto =
-                viewModel.Plantilla.UltimaAplicacion.AddMonths(GetMonths(viewModel).GetAwaiter().GetResult());
+                viewModel.Plantilla.UltimaAplicacion.AddMonths(GetMonths(viewModel.Plantilla.VarianteID).GetAwaiter().GetResult());
 
-            var MonthAndYear = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0); 
+            var MonthAndYear = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
 
             if (ProximoMto.CompareTo(MonthAndYear) == -1)
             {
@@ -162,7 +163,7 @@ namespace Condominios.Data.Repositories.Equipos
                 return _alertaEstado;
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-            int meses = await GetMonths(viewModel);
+            int meses = await GetMonths(viewModel.Plantilla.VarianteID);
 
             var equipos = viewModel.NumerosSerie.Select(serie => new Equipo
             {
@@ -190,11 +191,13 @@ namespace Condominios.Data.Repositories.Equipos
         }
         public AlertaEstado Update(EditEquipoViewModel model)
         {
-            var equipo = _context.Find<Equipo>(model.ID);
+            var equipo = _context.Equipo.Include(e => e.Programados).FirstOrDefault(e => e.ID == model.ID);
             var equipoEncontrado = _context.Equipo.Any(c => c.NumSerie.Equals(model.NumSerie) && c.ID != model.ID);
+
             string GetEstatusForModel = _context.Estatus.Where(c => c.ID == model.EstatusID).Select(c => c.Nombre).First();
             string GetEstatusForEquipo = _context.Estatus.Where(c => c.ID == equipo.EstatusID).Select(c => c.Nombre).First();
-             
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
             if (!equipoEncontrado)
                 equipo.NumSerie = model.NumSerie.Trim();
             else
@@ -210,12 +213,31 @@ namespace Condominios.Data.Repositories.Equipos
             // Detener Mtos Programados - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             if (GetEstatusForModel.Equals("Fuera de servicio") && !GetEstatusForEquipo.Equals("Fuera de servicio"))
             {
-                var mtoProgramado = _context.MtoProgramado.FirstOrDefault(c=>c.Estado && c.EquipoID == equipo.ID);
+                var mtoProgramado = _context.MtoProgramado.FirstOrDefault(c => c.Estado && c.EquipoID == equipo.ID);
+
                 equipo.Estado = false;
-                 
                 mtoProgramado.Estado = false;
             }
-            else { equipo.Estado = true; }
+            else if (!GetEstatusForModel.Equals("Fuera de servicio") && GetEstatusForEquipo.Equals("Fuera de servicio"))
+            {
+                DateTime RetomarMto = new DateTime(model.RetomarFecha?.Year ?? 0, model.RetomarFecha?.Month ?? 0, 1, 0, 0, 0);
+                int meses = GetMonths(equipo.VarianteID).GetAwaiter().GetResult();
+
+                long fechaEpoch = _epoch.CrearEpoch(RetomarMto);
+                MtoProgramado programado = equipo.Programados.Where(c => c.ProximaAplicacion == fechaEpoch).FirstOrDefault();
+
+                if (programado == null)
+                {
+                    equipo.Programados.Add(_service.CreateObjectOfNewMtoProgrammed(RetomarMto = RetomarMto.AddMonths(-meses), meses));
+
+                    foreach (var item in equipo.Programados)
+                    {
+                        if (item.ProximaAplicacion > fechaEpoch)
+                            _context.MtoProgramado.Remove(item);
+                    }
+                }
+            }
+            else if (!GetEstatusForModel.Equals("Fuera de servicio")){ equipo.Estado = true; }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
             equipo.CostoAdquisicion = model.CostoAdquisicion ?? 0;
@@ -237,7 +259,7 @@ namespace Condominios.Data.Repositories.Equipos
         }
 
         public async Task<Equipo?> GetById(int ID)
-            => await _context.Equipo.Include(c=>c.Variante)
+            => await _context.Equipo.Include(c => c.Variante)
                                     .Include(c => c.Variante.Marca)
                                     .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.TipoEquipo)
@@ -249,9 +271,9 @@ namespace Condominios.Data.Repositories.Equipos
 
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        private async Task<int> GetMonths(CtrlEquipoViewModel viewModel)
+        private async Task<int> GetMonths(int varianteID)
             => await _context.Variante
-                        .Where(c => c.ID == viewModel.Plantilla.VarianteID)
+                        .Where(c => c.ID == varianteID)
                         .Select(c => c.Periodo.Meses)
                         .FirstOrDefaultAsync();
 

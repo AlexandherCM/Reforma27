@@ -13,28 +13,40 @@
     var ValidarEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     /*---------- Obtener valores de los campos ----------*/
-    var Nombre = document.getElementById('Nombre');
+    var Contacto = document.getElementById('Contacto');
+
     var Numero = document.getElementById('Numero');
     var NumeroValue = Numero.value;
+
     var Direccion = document.getElementById('Direccion');
+
     var Correo = document.getElementById('Correo');
     var CorreoValue = Correo.value;
-    console.log(CorreoValue);
+
+    var Empresa = document.getElementById('Empresa');
+    var Servicio = document.getElementById('Servicio');
+    //console.log(CorreoValue);
 
     /*---------- Seleccionar span para mostrar el mensaje ----------*/
-    var NombreError = document.getElementById('NombreError');
+    var ContactoError = document.getElementById('ContactoError');
+    var EmpresaError = document.getElementById('EmpresaError');
+    var ServicioError = document.getElementById('ServicioError');
     var NumeroError = document.getElementById('NumeroError');
     var DireccionError = document.getElementById('DireccionError');
     var CorreoError = document.getElementById('CorreoError');
 
     /*---------- Ocultar mensajes ----------*/
-    OcultarError(NombreError);
+    OcultarError(EmpresaError);
+    OcultarError(ServicioError);
+    OcultarError(ContactoError);
     OcultarError(NumeroError);
     OcultarError(DireccionError);
     OcultarError(CorreoError);
 
     var CamposFormulario = [
-        { campo: Nombre, error: NombreError, mensaje: "Este campo es obligatorio" },
+        { campo: Empresa, error: EmpresaError, mensaje: "Este campo es obligatorio" },
+        { campo: Contacto, error: ContactoError, mensaje: "Este campo es obligatorio" },
+        { campo: Servicio, error: ServicioError, mensaje: "Este campo es obligatorio" },
         { campo: Numero, error: NumeroError, mensaje: "Este campo es obligatorio" },
         { campo: Direccion, error: DireccionError, mensaje: "Este campo es obligatorio" },
         { campo: Correo, error: CorreoError, mensaje: "Este campo es obligatorio" }

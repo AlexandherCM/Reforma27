@@ -1,8 +1,8 @@
 ﻿using Condominios.Data;
 using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.CtrolProveedores;
-using Condominios.Models.ViewModels.CtrolVarianteEquipo;
-using Microsoft.AspNetCore.Mvc.Rendering;
+#pragma warning disable CS8603
+#pragma warning disable CS8600
 
 namespace Condominios.Models.Services
 {

@@ -12,7 +12,6 @@ namespace Condominios.Controllers
     public class ProveedoresController : Controller
     {
         private readonly ProveedorService _service;
-        private ProveedoresViewModel _viewModel = new();
 
         public ProveedoresController(ProveedorService service)
         {

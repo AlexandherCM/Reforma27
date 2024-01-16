@@ -6,10 +6,13 @@ namespace Condominios.Models.ViewModels.CtrolProveedores
     {
         public int UpdateID { get; set; }
         public int ID { get; set; }
-        public string Nombre { get; set; }
-        public string Numero { get; set; }
-        public string Direccion {  get; set; }
-        public string Correo { get; set; }
-        public List<Proveedor> Proveedor { get; set; }
+
+        public string Empresa { get; set; } = string.Empty;
+        public string Servicio { get; set; } = string.Empty;
+        public string Contacto { get; set; } = string.Empty;
+        public string Numero { get; set; } = string.Empty;
+        public string Direccion {  get; set; } = string.Empty;
+        public string Correo { get; set; } = string.Empty;
+        public List<Proveedor> Proveedor { get; set; } = new();
     }
 }

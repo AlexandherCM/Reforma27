@@ -35,7 +35,7 @@ namespace Condominios.Models.Services
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             model.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetActiveList(), "ID", "Nombre");
             model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetActiveList(), "ID", "Nombre");
-            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetActiveList(), "ID", "Nombre");
+            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetFormatActiveList(), "ID", "Nombre");
             model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetActiveList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
@@ -43,7 +43,7 @@ namespace Condominios.Models.Services
         public async Task GetSelectsForConfirmarMtos(CrearMtosViewModel model)
         {
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetActiveList(), "ID", "Nombre");
+            model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetFormatActiveList(), "ID", "Nombre");
             model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetActiveList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
@@ -179,8 +179,12 @@ namespace Condominios.Models.Services
                     Pendiente = mto.Estado && !mto.Aplicado,
                     //Aplicable = mto.Aplicado, 
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                    Proveedor = mto.Mantenimiento != null
-                              ? mto.Mantenimiento.Proveedor.Nombre : "-",
+                    DatosProveedor = new()
+                    {
+                        Empresa = mto.Mantenimiento != null ? mto.Mantenimiento.Proveedor.Empresa : "",
+                        Servicio = mto.Mantenimiento != null ? mto.Mantenimiento.Proveedor.Servicio : "",
+                        Contacto = mto.Mantenimiento != null ? mto.Mantenimiento.Proveedor.Contacto : ""
+                    },
 
                     Observaciones = mto.Mantenimiento != null
                               ? mto.Mantenimiento.Observaciones : "-",
@@ -226,7 +230,7 @@ namespace Condominios.Models.Services
             _viewModelGastosMants.Ubicaciones = new SelectList(await _unitOfWork.UbicacionRepository.GetList(), "ID", "Nombre");
             _viewModelGastosMants.TipoEquipos = new SelectList(await _unitOfWork.TipoEquipoRepository.GetList(), "ID", "Nombre");
             _viewModelGastosMants.Motores = new SelectList(await _unitOfWork.MotorRepository.GetList(), "ID", "Nombre");
-            _viewModelGastosMants.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetList(), "ID", "Nombre");
+            _viewModelGastosMants.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetFormatList(), "ID", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
 

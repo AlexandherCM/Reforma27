@@ -22,7 +22,7 @@ namespace Condominios.Controllers
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        [Authorize(Roles = "Administrador, General")]
+        //[Authorize(Roles = "Administrador, General")]
         public IActionResult Proveedores() 
         {
             return RedirectToAction("Index", "Proveedores");

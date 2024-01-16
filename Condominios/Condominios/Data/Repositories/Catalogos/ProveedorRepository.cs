@@ -1,5 +1,7 @@
-﻿using Condominios.Data.Interfaces.IRepositories;
+﻿using Condominios.Data.Interfaces;
+using Condominios.Data.Interfaces.IRepositories;
 using Condominios.Models;
+using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Condominios.Models.ViewModels.CtrolProveedores;
 using Condominios.Models.ViewModels.CtrolVarianteEquipo;
@@ -15,7 +17,9 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             Proveedor proveedor = new()
             {
-                Nombre = model.Nombre,
+                Empresa = model.Empresa,
+                Servicio = model.Servicio,
+                Contacto = model.Contacto,
                 Telefono = model.Numero,
                 Direccion = model.Direccion,
                 Correo = model.Correo,
@@ -28,8 +32,26 @@ namespace Condominios.Data.Repositories.Catalogos
         public async Task<List<Proveedor>> GetList()
             => await context.Proveedor.ToListAsync();
         
-        public async Task<List<Proveedor>> GetActiveList()
-            => await context.Proveedor.Where(c => c.Estado).ToListAsync();
+        public async Task<List<ProveedoresDTO>> GetFormatList()
+            => Clone(await GetList());
+
+        public async Task<List<ProveedoresDTO>> GetFormatActiveList() 
+        {
+            var list = await GetList();
+            return Clone(list.Where(c => c.Estado).ToList());
+        }
+
+        private static List<ProveedoresDTO> Clone(List<Proveedor> proveedores)
+        {
+            List<ProveedoresDTO> listaDTO = (from p in proveedores
+                                            select new ProveedoresDTO
+                                            {
+                                                ID = p.ID,
+                                                Nombre = $"Empresa: {p.Empresa} / Servicio: {p.Servicio} / Contacto: {p.Contacto}"
+                                            }).ToList();
+
+            return listaDTO;
+        }
 
         public async Task<Proveedor?> GetById(int id)
         {
@@ -39,12 +61,21 @@ namespace Condominios.Data.Repositories.Catalogos
 
         public void Update(ProveedoresViewModel model)
         {
-            var proveedor = context.Find<Proveedor>(model.ID);
+            Proveedor proveedor = context.Find<Proveedor>(model.ID)?? new();
 
-            proveedor.Nombre = model.Nombre;
-            proveedor.Telefono = model.Numero;
-            proveedor.Direccion = model.Direccion;
-            proveedor.Correo = model.Correo;
+            Proveedor newProveedor = new()
+            {
+                ID = proveedor.ID,
+                Empresa = model.Empresa,
+                Servicio = model.Servicio,
+                Contacto = model.Contacto,
+                Telefono = model.Numero,
+                Direccion = model.Direccion,
+                Correo = model.Correo,
+                Estado = proveedor.Estado
+            };
+
+            context.Entry(proveedor).CurrentValues.SetValues(newProveedor);
         }
 
         public async Task<Proveedor?> UpdateID(int id)

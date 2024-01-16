@@ -2,7 +2,6 @@
 using Condominios.Models.DTOs;
 using Condominios.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 
 namespace Condominios.Models.Services.Classes
 {
@@ -44,7 +43,8 @@ namespace Condominios.Models.Services.Classes
             "Bueno",
             "Regular",
             "Malo",
-            "Crítico"
+            "Crítico",
+            "Fuera de servicio"
         };
         public async Task AgregarCatalogos()
         {

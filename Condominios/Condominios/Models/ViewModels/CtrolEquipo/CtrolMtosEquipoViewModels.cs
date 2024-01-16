@@ -113,7 +113,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
          
         public string CostoMantenimiento { get; set; }
         public string CostoReparacion { get; set; }
-        public string Proveedor { get; set; }
+        public DatosProveedor DatosProveedor { get; set; }
         public string Observaciones { get; set; }
         public int ProveedorID { get; set; }
 
@@ -126,5 +126,12 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public int ProveedorID { get; set; }
         public DateTime FechaUno { get; set; }
         public DateTime FechaDos { get; set; }
+    }
+    
+    public class DatosProveedor
+    {
+        public string Empresa { get; set; } 
+        public string Servicio { get; set; }
+        public string Contacto { get; set; }
     } 
 } 

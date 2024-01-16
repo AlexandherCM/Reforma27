@@ -103,7 +103,9 @@ export function EditarProveedorEquipo(Pagina) {
             .then(data => {
 
                 document.getElementById("ID").value = data.id;
-                document.getElementById("Nombre").value = data.nombre;
+                document.getElementById("Contacto").value = data.contacto;
+                document.getElementById("Empresa").value = data.empresa;
+                document.getElementById("Servicio").value = data.servicio;
                 document.getElementById("Numero").value = data.telefono;
                 document.getElementById("Direccion").value = data.direccion;
                 document.getElementById("Correo").value = data.correo;

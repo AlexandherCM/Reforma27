@@ -18,17 +18,35 @@
 
                 <h4 class="pt-3">Registra un proveedor</h4>
 
-                @*Nombre*@
-                <div class="row pt-1">
-                    <h5>Nombre</h5>
+                @*Empresa*@
+                <div class="row pt-3">
+                    <h5>Nombre de la empresa</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
-                    <input asp-for="Nombre" type="text" class="textDes">
-                    <span id="NombreError" class="text-danger" style="display: none;"></span>
+                    <input asp-for="Empresa" type="text" class="textDes">
+                    <span id="EmpresaError" class="text-danger" style="display: none;"></span>
+                </div>
+                
+                @*Contacto*@
+                <div class="row pt-2">
+                    <h5>Nombre del Contacto</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input asp-for="Contacto" type="text" class="textDes">
+                    <span id="ContactoError" class="text-danger" style="display: none;"></span>
+                </div>
+                
+                @*Servicio*@
+                <div class="row pt-2">
+                    <h5>Servicio</h5>
+                </div>
+                <div class="row d-flex justify-content-center pt-1">
+                    <input asp-for="Servicio" type="text" class="textDes">
+                    <span id="ServicioError" class="text-danger" style="display: none;"></span>
                 </div>
 
                 @*Teléfono*@
-                <div class="row pt-1">
+                <div class="row pt-2">
                     <h5>Teléfono</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
@@ -37,7 +55,7 @@
                 </div>
 
                 @*Dirección*@
-                <div class="row pt-1">
+                <div class="row pt-2">
                     <h5>Dirección</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
@@ -46,7 +64,7 @@
                 </div>
 
                 @*Correo*@
-                <div class="row pt-1">
+                <div class="row pt-2">
                     <h5>Correo</h5>
                 </div>
                 <div class="row d-flex justify-content-center pt-1">
@@ -109,7 +127,13 @@
 
             <tr class="border-R">
                 <th class="border-R">
-                    Nombre
+                    Empresa
+                </th>
+                <th class="border-R">
+                    Servicio
+                </th>
+                <th class="border-R">
+                    Contacto
                 </th>
                 <th class="border-R">
                     Teléfono
@@ -136,13 +160,16 @@
                 <form asp-action="UpdateEstado" id="Update@(i)">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <tr>
-                    <td class="border-R">@Model.Proveedor[i].Nombre</td>
+                    <td class="border-R">@Model.Proveedor[i].Empresa</td>
+                    <td class="border-R">@Model.Proveedor[i].Servicio</td>
+                    <td class="border-R">@Model.Proveedor[i].Contacto</td>
                     <td class="border-R">@Model.Proveedor[i].Telefono</td>
                     <td class="border-R">@Model.Proveedor[i].Direccion</td>
                     <td class="border-R">@Model.Proveedor[i].Correo</td>
                     <td class="border-R">
                         <label class="toggle-switch">
-                            <input class="chbxEstado" data-url="Proveedores/UpdateStatus/" type="checkbox" checked="@Model.Proveedor[i].Estado" value="@(Model.Proveedor[i].ID)">
+                            <input class="chbxEstado" 
+                                data-url="Proveedores/UpdateStatus/" type="checkbox" checked="@Model.Proveedor[i].Estado" value="@(Model.Proveedor[i].ID)">
                             <div class="toggle-switch-background">
                                 <div class="toggle-switch-handle"></div>
                             </div>

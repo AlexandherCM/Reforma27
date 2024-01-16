@@ -8,7 +8,9 @@
         {4,"Datos Generales de los equipos"},
         {5,"Datos específicos de los equipos"},
         {6,"Gastos de mantenimiento"},
-        {7,"Salir"}
+        {7,"Salir"},
+        {8,"Perfil"}
+
     };
 }
 
@@ -52,6 +54,14 @@
                     <img src="~/images/Logo.svg" width="100%">
                 </div>
 
+
+                @*Perfil*@
+                <div class="row mt-4 d-flex align-items-center flex-row justify-content-center">
+                    <a asp-controller="Perfil" asp-action="Index" class="hyperLink">
+                        <img src="~/images/house-solid.svg" class="icon-users" />
+                        <h6><b class="titles">@Modulos[8]</b></h6>
+                    </a>
+                </div>
 
                 @*Inicio*@
                 <div class="row mt-4 d-flex align-items-center flex-row justify-content-center">

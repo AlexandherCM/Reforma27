@@ -32,8 +32,8 @@ namespace Condominios.Models.Services.Classes.SegundoPlano
                 }
 
                 // Tiempo restante
-                Console.WriteLine($"Tiempo restante para ejecutar nuevamente la tarea: " +
-                    $"{timeUntilNextExecution.TotalHours} horas, {timeUntilNextExecution.TotalMinutes} minutos, {timeUntilNextExecution.TotalSeconds} segundos");
+                //Console.WriteLine($"Tiempo restante para ejecutar nuevamente la tarea: " +
+                //    $"{timeUntilNextExecution.TotalHours} horas, {timeUntilNextExecution.TotalMinutes} minutos, {timeUntilNextExecution.TotalSeconds} segundos");
 
                 // Espera hasta la próxima ejecución
                 //await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken); // Delay de 5 segundos

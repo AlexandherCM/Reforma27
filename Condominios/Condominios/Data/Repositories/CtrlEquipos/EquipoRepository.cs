@@ -55,6 +55,7 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Variante)         .Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca)   .Include(c => c.Variante.TipoEquipo)
                                     .Include(c => c.Variante.Periodo) .Include(c => c.Programados.Where(c => c.Estado == true))
+                                    .Where(c=>c.Estado)
                                     .ToListAsync();
 
         public async Task<List<Equipo>> GetList(FiltrosDTO filtros)
@@ -191,7 +192,9 @@ namespace Condominios.Data.Repositories.Equipos
         {
             var equipo = _context.Find<Equipo>(model.ID);
             var equipoEncontrado = _context.Equipo.Any(c => c.NumSerie.Equals(model.NumSerie) && c.ID != model.ID);
-
+            string GetEstatusForModel = _context.Estatus.Where(c => c.ID == model.EstatusID).Select(c => c.Nombre).First();
+            string GetEstatusForEquipo = _context.Estatus.Where(c => c.ID == equipo.EstatusID).Select(c => c.Nombre).First();
+             
             if (!equipoEncontrado)
                 equipo.NumSerie = model.NumSerie.Trim();
             else
@@ -203,6 +206,17 @@ namespace Condominios.Data.Repositories.Equipos
                 return _alertaEstado;
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             }
+            //ARRGLAR LA ACTUALIZACIÓN DEL ESTADO DEL MTO Y EL EQUIPO
+            // Detener Mtos Programados - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            if (GetEstatusForModel.Equals("Fuera de servicio") && !GetEstatusForEquipo.Equals("Fuera de servicio"))
+            {
+                var mtoProgramado = _context.MtoProgramado.FirstOrDefault(c=>c.Estado && c.EquipoID == equipo.ID);
+                equipo.Estado = false;
+                 
+                mtoProgramado.Estado = false;
+            }
+            else { equipo.Estado = true; }
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
             equipo.CostoAdquisicion = model.CostoAdquisicion ?? 0;
             equipo.UbicacionID = model.UbicacionID;

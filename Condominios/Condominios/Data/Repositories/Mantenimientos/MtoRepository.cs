@@ -268,8 +268,8 @@ namespace Condominios.Data.Repositories.Mantenimientos
                 .ToListAsync();
 
             if (!Mtos.Any()) return;
-
-            foreach (var mto in Mtos.Where(m => m.ProximaAplicacion <= flagTimeEpoch))
+                                                                                        //Validar estado activo del equipo
+            foreach (var mto in Mtos.Where(m => m.ProximaAplicacion <= flagTimeEpoch && m.Equipo.Estado))
             {
                 if (mto.ProximaAplicacion == flagTimeEpoch)
                 {

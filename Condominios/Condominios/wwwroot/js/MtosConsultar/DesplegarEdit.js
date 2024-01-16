@@ -1,7 +1,4 @@
 ﻿
-
-
-
 //Despelgable 1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 let conte = document.getElementById('despegableUP');
 let Mostrar = document.getElementById('up');
@@ -129,6 +126,23 @@ document.getElementById('SelectEstado').addEventListener('change', (event) => {
     if (parseInt(seletValue) != 0) {
         forms.submit();
     }
+});
+
+// Acciones del formulario de equipo - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+let ddlEstado = document.getElementById('Plantilla_EstatusID');
+let retomarMtos = document.getElementById('container-retomarMtos');
+let leyenda = UpdateddlEstado();
+let OutService = 'Fuera de servicio';
+function UpdateddlEstado() {
+    let i = ddlEstado.selectedIndex;
+    return ddlEstado.options[i].text;;
+}
+
+ddlEstado.addEventListener('change', () => {
+    if (leyenda === OutService && UpdateddlEstado() !== OutService) {
+        retomarMtos.classList.remove('d-none');
+    } else { retomarMtos.classList.add('d-none'); }
 });
 
 

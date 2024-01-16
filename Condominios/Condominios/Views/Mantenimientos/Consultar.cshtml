@@ -44,6 +44,12 @@
                     </select>
                     <span asp-validation-for="Plantilla.EstatusID" class="text-danger"></span>
                 </div>
+                <div id="container-retomarMtos" class="row p-2 d-none">
+                    <label><b>Selecciona el mes en que se retoman sus mantenimientos</b></label>
+
+                    <input asp-for="Plantilla.RetomarFecha" class="textDes" type="month" />
+                    <span asp-validation-for="Plantilla.RetomarFecha" class="text-danger"></span>
+                </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2 ">
                     <label><b>Costo de adquisición del equipo</b></label>
@@ -308,7 +314,8 @@
                             <p> <strong>Empresa: </strong>@iteam.DatosProveedor.Empresa </p>
                             <p> <strong>Servicio: </strong>@iteam.DatosProveedor.Servicio </p>
                             <p> <strong>Contacto: </strong>@iteam.DatosProveedor.Contacto </p>
-                        }else
+                        }
+                        else
                         {
                             @Html.DisplayFor(modelItem => iteam.DatosProveedor.Empresa)
                         }

@@ -70,6 +70,17 @@ namespace Condominios.Data.Repositories.Catalogos
             return;
         }
 
-       
+        public async Task<bool> Delete(int id)
+        {
+            var usuario = await _context.FindAsync<Usuario>(id);
+
+            if (usuario != null)
+            {
+                _context.Usuario.Remove(usuario);
+                return true; 
+            }
+
+            return false; 
+        }
     }
 }

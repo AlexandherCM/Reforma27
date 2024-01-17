@@ -5,9 +5,8 @@ namespace Condominios.Models.ViewModels.CtrolMantenimientos
 {
     public class ConjuntoMtosViewModel
     {
-        public string FormatDateAplic {  get; set; } = string.Empty;  
-        public DateTime DateAplic {  get; set; }
-
+        public string FormatDateAplic {  get; set; } = string.Empty; 
+        public long EpochDate {  get; set; }  
         public int Cantidad { get; set; }   
         public string TipoEquipo { get; set; } = string.Empty;
         public string Periodo { get; set; } = string.Empty;

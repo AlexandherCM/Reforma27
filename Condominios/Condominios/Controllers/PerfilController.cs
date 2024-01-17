@@ -1,4 +1,5 @@
-﻿using Condominios.Models.Services;
+﻿using Condominios.Models.Entities;
+using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
 using Condominios.Models.ViewModels.Perfil;
@@ -42,6 +43,27 @@ namespace Condominios.Controllers
         public async Task Acceso(int id)
         {
             await _Service.Acceso(id);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _Service.Delete(id);
+
+            return Ok(new { success = true });
+        }
+
+        public async Task<IActionResult> UpdateUser()
+        {
+
+            return Ok(new { success = true });
+        }
+
+        public async Task<IActionResult> ObtenerRegistro(int id)
+        {
+            PerfilViewModel model = await _Service.GetUsuario(id);
+
+            var jsonResult = new JsonResult(model);
+            return jsonResult;
         }
     }
 }

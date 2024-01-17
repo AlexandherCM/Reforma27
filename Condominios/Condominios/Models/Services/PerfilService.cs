@@ -37,5 +37,16 @@ namespace Condominios.Models.Services
             await _unitOfWork.Save();
             return;
         }
+
+        public async Task<bool> Delete(int id)
+        {
+            var borrado = await _unitOfWork.PerfilRepository.Delete(id);
+            if (borrado)
+            {
+                await _unitOfWork.Save();
+            }
+            return borrado;
+        }
+
     }
 }

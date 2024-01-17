@@ -8,6 +8,7 @@ using Condominios.Models.ViewModels.CtrolEquipo;
 using Condominios.Models.ViewModels.CtrolMantenimientos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.Globalization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -372,10 +373,12 @@ namespace Condominios.Data.Repositories.Mantenimientos
                 Periodo = group.Key.PeriodoNombre,
                 FormatDateAplic =
                     _epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(group.Key.ProxAplic)),
+                EpochDate = group.Key.ProxAplic,
                 Cantidad = group.Count(),
                 JsonEquipos = JsonConvert.SerializeObject(group.ToList(), jsonSettings)
             }).ToList();
 
+            pendientes = pendientes.OrderBy(c => c.EpochDate).ToList();
             return pendientes;
         }
 

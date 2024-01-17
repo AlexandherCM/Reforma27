@@ -75,11 +75,8 @@ namespace Condominios.Data.Repositories.Equipos
             return equiposDTO;
         }
 
-
-        // Modificar para obtener equipos activos
         public async Task<List<Equipo>> GetListWithMtoPending()
-            => await _context.Equipo
-                                    .Include(c => c.Estatus).Include(c => c.Ubicacion)
+            => await _context.Equipo.Include(c => c.Estatus).Include(c => c.Ubicacion)
                                     .Include(c => c.Variante).Include(c => c.Variante.Motor)
                                     .Include(c => c.Variante.Marca).Include(c => c.Variante.TipoEquipo)
                                     .Include(c => c.Variante.Periodo).Include(c => c.Programados.Where(c => c.Estado == true))
@@ -127,13 +124,13 @@ namespace Condominios.Data.Repositories.Equipos
             int comparacion = present.CompareTo(viewModel.Plantilla.UltimaAplicacion);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            if (comparacion < 0)
-            {
-                _alertaEstado.Leyenda = "No se puede establecer una fecha superior a la actual";
-                _alertaEstado.Estado = false;
+            //if (comparacion < 0)
+            //{
+            //    _alertaEstado.Leyenda = "No se puede establecer una fecha superior a la actual";
+            //    _alertaEstado.Estado = false;
 
-                return _alertaEstado;
-            }
+            //    return _alertaEstado;
+            //}
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             DateTime ProximoMto =
                 viewModel.Plantilla.UltimaAplicacion.AddMonths(GetMonths(viewModel.Plantilla.VarianteID).GetAwaiter().GetResult());

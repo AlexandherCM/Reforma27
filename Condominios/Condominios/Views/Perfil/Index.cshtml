@@ -1,0 +1,242 @@
+﻿@model Condominios.Models.ViewModels.Perfil.PerfilViewModel
+
+<section class="row border-R text-center mt-3 rounded-2">
+    <h1><span class="color-R">A</span>dministración</h1>
+</section>
+
+<section class="row border-R text-center mt-3 rounded-2">
+    <article class="col-lg-2 col-12 d-flex align-items-center justify-content-center border-R p-2">
+        <img src="~/images/user-solid.svg" class="usuario" />
+    </article>
+    <article class="col bg-R text-light text-center">
+        <h3><b>Administrador</b></h3>
+
+        <form asp-action="UpdateAdmin" class="row  p-2" onsubmit="return UpdateAdmin()">
+            <div class="col-12 col-md-1 "></div>
+
+            <div class="col-4 col-md-2  text-start">
+                <div class="row ">
+                    <h5><b>Nombre:</b></h5>
+                </div>
+
+                <div class="row pt-3">
+                    <h5><b>Correo:</b></h5>
+                </div>
+
+                <div class="row pt-3 ">
+                    <h5><b>Contraseña: </b></h5>
+                </div>
+            </div>
+
+            <div class="col-4 col-md-6  d-flex  flex-column justify-content-around text-start">
+
+                <div class="row  ">
+                    <input asp-for="DatosUser.Nombre" type="text" placeholder="Nombre" class="formUsuario" value="@Model.Admin.Nombre">
+                </div>
+                <div class="row ">
+                    <input asp-for=DatosUser.Correo type="text" placeholder="Correo" class="formUsuario" value="@Model.Admin.Correo">
+                </div>
+
+                <div class="row ">
+                    <input asp-for="DatosUser.Password" type="text" placeholder="Nueva Contraseña" class="formUsuario">
+                </div>
+
+                <div class="row ">
+                    <input asp-for="DatosUser.ConfPassword" type="text" placeholder="Confirmar Contraseña" class="formUsuario">
+                    <span id="PasswordError" class="text-danger" style="display: none;">Las contraseñas no coninciden</span>
+                </div>
+            </div>
+
+            <div class="col-4 col-md-3  d-flex align-items-start flex-column justify-content-around text-start">
+
+                <div>
+                    <input type="submit" value="Guardar Cambios" class="btn-des" formnovalidate>
+                </div>
+
+
+                @*<div class="row text-start">
+                <img id="DatosUser.Nombre" src="~/images/pen-to-square-solidW.svg" class="editarUsuario editarAdmin" />
+                </div>
+
+                <div class="row text-start">
+                <img id="DatosUser.Correo" src="~/images/pen-to-square-solidW.svg" class="editarUsuario editarAdmin" />
+                </div>
+
+                <div class="row text-start">
+                <img src="~/images/pen-to-square-solidW.svg" class="editarUsuario editarAdmin" />
+                </div>*@
+
+            </div>
+
+        </form>
+
+    </article>
+</section>
+
+<section class="row border-R text-center mt-3 rounded-2">
+    <h3><span class="color-R">U</span>suarios</h3>
+</section>
+
+
+<section class="row text-center mt-2 justify-content-between rounded-2">
+    @*Form*@
+    <article class="col-12  col-lg-5 pb-2">
+        <div class="row bg-R rounded-3 form-Editar text-center text-light" id="form-Editar">
+            <h3 class="pt-2 pb-2">Editar usuario</h3>
+
+            <div class="row  ">
+                <h5><b>Nombre</b></h5>
+                <input class="formUsuario" type="text" />
+                <br />
+            </div>
+            <div class="row p-2 ">
+                <h5><b>Correo</b></h5>
+                <input class="formUsuario" type="email" />
+                <br />
+            </div>
+
+            <div class="row p-2 ">
+                <h5><b>Contraseña</b></h5>
+                <input class="formUsuario" type="text" />
+                <br />
+            </div>
+
+            <div class="row p-2 ">
+                <h5><b>Confirmar contraseña</b></h5>
+                <input class="formUsuario" type="text" />
+                <br />
+            </div>
+
+            <div class="row p-2 pb-3">
+                <button type="button" class="actualizarBtn">
+                    <b>Actualizar</b>
+                </button>
+            </div>
+
+
+        </div>
+    </article>
+
+    @*Cards*@
+    <article class="col-12  col-lg-7   pb-2">
+        <div class="row justify-content-center rounded-3 text-center text-light ">
+
+            <div class="col-lg-6 col-12 justify-content-center d-flex  mb-4 ">
+
+                <div class="card border-R text-dark rounded-3 ">
+                    <div class=" pt-2">
+                        <img src="~/images/user-solid.svg" class="usuario" />
+                    </div>
+
+                    <h4 class="card-title text-center"><b> Nombre</b></h4>
+
+                    <div class="card-body text-center text-sm-start text-light bg-R">
+
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-text">Correo</h5>
+                                <h5 class="card-text">Contraseña</h5>
+                            </div>
+                            <div class="col">
+                                <h5 class="card-text">Lorem</h5>
+                                <h5 class="card-text">Lorem</h5>
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+
+                            <div class="col d-flex flex-column align-items-center text-center  justify-content-center ">
+                                <img src="~/images/pen-to-square-solidW.svg" class="editarUsuario" />
+                                <b>Editar</b>
+                            </div>
+
+                            <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
+                                <img src="~/images/trash-can-solid.svg" class="editarUsuario" />
+                                <b>Eliminar</b>
+                            </div>
+
+                            <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
+                                <label class="toggle-switch">
+                                    <input class="chbxUbicaciones" type="checkbox">
+                                    <div class="toggle-switch-background">
+                                        <div class="toggle-switch-handle"></div>
+                                    </div>
+                                </label>
+                                <b>Estado</b>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </article>
+</section>
+
+@section Scripts {
+    @{
+        <script src="~/js/PerfilScripts/Perfil.js"></script>
+        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
+    }
+}
+
+<style>
+    /*CREA UNA HOJA DE ESTILOS Y METE ESTO*/
+
+    /*Usuarios*/
+    .usuario {
+        height: 3.5rem;
+    }
+
+    .editarUsuario {
+        height: 1.6rem;
+        cursor: pointer;
+    }
+
+        .editarUsuario:hover {
+            height: 1.8rem;
+        }
+
+    .formUsuario {
+        width: 85%;
+        margin: auto;
+        padding: 1.1%;
+        border-radius: 5px;
+        border: solid 1px #652022;
+    }
+
+    .form-Editar {
+        width: 97%;
+    }
+
+    .actualizarBtn {
+        border: 1px solid #7b7676;
+        font-family: inherit;
+        width: 86%;
+        margin: auto;
+        background: #d5e8d4;
+        border-radius: 5px;
+        font-weight: bold;
+        color: #545151;
+    }
+
+        .actualizarBtn:hover {
+            background: #8bb989;
+            color: #ffffff;
+        }
+
+    .card {
+        width: 100%;
+    }
+
+    .editarUsuario {
+        height: 1.6rem;
+        cursor: pointer;
+    }
+
+        .editarUsuario:hover {
+            height: 1.8rem;
+        }
+</style>

@@ -61,6 +61,11 @@ builder.Services.AddScoped<CtrlEquipoService>();
 builder.Services.AddScoped<VarianteService>();
 builder.Services.AddScoped<ProveedorService>();
 builder.Services.AddScoped<MtoService>();
+
+// Servicios de Perfil
+builder.Services.AddScoped<IPerfilRepository<Usuario>, PerfilRepository>();         
+builder.Services.AddScoped<PerfilService>();
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 // Configuraciones de autenticación por roles - - - - - - - - - - - - - - - - - - - - - - - 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

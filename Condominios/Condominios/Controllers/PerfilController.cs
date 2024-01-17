@@ -19,7 +19,7 @@ namespace Condominios.Controllers
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
-            PerfilViewModel model = await _Service.GetAdmin();
+            PerfilViewModel model = await _Service.GetUsers();
 
             if (TempData["AlertaJS"] != null)
             {
@@ -36,7 +36,9 @@ namespace Condominios.Controllers
             model.AlertaEstado = await _Service.UpdateUser(model);
             TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
             return RedirectToAction(nameof(Index));
-
         }
+
+
+
     }
 }

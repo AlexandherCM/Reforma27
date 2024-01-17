@@ -16,9 +16,10 @@ namespace Condominios.Models.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PerfilViewModel> GetAdmin()
+        public async Task<PerfilViewModel> GetUsers()
         {
             _viewModel.Admin = await _unitOfWork.PerfilRepository.GetAdmin();
+            _viewModel.Usuarios = await _unitOfWork.PerfilRepository.GetUsuarios();
 
             return _viewModel;  
         }

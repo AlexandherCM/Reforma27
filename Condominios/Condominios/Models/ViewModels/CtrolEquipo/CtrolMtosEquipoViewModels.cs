@@ -37,6 +37,7 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
         public SelectList? Estatus { get; set; }
         public SelectList? Ubicaciones { get; set; }
         public SelectList? TipoMtos { get; set; }
+        public SelectList? EquiposRemplazo { get; set; } 
         // Selects - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
         public string? TotalGtosMto { get; set; }    

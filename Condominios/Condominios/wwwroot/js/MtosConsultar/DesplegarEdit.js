@@ -132,6 +132,8 @@ document.getElementById('SelectEstado').addEventListener('change', (event) => {
 
 let ddlEstado = document.getElementById('Plantilla_EstatusID');
 let retomarMtos = document.getElementById('container-retomarMtos');
+let ddlRemplazo = document.getElementById('container-ddlRemplazo');
+
 let leyenda = UpdateddlEstado();
 let OutService = 'Fuera de servicio';
 function UpdateddlEstado() {
@@ -143,6 +145,10 @@ ddlEstado.addEventListener('change', () => {
     if (leyenda === OutService && UpdateddlEstado() !== OutService) {
         retomarMtos.classList.remove('d-none');
     } else { retomarMtos.classList.add('d-none'); }
+
+    if (leyenda !== OutService && UpdateddlEstado() === OutService) {
+        ddlRemplazo.classList.remove('d-none');
+    } else { ddlRemplazo.classList.add('d-none'); }
 });
 
 

@@ -574,3 +574,36 @@ public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
             //        CostoR = g.Sum(c => c.CostoR),
             //    })
             //    .ToList();
+
+
+
+
+
+            if (GetEstatusForModel.Equals("Fuera de servicio") && !GetEstatusForEquipo.Equals("Fuera de servicio"))
+            {
+                var mtoProgramado = _context.MtoProgramado.FirstOrDefault(c => c.Estado && c.EquipoID == equipo.ID);
+
+                equipo.Estado = false;
+                mtoProgramado.Estado = false;
+            }
+            else if (!GetEstatusForModel.Equals("Fuera de servicio") && GetEstatusForEquipo.Equals("Fuera de servicio"))
+            {
+                DateTime RetomarMto = new DateTime(model.RetomarFecha?.Year ?? 0, model.RetomarFecha?.Month ?? 0, 1, 0, 0, 0);
+                int meses = GetMonths(equipo.VarianteID).GetAwaiter().GetResult();
+
+                long fechaEpoch = _epoch.CrearEpoch(RetomarMto);
+                MtoProgramado programado = equipo.Programados.Where(c => c.ProximaAplicacion == fechaEpoch).FirstOrDefault();
+
+                if (programado == null)
+                {
+                    equipo.Programados.Add(_service.CreateObjectOfNewMtoProgrammed(RetomarMto = RetomarMto.AddMonths(-meses), meses));
+
+                    foreach (var item in equipo.Programados)
+                    {
+                        if (item.ProximaAplicacion > fechaEpoch)
+                            _context.MtoProgramado.Remove(item);
+                    }
+                }
+            }
+            else if (!GetEstatusForModel.Equals("Fuera de servicio")){ equipo.Estado = true; }
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

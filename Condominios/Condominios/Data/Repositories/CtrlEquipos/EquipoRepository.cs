@@ -49,6 +49,33 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Variante.Periodo).Include(c => c.Programados).ThenInclude(m => m.Mantenimiento)
                                     .ToListAsync();
 
+        public async Task<List<EquipoReplaceDTO>> GetListReplace(int varianteID, string NumSerieEpoActual)
+        {
+            var equipos = await _context.Equipo
+                                        .Include(c => c.Estatus).Include(c => c.Ubicacion)
+                                        .Include(c => c.Variante).Include(c => c.Variante.Motor)
+                                        .Include(c => c.Variante.Marca).Include(c => c.Variante.TipoEquipo)
+                                        .Include(c => c.Variante.Periodo).Include(c => c.Programados).ThenInclude(m => m.Mantenimiento)
+                                        .Where(c => c.Estado && c.VarianteID == varianteID && c.NumSerie != NumSerieEpoActual)
+                                        .ToListAsync();
+
+            var equiposConRemplazo = await _context.Equipo
+                                                   .Where(c => !c.Estado && c.CadenaRemplazado != null)
+                                                   .ToListAsync();
+
+            var equiposDisponibles = equipos.Where(c => !equiposConRemplazo.Any(r => r.CadenaRemplazado.Contains(c.NumSerie))).ToList();
+
+            var equiposDTO = equiposDisponibles.Select(equipo => new EquipoReplaceDTO
+            {
+                ID = equipo.ID,
+                Nombre = $"{equipo.Variante.TipoEquipo.Nombre} - Serie: {equipo.NumSerie} - Marca: {equipo.Variante.Marca.Nombre}" +
+                         $" - Motor: {equipo.Variante.Motor.Nombre} - Capacidad: {equipo.Variante.Capacidad}"
+            }).ToList();
+
+            return equiposDTO;
+        }
+
+
         // Modificar para obtener equipos activos
         public async Task<List<Equipo>> GetListWithMtoPending()
             => await _context.Equipo
@@ -209,41 +236,85 @@ namespace Condominios.Data.Repositories.Equipos
                 return _alertaEstado;
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             }
-            //ARRGLAR LA ACTUALIZACIÓN DEL ESTADO DEL MTO Y EL EQUIPO
-            // Detener Mtos Programados - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            // Dejar fuera de servicio al equipo - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             if (GetEstatusForModel.Equals("Fuera de servicio") && !GetEstatusForEquipo.Equals("Fuera de servicio"))
             {
+                //Mtp programado activo del equipo
                 var mtoProgramado = _context.MtoProgramado.FirstOrDefault(c => c.Estado && c.EquipoID == equipo.ID);
 
                 equipo.Estado = false;
                 mtoProgramado.Estado = false;
             }
+            // Reincorporar equipo a los mtos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             else if (!GetEstatusForModel.Equals("Fuera de servicio") && GetEstatusForEquipo.Equals("Fuera de servicio"))
             {
+                if (model.RetomarFecha == null)
+                {
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                    _alertaEstado.Leyenda = "¡Ingrese la fecha en que será programado el mantenimiento!";
+                    _alertaEstado.Estado = false;
+
+                    return _alertaEstado;
+                }
+
+                // Obtener fecha que asigna el mes de mto
                 DateTime RetomarMto = new DateTime(model.RetomarFecha?.Year ?? 0, model.RetomarFecha?.Month ?? 0, 1, 0, 0, 0);
                 int meses = GetMonths(equipo.VarianteID).GetAwaiter().GetResult();
+
+                if (RetomarMto < new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0))
+                {
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                    _alertaEstado.Leyenda = "¡No se puede programar un mantenimiento en una fecha inferior a la actual!";
+                    _alertaEstado.Estado = false;
+
+                    return _alertaEstado;
+                }
 
                 long fechaEpoch = _epoch.CrearEpoch(RetomarMto);
                 MtoProgramado programado = equipo.Programados.Where(c => c.ProximaAplicacion == fechaEpoch).FirstOrDefault();
 
-                if (programado == null)
+                if (programado != null && programado.Aplicado)
                 {
-                    equipo.Programados.Add(_service.CreateObjectOfNewMtoProgrammed(RetomarMto = RetomarMto.AddMonths(-meses), meses));
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                    _alertaEstado.Leyenda = "¡Ya existe un mantenimiento aplicado en esta fecha!";
+                    _alertaEstado.Estado = false;
 
+                    return _alertaEstado;
+                }
+
+                //Volver activar el mto pasado
+                if (programado != null)
+                {
+                    programado.Estado = true;
+                    //Remover algún mto programado superior a la nueva calendarización
                     foreach (var item in equipo.Programados)
                     {
                         if (item.ProximaAplicacion > fechaEpoch)
                             _context.MtoProgramado.Remove(item);
                     }
                 }
+                //Crear un nuevo mtoProgramado
+                else
+                {
+                    programado = equipo.Programados.OrderByDescending(c => c.ProximaAplicacion).FirstOrDefault();
+                    equipo.Programados.Add(_service.CreateObjectOfNewMtoProgrammed(RetomarMto = RetomarMto.AddMonths(-meses), meses, _epoch.ObtenerFecha(programado.ProximaAplicacion)));
+
+                    //Remover algún mto programado superior a la nueva calendarización
+                    foreach (var item in equipo.Programados)
+                    {
+                        if (item.ProximaAplicacion > fechaEpoch)
+                            _context.MtoProgramado.Remove(item);
+                    }
+                }
+                // Activar Equipo
+                equipo.Estado = true;
             }
-            else if (!GetEstatusForModel.Equals("Fuera de servicio")){ equipo.Estado = true; }
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
             equipo.CostoAdquisicion = model.CostoAdquisicion ?? 0;
             equipo.UbicacionID = model.UbicacionID;
             equipo.EstatusID = model.EstatusID;
             equipo.Funcion = model.Funcion;
+            equipo.CadenaRemplazado = !string.IsNullOrEmpty(model.CadenaRemplazado) ? model.CadenaRemplazado : null;
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             _alertaEstado.Leyenda = "Datos Actualizados correctamente";

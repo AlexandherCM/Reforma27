@@ -37,6 +37,7 @@ namespace Condominios.Models.Services
             model.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetActiveList(), "ID", "Nombre");
             model.Proveedores = new SelectList(await _unitOfWork.ProveedorRepository.GetFormatActiveList(), "ID", "Nombre");
             model.TipoMtos = new SelectList(await _unitOfWork.TipoMtoRepository.GetActiveList(), "ID", "Nombre");
+            model.EquiposRemplazo = new SelectList(await _unitOfWork.EquipoRepository.GetListReplace(model.Equipo.VarianteID, model.Equipo.NumSerie), "Nombre", "Nombre");
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
 
@@ -130,7 +131,7 @@ namespace Condominios.Models.Services
                 EstatusID = _viewModelMtos.Equipo.EstatusID,
                 Funcion = _viewModelMtos.Equipo.Funcion,
                 NumSerie = _viewModelMtos.Equipo.NumSerie,
-                CostoAdquisicion = _viewModelMtos.Equipo.CostoAdquisicion
+                CostoAdquisicion = _viewModelMtos.Equipo.CostoAdquisicion,
             };
 
             return _viewModelMtos;

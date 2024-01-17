@@ -50,6 +50,13 @@
                     <input asp-for="Plantilla.RetomarFecha" class="textDes" type="month" />
                     <span asp-validation-for="Plantilla.RetomarFecha" class="text-danger"></span>
                 </div>
+                <div id="container-ddlRemplazo" class="row p-2 d-none">
+                    <label><b>¿Este equipo será remplazado por otro?</b></label>
+                    <select asp-for="Plantilla.CadenaRemplazado" asp-items="Model.EquiposRemplazo" class="textDes">
+                        <option value="">Selecciona el equipo</option>
+                    </select>
+                    <span asp-validation-for="Plantilla.CadenaRemplazado" class="text-danger"></span>
+                </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
                 <div class="row p-2 ">
                     <label><b>Costo de adquisición del equipo</b></label>
@@ -75,7 +82,7 @@
                     <span asp-validation-for="Plantilla.Funcion" class="text-danger"></span>
                 </div>
                 @*- - - - - - - - - - - - - - - - - - - - - - - - - -*@
-                <div class="row p-1 pb-2">
+                <div class="row p-1 pb-4">
                     <input type="submit" value="Editar" class="btn-des" id="confirmar">
                 </div>
             </form>
@@ -101,7 +108,7 @@
 
 
 @* Tabla de resultados *@
-<article class="row border-R tablas rounded-3 text-dark mt-3 ">
+<article class="row border-R tablas text-dark mt-3 ">
 
     <table class="text-center mantenimiento">
 
@@ -176,7 +183,31 @@
 
     </table>
 
+    
 </article>
+
+<article class="row border-R tablas text-dark">
+    @if (Model.Equipo.CadenaRemplazado != null)
+{
+    <table class="text-center mantenimiento">
+        <thead>
+            <tr class="border-R">
+                <th class="border-R">
+                    Equipo por el que fue remplazado
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Equipo.CadenaRemplazado)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+</article>
+
 
 @* Manteniminetos *@
 
@@ -360,9 +391,11 @@
 </article>
 
 <br />
+<br />
+<br />
 
 @* Despegable DOWN *@
-<aside id="despegableDown" class="rounded-2 mt-5">
+<aside id="despegableDown" class="rounded-2">
     <div id="contenidoDown">
         <form id="form-mto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

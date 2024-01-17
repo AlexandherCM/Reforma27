@@ -16,6 +16,7 @@ namespace Condominios.Models.Entities
         public int VarianteID { get; set; }
         public int UbicacionID { get; set; }
         public int EstatusID { get; set; }
+        public string? CadenaRemplazado { get; set; } 
         public string NumSerie { get; set; }
         public string Funcion { get; set; } 
         public decimal CostoAdquisicion { get; set; }

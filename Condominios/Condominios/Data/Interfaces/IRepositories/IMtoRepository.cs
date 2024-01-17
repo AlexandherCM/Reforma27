@@ -9,7 +9,7 @@ namespace Condominios.Data.Interfaces.IRepositories
 {
     public interface IMtoRepository
     {
-        public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses);
+        public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses, DateTime UltimaAplicacionMayor = new());
         public Task CreateNewMtoProgramOfBackground();
 
         public Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel);

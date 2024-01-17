@@ -18,7 +18,8 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
 
         [Required(ErrorMessage = "El campo es número de serie es obligatorio")]
         public string NumSerie { get; set; }
-
+        
+        public string? CadenaRemplazado { get; set; } 
         public decimal? CostoAdquisicion { get; set; }
         public DateTime? RetomarFecha { get; set; } 
     }

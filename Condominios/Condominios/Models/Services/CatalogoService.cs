@@ -2,6 +2,7 @@
 using Condominios.Models;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Condominios.Models.Services
 {
@@ -138,7 +139,12 @@ namespace Condominios.Models.Services
             _viewModel.Motores = await _uniOfWork.MotorRepository.GetList();
             _viewModel.Periodos = await _uniOfWork.PeriodoRepository.GetList();
             _viewModel.Ubicaciones = await _uniOfWork.UbicacionRepository.GetList();
-            _viewModel.Estatus = await _uniOfWork.EstatusRepository.GetList();
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            var estatusList = await _uniOfWork.EstatusRepository.GetList();
+            estatusList = estatusList.Where(e => e.Nombre != "Fuera de servicio").ToList();
+
+            _viewModel.Estatus = estatusList;
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             _viewModel.TipoMantenimientos = await _uniOfWork.TipoMtoRepository.GetList();
             _viewModel.unidadMedidas = await _uniOfWork.UnidadMedidaRepository.GetList();
             _viewModel.TipoEquipos = await _uniOfWork.TipoEquipoRepository.GetList();

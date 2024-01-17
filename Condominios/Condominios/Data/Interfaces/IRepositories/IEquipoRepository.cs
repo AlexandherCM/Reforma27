@@ -12,6 +12,7 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<List<Equipo>> GetList(FiltrosDTO filtros);
         public Task<List<Equipo>> GetList(string cadena);
         public Task<List<Equipo>> GetList(int id);
+        public Task<List<EquipoReplaceDTO>> GetListReplace(int varianteID, string NumeSerie);  
         public Task<List<Entidad>> GetList();
         public Task<List<Entidad>> GetListWithMtoPending(); 
         public Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel);

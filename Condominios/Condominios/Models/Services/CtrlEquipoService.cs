@@ -69,10 +69,15 @@ namespace Condominios.Models.Services
             viewModel.Marcas = new SelectList(await _unitOfWork.MarcaRepository.GetActiveList(), "ID", "Nombre");
             viewModel.Motores = new SelectList(await _unitOfWork.MotorRepository.GetActiveList(), "ID", "Nombre");
 
-            viewModel.Estatus = new SelectList(await _unitOfWork.EstatusRepository.GetActiveList(), "ID", "Nombre");
+            viewModel.AllEstatus = new SelectList(await _unitOfWork.EstatusRepository.GetActiveList(), "ID", "Nombre");
+
+            var estatusList = await _unitOfWork.EstatusRepository.GetActiveList();
+            estatusList = estatusList.Where(e => e.Nombre != "Fuera de servicio").ToList();
+
+            // Crear el SelectList con la lista filtrada
+            viewModel.Estatus = new SelectList(estatusList, "ID", "Nombre");
 
             viewModel.Equipos = await GetEquipos();
-
             return viewModel;
         }
 

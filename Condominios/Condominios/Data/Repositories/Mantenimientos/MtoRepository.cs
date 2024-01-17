@@ -232,7 +232,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             return _alertaEstado;
         }
 
-        public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses)
+        public MtoProgramado CreateObjectOfNewMtoProgrammed(DateTime UltimaAplicacion, int meses, DateTime UltimaAplicacionMayor = new())
         {
             DateTime ProximaAplicacion = UltimaAplicacion.AddMonths(meses);
 
@@ -245,8 +245,11 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             MtoProgramado mantenimiento = new()
             {
-                UltimaAplicacion =
-                    _epoch.CrearEpoch(UltimaAplicacion),
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                UltimaAplicacion = UltimaAplicacionMayor != DateTime.MinValue
+                                   ?_epoch.CrearEpoch(UltimaAplicacionMayor)
+                                   :_epoch.CrearEpoch(UltimaAplicacion),
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                 ProximaAplicacion = _epoch.CrearEpoch(ProximaAplicacion),
                 Aplicado = false,
                 Aplicable = ProximaAplicacion.Year == DateTime.Now.Year && ProximaAplicacion.Month == DateTime.Now.Month,

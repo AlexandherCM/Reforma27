@@ -211,7 +211,7 @@
             <form asp-action="SearchByStatus" id="formsEstado" class="col-12 col-md-11 border-R d-flex justify-content-center flex-column">
                 <h4 class="mt-2 mb-3"><span class="color-R">B</span>uscar por estatus</h4>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <select asp-for="EstatusID" asp-items="Model.Estatus" id="SelectEstado" class="select mb-2 ">
+                <select asp-for="EstatusID" asp-items="Model.AllEstatus" id="SelectEstado" class="select mb-2 ">
                     <option value="0">Estados</option>
                 </select>
             </form>

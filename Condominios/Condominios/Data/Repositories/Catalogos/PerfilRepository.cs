@@ -4,6 +4,7 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Perfil;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8602
 
 namespace Condominios.Data.Repositories.Catalogos
 {
@@ -62,35 +63,13 @@ namespace Condominios.Data.Repositories.Catalogos
             return _alertaEstado;
         }
 
-        //public async Task<Usuario> Update(PerfilViewModel viewModel)
-        //{
-        //    Usuario user;
+        public void Acceso(int id)
+        {
+            var usuario = _context.Find<Usuario>(id);
+            usuario.Validado = !usuario.Validado;
+            return;
+        }
 
-        //    if (viewModel.ID == 0)
-        //    {
-        //        user = await GetAdmin();
-        //    }
-        //    else
-        //    {
-        //        user = await _context.Usuario.FindAsync(viewModel.ID);
-        //    }
-
-        //    if (!string.IsNullOrWhiteSpace(viewModel.DatosUser.Nombre))
-        //    {
-        //        user.Nombre = viewModel.DatosUser.Nombre;
-        //    }
-
-        //    if (!string.IsNullOrWhiteSpace(viewModel.DatosUser.Correo))
-        //    {
-        //        user.Correo = viewModel.DatosUser.Correo;
-        //    }
-
-        //    if (!string.IsNullOrWhiteSpace(viewModel.DatosUser.Password))
-        //    {
-        //        user.Clave = viewModel.DatosUser.Password;
-        //    }
-
-        //    return user;
-        //}
+       
     }
 }

@@ -30,5 +30,12 @@ namespace Condominios.Models.Services
             await _unitOfWork.Save();
             return UserUpdate;
         }
+
+        public async Task Acceso(int id)
+        {
+            _unitOfWork.PerfilRepository.Acceso(id);
+            await _unitOfWork.Save();
+            return;
+        }
     }
 }

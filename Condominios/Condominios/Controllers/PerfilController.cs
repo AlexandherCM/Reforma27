@@ -1,5 +1,6 @@
 ﻿using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
+using Condominios.Models.ViewModels.Catalogos;
 using Condominios.Models.ViewModels.Perfil;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -38,7 +39,9 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
+        public async Task Acceso(int id)
+        {
+            await _Service.Acceso(id);
+        }
     }
 }

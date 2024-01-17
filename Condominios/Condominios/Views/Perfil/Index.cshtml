@@ -160,7 +160,7 @@
 
                                 <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
                                     <label class="toggle-switch">
-                                        <input class="chbxUbicaciones" type="checkbox">
+                                        <input class="chbxEstado" data-url="Perfil/Acceso/" type="checkbox" checked="@Model.Usuarios[i].Validado" value="@(Model.Usuarios[i].ID)">
                                         <div class="toggle-switch-background">
                                             <div class="toggle-switch-handle"></div>
                                         </div>
@@ -183,6 +183,7 @@
 @section Scripts {
     @{
         <script src="~/js/PerfilScripts/Perfil.js"></script>
+        <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js" asp-append-version="true"></script>
         <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
     }
 }

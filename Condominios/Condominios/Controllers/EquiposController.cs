@@ -122,5 +122,14 @@ namespace Condominios.Controllers
             return RedirectToAction("Consultar", "Mantenimientos", new { ID = viewModel.EquipoID });
         }
 
+        //[Authorize(Roles = "Administrador, General")]
+        public async Task<IActionResult> CacularPeriodos(DateTime ultimaAplicacion, int varianteID)
+        {
+            string leyenda = await _service.CalculateTimes(ultimaAplicacion, varianteID);
+
+            var jsonResult = new JsonResult(leyenda);
+            return jsonResult;
+        }
+
     }
 }

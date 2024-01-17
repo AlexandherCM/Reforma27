@@ -21,7 +21,6 @@ function CreateFormsListener(Propeties) {
             return;
         }
 
-
         let ViewModel = {};
         const Objetos = {};
         const formData = new FormData(event.target);

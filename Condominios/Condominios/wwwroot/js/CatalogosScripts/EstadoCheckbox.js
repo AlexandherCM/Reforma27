@@ -37,12 +37,10 @@ function UpdateStatus(FormID) {
     };
 
     //console.log(CatalogoViewModel);
-
     api.SetPost('Catalogos/UpdateById', CatalogoViewModel)
         .then(data => {
-            //console.log('POST Successful: Actualización de estado')
-        })
-        .catch(error => console.error('POST Error:', error));
+        //console.log('POST Successful: Actualización de estado')
+        }).catch(error => console.error('POST Error:', error));
 }
 
 

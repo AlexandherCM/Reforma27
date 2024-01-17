@@ -102,9 +102,9 @@
 
                 <div class="mt-4 row ">
                     <div class="col-6">
-
-                        <button type="submit" class="botonTrue"><b>Registrar</b></button>
-
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*@
+                        <button id="btnTimes" type="submit" class="botonTrue"><b>Registrar</b></button>
+                        @*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*@
                     </div>
                     <div class="col-6">
                         @*- - - - - - - - - - - - - -*@
@@ -341,7 +341,8 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_EquiposScripts");
-        <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
+        <script>AlertaJS( @Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
+        //<script>ModalOption('HOLA', "Datos")</script>
     }
 }
 

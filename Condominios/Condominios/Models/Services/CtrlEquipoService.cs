@@ -91,5 +91,8 @@ namespace Condominios.Models.Services
         public async Task<Equipo> GetEquipo(int id)
             => await _unitOfWork.EquipoRepository.GetById(id);
 
+        public async Task<string> CalculateTimes(DateTime date, int varianteID)
+            => await _unitOfWork.EquipoRepository.CalculateTimes(date, varianteID);
+
     }
 }

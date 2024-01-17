@@ -8,7 +8,7 @@ namespace Condominios.Data.Interfaces.IRepositories
 {
     public interface IEquipoRepository<Entidad>
     {
-        Task<Equipo?> GetById(int id);
+        public Task<Equipo?> GetById(int id);
         public Task<List<Equipo>> GetList(FiltrosDTO filtros);
         public Task<List<Equipo>> GetList(string cadena);
         public Task<List<Equipo>> GetList(int id);
@@ -18,6 +18,7 @@ namespace Condominios.Data.Interfaces.IRepositories
         public Task<AlertaEstado> Add(CtrlEquipoViewModel viewModel);
         public AlertaEstado Update(EditEquipoViewModel model);
         public void Delete(Entidad entity);
-        Task<Equipo?> UpdateID(int id);
+        public Task<Equipo?> UpdateID(int id);
+        public Task<string> CalculateTimes(DateTime date, int varianteID);
     }
 }

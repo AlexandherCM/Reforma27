@@ -262,7 +262,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
         public async Task CreateNewMtoProgramOfBackground()
         {
-            DateTime flagTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
+            DateTime flagTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0); 
             long flagTimeEpoch = _epoch.CrearEpoch(flagTime);
 
             var Mtos = await _context.MtoProgramado

@@ -46,6 +46,17 @@ function contarInputs() {
     return numeroDeInputs;
 };
 
+let ddlVariante = document.getElementById('Plantilla_VarianteID');
+let txtEstatus = document.getElementById('Plantilla_EstatusID');
+let txtUltimaAplicacion = document.getElementById('Plantilla_UltimaAplicacion');
+let txtUbicacion = document.getElementById('Plantilla_UbicacionID');
+let txtFuncion = document.getElementById('Plantilla_Funcion');
+
+let otherFields = [ddlVariante, txtEstatus, txtUltimaAplicacion, txtUbicacion, txtFuncion];
+let inputsSerie = document.querySelectorAll('.InputSerie');
+
+var allFields = [...otherFields, ...inputsSerie];
+
 function agregarNuevoInput() {
     let contenedor = document.getElementById("contenedor-inputs");
 
@@ -66,6 +77,10 @@ function agregarNuevoInput() {
     contenedor.appendChild(nuevoLabel);
     contenedor.appendChild(nuevoInput);
     contenedor.appendChild(nuevoSpan);
+    allFields.push(nuevoInput);
+
+    console.log(allFields.length);
+    console.log(allFields);
 
     contarInputs();
 }

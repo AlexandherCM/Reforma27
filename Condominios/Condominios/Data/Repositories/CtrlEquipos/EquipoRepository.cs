@@ -294,7 +294,8 @@ namespace Condominios.Data.Repositories.Equipos
                 else
                 {
                     programado = equipo.Programados.OrderByDescending(c => c.ProximaAplicacion).FirstOrDefault();
-                    equipo.Programados.Add(_service.CreateObjectOfNewMtoProgrammed(RetomarMto = RetomarMto.AddMonths(-meses), meses, _epoch.ObtenerFecha(programado.ProximaAplicacion)));
+                    equipo.Programados
+                          .Add(_service.CreateObjectOfNewMtoProgrammed(RetomarMto = RetomarMto.AddMonths(-meses), meses, _epoch.ObtenerFecha(programado.ProximaAplicacion)));
 
                     //Remover algún mto programado superior a la nueva calendarización
                     foreach (var item in equipo.Programados)
@@ -336,8 +337,6 @@ namespace Condominios.Data.Repositories.Equipos
                                     .Include(c => c.Estatus)
                                     .FirstOrDefaultAsync(c => c.ID == ID);
 
-
-
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         private async Task<int> GetMonths(int varianteID)
             => await _context.Variante
@@ -352,6 +351,14 @@ namespace Condominios.Data.Repositories.Equipos
             var equipo = await _context.Equipo.FirstOrDefaultAsync(c => c.ID == id);
             equipo.Estado = !equipo.Estado;
             return equipo;
+        }
+
+        public async Task<string> CalculateTimes(DateTime date, int varianteID)
+        {
+            int meses = await GetMonths(varianteID);
+            DateTime ProximaAplicacion = date.AddMonths(meses);
+
+            return $"El proximo mantenimiento será en {_epoch.ObtenerMesYAnio(ProximaAplicacion)}";
         }
     }
 }

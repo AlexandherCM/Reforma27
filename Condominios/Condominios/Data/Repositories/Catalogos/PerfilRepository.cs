@@ -24,6 +24,12 @@ namespace Condominios.Data.Repositories.Catalogos
             return Admin;
         }
 
+        public async Task<List<Usuario>> GetUsuarios()
+        {
+            var users = await _context.Usuario.Where(u => u.Perfil.Nombre == "General").ToListAsync();
+            return users;
+        }
+
         public async Task<AlertaEstado> Update(PerfilViewModel viewModel)
         {
             Usuario user;

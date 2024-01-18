@@ -16,8 +16,8 @@ namespace Condominios.Models.Services.Classes
 
         private readonly UsuarioDTO _suarioDTO = new() 
         { 
-            Nombre = "Alexandher CM",
-            Correo = "alexandhercordoba378@gmail.com",
+            Nombre = "Raúl Lara",
+            Correo = "gerente@reforma27.com.mx",
             Password = "180706038176",
         };
 

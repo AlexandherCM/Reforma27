@@ -10,6 +10,9 @@ using Condominios.Models.DTOs;
 using Microsoft.Win32;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
+using System.Drawing.Text;
+using Condominios.Models.ViewModels.Perfil;
+using Condominios.Data.Interfaces.IRepositories;
 
 namespace Condominios.Models.Services
 {
@@ -24,10 +27,13 @@ namespace Condominios.Models.Services
         private readonly Context _context;
         private HerramientaRegistro _herramientaRegistro = new HerramientaRegistro();
         private readonly IWebHostEnvironment _hostingEnvironment;
-        public AutenticarService(Context context, IWebHostEnvironment webHostEnvironment )
+        private readonly IPerfilRepository<Usuario> _perfilRepository;
+
+        public AutenticarService(Context context, IWebHostEnvironment webHostEnvironment, IPerfilRepository<Usuario> perfilRepository)
         {
             _context = context;
             _hostingEnvironment = webHostEnvironment;
+            _perfilRepository = perfilRepository;
         }
         public async Task<string> IniciarSesion(SesionViewModel sesion, HttpContext HttpContext)
         {
@@ -81,7 +87,8 @@ namespace Condominios.Models.Services
                 int GralID = _context.Perfil.Where(c => c.Nombre == "General").Select(c => c.ID).First();
 
                 var NuevoUsuario = _herramientaRegistro.CrearUsuario(user, GralID);
-                var Destinatario = "carlosivan12.ci2@gmail.com";
+                var desti = await _perfilRepository.GetAdminEmail();
+                var Destinatario = desti;  /*"carlosivan12.ci2@gmail.com";*/
                 var Plantilla = "Confirmar.html";
                 var Ruta = $"Acceso/Confirmar?token={NuevoUsuario.Token}";
 

@@ -18,8 +18,8 @@ namespace Condominios.Models.Services.Classes
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         private string _nombre = "Nuevo usuario";
-        private string _remitente = "pruebacorreo172003@gmail.com";
-        private string _clave = "xvodomprdlhuwplg";
+        private string _remitente = "contacto.reforma27@gmail.com";
+        private string _clave = "lhsvnvtcdpikdzvp";
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         public bool EnviarCorreo(CorreoDTO correo)

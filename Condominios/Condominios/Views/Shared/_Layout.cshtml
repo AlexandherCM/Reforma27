@@ -12,6 +12,8 @@
         {8,"Perfil"}
 
     };
+
+    var admin = User.IsInRole("Administrador");
 }
 
 
@@ -54,14 +56,16 @@
                     <img src="~/images/Logo.svg" width="100%">
                 </div>
 
-
                 @*Perfil*@
-                <div class="row mt-4 d-flex align-items-center flex-row justify-content-center">
-                    <a asp-controller="Perfil" asp-action="Index" class="hyperLink">
-                        <img src="~/images/user-solid.svg" class="icon-users" />
-                        <h6><b class="titles">@Modulos[8]</b></h6>
-                    </a>
-                </div>
+                @if (admin)
+                {
+                    <div class="row mt-4 d-flex align-items-center flex-row justify-content-center">
+                        <a asp-controller="Perfil" asp-action="Index" class="hyperLink">
+                            <img src="~/images/user-solid.svg" class="icon-users" />
+                            <h6><b class="titles">@Modulos[8]</b></h6>
+                        </a>
+                    </div>
+                }
 
                 @*Inicio*@
                 <div class="row mt-4 d-flex align-items-center flex-row justify-content-center">
@@ -159,12 +163,16 @@
                             <div class="col-7">
 
                                 @*Ususarios*@
-                                <div class="row justify-content-between pb-1">
-                                    <a asp-controller="Perfil" asp-action="Index" class="t-none link d-flex justify-content-start align-items-center">
-                                        <img src="~/images/user-solid.svg" class="icons" />
-                                        <b >@Modulos[8]</b>
-                                    </a>
-                                </div>
+                                @if (admin)
+                                {
+                                    <div class="row justify-content-between pb-1">
+                                        <a asp-controller="Perfil" asp-action="Index" class="t-none link d-flex justify-content-start align-items-center">
+                                            <img src="~/images/user-solid.svg" class="icons" />
+                                            <b>@Modulos[8]</b>
+                                        </a>
+                                    </div>
+                                }
+                                
 
                                 @*Inicio*@
                                 <div class="row justify-content-between">

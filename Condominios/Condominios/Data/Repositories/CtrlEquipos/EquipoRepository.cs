@@ -124,13 +124,14 @@ namespace Condominios.Data.Repositories.Equipos
             int comparacion = present.CompareTo(viewModel.Plantilla.UltimaAplicacion);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            //if (comparacion < 0)
-            //{
-            //    _alertaEstado.Leyenda = "No se puede establecer una fecha superior a la actual";
-            //    _alertaEstado.Estado = false;
+            if (comparacion < 0)
+            {
+                _alertaEstado.Leyenda = 
+                    "No se puede establecer una fecha superior a la actual como fecha de última aplicación.";
+                _alertaEstado.Estado = false;
 
-            //    return _alertaEstado;
-            //}
+                return _alertaEstado;
+            }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             DateTime ProximoMto =
                 viewModel.Plantilla.UltimaAplicacion.AddMonths(GetMonths(viewModel.Plantilla.VarianteID).GetAwaiter().GetResult());

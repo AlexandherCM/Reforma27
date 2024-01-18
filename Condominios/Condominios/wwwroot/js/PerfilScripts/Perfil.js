@@ -2,6 +2,8 @@
 var ConfirmarPassword = document.getElementById("DatosUser_ConfPassword");
 var PasswordError = document.getElementById("PasswordError");
 
+var Errorr = document.getElementById("Error");
+
 
 function UpdateAdmin() {
     var Enviar = false;
@@ -11,7 +13,17 @@ function UpdateAdmin() {
         Enviar = true;
     }
 
-    console.log(Enviar);
+    return !Enviar;
+}
+
+function UpdateUser() {
+    var Enviar = false;
+
+    if (Password.value != ConfirmarPassword.value) {
+        Errorr.style.display = 'inline';
+        Enviar = true;
+    }
+
     return !Enviar;
 }
 

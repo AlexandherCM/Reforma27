@@ -48,5 +48,11 @@ namespace Condominios.Models.Services
             return borrado;
         }
 
+        public async Task<PerfilViewModel> GetUsuario(int id)
+        {
+            _viewModel.User = await _unitOfWork.PerfilRepository.GetUser(id);
+            return _viewModel;
+        }
+
     }
 }

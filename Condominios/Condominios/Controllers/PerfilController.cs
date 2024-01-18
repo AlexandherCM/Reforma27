@@ -3,6 +3,7 @@ using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Catalogos;
 using Condominios.Models.ViewModels.Perfil;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 #pragma warning disable CS8600
@@ -18,6 +19,7 @@ namespace Condominios.Controllers
             _Service = service;
         }
 
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
@@ -31,6 +33,7 @@ namespace Condominios.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateAdmin(PerfilViewModel model)
         {
             var admin = await _Service.UpdateUser(model);
@@ -40,11 +43,13 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrador")]
         public async Task Acceso(int id)
         {
             await _Service.Acceso(id);
         }
 
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int id)
         {
             await _Service.Delete(id);
@@ -52,18 +57,21 @@ namespace Condominios.Controllers
             return Ok(new { success = true });
         }
 
-        public async Task<IActionResult> UpdateUser()
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> UpdateUser(PerfilViewModel model)
         {
-
-            return Ok(new { success = true });
+            model.AlertaEstado = await _Service.UpdateUser(model);
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
+            return RedirectToAction(nameof(Index));
         }
 
-        //public async Task<IActionResult> ObtenerRegistro(int id)
-        //{
-        //    PerfilViewModel model = await _Service.GetUsuario(id);
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> ObtenerRegistro(int id)
+        {
+            PerfilViewModel model = await _Service.GetUsuario(id);
 
-        //    var jsonResult = new JsonResult(model);
-        //    return jsonResult;
-        //}
+            var jsonResult = new JsonResult(model);
+            return jsonResult;
+        }
     }
 }

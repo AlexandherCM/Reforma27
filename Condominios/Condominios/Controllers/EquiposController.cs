@@ -21,7 +21,7 @@ namespace Condominios.Controllers
         }
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador, General")] 
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
@@ -122,10 +122,10 @@ namespace Condominios.Controllers
             return RedirectToAction("Consultar", "Mantenimientos", new { ID = viewModel.EquipoID });
         }
 
-        //[Authorize(Roles = "Administrador, General")]
-        public async Task<IActionResult> CacularPeriodos(DateTime ultimaAplicacion, int varianteID)
+        [Authorize(Roles = "Administrador, General")]
+        public async Task<IActionResult> CacularPeriodos(DateTime ultimaAplicacion, int varianteID, int inputs)
         {
-            string leyenda = await _service.CalculateTimes(ultimaAplicacion, varianteID);
+            string leyenda = await _service.CalculateTimes(ultimaAplicacion, varianteID, inputs);
 
             var jsonResult = new JsonResult(leyenda);
             return jsonResult;

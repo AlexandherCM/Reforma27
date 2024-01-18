@@ -9,7 +9,9 @@ function AlertaJS(alertaEstado) {
 }
 
 let modalActivo = null;
-var main = document.getElementById('content-main');
+let main = document.getElementById('content-main');
+
+var modalAlert = null;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 function Modal(titulo, mensaje, tipo) {
@@ -42,19 +44,24 @@ function Modal(titulo, mensaje, tipo) {
 
     const mensajeModal = document.createElement("p");
     mensajeModal.innerText = mensaje;
+    mensajeModal.classList.add('justify-text');
     modalBody.appendChild(mensajeModal);
 
     const btnClose = document.createElement("button");
     btnClose.innerText = " Ok";
     btnClose.classList.add("btnClose");
+
     btnClose.addEventListener("click", () => {
         modalBody.remove();
     })
     modalBody.appendChild(btnClose);
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    modalAlert = modalBody;
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
     // document.body.appendChild(modalBody);
     main.appendChild(modalBody);
-
 
     modalActivo = modalBody;
 }
@@ -77,6 +84,7 @@ function ModalOption(titulo, mensaje) {
     modalBody.appendChild(tituloModal);
 
     const mensajeModal = document.createElement("p");
+    mensajeModal.classList = 'justify-text';
     mensajeModal.innerText = mensaje;
     modalBody.appendChild(mensajeModal);
 
@@ -95,6 +103,8 @@ function ModalOption(titulo, mensaje) {
     const aceptar = document.createElement("button");
     aceptar.textContent = "Aceptar";
     aceptar.classList.add("aceptar");
+    aceptar.id = "btn-send";
+
     colS.appendChild(aceptar);
 
     aceptar.addEventListener("click", () => {
@@ -104,6 +114,10 @@ function ModalOption(titulo, mensaje) {
     cancel.addEventListener("click", () => {
         modalBody.remove();
     })
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    modalAlert = modalBody;
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     row.appendChild(colS);
     row.appendChild(colC);

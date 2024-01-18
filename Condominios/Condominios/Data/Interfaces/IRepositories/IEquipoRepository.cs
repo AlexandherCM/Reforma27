@@ -19,6 +19,6 @@ namespace Condominios.Data.Interfaces.IRepositories
         public AlertaEstado Update(EditEquipoViewModel model);
         public void Delete(Entidad entity);
         public Task<Equipo?> UpdateID(int id);
-        public Task<string> CalculateTimes(DateTime date, int varianteID);
+        public Task<string> CalculateTimes(DateTime date, int varianteID, int inputs);
     }
 }

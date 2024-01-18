@@ -353,12 +353,16 @@ namespace Condominios.Data.Repositories.Equipos
             return equipo;
         }
 
-        public async Task<string> CalculateTimes(DateTime date, int varianteID)
+        public async Task<string> CalculateTimes(DateTime date, int varianteID, int inputs)
         {
             int meses = await GetMonths(varianteID);
             DateTime ProximaAplicacion = date.AddMonths(meses);
 
-            return $"El proximo mantenimiento será en {_epoch.ObtenerMesYAnio(ProximaAplicacion)}";
+            string cadena = inputs > 1
+                ? "El proximo mantenimiento para los equipos será en"
+                : "El proximo mantenimiento para el equipo será en";
+
+            return $"{cadena} {_epoch.ObtenerMesYAnio(ProximaAplicacion)}.";
         }
     }
 }

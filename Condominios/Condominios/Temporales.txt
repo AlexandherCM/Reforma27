@@ -607,3 +607,34 @@ public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
             }
             else if (!GetEstatusForModel.Equals("Fuera de servicio")){ equipo.Estado = true; }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+            document.getElementById('formsEquipo').addEventListener('submit', (event) => {
+    var inputsSerie = document.querySelectorAll('.InputSerie');
+
+    // Crear un conjunto para almacenar los valores únicos de los inputs
+    var uniqueValues = new Set();
+
+    // Verificar cada input
+    for (var i = 0; i < inputsSerie.length; i++) {
+        var inputValue = inputsSerie[i].value.trim();
+
+        // Verificar si el valor ya está en el conjunto
+        if (uniqueValues.has(inputValue)) {
+            Modal('Error', 'Los números de serie no pueden ser iguales.', false);
+
+            event.preventDefault();
+            return;
+        }
+
+        if (inputValue === "") {
+            Modal('Error', 'Los campos no pueden ser nulos.', false);
+
+            event.preventDefault();
+            return;
+        }
+
+        uniqueValues.add(inputValue);
+    }
+});

@@ -19,11 +19,18 @@ main {
     padding: 20px;
     animation: alertaEntrada 0.5s ease-in-out;
     text-align: center;
-    width: 18%;
+    width: 20%;
     color: black;
     margin: auto;
     border-radius: 15px;
-    z-index:3;
+    z-index: 3;
+    font-size: 1.3em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.justify-text {
+    text-align: justify;
+    padding: 5% 7%;
 }
 
 .iconContent {
@@ -151,9 +158,10 @@ main {
 .cancel {
     background: rgb(221, 51, 51);
     color: #fff;
-    padding: 5%;
+    padding: 5% 20%;
     border: none;
     border-radius: 5px;
+    margin-left: 15%;
 }
 
     .cancel:hover {
@@ -163,9 +171,10 @@ main {
 .aceptar {
     background: #28a745;
     color: #fff;
-    padding: 5%;
+    padding: 5% 20%;
     border: none;
     border-radius: 5px;
+    margin-right: 15%;
 }
 
     .aceptar:hover {
@@ -264,6 +273,22 @@ tr, td {
     .modalBody {
         width: 80%;
     }
+
+    .cancel {
+        padding: 5%;
+        margin-left: 15%;
+    }
+
+    .aceptar {
+        padding: 5%;
+        margin-right: 15%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .modalBody {
+        width: 50%;
+    }
 }
 
 /* - - - - - - - - - - - BTN'S* - - - - - - - - - - - */
@@ -271,14 +296,11 @@ tr, td {
     border: 0;
     width: 30%;
     border-radius: 0.25em;
-    background: initial;
-    background-color: #7066e0;
+    background-color: #4f48a1;
     color: #fff;
     font-size: 1.3em;
-    padding: .5% 0 .5% 0;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
     .btnClose:hover {
-        background-color: #4f48a1;
+        background-color: #6f48a1;
     }

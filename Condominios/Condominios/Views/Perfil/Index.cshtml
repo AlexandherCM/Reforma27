@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="row p-2 pb-3">
-                    <input type="submit" class="btn-des" value="Confirmar" formnovalidate />
+                    <input type="submit" class="btn-des" value="Confirmar" />
                 </div>
 
             </form>
@@ -81,7 +81,7 @@
                             </div>
 
                             <div class="col d-flex align-items-center">
-                                <input asp-for="DatosUser.Nombre" type="text" placeholder="Nombre" class="formUsuario" value="@Model.Admin.Nombre">
+                                <input  asp-for="DatosUser.Nombre" type="text" placeholder="Nombre" class="formUsuario" value="@Model.Admin.Nombre">
                             </div>
 
                         </div>
@@ -93,7 +93,7 @@
                             </div>
 
                             <div class="col d-flex align-items-center">
-                                <input asp-for=DatosUser.Correo type="text" placeholder="Correo" class="formUsuario" value="@Model.Admin.Correo"> 
+                                <input  asp-for=DatosUser.Correo type="text" placeholder="Correo" class="formUsuario" value="@Model.Admin.Correo">
                             </div>
 
                         </div>
@@ -111,7 +111,7 @@
                             </div>
 
                             <div class="col d-flex align-items-center">
-                                <input asp-for="DatosUser.Password" type="text" placeholder="Nueva Contraseña" class="formUsuario">
+                                <input id="passwordOne" asp-for="DatosUser.Password" type="text" placeholder="Nueva Contraseña" class="formUsuario">
                             </div>
 
                         </div>
@@ -122,9 +122,9 @@
                                 <h5 class="pt-1"><b>Confirmar contraseña:</b></h5>
                             </div>
 
-                            <div class="col d-flex align-items-center">
-                                <input asp-for="DatosUser.ConfPassword" type="text" placeholder="Confirmar Contraseña" class="formUsuario">
-                                <span id="PasswordError" class="text-danger" style="display: none;">Las contraseñas no coninciden</span>
+                            <div class="col d-flex align-items-center flex-column">
+                                <input id="passwordTwo" asp-for="DatosUser.ConfPassword" type="text" placeholder="Confirmar Contraseña" class="formUsuario">
+                                <span id="PasswordError" class="text-light" style="display: none;">Las contraseñas no coninciden</span>
                             </div>
 
                         </div>

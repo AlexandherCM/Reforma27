@@ -80,7 +80,7 @@ export function EditarProveedorEquipo(Pagina) {
 
     //        })
     //        .catch(error => console.error('GET Error:', error));
-    }
+    //}
 
 
     function ConsultaGETTipoEquipo(Parametro) {

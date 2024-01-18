@@ -19,7 +19,7 @@ namespace Condominios.Controllers
             _Service = service;
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
@@ -33,7 +33,7 @@ namespace Condominios.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateAdmin(PerfilViewModel model)
         {
             var admin = await _Service.UpdateUser(model);
@@ -43,13 +43,13 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task Acceso(int id)
         {
             await _Service.Acceso(id);
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int id)
         {
             await _Service.Delete(id);
@@ -57,7 +57,7 @@ namespace Condominios.Controllers
             return Ok(new { success = true });
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateUser(PerfilViewModel model)
         {
             model.AlertaEstado = await _Service.UpdateUser(model);
@@ -65,7 +65,7 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> ObtenerRegistro(int id)
         {
             PerfilViewModel model = await _Service.GetUsuario(id);

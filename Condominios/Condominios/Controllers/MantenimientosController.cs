@@ -52,7 +52,7 @@ namespace Condominios.Controllers
             return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }
 
-        [Authorize(Roles = "Administrador, General")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
             viewModel.Mantenimiento.MtoProgramadoID = viewModel.MantenimientoID;

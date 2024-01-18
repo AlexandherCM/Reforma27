@@ -29,7 +29,7 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if (context.UnidadMedida.Any(te => te.Nombre == viewModel.CatalogoGralViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe una unidad de medida con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe una unidad de medida con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -41,7 +41,7 @@ namespace Condominios.Data.Repositories.Catalogos
             };
 
             context.UnidadMedida.Add(unidadMedida);
-            _alertaEstado.Leyenda = "Medida registrada";
+            _alertaEstado.Leyenda = "Medida registrada.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -79,13 +79,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.UnidadMedida.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe una unidad de medida con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe una unidad de medida con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
 
             unidadMedida.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-            _alertaEstado.Leyenda = "Unidad de medida actualizada correctamente";
+            _alertaEstado.Leyenda = "Unidad de medida actualizada correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

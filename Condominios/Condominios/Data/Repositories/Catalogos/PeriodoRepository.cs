@@ -35,13 +35,13 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if (context.Periodo.Any(p => p.Nombre == viewModel.PeriodoViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe un periodo con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un periodo con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
             else if (context.Periodo.Any(p => p.Meses == viewModel.PeriodoViewModel.Meses()))
             {
-                _alertaEstado.Leyenda = "Ya existe un periodo con ese numero de meses";
+                _alertaEstado.Leyenda = "¡Ya existe un periodo con ese numero de meses!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -54,7 +54,7 @@ namespace Condominios.Data.Repositories.Catalogos
             };
 
             context.Periodo.Add(periodo);
-            _alertaEstado.Leyenda = "Periodo registrado";
+            _alertaEstado.Leyenda = "Periodo registrado.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -81,13 +81,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.Periodo.Any(p => p.Nombre == viewModel.PeriodoViewModel.Nombre && p.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe un periodo con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un periodo con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
             else if (context.Periodo.Any(p => p.Meses == viewModel.PeriodoViewModel.Meses() && p.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe un periodo con ese numero de meses";
+                _alertaEstado.Leyenda = "¡Ya existe un periodo con ese numero de meses!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -95,7 +95,7 @@ namespace Condominios.Data.Repositories.Catalogos
             periodo.Nombre = viewModel.PeriodoViewModel.Nombre;
             periodo.Meses = viewModel.PeriodoViewModel.Meses();
 
-            _alertaEstado.Leyenda = "Periodo actualizado correctamente";
+            _alertaEstado.Leyenda = "Periodo actualizado correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

@@ -74,7 +74,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
                                       e.TipoEquipoID == model.VarianteEquipo.TipoEquipoID &&
                                       e.Capacidad == model.VarianteEquipo.Capacidad(medida)))
             {
-                _alertaEstado.Leyenda = "Ya existe un registro de esta clasificacion, ingrese uno diferente";
+                _alertaEstado.Leyenda = "¡Ya existe un registro de esta clasificacion, ingrese uno diferente!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -91,7 +91,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
 
             _context.Add(variante);
 
-            _alertaEstado.Leyenda = "Datos Registrados correctamente";
+            _alertaEstado.Leyenda = "Datos Registrados correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -120,7 +120,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
                                       e.TipoEquipoID == model.VarianteEquipo.TipoEquipoID &&
                                       e.Capacidad == model.VarianteEquipo.Capacidad(medida)))
             {
-                _alertaEstado.Leyenda = "Ya existe un registro de esta clasificacion, ingrese uno diferente";
+                _alertaEstado.Leyenda = "¡Ya existe un registro de esta clasificacion, ingrese uno diferente!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -131,7 +131,7 @@ namespace Condominios.Data.Repositories.CtrlEquipos
             variante.TipoEquipoID = model.VarianteEquipo.TipoEquipoID;
             variante.Capacidad = model.VarianteEquipo.Capacidad(medida);
 
-            _alertaEstado.Leyenda = "Datos actualizados correctamente";
+            _alertaEstado.Leyenda = "Datos actualizados correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

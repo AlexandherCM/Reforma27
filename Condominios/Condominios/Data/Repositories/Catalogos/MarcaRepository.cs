@@ -25,7 +25,7 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if (context.Marca.Any(e => e.Nombre == viewModel.CatalogoGralViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe una marca con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe una marca con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -37,7 +37,7 @@ namespace Condominios.Data.Repositories.Catalogos
             };
 
             context.Marca.Add(marca);
-            _alertaEstado.Leyenda = "Marca registrada";
+            _alertaEstado.Leyenda = "Marca registrada.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -53,13 +53,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.Marca.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe una marca con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe una marca con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
 
             marca.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-            _alertaEstado.Leyenda = "Marca actualizada correctamente";
+            _alertaEstado.Leyenda = "Marca actualizada correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

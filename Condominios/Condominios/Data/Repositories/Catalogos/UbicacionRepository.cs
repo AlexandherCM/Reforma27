@@ -40,7 +40,7 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if (context.Ubicacion.Any(u => u.Nombre == viewModel.CatalogoGralViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe una ubicacion con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe una ubicacion con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -51,7 +51,7 @@ namespace Condominios.Data.Repositories.Catalogos
                 Estado = true
             };
             context.Ubicacion.Add(ubicacion);
-            _alertaEstado.Leyenda = "Ubicacion registrada";
+            _alertaEstado.Leyenda = "Ubicacion registrada.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -62,13 +62,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.Ubicacion.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe una ubicacion con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe una ubicacion con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
 
             ubicacion.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-            _alertaEstado.Leyenda = "Ubicacion actualizada correctamente";
+            _alertaEstado.Leyenda = "Ubicacion actualizada correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

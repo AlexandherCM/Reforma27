@@ -4,7 +4,9 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Perfil;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8603
 #pragma warning disable CS8602
+#pragma warning disable CS8600
 
 namespace Condominios.Data.Repositories.Catalogos
 {
@@ -74,7 +76,7 @@ namespace Condominios.Data.Repositories.Catalogos
             {
                 user.Clave =_herramientaRegistro.EncriptarPassword(viewModel.DatosUser.Password);
             }
-            _alertaEstado.Leyenda = "Datos actualizados";
+            _alertaEstado.Leyenda = "Datos Actualizados correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }

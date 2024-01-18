@@ -39,7 +39,7 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if(context.Estatus.Any(e => e.Nombre == viewModel.CatalogoGralViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe un estatus con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un estatus con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -51,7 +51,7 @@ namespace Condominios.Data.Repositories.Catalogos
             };
 
             context.Estatus.Add(estatus);
-            _alertaEstado.Leyenda = "Estatus registrado";
+            _alertaEstado.Leyenda = "Estatus registrado.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -62,13 +62,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.Estatus.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe un estatus con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un estatus con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
 
             estatus.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-            _alertaEstado.Leyenda = "Estatus actualizado correctamente";
+            _alertaEstado.Leyenda = "Estatus actualizado correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

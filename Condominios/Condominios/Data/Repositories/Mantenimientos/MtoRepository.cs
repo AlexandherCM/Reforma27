@@ -61,7 +61,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             if (Programming.CompareTo(MonthYear) != 0)
             {
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                _alertaEstado.Leyenda = "La fecha de aplicación debe estar dentro del periodo programado.";
+                _alertaEstado.Leyenda = "¡La fecha de aplicación debe estar dentro del periodo programado!";
                 _alertaEstado.Estado = false;
 
                 return _alertaEstado;
@@ -86,8 +86,8 @@ namespace Condominios.Data.Repositories.Mantenimientos
             {
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
                 result.Alerta.Leyenda = ManyMtos["Mtos"]
-                    ? "Aún no esta activo el mantenimiento para estos equipos."
-                    : "Aún no esta activo el periodo de aplicación para este mantenimiento.";
+                    ? "!Aún no esta activo el mantenimiento para estos equipos!"
+                    : "!Aún no esta activo el periodo de aplicación para este mantenimiento!";
                 result.Alerta.Estado = false;
 
                 return result;
@@ -182,7 +182,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             _alertaEstado.Leyenda =
-                $"Mantenimiento aplicado. El proximo mantenimiento será para {_epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(result.mto.ProximaAplicacion))}";
+                $"Mantenimiento aplicado. El proximo mantenimiento será para {_epoch.ObtenerMesYAnio(_epoch.ObtenerFecha(result.mto.ProximaAplicacion))}.";
             _alertaEstado.Estado = true;
 
             return _alertaEstado;
@@ -198,7 +198,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             {
                 _alertaEstado = await ConfirmarMto(viewModel);
 
-                _alertaEstado.Leyenda = _alertaEstado.Estado ? "Mantenimiento actualizado" : _alertaEstado.Leyenda;
+                _alertaEstado.Leyenda = _alertaEstado.Estado ? "Mantenimiento actualizado." : _alertaEstado.Leyenda;
                 return _alertaEstado;
             }
 
@@ -227,7 +227,7 @@ namespace Condominios.Data.Repositories.Mantenimientos
             
             _context.Entry(mtoProgramado.Mantenimiento).CurrentValues.SetValues(mto);
 
-            _alertaEstado.Leyenda = "Mantenimiento actualizado";
+            _alertaEstado.Leyenda = "Mantenimiento actualizado.";
             _alertaEstado.Estado = true;
 
             return _alertaEstado;

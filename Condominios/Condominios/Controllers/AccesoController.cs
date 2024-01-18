@@ -46,7 +46,7 @@ namespace Condominios.Controllers
                 ViewBag.Mensaje = Registrado;
                 return View();
             }
-            ViewBag.MensajeClave = "Las contraseñas no coinciden";
+            ViewBag.MensajeClave = "Las contraseñas no coinciden.";
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace Condominios.Controllers
                 ViewBag.Cambiopas = Cambio;
                 return View();
             }
-            ViewBag.Cambio = "Las contraseñas no coinciden";
+            ViewBag.Cambio = "Las contraseñas no coinciden.";
             return View();
         }
 

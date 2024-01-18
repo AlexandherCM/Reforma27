@@ -40,7 +40,7 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if(context.TipoMantenimiento.Any(tm => tm.Nombre == viewModel.CatalogoGralViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe un tipo de mantenimiento con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un tipo de mantenimiento con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -52,7 +52,7 @@ namespace Condominios.Data.Repositories.Catalogos
             };
 
             context.TipoMantenimiento.Add(tipoMantenimiento);
-            _alertaEstado.Leyenda = "Tipo de mantenimiento registrado";
+            _alertaEstado.Leyenda = "Tipo de mantenimiento registrado.";
             _alertaEstado.Estado= true;
             return _alertaEstado;
         }
@@ -63,13 +63,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.TipoMantenimiento.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe un tipo de mantenimiento con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un tipo de mantenimiento con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
 
             TipoMantenimiento.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-            _alertaEstado.Leyenda = "Tipo de mantenimiento actualizado correctamente";
+            _alertaEstado.Leyenda = "¡Tipo de mantenimiento actualizado correctamente!";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

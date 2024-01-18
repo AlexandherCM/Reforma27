@@ -127,7 +127,7 @@ namespace Condominios.Data.Repositories.Equipos
             if (comparacion < 0)
             {
                 _alertaEstado.Leyenda = 
-                    "No se puede establecer una fecha superior a la actual como fecha de última aplicación.";
+                    "¡No se puede establecer una fecha superior a la actual como fecha de última aplicación!";
                 _alertaEstado.Estado = false;
 
                 return _alertaEstado;
@@ -143,9 +143,9 @@ namespace Condominios.Data.Repositories.Equipos
                 string fechaInicio = _epoch.ObtenerMesYAnio(viewModel.Plantilla.UltimaAplicacion);
                 string fechaProximoMantenimiento = _epoch.ObtenerMesYAnio(ProximoMto);
 
-                _alertaEstado.Leyenda = $"No es posible establecer \"{fechaInicio}\" como fecha de inicio, " +
+                _alertaEstado.Leyenda = $"¡No es posible establecer \"{fechaInicio}\" como fecha de inicio, " +
                     $"ya que la programación para el próximo mantenimiento sería en \"{fechaProximoMantenimiento}\", " +
-                    $"y esta fecha es menor a la actual.";
+                    $"y esta fecha es menor a la actual¡";
 
                 _alertaEstado.Estado = false;
 
@@ -159,7 +159,7 @@ namespace Condominios.Data.Repositories.Equipos
                 // Verificar si el número de serie ya fue procesado
                 if (numerosSerieProcesados.Contains(SerieEquipo))
                 {
-                    _alertaEstado.Leyenda = "Los números de serie no pueden ser iguales.";
+                    _alertaEstado.Leyenda = "¡Los números de serie no pueden ser iguales!";
                     _alertaEstado.Estado = false;
                     return _alertaEstado;
                 }
@@ -167,7 +167,7 @@ namespace Condominios.Data.Repositories.Equipos
                 // Verificar si el número de serie está asignado a otro equipo
                 if (_context.Equipo.Any(c => c.NumSerie.Equals(SerieEquipo)))
                 {
-                    _alertaEstado.Leyenda = $"El número de serie \"{SerieEquipo}\" ya está asignado a otro equipo.";
+                    _alertaEstado.Leyenda = $"¡El número de serie \"{SerieEquipo}\" ya está asignado a otro equipo!";
                     _alertaEstado.Estado = false;
                     return _alertaEstado;
                 }
@@ -208,7 +208,7 @@ namespace Condominios.Data.Repositories.Equipos
             await _context.Equipo.AddRangeAsync(equipos);
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _alertaEstado.Leyenda = "Datos Registrados correctamente";
+            _alertaEstado.Leyenda = "Datos Registrados correctamente.";
             _alertaEstado.Estado = true;
 
             return _alertaEstado;
@@ -228,7 +228,7 @@ namespace Condominios.Data.Repositories.Equipos
             else
             {
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-                _alertaEstado.Leyenda = "El número de serie ingresado ya esta asignado a otro equipo.";
+                _alertaEstado.Leyenda = "¡El número de serie ingresado ya esta asignado a otro equipo!";
                 _alertaEstado.Estado = false;
 
                 return _alertaEstado;
@@ -316,7 +316,7 @@ namespace Condominios.Data.Repositories.Equipos
             equipo.CadenaRemplazado = !string.IsNullOrEmpty(model.CadenaRemplazado) ? model.CadenaRemplazado : null;
 
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-            _alertaEstado.Leyenda = "Datos Actualizados correctamente";
+            _alertaEstado.Leyenda = "Datos Actualizados correctamente.";
             _alertaEstado.Estado = true;
 
             return _alertaEstado;

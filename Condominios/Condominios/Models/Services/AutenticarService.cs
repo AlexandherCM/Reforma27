@@ -54,11 +54,11 @@ namespace Condominios.Models.Services
                         await CrearCoockie(usuario, HttpContext);
                         return Mensaje = "ok";
                     }
-                    return Mensaje = "Ha solicitado la recuperacion de la cuenta, favor de revisar su correo";
+                    return Mensaje = "Ha solicitado la recuperacion de la cuenta, favor de revisar su correo.";
                 }
-                return Mensaje = "La cuenta esta en espera de validacion";
+                return Mensaje = "La cuenta esta en espera de validacion.";
             }
-            return Mensaje = "Las credenciales son incorrectas";
+            return Mensaje = "Las credenciales son incorrectas.";
         }
 
         public async Task CerrarSesion(HttpContext HttpContext)
@@ -99,11 +99,11 @@ namespace Condominios.Models.Services
                 {
                     _context.Usuario.Add(NuevoUsuario);
                     await _context.SaveChangesAsync();
-                    return Mensaje = "Su cuenta esta en espera de aceptacion, favor de esperar el correo de validacion";
+                    return Mensaje = "Su cuenta esta en espera de aceptacion, favor de esperar el correo de validacion.";
                 }
-                return Mensaje = "No se pudo completar el registro, intentelo de nuevo";
+                return Mensaje = "¡No se pudo completar el registro, intentelo de nuevo!";
             }
-            return Mensaje = "El correo ya se encuentra registrado";
+            return Mensaje = "¡El correo ya se encuentra registrado!";
         }
 
         public async Task<string> ConfirmarUsuario(string token, HttpContext httpContext)
@@ -123,11 +123,11 @@ namespace Condominios.Models.Services
                 if (Enviado)
                 {
                     await _context.SaveChangesAsync();
-                    return Mensaje = "El usuario ha sido validado";
+                    return Mensaje = "El usuario ha sido validado.";
                 }
-                return Mensaje = "No se pudo validar el usuario, intentelo de nuevo";
+                return Mensaje = "No se pudo validar el usuario, intentelo de nuevo.";
             }
-            return Mensaje = "El correo del usuario ya esta dado de alta";
+            return Mensaje = "¡El correo del usuario ya esta dado de alta!";
         }
 
         public async Task<string> RestablecerCuenta(UsuarioDTO user, HttpContext httpContext)
@@ -150,13 +150,13 @@ namespace Condominios.Models.Services
                     {
                         await _context.SaveChangesAsync();
 
-                        return Mensaje = "Restablecer cuenta, favor de revisar la bandeja de entrada de su correo para seguir con el proceso";
+                        return Mensaje = "Restablecer cuenta, favor de revisar la bandeja de entrada de su correo para seguir con el proceso.";
                     }
-                    return Mensaje = "No se pudo restablecer la cuenta, intentelo de nuevo";
+                    return Mensaje = "No se pudo restablecer la cuenta, intentelo de nuevo.";
                 }
-                return Mensaje = "Ya ha solicitado el restablecimiento de su cuenta, favor de revisar la bandeja de entrada de su correo";
+                return Mensaje = "Ya ha solicitado el restablecimiento de su cuenta, favor de revisar la bandeja de entrada de su correo.";
             }
-            return Mensaje = "No hay ningun usuario asociado a esa cuenta";
+            return Mensaje = "¡No hay ningun usuario asociado a esa cuenta!";
         }
 
         public async Task<string> CambiarPass(string token, UsuarioDTO user)
@@ -167,16 +167,16 @@ namespace Condominios.Models.Services
             {
                 if (usuario.Restablecer == false)
                 {
-                    return Mensaje = "La cuenta ya sido restablecida";
+                    return Mensaje = "La cuenta ya sido restablecida.";
                 }
 
                 usuario.Clave = _herramientaRegistro.EncriptarPassword(user.Password); 
                 usuario.Restablecer = false;
 
                 await _context.SaveChangesAsync();
-                return Mensaje = "La cuenta ha sido restablecida correctamente";
+                return Mensaje = "La cuenta ha sido restablecida correctamente.";
             }
-            return Mensaje = "Usuario no encontrado";
+            return Mensaje = "¡Usuario no encontrado!";
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             if(context.Motor.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre))
             {
-                _alertaEstado.Leyenda = "Ya existe un motor con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un motor con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
@@ -50,7 +50,7 @@ namespace Condominios.Data.Repositories.Catalogos
                 Estado = true
             };
             context.Motor.Add(motor);
-            _alertaEstado.Leyenda = "Motor registrado";
+            _alertaEstado.Leyenda = "Motor registrado.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
         }
@@ -61,13 +61,13 @@ namespace Condominios.Data.Repositories.Catalogos
 
             if (context.Motor.Any(m => m.Nombre == viewModel.CatalogoGralViewModel.Nombre && m.ID != viewModel.ID))
             {
-                _alertaEstado.Leyenda = "Ya existe un motor con ese nombre";
+                _alertaEstado.Leyenda = "¡Ya existe un motor con ese nombre!";
                 _alertaEstado.Estado = false;
                 return _alertaEstado;
             }
 
             motor.Nombre = viewModel.CatalogoGralViewModel.Nombre;
-            _alertaEstado.Leyenda = "Motor actualizado correctamente";
+            _alertaEstado.Leyenda = "Motor actualizado correctamente.";
             _alertaEstado.Estado = true;
             return _alertaEstado;
 

@@ -16,9 +16,10 @@ namespace Condominios.Models.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PerfilViewModel> GetAdmin()
+        public async Task<PerfilViewModel> GetUsers()
         {
             _viewModel.Admin = await _unitOfWork.PerfilRepository.GetAdmin();
+            _viewModel.Usuarios = await _unitOfWork.PerfilRepository.GetUsuarios();
 
             return _viewModel;  
         }
@@ -29,5 +30,23 @@ namespace Condominios.Models.Services
             await _unitOfWork.Save();
             return UserUpdate;
         }
+
+        public async Task Acceso(int id)
+        {
+            _unitOfWork.PerfilRepository.Acceso(id);
+            await _unitOfWork.Save();
+            return;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var borrado = await _unitOfWork.PerfilRepository.Delete(id);
+            if (borrado)
+            {
+                await _unitOfWork.Save();
+            }
+            return borrado;
+        }
+
     }
 }

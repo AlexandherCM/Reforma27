@@ -1,5 +1,7 @@
-﻿using Condominios.Models.Services;
+﻿using Condominios.Models.Entities;
+using Condominios.Models.Services;
 using Condominios.Models.Services.Classes;
+using Condominios.Models.ViewModels.Catalogos;
 using Condominios.Models.ViewModels.Perfil;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -19,7 +21,7 @@ namespace Condominios.Controllers
         public async Task<IActionResult> Index()
         {
             string json = string.Empty;
-            PerfilViewModel model = await _Service.GetAdmin();
+            PerfilViewModel model = await _Service.GetUsers();
 
             if (TempData["AlertaJS"] != null)
             {
@@ -36,7 +38,32 @@ namespace Condominios.Controllers
             model.AlertaEstado = await _Service.UpdateUser(model);
             TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
             return RedirectToAction(nameof(Index));
+        }
 
+        public async Task Acceso(int id)
+        {
+            await _Service.Acceso(id);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _Service.Delete(id);
+
+            return Ok(new { success = true });
+        }
+
+        public async Task<IActionResult> UpdateUser()
+        {
+
+            return Ok(new { success = true });
+        }
+
+        public async Task<IActionResult> ObtenerRegistro(int id)
+        {
+            PerfilViewModel model = await _Service.GetUsuario(id);
+
+            var jsonResult = new JsonResult(model);
+            return jsonResult;
         }
     }
 }

@@ -9,5 +9,8 @@ namespace Condominios.Data.Interfaces.IRepositories
     {
         Task<Usuario> GetAdmin();
         Task<AlertaEstado> Update(PerfilViewModel viewModel);
+        Task<List<Usuario>> GetUsuarios();
+        void Acceso(int id);
+        Task<bool> Delete(int id);
     }
 }

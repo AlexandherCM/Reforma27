@@ -1,6 +1,60 @@
 ﻿@model Condominios.Models.ViewModels.Perfil.PerfilViewModel
 
-<section class="row border-R text-center mt-3 rounded-2">
+<aside class="row ">
+
+    <section class="col-12 col-lg-4 rounded-2" id="despegableUP">
+        <div class="row border-R titleDespegable rounded-2">
+            <h2> <span class="color-R">N</span>uevo usuario <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+        </div>
+
+        <div id="contenidoUP">
+
+            <h4 class="pt-3">Datos del usuario</h4>
+
+            @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+            <form>
+                <div class="row p-2">
+                    <h5><b>Nombre</b></h5>
+                    <input class="textDes" type="text" />
+                </div>
+
+                <div class="row p-2">
+                    <h5><b>Correo</b></h5>
+                    <input class="textDes" type="email" />
+                </div>
+
+                <div class="row p-2">
+                    <h5><b>Contraseña</b></h5>
+                    <input class="textDes" type="text" />
+                </div>
+
+                <div class="row p-2">
+                    <h5><b>Confirmar contraseña</b></h5>
+                    <input class="textDes" type="text" />
+                </div>
+
+                <div class="row p-2 pb-3">
+                    <button type="button" class="btn-des">
+                        <b>Confirmar</b>
+                    </button>
+                </div>
+
+            </form>
+            @*FORMULARIO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
+        </div>
+
+    </section>
+
+    <div class="col-12 col-lg-8">
+    </div>
+
+</aside>
+
+<br />
+
+
+
+<section class="row border-R text-center mt-4 rounded-2">
     <h1><span class="color-R">A</span>dministración</h1>
 </section>
 
@@ -11,8 +65,81 @@
     <article class="col bg-R text-light text-center">
         <h3><b>Administrador</b></h3>
 
-        <form asp-action="UpdateAdmin" class="row  p-2" onsubmit="return UpdateAdmin()">
-            <div class="col-12 col-md-1 "></div>
+        <form asp-action="UpdateAdmin" class="row justify-content-center  p-2" onsubmit="return UpdateAdmin()">
+            <div class="col-12 col-lg-10  ">
+
+                <div class="row">
+
+                    @*Vombre y correo*@
+                    <div class="col ">
+
+                        <div class="row ">
+
+                            <div class="col-4 ">
+                                <h5 class="pt-1"><b>Nombre:</b></h5>
+                            </div>
+
+                            <div class="col d-flex align-items-center">
+                                <input asp-for="DatosUser.Nombre" type="text" placeholder="Nombre" class="formUsuario" value="@Model.Admin.Nombre">
+                            </div>
+
+                        </div>
+
+                        <div class="row pt-2 ">
+
+                            <div class="col-4 ">
+                                <h5 class="pt-1"><b>Correo:</b></h5>
+                            </div>
+
+                            <div class="col d-flex align-items-center">
+                                <input asp-for=DatosUser.Correo type="text" placeholder="Correo" class="formUsuario" value="@Model.Admin.Correo"> 
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                        @*Contraseñas*@
+                    <div class="col ">
+
+                        <div class="row ">
+
+                            <div class="col-5 ">
+                                <h5 class="pt-1"><b>Contraseña:</b></h5>
+                            </div>
+
+                            <div class="col d-flex align-items-center">
+                                <input asp-for="DatosUser.Password" type="text" placeholder="Nueva Contraseña" class="formUsuario">
+                            </div>
+
+                        </div>
+
+                        <div class="row pt-2 ">
+
+                            <div class="col-5   ">
+                                <h5 class="pt-1"><b>Confirmar contraseña:</b></h5>
+                            </div>
+
+                            <div class="col d-flex align-items-center">
+                                <input asp-for="DatosUser.ConfPassword" type="text" placeholder="Confirmar Contraseña" class="formUsuario">
+                                <span id="PasswordError" class="text-danger" style="display: none;">Las contraseñas no coninciden</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @*Boton*@
+                <div class="row my-3 ">
+                    <input type="submit" value="Guardar Cambios" class="btn-des p-1" formnovalidate>
+                </div>
+
+            </div>
+
+            @*<div class="col-12 col-md-1 "></div>
 
             <div class="col-4 col-md-2  text-start">
                 <div class="row ">
@@ -52,21 +179,11 @@
                 <div>
                     <input type="submit" value="Guardar Cambios" class="btn-des" formnovalidate>
                 </div>
+*@
 
+               
 
-                @*<div class="row text-start">
-                <img id="DatosUser.Nombre" src="~/images/pen-to-square-solidW.svg" class="editarUsuario editarAdmin" />
-                </div>
-
-                <div class="row text-start">
-                <img id="DatosUser.Correo" src="~/images/pen-to-square-solidW.svg" class="editarUsuario editarAdmin" />
-                </div>
-
-                <div class="row text-start">
-                <img src="~/images/pen-to-square-solidW.svg" class="editarUsuario editarAdmin" />
-                </div>*@
-
-            </div>
+            @*</div>*@
 
         </form>
 
@@ -79,106 +196,80 @@
 
 
 <section class="row text-center mt-2 justify-content-between rounded-2">
-    @*Form*@
-    <article class="col-12  col-lg-5 pb-2">
-        <div class="row bg-R rounded-3 form-Editar text-center text-light" id="form-Editar">
-            <h3 class="pt-2 pb-2">Editar usuario</h3>
 
-            <div class="row  ">
-                <h5><b>Nombre</b></h5>
-                <input class="formUsuario" type="text" />
-                <br />
-            </div>
-            <div class="row p-2 ">
-                <h5><b>Correo</b></h5>
-                <input class="formUsuario" type="email" />
-                <br />
-            </div>
-
-            <div class="row p-2 ">
-                <h5><b>Contraseña</b></h5>
-                <input class="formUsuario" type="text" />
-                <br />
-            </div>
-
-            <div class="row p-2 ">
-                <h5><b>Confirmar contraseña</b></h5>
-                <input class="formUsuario" type="text" />
-                <br />
-            </div>
-
-            <div class="row p-2 pb-3">
-                <button type="button" class="actualizarBtn">
-                    <b>Actualizar</b>
-                </button>
-            </div>
-
-
-        </div>
-    </article>
-
-    @*Cards*@
-    <article class="col-12  col-lg-7   pb-2">
-        <div class="row justify-content-center rounded-3 text-center text-light ">
-
-            <div class="col-lg-6 col-12 justify-content-center d-flex  mb-4 ">
-
-                <div class="card border-R text-dark rounded-3 ">
-                    <div class=" pt-2">
-                        <img src="~/images/user-solid.svg" class="usuario" />
-                    </div>
-
-                    <h4 class="card-title text-center"><b> Nombre</b></h4>
-
-                    <div class="card-body text-center text-sm-start text-light bg-R">
-
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="card-text">Correo</h5>
-                                <h5 class="card-text">Contraseña</h5>
-                            </div>
-                            <div class="col">
-                                <h5 class="card-text">Lorem</h5>
-                                <h5 class="card-text">Lorem</h5>
-                            </div>
-                        </div>
-
-                        <div class="row pt-3">
-
-                            <div class="col d-flex flex-column align-items-center text-center  justify-content-center ">
-                                <img src="~/images/pen-to-square-solidW.svg" class="editarUsuario" />
-                                <b>Editar</b>
-                            </div>
-
-                            <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
-                                <img src="~/images/trash-can-solid.svg" class="editarUsuario" />
-                                <b>Eliminar</b>
-                            </div>
-
-                            <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
-                                <label class="toggle-switch">
-                                    <input class="chbxUbicaciones" type="checkbox">
-                                    <div class="toggle-switch-background">
-                                        <div class="toggle-switch-handle"></div>
-                                    </div>
-                                </label>
-                                <b>Estado</b>
-                            </div>
-                        </div>
-
-                    </div>
+    @for (var i = 0; i < Model.Usuarios.Count; i++)
+    {
+        <div class="col-lg-4 col-12 justify-content-center d-flex pt-2  mb-4 ">
+            <div class="card border-R text-dark rounded-3 ">
+                <div class=" pt-2">
+                    <img src="~/images/user-solid.svg" class="usuario" />
                 </div>
 
-            </div>
+                <h4 class="card-title text-center"><b> Nombre</b></h4>
 
+                <div class="card-body text-center text-sm-start text-light bg-R">
+
+                    <div class="row">
+                        
+                        <div class="col">
+                            <h5 class="card-text">Correo :</h5>
+                        </div>
+                    
+                        <div class="col">
+                            <h5 class="card-text"><b>@Model.Usuarios[i].Correo</b></h5>
+                        </div>
+                    
+                    </div>
+
+                    <div class="row py-3">
+
+                        <div class="col">
+                            <h5 class="card-text">Contraseña :</h5>
+                        </div>
+                    
+                        <div class="col ">
+                            <h5 class="card-text"><b>------------</b></h5>
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
+
+                        <div class="col d-flex flex-column align-items-center text-center  justify-content-center ">
+                            <img src="~/images/pen-to-square-solidW.svg" class="remover" data-parametro="@(Model.Usuarios[i].ID)" />
+                            <b>Editar</b>
+                        </div>
+
+                        <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
+                            <img src="~/images/trash-can-solid.svg" class="editarUsuario" data-url="Perfil/Delete/" value="@(Model.Usuarios[i].ID)"/>
+                            <b>Eliminar</b>
+                        </div>
+
+                        <div class="col d-flex flex-column align-items-center text-center  justify-content-center">
+                            <label class="toggle-switch">
+                                <input class="chbxEstado" data-url="Perfil/Acceso/" type="checkbox" checked="@Model.Usuarios[i].Validado" value="@(Model.Usuarios[i].ID)">
+                                <div class="toggle-switch-background">
+                                    <div class="toggle-switch-handle"></div>
+                                </div>
+                            </label>
+                            <b>Estado</b>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </article>
+    }
 </section>
 
 @section Scripts {
     @{
         <script src="~/js/PerfilScripts/Perfil.js"></script>
+        <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js" asp-append-version="true"></script>
+        <script src="~/js/Desplegable.js"></script>
+        <script type="module" src="~/js/PerfilScripts/Editar.js" asp-append-version="true"></script>
+        <script type="module" src="~/js/EditarProveedorEquipo.js" asp-append-version="true"></script>
         <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
+
     }
 }
 

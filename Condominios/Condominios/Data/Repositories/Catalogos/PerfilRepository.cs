@@ -4,6 +4,7 @@ using Condominios.Models.Entities;
 using Condominios.Models.Services.Classes;
 using Condominios.Models.ViewModels.Perfil;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8602
 
 namespace Condominios.Data.Repositories.Catalogos
 {
@@ -22,6 +23,12 @@ namespace Condominios.Data.Repositories.Catalogos
         {
             var Admin = await _context.Usuario.Where(u => u.Perfil.Nombre == "Administrador").FirstOrDefaultAsync();
             return Admin;
+        }
+
+        public async Task<List<Usuario>> GetUsuarios()
+        {
+            var users = await _context.Usuario.Where(u => u.Perfil.Nombre == "General").ToListAsync();
+            return users;
         }
 
         public async Task<AlertaEstado> Update(PerfilViewModel viewModel)
@@ -56,35 +63,24 @@ namespace Condominios.Data.Repositories.Catalogos
             return _alertaEstado;
         }
 
-        //public async Task<Usuario> Update(PerfilViewModel viewModel)
-        //{
-        //    Usuario user;
+        public void Acceso(int id)
+        {
+            var usuario = _context.Find<Usuario>(id);
+            usuario.Validado = !usuario.Validado;
+            return;
+        }
 
-        //    if (viewModel.ID == 0)
-        //    {
-        //        user = await GetAdmin();
-        //    }
-        //    else
-        //    {
-        //        user = await _context.Usuario.FindAsync(viewModel.ID);
-        //    }
+        public async Task<bool> Delete(int id)
+        {
+            var usuario = await _context.FindAsync<Usuario>(id);
 
-        //    if (!string.IsNullOrWhiteSpace(viewModel.DatosUser.Nombre))
-        //    {
-        //        user.Nombre = viewModel.DatosUser.Nombre;
-        //    }
+            if (usuario != null)
+            {
+                _context.Usuario.Remove(usuario);
+                return true; 
+            }
 
-        //    if (!string.IsNullOrWhiteSpace(viewModel.DatosUser.Correo))
-        //    {
-        //        user.Correo = viewModel.DatosUser.Correo;
-        //    }
-
-        //    if (!string.IsNullOrWhiteSpace(viewModel.DatosUser.Password))
-        //    {
-        //        user.Clave = viewModel.DatosUser.Password;
-        //    }
-
-        //    return user;
-        //}
+            return false; 
+        }
     }
 }

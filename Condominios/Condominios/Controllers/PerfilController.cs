@@ -58,12 +58,12 @@ namespace Condominios.Controllers
             return Ok(new { success = true });
         }
 
-        public async Task<IActionResult> ObtenerRegistro(int id)
-        {
-            PerfilViewModel model = await _Service.GetUsuario(id);
+        //public async Task<IActionResult> ObtenerRegistro(int id)
+        //{
+        //    PerfilViewModel model = await _Service.GetUsuario(id);
 
-            var jsonResult = new JsonResult(model);
-            return jsonResult;
-        }
+        //    var jsonResult = new JsonResult(model);
+        //    return jsonResult;
+        //}
     }
 }

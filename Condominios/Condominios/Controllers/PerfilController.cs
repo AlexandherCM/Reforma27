@@ -52,10 +52,12 @@ namespace Condominios.Controllers
             return Ok(new { success = true });
         }
 
-        public async Task<IActionResult> UpdateUser()
+        public async Task<IActionResult> UpdateUser(PerfilViewModel model)
         {
-
-            return Ok(new { success = true });
+            model.AlertaEstado = await _Service.UpdateUser(model);
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(model.AlertaEstado);
+            return RedirectToAction(nameof(Index));
+            //return Ok(new { success = true });
         }
 
         public async Task<IActionResult> ObtenerRegistro(int id)

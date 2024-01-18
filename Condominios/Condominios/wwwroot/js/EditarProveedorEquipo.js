@@ -31,8 +31,6 @@ export function EditarProveedorEquipo(Pagina) {
                     ConsultaGETTipoEquipo(Parametro);
                 } else if (Pagina == "Equipo") {
                     ConsultaGETEquipo(Parametro);
-                } else if (Pagina == "Usuario") {
-                    ConsultaGETUsuario(Parametro);
                 }
             }
         });
@@ -66,22 +64,22 @@ export function EditarProveedorEquipo(Pagina) {
         }
     });
 
-    function ConsultaGETUsuario(Parametro) {
-        api.SendGet(`Perfil/ObtenerRegistro/${Parametro}`)
-            .then(data => {
+    //function ConsultaGETUsuario(Parametro) {
+    //    api.SendGet(`Perfil/ObtenerRegistro/${Parametro}`)
+    //        .then(data => {
 
-                document.getElementById("ID").value = data.id;
-                document.getElementById("Contacto").value = data.contacto;
-                document.getElementById("Empresa").value = data.empresa;
-                document.getElementById("Servicio").value = data.servicio;
-                document.getElementById("Numero").value = data.telefono;
-                document.getElementById("Direccion").value = data.direccion;
-                document.getElementById("Correo").value = data.correo;
-                Formulario.action = "/Proveedores/Actualizar";
-                BotonEnviar.value = "Actualizar";
+    //            document.getElementById("ID").value = data.id;
+    //            document.getElementById("Contacto").value = data.contacto;
+    //            document.getElementById("Empresa").value = data.empresa;
+    //            document.getElementById("Servicio").value = data.servicio;
+    //            document.getElementById("Numero").value = data.telefono;
+    //            document.getElementById("Direccion").value = data.direccion;
+    //            document.getElementById("Correo").value = data.correo;
+    //            Formulario.action = "/Proveedores/Actualizar";
+    //            BotonEnviar.value = "Actualizar";
 
-            })
-            .catch(error => console.error('GET Error:', error));
+    //        })
+    //        .catch(error => console.error('GET Error:', error));
     }
 
 

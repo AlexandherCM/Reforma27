@@ -25,6 +25,22 @@ namespace Condominios.Data.Repositories.Catalogos
             return Admin;
         }
 
+        public async Task<string> GetAdminEmail()
+        {
+            var admin = await _context.Usuario
+                .Where(u => u.Perfil.Nombre == "Administrador")
+                .Select(u => u.Correo)
+                .FirstOrDefaultAsync();
+
+            return admin;
+        }
+
+        public async Task<Usuario> GetUser(int id)
+        {
+            var user = await _context.Usuario.FindAsync(id);
+            return user;
+        }
+
         public async Task<List<Usuario>> GetUsuarios()
         {
             var users = await _context.Usuario.Where(u => u.Perfil.Nombre == "General").ToListAsync();

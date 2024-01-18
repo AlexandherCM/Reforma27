@@ -4,7 +4,7 @@
 
     <section class="col-12 col-lg-4 rounded-2" id="despegableUP">
         <div class="row border-R titleDespegable rounded-2">
-            <h2> <span class="color-R">N</span>uevo usuario <img src="~/images/down.svg" class="btnDes" alt="UP" id="up"></h2>
+            <h2> <span class="color-R">N</span>uevo usuario <img  class="btnDes" alt="" id="up"></h2>
         </div>
 
         <div id="contenidoUP">
@@ -12,31 +12,32 @@
             <h4 class="pt-3">Datos del usuario</h4>
 
             @*FORMULARIO DESPLEGABLE DE EQUIPOS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - *@
-            <form>
+            <form asp-action="UpdateUser" onsubmit="return UpdateUser()">
+                <input asp-for="ID"  type="hidden" value="" />
+
                 <div class="row p-2">
                     <h5><b>Nombre</b></h5>
-                    <input class="textDes" type="text" />
+                    <input asp-for="DatosUser.Nombre" class="textDes" type="text" />
                 </div>
 
                 <div class="row p-2">
                     <h5><b>Correo</b></h5>
-                    <input class="textDes" type="email" />
+                    <input asp-for="DatosUser.Correo" class="textDes" type="email" />
                 </div>
 
                 <div class="row p-2">
                     <h5><b>Contraseña</b></h5>
-                    <input class="textDes" type="text" />
+                    <input asp-for="DatosUser.Password" class="textDes" type="text" />
                 </div>
 
                 <div class="row p-2">
                     <h5><b>Confirmar contraseña</b></h5>
-                    <input class="textDes" type="text" />
+                    <input asp-for="DatosUser.ConfPassword" class="textDes" type="text" />
+                    <span id="Error" class="text-danger" style="display: none;">Las contraseñas no coninciden</span>
                 </div>
 
                 <div class="row p-2 pb-3">
-                    <button type="button" class="btn-des">
-                        <b>Confirmar</b>
-                    </button>
+                    <input type="submit" class="btn-des" value="Confirmar" formnovalidate />
                 </div>
 
             </form>
@@ -205,18 +206,18 @@
                     <img src="~/images/user-solid.svg" class="usuario" />
                 </div>
 
-                <h4 class="card-title text-center"><b> Nombre</b></h4>
+                <h4 class="card-title text-center"><b> </b></h4>
 
                 <div class="card-body text-center text-sm-start text-light bg-R">
 
                     <div class="row">
                         
                         <div class="col">
-                            <h5 class="card-text">Correo :</h5>
+                            <h5 class="card-text">Nombre :</h5>
                         </div>
                     
                         <div class="col">
-                            <h5 class="card-text"><b>@Model.Usuarios[i].Correo</b></h5>
+                            <h5 class="card-text"><b>@Model.Usuarios[i].Nombre</b></h5>
                         </div>
                     
                     </div>
@@ -224,11 +225,11 @@
                     <div class="row py-3">
 
                         <div class="col">
-                            <h5 class="card-text">Contraseña :</h5>
+                            <h5 class="card-text">Correo :</h5>
                         </div>
                     
                         <div class="col ">
-                            <h5 class="card-text"><b>------------</b></h5>
+                            <h5 class="card-text"><b>@Model.Usuarios[i].Correo</b></h5>
                         </div>
                     </div>
 
@@ -266,8 +267,7 @@
         <script src="~/js/PerfilScripts/Perfil.js"></script>
         <script src="~/js/TipoEquiposScripts/EstadoCheckbox.js" asp-append-version="true"></script>
         <script src="~/js/Desplegable.js"></script>
-        <script type="module" src="~/js/PerfilScripts/Editar.js" asp-append-version="true"></script>
-        <script type="module" src="~/js/EditarProveedorEquipo.js" asp-append-version="true"></script>
+        <script src="~/js/PerfilScripts/Editar.js" asp-append-version="true"></script>
         <script>AlertaJS(@Html.Raw(Json.Serialize(Model.AlertaEstado)) )</script>
 
     }

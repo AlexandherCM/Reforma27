@@ -17,7 +17,7 @@ namespace Condominios.Models.Services.Classes
         private int _puerto = 587;
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        private string _nombre = "Nuevo usuario";
+        private string _nombre = "Reforma27";
         private string _remitente = "contacto.reforma27@gmail.com";
         private string _clave = "lhsvnvtcdpikdzvp";
 

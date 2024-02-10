@@ -55,19 +55,14 @@ namespace Condominios.Controllers
         [Authorize(Roles = "Administrador, General")]
         public async Task<IActionResult> UpdateOneMto(CtrolMtosEquipoViewModels viewModel)
         {
-            string rol = 
+            viewModel.Mantenimiento.MtoProgramadoID = viewModel.MantenimientoID;
+            viewModel.Mantenimiento.TimedOut = true;
+
+            string rol =
                 User.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value;
 
-            if (!rol.Equals("Administrador"))
-            {
-                viewModel.AlertaEstado = new()
-                {
-                    Estado = false,
-                    Leyenda = $"Solo el administrador puede editar los mantenimientos pasados."
-                };
-
-                TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
-            }
+            viewModel.AlertaEstado = await _service.UpdateMtoProgrammed(viewModel.Mantenimiento ,rol);
+            TempData["AlertaJS"] = JsonConvert.SerializeObject(viewModel.AlertaEstado);
 
             return RedirectToAction(nameof(Consultar), new { ID = viewModel.EquipoID });
         }

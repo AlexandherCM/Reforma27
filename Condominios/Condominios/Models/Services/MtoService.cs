@@ -55,6 +55,26 @@ namespace Condominios.Models.Services
         public (List<MtoProgramadoViewModel>, Dictionary<string, string>) GetMtosFilters(string listMtos, FilterMtos filterMtos)
             => _unitOfWork.MtoRepository.Filter(listMtos, filterMtos);
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        public async Task<AlertaEstado> UpdateMtoProgrammed(MantenimientoViewModel viewModel, string rol) 
+        {
+            if (!rol.Equals("Administrador"))
+            {
+                _alertaEstado = new() 
+                {
+                    Estado = false,
+                    Leyenda = $"Solo el administrador puede editar los mantenimientos pasados."
+                };
+
+                return _alertaEstado;
+            }
+
+            _alertaEstado = await _unitOfWork.MtoRepository.UpdateMto(viewModel);
+
+            if (_alertaEstado.Estado)
+                await _unitOfWork.Save();
+
+            return _alertaEstado;
+        }
         public async Task<AlertaEstado> ConfirmarMto(MantenimientoViewModel viewModel)
         {
             _alertaEstado = await _unitOfWork.MtoRepository.ConfirmarMto(viewModel);

@@ -89,6 +89,8 @@ namespace Condominios.Models.ViewModels.CtrolEquipo
 
         [Required(ErrorMessage = "Campo obligatorio")]
         public DateTime FechaAplicacion { get; set; }
+
+        public bool TimedOut { get; set; } = false;
     }
     
     //Para obtener la lista de todos los mantenimientos del equipo

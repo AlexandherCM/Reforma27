@@ -388,25 +388,25 @@
 
             <div class="row p-1">
                 <label for="">Costo del mantenimiento</label>
-                <input asp-for="Mantenimiento.CostoMantenimiento" type="text" placeholder=" " class="textDes">
+                <input asp-for="Mantenimiento.CostoMantenimiento" id="txtCostoMantenimiento" type="text" class="textDes">
                 <span asp-validation-for="Mantenimiento.CostoMantenimiento" class="text-danger"></span>
             </div>
 
             <div class="row  p-1">
                 <label for="">(Si aplica). Escribe el costo de Reparación</label>
-                <input asp-for="Mantenimiento.CostoReparacion" type="text" placeholder=" " class="textDes">
+                <input asp-for="Mantenimiento.CostoReparacion" id="txtCostoReparacion" type="text" placeholder=" " class="textDes">
                 <span asp-validation-for="Mantenimiento.CostoReparacion" class="text-danger"></span>
             </div>
 
             <div class="row p-1">
                 <label>Fecha de aplicación</label>
-                <input asp-for="Mantenimiento.FechaAplicacion" type="date" class="textDes">
+                <input asp-for="Mantenimiento.FechaAplicacion" id="txtFechaAplicacion" type="date" class="textDes">
                 <span asp-validation-for="Mantenimiento.FechaAplicacion" class="text-danger"></span>
             </div>
 
             <div class="row  p-1">
                 <label for="">Observaciones</label>
-                <textarea asp-for="Mantenimiento.Observaciones" rows="3" class="textDes" cols="50"></textarea>
+                <textarea asp-for="Mantenimiento.Observaciones" id="txtObservaciones" rows="3" class="textDes" cols="50"></textarea>
                 <span asp-validation-for="Mantenimiento.Observaciones" class="text-danger"></span>
             </div>
 
@@ -418,7 +418,7 @@
     </div>
 
     <div class="headerDespegable border-R">
-        <h2> <span class="color-R">N</span>uevo mantenimiento</h2>
+        <h2> <span class="color-R">M</span>antenimiento</h2>
         <img src="~/images/up.svg" class="btnDes" alt="DOWN" id="Down">
     </div>
 </aside>

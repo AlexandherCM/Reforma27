@@ -38,7 +38,10 @@ function mostrarPagina(numeroPagina) {
     enlacesPaginacion.forEach(function (enlace) {
         enlace.classList.remove('active');
     });
-    enlacesPaginacion[numeroPagina - 1].classList.add('active');
+
+    if (enlacesPaginacion[numeroPagina - 1]) {
+        enlacesPaginacion[numeroPagina - 1].classList.add('active');
+    }
 }
 
 function cambiarFilasPorPagina() {
